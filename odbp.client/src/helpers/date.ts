@@ -1,5 +1,6 @@
-export const formatDate = (date?: string) =>
-  date && Intl.DateTimeFormat("nl-NL", { dateStyle: "long" }).format(Date.parse(date));
+type DateLike = string | null | undefined | Date;
+
+const nlLongFormat = Intl.DateTimeFormat("nl-NL", { dateStyle: "long" });
 
 const isoDateFormat = Intl.DateTimeFormat("sv-SE", {
   year: "numeric",
@@ -7,15 +8,30 @@ const isoDateFormat = Intl.DateTimeFormat("sv-SE", {
   month: "2-digit"
 });
 
-export const formatIsoDate = (date?: string | null | Date) =>
-  !date ? null : isoDateFormat.format(new Date(date));
+const parseValidDate = (date: DateLike) => {
+  if (!date) return null;
+  date = new Date(date);
+  if (date instanceof Date && !isNaN(date.getTime())) return date;
+  return date;
+};
+
+export const formatDate = (date: DateLike) => {
+  date = parseValidDate(date);
+  if (!date) return null;
+  return nlLongFormat.format(date);
+};
+
+export const formatIsoDate = (date: DateLike) => {
+  date = parseValidDate(date);
+  return date && isoDateFormat.format(date);
+};
 
 export const addToDate = (
-  d: Date | string | null | undefined,
+  d: DateLike,
   addition: { year?: number; month?: number; day?: number }
 ) => {
+  d = parseValidDate(d);
   if (!d) return null;
-  d = new Date(d);
   let year = d.getFullYear();
   let month = d.getMonth();
   let day = d.getDate();

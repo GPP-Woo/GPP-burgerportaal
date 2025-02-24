@@ -15,7 +15,7 @@
               autocomplete="off"
               spelcheck="false"
               enterkeyhint="search"
-              @search="submit"
+              @search="trySubmit"
             />
             <utrecht-button type="submit" :appearance="'primary-action-button'"
               >Zoeken</utrecht-button
@@ -212,7 +212,13 @@ const submit = () =>
     }
   });
 
-const trySubmit = () => formElement.value?.checkValidity() && submit();
+const trySubmit = () => {
+  if (!formElement.value?.checkValidity()) return;
+  const keys = Object.keys(formFields) as Array<keyof typeof formFields>;
+  const query = parsedQuery.value;
+  if (keys.every((key) => query[key] === formFields[key])) return;
+  submit();
+};
 
 const { error, loading, data } = useLoader((signal) =>
   search({
