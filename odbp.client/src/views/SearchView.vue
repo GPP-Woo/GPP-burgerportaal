@@ -123,14 +123,14 @@
                     <strong>{{ resultOptions[resultType].label }}</strong>
                   </li>
 
-                  <li class="publisher">{{ publisher.name }}</li>
+                  <li class="publisher">{{ publisher.naam }}</li>
 
                   <li
                     class="category"
                     v-for="categorie in informatieCategorieen"
                     :key="categorie.uuid"
                   >
-                    {{ categorie.name }}
+                    {{ categorie.naam }}
                   </li>
                 </ul>
 
