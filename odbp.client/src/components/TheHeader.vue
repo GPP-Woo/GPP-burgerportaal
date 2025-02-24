@@ -17,12 +17,12 @@
       />
     </router-link>
 
-    <the-nav />
+    <utrecht-nav-bar />
   </utrecht-page-header>
 </template>
 
 <script lang="ts" setup>
-import TheNav from "./TheNav.vue";
+import UtrechtNavBar from "./UtrechtNavBar.vue";
 import { injectResources } from "@/resources";
 
 const resources = injectResources();
