@@ -37,7 +37,7 @@ type ValueOf<T> = T[keyof T];
 export type Sort = ValueOf<typeof sortOptions>["value"];
 export type ResultType = ValueOf<typeof resultOptions>["value"];
 
-export function search({
+export async function search({
   signal,
   registratiedatumVanaf,
   registratiedatumTot,

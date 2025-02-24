@@ -1,30 +1,16 @@
 <template>
   <div class="zoeken-page">
     <utrecht-heading :level="1">Zoeken</utrecht-heading>
+
     <form class="utrecht-form" @submit.prevent.stop="submit" ref="formElement">
       <utrecht-fieldset class="zoeken">
-        <utrecht-form-field
-          ><utrecht-form-label for="search-field">Zoekterm</utrecht-form-label>
-          <div class="search-bar">
-            <utrecht-textbox
-              id="search-field"
-              aria-placeholder="Hier zoeken"
-              placeholder="Hier zoeken"
-              v-model="formFields.query"
-              type="search"
-              autocomplete="off"
-              spelcheck="false"
-              enterkeyhint="search"
-              @search="trySubmit"
-            />
-            <utrecht-button type="submit" :appearance="'primary-action-button'"
-              >Zoeken</utrecht-button
-            >
-          </div>
-        </utrecht-form-field>
+        <utrecht-legend class="visually-hidden">Zoeken</utrecht-legend>
 
-        <utrecht-form-field
-          ><utrecht-form-label for="sort-select">Sorteren</utrecht-form-label>
+        <search-bar v-model="formFields.query" @submit="submit" />
+
+        <utrecht-form-field>
+          <utrecht-form-label for="sort-select">Sorteren</utrecht-form-label>
+
           <div>
             <utrecht-select
               id="sort-select"
@@ -32,16 +18,20 @@
               :options="Object.values(sortOptions)"
               @change="trySubmit"
             />
+
             <gpp-woo-icon icon="sort" />
           </div>
         </utrecht-form-field>
       </utrecht-fieldset>
+
       <utrecht-fieldset class="filters">
         <utrecht-legend class="visually-hidden">Filters</utrecht-legend>
-        <utrecht-form-field
-          ><utrecht-form-label for="registration-date-from"
+
+        <utrecht-form-field>
+          <utrecht-form-label for="registration-date-from"
             >Registratiedatum vanaf</utrecht-form-label
           >
+
           <utrecht-textbox
             id="registration-date-from"
             v-model="formFields.registratiedatumVanaf"
@@ -50,10 +40,12 @@
             @change="trySubmit"
           />
         </utrecht-form-field>
-        <utrecht-form-field
-          ><utrecht-form-label for="registration-date-until"
+
+        <utrecht-form-field>
+          <utrecht-form-label for="registration-date-until"
             >Registratiedatum tot en met</utrecht-form-label
           >
+
           <utrecht-textbox
             id="registration-date-until"
             v-model="formFields.registratiedatumTot"
@@ -62,8 +54,10 @@
             @change="trySubmit"
           />
         </utrecht-form-field>
-        <utrecht-form-field
-          ><utrecht-form-label for="update-date-from">Wijzigingsdatum vanaf</utrecht-form-label>
+
+        <utrecht-form-field>
+          <utrecht-form-label for="update-date-from">Wijzigingsdatum vanaf</utrecht-form-label>
+
           <utrecht-textbox
             id="updated-date-from"
             v-model="formFields.laatstGewijzigdDatumVanaf"
@@ -72,10 +66,12 @@
             @change="trySubmit"
           />
         </utrecht-form-field>
-        <utrecht-form-field
-          ><utrecht-form-label for="updated-date-until"
+
+        <utrecht-form-field>
+          <utrecht-form-label for="updated-date-until"
             >Wijzigingsdatum tot en met</utrecht-form-label
           >
+
           <utrecht-textbox
             id="updated-date-until"
             v-model="formFields.laatstGewijzigdDatumTot"
@@ -87,12 +83,15 @@
       </utrecht-fieldset>
     </form>
 
-    <div class="results">
+    <div class="results" aria-live="polite" aria-atomic="true">
       <simple-spinner v-if="showSpinner" />
+
       <p v-else-if="error">Er ging iets mis. Probeer het opnieuw.</p>
+
       <template v-else-if="data">
         <div v-if="data.results.length">
           <p class="result-count">{{ data.count }} resultaten gevonden</p>
+
           <ol>
             <li
               v-for="(
@@ -118,11 +117,14 @@
                     {{ officieleTitel }}
                   </router-link>
                 </utrecht-heading>
+
                 <ul>
                   <li class="result-type">
                     <strong>{{ resultOptions[resultType].label }}</strong>
                   </li>
+
                   <li class="publisher">{{ publisher.name }}</li>
+
                   <li
                     class="category"
                     v-for="categorie in informatieCategorieen"
@@ -131,10 +133,12 @@
                     {{ categorie.name }}
                   </li>
                 </ul>
+
                 <utrecht-paragraph>{{ truncate(omschrijving, 150) }}</utrecht-paragraph>
 
                 <p>
                   <time :datetime="registratiedatum">{{ formatDate(registratiedatum) }}</time>
+
                   <template
                     v-if="
                       laatstGewijzigdDatum?.substring(0, 10) !== registratiedatum?.substring(0, 10)
@@ -148,8 +152,10 @@
               </utrecht-article>
             </li>
           </ol>
+
           <utrecht-pagination v-if="pagination" v-bind="pagination" class="pagination" />
         </div>
+
         <p v-else>Geen resultaten gevonden</p>
       </template>
     </div>
@@ -160,6 +166,7 @@
 import GppWooIcon from "@/components/GppWooIcon.vue";
 import SimpleSpinner from "@/components/SimpleSpinner.vue";
 import UtrechtPagination from "@/components/UtrechtPagination.vue";
+import SearchBar from "@/components/SearchBar.vue";
 import { useLoader } from "@/composables/use-loader";
 import { useSpinner } from "@/composables/use-spinner";
 import { sortOptions, search, resultOptions } from "@/features/search/service";
@@ -212,13 +219,7 @@ const submit = () =>
     }
   });
 
-const trySubmit = () => {
-  if (!formElement.value?.checkValidity()) return;
-  const keys = Object.keys(formFields) as Array<keyof typeof formFields>;
-  const query = parsedQuery.value;
-  if (keys.every((key) => query[key] === formFields[key])) return;
-  submit();
-};
+const trySubmit = () => formElement.value?.checkValidity() && submit();
 
 const { error, loading, data } = useLoader((signal) =>
   search({
@@ -311,16 +312,6 @@ input {
   display: flex;
   align-items: end;
   flex-wrap: wrap;
-
-  input {
-    max-inline-size: 100%;
-    inline-size: 20rem;
-  }
-
-  .search-bar {
-    display: flex;
-    flex-wrap: wrap;
-  }
 }
 
 :has(> #sort-select) {
