@@ -17,7 +17,7 @@ const parseValidDate = (date: DateLike) => {
 
 export const formatDate = (date: DateLike) => {
   date = parseValidDate(date);
-  if (!date) return null;
+  if (!date) return undefined;
   return nlLongFormat.format(date);
 };
 
