@@ -20,7 +20,7 @@ type SearchResponseItem = {
 
 type WaardelijstItem = {
   uuid: string;
-  name: string;
+  naam: string;
 };
 
 export const sortOptions = {
