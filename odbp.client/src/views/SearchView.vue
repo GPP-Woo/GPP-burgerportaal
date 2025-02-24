@@ -163,9 +163,7 @@ import UtrechtPagination from "@/components/UtrechtPagination.vue";
 import { useLoader } from "@/composables/use-loader";
 import { useSpinner } from "@/composables/use-spinner";
 import { sortOptions, search, resultOptions } from "@/features/search/service";
-import { formatDate } from "@/helpers";
-import { mapPaginatedResultsToUtrechtPagination } from "@/helpers/pagination";
-import { truncate } from "@/helpers/strings";
+import { formatDate, mapPaginatedResultsToUtrechtPagination, truncate } from "@/helpers";
 import { computed, onMounted, reactive, ref } from "vue";
 import { useRoute, useRouter, type RouteLocationRaw } from "vue-router";
 

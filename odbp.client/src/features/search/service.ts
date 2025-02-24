@@ -67,17 +67,5 @@ export function search({
       "content-type": "application/json"
     },
     signal
-  })
-    .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
-    .catch((reason) => {
-      // if the signal is aborted, fetch throws an Error.
-      // we don't want to disrupt the user's flow for this.
-      if (signal?.aborted) {
-        // but we log the reason for debugging purposes
-        console.log(reason);
-      } else {
-        // any other error is unexpected and should disrupt the flow
-        return Promise.reject(reason);
-      }
-    });
+  }).then((r) => (r.ok ? r.json() : Promise.reject(r.status)));
 }

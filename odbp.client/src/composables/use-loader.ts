@@ -1,30 +1,33 @@
-import { asyncComputed } from "@vueuse/core";
-import { readonly, ref } from "vue";
+import { onWatcherCleanup, readonly, ref, watchEffect } from "vue";
 
 export function useLoader<T>(fetcher: (signal: AbortSignal) => Promise<T> | undefined) {
   const error = ref(false);
   const loading = ref(true);
+  const data = ref<T>();
 
-  const data = asyncComputed(
-    (onCancel) => {
-      const abortController = new AbortController();
+  watchEffect(() => {
+    const controller = new AbortController();
 
-      onCancel(() => {
-        abortController.abort();
-      });
+    onWatcherCleanup(() => controller.abort());
+    error.value = false;
+    loading.value = true;
 
-      error.value = false;
+    const promise = fetcher(controller.signal);
+    if (!promise) return;
 
-      return fetcher(abortController.signal)?.catch(() => {
-        if (!abortController.signal.aborted) {
+    promise
+      .then((v) => {
+        data.value = v;
+        loading.value = false;
+      })
+      .catch(() => {
+        if (!controller.signal.aborted) {
           error.value = true;
+          loading.value = false;
         }
-        return undefined;
       });
-    },
-    undefined,
-    loading
-  );
+  });
+
   return {
     error: readonly(error),
     loading: readonly(loading),
