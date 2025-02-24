@@ -316,7 +316,6 @@ input {
 .zoeken > :first-child {
   column-gap: calc(var(--utrecht-space-inline-md) * 2);
   display: flex;
-  align-items: end;
   flex-wrap: wrap;
 }
 
