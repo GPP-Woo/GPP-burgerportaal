@@ -6,7 +6,7 @@
       <utrecht-fieldset class="zoeken">
         <utrecht-legend class="visually-hidden">Zoeken</utrecht-legend>
 
-        <search-bar v-model="formFields.query" @submit="submit" />
+        <search-bar v-model="formFields.query" @submit="trySubmit" />
 
         <utrecht-form-field>
           <utrecht-form-label for="sort-select">Sorteren</utrecht-form-label>
@@ -219,7 +219,13 @@ const submit = () =>
     }
   });
 
-const trySubmit = () => formElement.value?.checkValidity() && submit();
+const trySubmit = () => {
+  if (!formElement.value?.checkValidity()) return;
+  const keys = Object.keys(formFields) as Array<keyof typeof formFields>;
+  const query = parsedQuery.value;
+  if (keys.every((key) => query[key] === formFields[key])) return;
+  submit();
+};
 
 const { error, loading, data } = useLoader((signal) =>
   search({
