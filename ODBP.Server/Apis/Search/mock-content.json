@@ -6,7 +6,7 @@
     "verkorte_titel": "b",
     "publisher": {
       "uuid": "7851919b-05f6-436f-aa05-425512baf90c",
-      "name": "changed"
+      "naam": "changed"
     },
     "omschrijving": "c",
     "registratiedatum": "2024-10-11T15:18:48.553477+02:00",
@@ -19,7 +19,7 @@
     "verkorte_titel": "ghgh",
     "publisher": {
       "uuid": "7851919b-05f6-436f-aa05-425512baf90c",
-      "name": "changed"
+      "naam": "changed"
     },
     "omschrijving": "ppo",
     "registratiedatum": "2024-10-11T15:44:00.460245+02:00",
@@ -32,7 +32,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "7851919b-05f6-436f-aa05-425512baf90c",
-      "name": "changed"
+      "naam": "changed"
     },
     "omschrijving": "",
     "registratiedatum": "2024-10-11T15:44:52.164815+02:00",
@@ -45,7 +45,7 @@
     "verkorte_titel": "Publicatie",
     "publisher": {
       "uuid": "7851919b-05f6-436f-aa05-425512baf90c",
-      "name": "changed"
+      "naam": "changed"
     },
     "omschrijving": "Omschrijving",
     "registratiedatum": "2024-10-14T15:21:24.763686+02:00",
@@ -58,7 +58,7 @@
     "verkorte_titel": "Publicatie",
     "publisher": {
       "uuid": "7851919b-05f6-436f-aa05-425512baf90c",
-      "name": "changed"
+      "naam": "changed"
     },
     "omschrijving": "Omschrijving",
     "registratiedatum": "2024-10-16T11:30:20.380483+02:00",
@@ -71,7 +71,7 @@
     "verkorte_titel": "Samenwerkingsovereenkomst",
     "publisher": {
       "uuid": "7851919b-05f6-436f-aa05-425512baf90c",
-      "name": "changed"
+      "naam": "changed"
     },
     "omschrijving": "*De kracht van samenwerken*\n*Peter Paul Doodkorte*\n\nde kracht van samenwerking\nvraagt om saamhorigheid\ngebaseerd op gezamenlijkheid\nin missie het denken en doen\n\nde kracht van samenwerking\nis verantwoordelijkheid nemen\nzonder over of af te nemen\ngewoon doen wat nodig is\n\nde kracht van samenwerking\nis met kaders als toetssteen\nde bedoeling mogelijk maken\ndoor buiten de lijntjes kleuren\n\nde kracht van samenwerking\nis wederkerig belangen verbinden\ndoor invoegen en bijspringen\nop de krachten van elkaar\n\nde kracht van samenwerking\nis het verschil kunnen maken\ndoor de handen ineen te slaan\nvan het aanwezig potentieel\n\nde kracht van samenwerking\nis het wederzijds vertrouwen\nvan samen een brug te bouwen\nterwijl je eroverheen loopt",
     "registratiedatum": "2024-10-16T13:20:13.092051+02:00",
@@ -84,7 +84,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "7851919b-05f6-436f-aa05-425512baf90c",
-      "name": "changed"
+      "naam": "changed"
     },
     "omschrijving": "",
     "registratiedatum": "2024-10-17T17:40:30.183382+02:00",
@@ -97,7 +97,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "7851919b-05f6-436f-aa05-425512baf90c",
-      "name": "changed"
+      "naam": "changed"
     },
     "omschrijving": "",
     "registratiedatum": "2024-10-17T17:49:45.024463+02:00",
@@ -110,7 +110,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "7851919b-05f6-436f-aa05-425512baf90c",
-      "name": "changed"
+      "naam": "changed"
     },
     "omschrijving": "",
     "registratiedatum": "2024-10-21T14:05:44.551466+02:00",
@@ -123,7 +123,7 @@
     "verkorte_titel": "Verzoek tot inzage meldingen geluid",
     "publisher": {
       "uuid": "7851919b-05f6-436f-aa05-425512baf90c",
-      "name": "changed"
+      "naam": "changed"
     },
     "omschrijving": "test",
     "registratiedatum": "2024-10-21T16:10:23.766198+02:00",
@@ -136,7 +136,7 @@
     "verkorte_titel": "Woonbeleid 2024",
     "publisher": {
       "uuid": "7851919b-05f6-436f-aa05-425512baf90c",
-      "name": "changed"
+      "naam": "changed"
     },
     "omschrijving": "test",
     "registratiedatum": "2024-10-21T16:24:38.998218+02:00",
@@ -149,7 +149,7 @@
     "verkorte_titel": "test",
     "publisher": {
       "uuid": "7851919b-05f6-436f-aa05-425512baf90c",
-      "name": "changed"
+      "naam": "changed"
     },
     "omschrijving": "drrbtryb ry ryh jryj fyd jyjy rtr ryj  wrjr",
     "registratiedatum": "2024-10-22T10:48:17.435465+02:00",
@@ -162,7 +162,7 @@
     "verkorte_titel": "Verkorte titel",
     "publisher": {
       "uuid": "7851919b-05f6-436f-aa05-425512baf90c",
-      "name": "changed"
+      "naam": "changed"
     },
     "omschrijving": "Omschrijving",
     "registratiedatum": "2024-10-22T11:57:27.387667+02:00",
@@ -175,7 +175,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "7851919b-05f6-436f-aa05-425512baf90c",
-      "name": "changed"
+      "naam": "changed"
     },
     "omschrijving": "",
     "registratiedatum": "2024-10-22T12:35:25.200171+02:00",
@@ -188,7 +188,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "7851919b-05f6-436f-aa05-425512baf90c",
-      "name": "changed"
+      "naam": "changed"
     },
     "omschrijving": "",
     "registratiedatum": "2024-10-22T12:37:31.806061+02:00",
@@ -201,7 +201,7 @@
     "verkorte_titel": "x",
     "publisher": {
       "uuid": "7851919b-05f6-436f-aa05-425512baf90c",
-      "name": "changed"
+      "naam": "changed"
     },
     "omschrijving": "x",
     "registratiedatum": "2024-10-22T12:55:27.693391+02:00",
@@ -214,7 +214,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "7851919b-05f6-436f-aa05-425512baf90c",
-      "name": "changed"
+      "naam": "changed"
     },
     "omschrijving": "",
     "registratiedatum": "2024-10-22T14:51:04.787209+02:00",
@@ -227,7 +227,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "7851919b-05f6-436f-aa05-425512baf90c",
-      "name": "changed"
+      "naam": "changed"
     },
     "omschrijving": "",
     "registratiedatum": "2024-10-22T15:58:41.68764+02:00",
@@ -240,7 +240,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "7851919b-05f6-436f-aa05-425512baf90c",
-      "name": "changed"
+      "naam": "changed"
     },
     "omschrijving": "",
     "registratiedatum": "2024-10-22T16:02:02.86063+02:00",
@@ -253,7 +253,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "7851919b-05f6-436f-aa05-425512baf90c",
-      "name": "changed"
+      "naam": "changed"
     },
     "omschrijving": "",
     "registratiedatum": "2024-10-22T16:12:57.17034+02:00",
@@ -266,7 +266,7 @@
     "verkorte_titel": "sdfgasdgf",
     "publisher": {
       "uuid": "7851919b-05f6-436f-aa05-425512baf90c",
-      "name": "changed"
+      "naam": "changed"
     },
     "omschrijving": "sdadrhadrfh fgh fthfgj fgj fhjy jnxvn",
     "registratiedatum": "2024-10-23T10:11:21.628092+02:00",
@@ -274,11 +274,11 @@
     "informatie_categorieen": [
       {
         "uuid": "9aeb7501-3f77-4f36-8c8f-d21f47c2d6e8",
-        "name": "organisatie en werkwijze"
+        "naam": "organisatie en werkwijze"
       },
       {
         "uuid": "7ee891df-ca3e-4b19-b9e5-494bc3c485ea",
-        "name": "convenant"
+        "naam": "convenant"
       }
     ]
   },
@@ -289,7 +289,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "7851919b-05f6-436f-aa05-425512baf90c",
-      "name": "changed"
+      "naam": "changed"
     },
     "omschrijving": "",
     "registratiedatum": "2024-10-23T13:55:21.43847+02:00",
@@ -302,7 +302,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "7851919b-05f6-436f-aa05-425512baf90c",
-      "name": "changed"
+      "naam": "changed"
     },
     "omschrijving": "",
     "registratiedatum": "2024-10-23T15:05:22.006047+02:00",
@@ -315,7 +315,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "7851919b-05f6-436f-aa05-425512baf90c",
-      "name": "changed"
+      "naam": "changed"
     },
     "omschrijving": "",
     "registratiedatum": "2024-10-23T15:20:11.671365+02:00",
@@ -328,7 +328,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "7851919b-05f6-436f-aa05-425512baf90c",
-      "name": "changed"
+      "naam": "changed"
     },
     "omschrijving": "",
     "registratiedatum": "2024-10-23T16:20:52.519007+02:00",
@@ -341,7 +341,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "7851919b-05f6-436f-aa05-425512baf90c",
-      "name": "changed"
+      "naam": "changed"
     },
     "omschrijving": "",
     "registratiedatum": "2024-10-23T20:55:06.959221+02:00",
@@ -354,7 +354,7 @@
     "verkorte_titel": "testje",
     "publisher": {
       "uuid": "7851919b-05f6-436f-aa05-425512baf90c",
-      "name": "changed"
+      "naam": "changed"
     },
     "omschrijving": "getest",
     "registratiedatum": "2024-10-29T13:46:48.905851+01:00",
@@ -367,7 +367,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "7851919b-05f6-436f-aa05-425512baf90c",
-      "name": "changed"
+      "naam": "changed"
     },
     "omschrijving": "",
     "registratiedatum": "2024-10-29T16:17:29.830101+01:00",
@@ -380,7 +380,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "7851919b-05f6-436f-aa05-425512baf90c",
-      "name": "changed"
+      "naam": "changed"
     },
     "omschrijving": "",
     "registratiedatum": "2024-10-29T16:26:09.26911+01:00",
@@ -393,7 +393,7 @@
     "verkorte_titel": "test creator",
     "publisher": {
       "uuid": "7851919b-05f6-436f-aa05-425512baf90c",
-      "name": "changed"
+      "naam": "changed"
     },
     "omschrijving": "test creator",
     "registratiedatum": "2024-11-01T13:35:47.655341+01:00",
@@ -401,15 +401,15 @@
     "informatie_categorieen": [
       {
         "uuid": "be4e21c2-0be5-4616-945e-1f101b0c0e6d",
-        "name": "wet of algemeen verbindend voorschrift"
+        "naam": "wet of algemeen verbindend voorschrift"
       },
       {
         "uuid": "f4de3422-ce74-45c7-b881-45bebe90984f",
-        "name": "jaarplan of jaarverslag"
+        "naam": "jaarplan of jaarverslag"
       },
       {
         "uuid": "a5361d34-038d-471c-8258-4fcefd9eafde",
-        "name": "Zelf toegevoegde informatiecategorie"
+        "naam": "Zelf toegevoegde informatiecategorie"
       }
     ]
   },
@@ -420,7 +420,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "7851919b-05f6-436f-aa05-425512baf90c",
-      "name": "changed"
+      "naam": "changed"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-06T09:27:51.93512+01:00",
@@ -428,7 +428,7 @@
     "informatie_categorieen": [
       {
         "uuid": "7ee891df-ca3e-4b19-b9e5-494bc3c485ea",
-        "name": "convenant"
+        "naam": "convenant"
       }
     ]
   },
@@ -439,7 +439,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "7851919b-05f6-436f-aa05-425512baf90c",
-      "name": "changed"
+      "naam": "changed"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-06T09:46:20.994114+01:00",
@@ -452,7 +452,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "7851919b-05f6-436f-aa05-425512baf90c",
-      "name": "changed"
+      "naam": "changed"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-06T09:47:12.126044+01:00",
@@ -465,7 +465,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-12T12:42:46.183401+01:00",
@@ -473,7 +473,7 @@
     "informatie_categorieen": [
       {
         "uuid": "be4e21c2-0be5-4616-945e-1f101b0c0e6d",
-        "name": "wet of algemeen verbindend voorschrift"
+        "naam": "wet of algemeen verbindend voorschrift"
       }
     ]
   },
@@ -484,7 +484,7 @@
     "verkorte_titel": "Verkorte titel",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "Omschrijving",
     "registratiedatum": "2024-11-12T12:49:47.504497+01:00",
@@ -492,7 +492,7 @@
     "informatie_categorieen": [
       {
         "uuid": "be4e21c2-0be5-4616-945e-1f101b0c0e6d",
-        "name": "wet of algemeen verbindend voorschrift"
+        "naam": "wet of algemeen verbindend voorschrift"
       }
     ]
   },
@@ -503,7 +503,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "528981fb-69fa-4e66-940f-7cb46cc4d8d7",
-      "name": "Veiligheidsregio Amsterdam-Amstelland"
+      "naam": "Veiligheidsregio Amsterdam-Amstelland"
     },
     "omschrijving": ".",
     "registratiedatum": "2024-11-12T14:31:22.60876+01:00",
@@ -511,11 +511,11 @@
     "informatie_categorieen": [
       {
         "uuid": "be4e21c2-0be5-4616-945e-1f101b0c0e6d",
-        "name": "wet of algemeen verbindend voorschrift"
+        "naam": "wet of algemeen verbindend voorschrift"
       },
       {
         "uuid": "8f3bdef0-a926-4f67-b1f2-94c583c462ce",
-        "name": "overig besluit van algemene strekking"
+        "naam": "overig besluit van algemene strekking"
       }
     ]
   },
@@ -526,7 +526,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "b09e8e07-584c-4d46-9e3e-701e2b787de6",
-      "name": "Gemeentelijke gezondheidsdienst Amsterdam-Amstelland"
+      "naam": "Gemeentelijke gezondheidsdienst Amsterdam-Amstelland"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-12T17:03:32.834176+01:00",
@@ -534,7 +534,7 @@
     "informatie_categorieen": [
       {
         "uuid": "9aeb7501-3f77-4f36-8c8f-d21f47c2d6e8",
-        "name": "organisatie en werkwijze"
+        "naam": "organisatie en werkwijze"
       }
     ]
   },
@@ -545,7 +545,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "528981fb-69fa-4e66-940f-7cb46cc4d8d7",
-      "name": "Veiligheidsregio Amsterdam-Amstelland"
+      "naam": "Veiligheidsregio Amsterdam-Amstelland"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-13T15:26:40.894311+01:00",
@@ -553,7 +553,7 @@
     "informatie_categorieen": [
       {
         "uuid": "be4e21c2-0be5-4616-945e-1f101b0c0e6d",
-        "name": "wet of algemeen verbindend voorschrift"
+        "naam": "wet of algemeen verbindend voorschrift"
       }
     ]
   },
@@ -564,7 +564,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "528981fb-69fa-4e66-940f-7cb46cc4d8d7",
-      "name": "Veiligheidsregio Amsterdam-Amstelland"
+      "naam": "Veiligheidsregio Amsterdam-Amstelland"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-13T15:28:54.089956+01:00",
@@ -572,7 +572,7 @@
     "informatie_categorieen": [
       {
         "uuid": "be4e21c2-0be5-4616-945e-1f101b0c0e6d",
-        "name": "wet of algemeen verbindend voorschrift"
+        "naam": "wet of algemeen verbindend voorschrift"
       }
     ]
   },
@@ -583,7 +583,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "528981fb-69fa-4e66-940f-7cb46cc4d8d7",
-      "name": "Veiligheidsregio Amsterdam-Amstelland"
+      "naam": "Veiligheidsregio Amsterdam-Amstelland"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-13T15:32:26.517631+01:00",
@@ -591,7 +591,7 @@
     "informatie_categorieen": [
       {
         "uuid": "be4e21c2-0be5-4616-945e-1f101b0c0e6d",
-        "name": "wet of algemeen verbindend voorschrift"
+        "naam": "wet of algemeen verbindend voorschrift"
       }
     ]
   },
@@ -602,7 +602,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "528981fb-69fa-4e66-940f-7cb46cc4d8d7",
-      "name": "Veiligheidsregio Amsterdam-Amstelland"
+      "naam": "Veiligheidsregio Amsterdam-Amstelland"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-13T15:45:01.125407+01:00",
@@ -610,7 +610,7 @@
     "informatie_categorieen": [
       {
         "uuid": "be4e21c2-0be5-4616-945e-1f101b0c0e6d",
-        "name": "wet of algemeen verbindend voorschrift"
+        "naam": "wet of algemeen verbindend voorschrift"
       }
     ]
   },
@@ -621,7 +621,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "b2f3a063-c927-4f5f-8060-bb532011f586",
-      "name": "gemeente Sittard-Geleen"
+      "naam": "gemeente Sittard-Geleen"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-13T15:52:24.27209+01:00",
@@ -629,7 +629,7 @@
     "informatie_categorieen": [
       {
         "uuid": "be4e21c2-0be5-4616-945e-1f101b0c0e6d",
-        "name": "wet of algemeen verbindend voorschrift"
+        "naam": "wet of algemeen verbindend voorschrift"
       }
     ]
   },
@@ -640,7 +640,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T09:50:34.095914+01:00",
@@ -648,7 +648,7 @@
     "informatie_categorieen": [
       {
         "uuid": "d3008496-a014-431a-8b6b-0813f09e6085",
-        "name": "beschikking"
+        "naam": "beschikking"
       }
     ]
   },
@@ -659,7 +659,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T10:18:18.543009+01:00",
@@ -667,7 +667,7 @@
     "informatie_categorieen": [
       {
         "uuid": "d3008496-a014-431a-8b6b-0813f09e6085",
-        "name": "beschikking"
+        "naam": "beschikking"
       }
     ]
   },
@@ -678,7 +678,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T10:30:46.58512+01:00",
@@ -686,7 +686,7 @@
     "informatie_categorieen": [
       {
         "uuid": "d3008496-a014-431a-8b6b-0813f09e6085",
-        "name": "beschikking"
+        "naam": "beschikking"
       }
     ]
   },
@@ -697,7 +697,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T12:13:53.619298+01:00",
@@ -705,7 +705,7 @@
     "informatie_categorieen": [
       {
         "uuid": "d3008496-a014-431a-8b6b-0813f09e6085",
-        "name": "beschikking"
+        "naam": "beschikking"
       }
     ]
   },
@@ -716,7 +716,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T12:49:19.931839+01:00",
@@ -724,7 +724,7 @@
     "informatie_categorieen": [
       {
         "uuid": "d3008496-a014-431a-8b6b-0813f09e6085",
-        "name": "beschikking"
+        "naam": "beschikking"
       }
     ]
   },
@@ -735,7 +735,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T15:20:33.129314+01:00",
@@ -743,7 +743,7 @@
     "informatie_categorieen": [
       {
         "uuid": "d3008496-a014-431a-8b6b-0813f09e6085",
-        "name": "beschikking"
+        "naam": "beschikking"
       }
     ]
   },
@@ -754,7 +754,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T15:27:49.705516+01:00",
@@ -762,11 +762,11 @@
     "informatie_categorieen": [
       {
         "uuid": "e7f1b136-58f1-4d7e-82b3-0571e2388058",
-        "name": "onderzoeksrapport"
+        "naam": "onderzoeksrapport"
       },
       {
         "uuid": "d3008496-a014-431a-8b6b-0813f09e6085",
-        "name": "beschikking"
+        "naam": "beschikking"
       }
     ]
   },
@@ -777,7 +777,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T15:39:27.140728+01:00",
@@ -785,7 +785,7 @@
     "informatie_categorieen": [
       {
         "uuid": "d3008496-a014-431a-8b6b-0813f09e6085",
-        "name": "beschikking"
+        "naam": "beschikking"
       }
     ]
   },
@@ -796,7 +796,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T16:40:49.355582+01:00",
@@ -804,7 +804,7 @@
     "informatie_categorieen": [
       {
         "uuid": "d3008496-a014-431a-8b6b-0813f09e6085",
-        "name": "beschikking"
+        "naam": "beschikking"
       }
     ]
   },
@@ -815,7 +815,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T17:10:51.032506+01:00",
@@ -823,7 +823,7 @@
     "informatie_categorieen": [
       {
         "uuid": "d3008496-a014-431a-8b6b-0813f09e6085",
-        "name": "beschikking"
+        "naam": "beschikking"
       }
     ]
   },
@@ -834,7 +834,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T17:26:47.743667+01:00",
@@ -842,7 +842,7 @@
     "informatie_categorieen": [
       {
         "uuid": "d3008496-a014-431a-8b6b-0813f09e6085",
-        "name": "beschikking"
+        "naam": "beschikking"
       }
     ]
   },
@@ -853,7 +853,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T17:52:27.891436+01:00",
@@ -861,7 +861,7 @@
     "informatie_categorieen": [
       {
         "uuid": "d3008496-a014-431a-8b6b-0813f09e6085",
-        "name": "beschikking"
+        "naam": "beschikking"
       }
     ]
   },
@@ -872,7 +872,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-18T09:23:24.497439+01:00",
@@ -880,7 +880,7 @@
     "informatie_categorieen": [
       {
         "uuid": "d3008496-a014-431a-8b6b-0813f09e6085",
-        "name": "beschikking"
+        "naam": "beschikking"
       }
     ]
   },
@@ -891,7 +891,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-18T11:15:53.579203+01:00",
@@ -899,7 +899,7 @@
     "informatie_categorieen": [
       {
         "uuid": "d3008496-a014-431a-8b6b-0813f09e6085",
-        "name": "beschikking"
+        "naam": "beschikking"
       }
     ]
   },
@@ -910,7 +910,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-18T11:26:28.419754+01:00",
@@ -918,7 +918,7 @@
     "informatie_categorieen": [
       {
         "uuid": "9aeb7501-3f77-4f36-8c8f-d21f47c2d6e8",
-        "name": "organisatie en werkwijze"
+        "naam": "organisatie en werkwijze"
       }
     ]
   },
@@ -929,7 +929,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "599c0b00-649f-4e17-9f08-337150daff3b",
-      "name": "Gemeentelijke Gezondheidsdienst Rotterdam-Rijnmond"
+      "naam": "Gemeentelijke Gezondheidsdienst Rotterdam-Rijnmond"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-18T11:34:36.967864+01:00",
@@ -937,7 +937,7 @@
     "informatie_categorieen": [
       {
         "uuid": "380f49a4-8578-4317-b91e-3dfd13bab89b",
-        "name": "agenda of besluitenlijst bestuurscollege"
+        "naam": "agenda of besluitenlijst bestuurscollege"
       }
     ]
   },
@@ -948,7 +948,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-18T12:17:12.333328+01:00",
@@ -956,7 +956,7 @@
     "informatie_categorieen": [
       {
         "uuid": "d3008496-a014-431a-8b6b-0813f09e6085",
-        "name": "beschikking"
+        "naam": "beschikking"
       }
     ]
   },
@@ -967,7 +967,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-18T12:30:30.550537+01:00",
@@ -975,11 +975,11 @@
     "informatie_categorieen": [
       {
         "uuid": "e7f1b136-58f1-4d7e-82b3-0571e2388058",
-        "name": "onderzoeksrapport"
+        "naam": "onderzoeksrapport"
       },
       {
         "uuid": "d3008496-a014-431a-8b6b-0813f09e6085",
-        "name": "beschikking"
+        "naam": "beschikking"
       }
     ]
   },
@@ -990,7 +990,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-18T13:15:39.452797+01:00",
@@ -998,7 +998,7 @@
     "informatie_categorieen": [
       {
         "uuid": "e7f1b136-58f1-4d7e-82b3-0571e2388058",
-        "name": "onderzoeksrapport"
+        "naam": "onderzoeksrapport"
       }
     ]
   },
@@ -1009,7 +1009,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-18T13:24:58.631213+01:00",
@@ -1017,7 +1017,7 @@
     "informatie_categorieen": [
       {
         "uuid": "d3008496-a014-431a-8b6b-0813f09e6085",
-        "name": "beschikking"
+        "naam": "beschikking"
       }
     ]
   },
@@ -1028,7 +1028,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-18T14:05:54.813151+01:00",
@@ -1036,7 +1036,7 @@
     "informatie_categorieen": [
       {
         "uuid": "d3008496-a014-431a-8b6b-0813f09e6085",
-        "name": "beschikking"
+        "naam": "beschikking"
       }
     ]
   },
@@ -1047,7 +1047,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-18T14:09:38.567715+01:00",
@@ -1055,7 +1055,7 @@
     "informatie_categorieen": [
       {
         "uuid": "d3008496-a014-431a-8b6b-0813f09e6085",
-        "name": "beschikking"
+        "naam": "beschikking"
       }
     ]
   },
@@ -1066,7 +1066,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-18T14:42:14.389336+01:00",
@@ -1074,7 +1074,7 @@
     "informatie_categorieen": [
       {
         "uuid": "d3008496-a014-431a-8b6b-0813f09e6085",
-        "name": "beschikking"
+        "naam": "beschikking"
       }
     ]
   },
@@ -1085,7 +1085,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-18T14:46:08.091057+01:00",
@@ -1093,7 +1093,7 @@
     "informatie_categorieen": [
       {
         "uuid": "e7f1b136-58f1-4d7e-82b3-0571e2388058",
-        "name": "onderzoeksrapport"
+        "naam": "onderzoeksrapport"
       }
     ]
   },
@@ -1104,7 +1104,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-19T17:30:44.736432+01:00",
@@ -1112,7 +1112,7 @@
     "informatie_categorieen": [
       {
         "uuid": "d3008496-a014-431a-8b6b-0813f09e6085",
-        "name": "beschikking"
+        "naam": "beschikking"
       }
     ]
   },
@@ -1123,7 +1123,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "efcaa3b7-631d-4d62-95fc-699332b28f03",
-      "name": "gemeente Rotterdam"
+      "naam": "gemeente Rotterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T08:49:18.25831+01:00",
@@ -1131,7 +1131,7 @@
     "informatie_categorieen": [
       {
         "uuid": "7ee891df-ca3e-4b19-b9e5-494bc3c485ea",
-        "name": "convenant"
+        "naam": "convenant"
       }
     ]
   },
@@ -1142,7 +1142,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "efcaa3b7-631d-4d62-95fc-699332b28f03",
-      "name": "gemeente Rotterdam"
+      "naam": "gemeente Rotterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T08:49:38.331415+01:00",
@@ -1150,7 +1150,7 @@
     "informatie_categorieen": [
       {
         "uuid": "7ee891df-ca3e-4b19-b9e5-494bc3c485ea",
-        "name": "convenant"
+        "naam": "convenant"
       }
     ]
   },
@@ -1161,7 +1161,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "6520cce6-18f5-4404-9e95-a8dc8d783263",
-      "name": "gemeente Groningen"
+      "naam": "gemeente Groningen"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T10:50:34.641824+01:00",
@@ -1169,7 +1169,7 @@
     "informatie_categorieen": [
       {
         "uuid": "d3008496-a014-431a-8b6b-0813f09e6085",
-        "name": "beschikking"
+        "naam": "beschikking"
       }
     ]
   },
@@ -1180,7 +1180,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "6520cce6-18f5-4404-9e95-a8dc8d783263",
-      "name": "gemeente Groningen"
+      "naam": "gemeente Groningen"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T11:52:57.978199+01:00",
@@ -1188,7 +1188,7 @@
     "informatie_categorieen": [
       {
         "uuid": "d3008496-a014-431a-8b6b-0813f09e6085",
-        "name": "beschikking"
+        "naam": "beschikking"
       }
     ]
   },
@@ -1199,7 +1199,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T14:18:18.789922+01:00",
@@ -1207,7 +1207,7 @@
     "informatie_categorieen": [
       {
         "uuid": "e7f1b136-58f1-4d7e-82b3-0571e2388058",
-        "name": "onderzoeksrapport"
+        "naam": "onderzoeksrapport"
       }
     ]
   },
@@ -1218,7 +1218,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T14:18:54.411149+01:00",
@@ -1226,7 +1226,7 @@
     "informatie_categorieen": [
       {
         "uuid": "e7f1b136-58f1-4d7e-82b3-0571e2388058",
-        "name": "onderzoeksrapport"
+        "naam": "onderzoeksrapport"
       }
     ]
   },
@@ -1237,7 +1237,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T14:19:29.31067+01:00",
@@ -1245,7 +1245,7 @@
     "informatie_categorieen": [
       {
         "uuid": "e7f1b136-58f1-4d7e-82b3-0571e2388058",
-        "name": "onderzoeksrapport"
+        "naam": "onderzoeksrapport"
       }
     ]
   },
@@ -1256,7 +1256,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T14:20:07.849789+01:00",
@@ -1264,7 +1264,7 @@
     "informatie_categorieen": [
       {
         "uuid": "e7f1b136-58f1-4d7e-82b3-0571e2388058",
-        "name": "onderzoeksrapport"
+        "naam": "onderzoeksrapport"
       }
     ]
   },
@@ -1275,7 +1275,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T14:20:33.371984+01:00",
@@ -1283,7 +1283,7 @@
     "informatie_categorieen": [
       {
         "uuid": "e7f1b136-58f1-4d7e-82b3-0571e2388058",
-        "name": "onderzoeksrapport"
+        "naam": "onderzoeksrapport"
       }
     ]
   },
@@ -1294,7 +1294,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T14:20:57.995328+01:00",
@@ -1302,7 +1302,7 @@
     "informatie_categorieen": [
       {
         "uuid": "e7f1b136-58f1-4d7e-82b3-0571e2388058",
-        "name": "onderzoeksrapport"
+        "naam": "onderzoeksrapport"
       }
     ]
   },
@@ -1313,7 +1313,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T14:21:24.732477+01:00",
@@ -1321,7 +1321,7 @@
     "informatie_categorieen": [
       {
         "uuid": "e7f1b136-58f1-4d7e-82b3-0571e2388058",
-        "name": "onderzoeksrapport"
+        "naam": "onderzoeksrapport"
       }
     ]
   },
@@ -1332,7 +1332,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T14:23:27.05426+01:00",
@@ -1340,7 +1340,7 @@
     "informatie_categorieen": [
       {
         "uuid": "be4e21c2-0be5-4616-945e-1f101b0c0e6d",
-        "name": "wet of algemeen verbindend voorschrift"
+        "naam": "wet of algemeen verbindend voorschrift"
       }
     ]
   },
@@ -1351,7 +1351,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T14:31:21.190344+01:00",
@@ -1359,7 +1359,7 @@
     "informatie_categorieen": [
       {
         "uuid": "8f3bdef0-a926-4f67-b1f2-94c583c462ce",
-        "name": "overig besluit van algemene strekking"
+        "naam": "overig besluit van algemene strekking"
       }
     ]
   },
@@ -1370,7 +1370,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T14:33:07.657598+01:00",
@@ -1378,79 +1378,79 @@
     "informatie_categorieen": [
       {
         "uuid": "be4e21c2-0be5-4616-945e-1f101b0c0e6d",
-        "name": "wet of algemeen verbindend voorschrift"
+        "naam": "wet of algemeen verbindend voorschrift"
       },
       {
         "uuid": "8f3bdef0-a926-4f67-b1f2-94c583c462ce",
-        "name": "overig besluit van algemene strekking"
+        "naam": "overig besluit van algemene strekking"
       },
       {
         "uuid": "88fb1c5e-e899-456d-b077-6101a9829c11",
-        "name": "ontwerp van wet- en regelgeving met adviesaanvraag"
+        "naam": "ontwerp van wet- en regelgeving met adviesaanvraag"
       },
       {
         "uuid": "9aeb7501-3f77-4f36-8c8f-d21f47c2d6e8",
-        "name": "organisatie en werkwijze"
+        "naam": "organisatie en werkwijze"
       },
       {
         "uuid": "7184027d-5634-4bd4-8121-871916384f0e",
-        "name": "bereikbaarheidsgegevens"
+        "naam": "bereikbaarheidsgegevens"
       },
       {
         "uuid": "ca9a38d6-5774-43fb-acc0-04832e9fd231",
-        "name": "bij vertegenwoordigend orgaan ingekomen stuk"
+        "naam": "bij vertegenwoordigend orgaan ingekomen stuk"
       },
       {
         "uuid": "568ebb54-9e43-4c12-924f-77f7d812026d",
-        "name": "vergaderstuk Staten-Generaal"
+        "naam": "vergaderstuk Staten-Generaal"
       },
       {
         "uuid": "57e3c1e2-53aa-4d2c-888d-7232288dd425",
-        "name": "vergaderstuk decentrale overheid"
+        "naam": "vergaderstuk decentrale overheid"
       },
       {
         "uuid": "380f49a4-8578-4317-b91e-3dfd13bab89b",
-        "name": "agenda of besluitenlijst bestuurscollege"
+        "naam": "agenda of besluitenlijst bestuurscollege"
       },
       {
         "uuid": "5bfcb832-e940-493e-8050-699053f4f56a",
-        "name": "advies"
+        "naam": "advies"
       },
       {
         "uuid": "7ee891df-ca3e-4b19-b9e5-494bc3c485ea",
-        "name": "convenant"
+        "naam": "convenant"
       },
       {
         "uuid": "f4de3422-ce74-45c7-b881-45bebe90984f",
-        "name": "jaarplan of jaarverslag"
+        "naam": "jaarplan of jaarverslag"
       },
       {
         "uuid": "68e33566-9f48-4547-8024-2d0d03b54b4d",
-        "name": "subsidieverplichting anders dan met beschikking"
+        "naam": "subsidieverplichting anders dan met beschikking"
       },
       {
         "uuid": "b84c3b0d-a471-48f5-915f-7fbd8b94188f",
-        "name": "Woo-verzoek of -besluit"
+        "naam": "Woo-verzoek of -besluit"
       },
       {
         "uuid": "e7f1b136-58f1-4d7e-82b3-0571e2388058",
-        "name": "onderzoeksrapport"
+        "naam": "onderzoeksrapport"
       },
       {
         "uuid": "d3008496-a014-431a-8b6b-0813f09e6085",
-        "name": "beschikking"
+        "naam": "beschikking"
       },
       {
         "uuid": "3e9298ed-c90a-49fb-b89d-0cc060b7b0f7",
-        "name": "klachtoordeel"
+        "naam": "klachtoordeel"
       },
       {
         "uuid": "a5361d34-038d-471c-8258-4fcefd9eafde",
-        "name": "Zelf toegevoegde informatiecategorie"
+        "naam": "Zelf toegevoegde informatiecategorie"
       },
       {
         "uuid": "8223209f-a502-4dda-b1b6-c33b61525239",
-        "name": "inspanningsverplichting art 3.1 Woo"
+        "naam": "inspanningsverplichting art 3.1 Woo"
       }
     ]
   },
@@ -1461,7 +1461,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T14:39:33.694274+01:00",
@@ -1469,7 +1469,7 @@
     "informatie_categorieen": [
       {
         "uuid": "8f3bdef0-a926-4f67-b1f2-94c583c462ce",
-        "name": "overig besluit van algemene strekking"
+        "naam": "overig besluit van algemene strekking"
       }
     ]
   },
@@ -1480,7 +1480,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T14:41:36.625855+01:00",
@@ -1488,7 +1488,7 @@
     "informatie_categorieen": [
       {
         "uuid": "8f3bdef0-a926-4f67-b1f2-94c583c462ce",
-        "name": "overig besluit van algemene strekking"
+        "naam": "overig besluit van algemene strekking"
       }
     ]
   },
@@ -1499,7 +1499,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T14:49:56.497071+01:00",
@@ -1507,7 +1507,7 @@
     "informatie_categorieen": [
       {
         "uuid": "d3008496-a014-431a-8b6b-0813f09e6085",
-        "name": "beschikking"
+        "naam": "beschikking"
       }
     ]
   },
@@ -1518,7 +1518,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T14:50:31.471218+01:00",
@@ -1526,7 +1526,7 @@
     "informatie_categorieen": [
       {
         "uuid": "8f3bdef0-a926-4f67-b1f2-94c583c462ce",
-        "name": "overig besluit van algemene strekking"
+        "naam": "overig besluit van algemene strekking"
       }
     ]
   },
@@ -1537,7 +1537,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T14:50:38.578685+01:00",
@@ -1545,7 +1545,7 @@
     "informatie_categorieen": [
       {
         "uuid": "d3008496-a014-431a-8b6b-0813f09e6085",
-        "name": "beschikking"
+        "naam": "beschikking"
       }
     ]
   },
@@ -1556,7 +1556,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T15:20:20.058908+01:00",
@@ -1564,7 +1564,7 @@
     "informatie_categorieen": [
       {
         "uuid": "be4e21c2-0be5-4616-945e-1f101b0c0e6d",
-        "name": "wet of algemeen verbindend voorschrift"
+        "naam": "wet of algemeen verbindend voorschrift"
       }
     ]
   },
@@ -1575,7 +1575,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T15:20:54.277275+01:00",
@@ -1583,7 +1583,7 @@
     "informatie_categorieen": [
       {
         "uuid": "be4e21c2-0be5-4616-945e-1f101b0c0e6d",
-        "name": "wet of algemeen verbindend voorschrift"
+        "naam": "wet of algemeen verbindend voorschrift"
       }
     ]
   },
@@ -1594,7 +1594,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T15:22:36.617865+01:00",
@@ -1602,7 +1602,7 @@
     "informatie_categorieen": [
       {
         "uuid": "be4e21c2-0be5-4616-945e-1f101b0c0e6d",
-        "name": "wet of algemeen verbindend voorschrift"
+        "naam": "wet of algemeen verbindend voorschrift"
       }
     ]
   },
@@ -1613,7 +1613,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T15:24:15.113388+01:00",
@@ -1621,7 +1621,7 @@
     "informatie_categorieen": [
       {
         "uuid": "be4e21c2-0be5-4616-945e-1f101b0c0e6d",
-        "name": "wet of algemeen verbindend voorschrift"
+        "naam": "wet of algemeen verbindend voorschrift"
       }
     ]
   },
@@ -1632,7 +1632,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T15:24:39.386334+01:00",
@@ -1640,7 +1640,7 @@
     "informatie_categorieen": [
       {
         "uuid": "be4e21c2-0be5-4616-945e-1f101b0c0e6d",
-        "name": "wet of algemeen verbindend voorschrift"
+        "naam": "wet of algemeen verbindend voorschrift"
       }
     ]
   },
@@ -1651,7 +1651,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T15:30:38.807218+01:00",
@@ -1659,7 +1659,7 @@
     "informatie_categorieen": [
       {
         "uuid": "be4e21c2-0be5-4616-945e-1f101b0c0e6d",
-        "name": "wet of algemeen verbindend voorschrift"
+        "naam": "wet of algemeen verbindend voorschrift"
       }
     ]
   },
@@ -1670,7 +1670,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T15:31:08.604138+01:00",
@@ -1678,7 +1678,7 @@
     "informatie_categorieen": [
       {
         "uuid": "be4e21c2-0be5-4616-945e-1f101b0c0e6d",
-        "name": "wet of algemeen verbindend voorschrift"
+        "naam": "wet of algemeen verbindend voorschrift"
       }
     ]
   },
@@ -1689,7 +1689,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T15:31:40.719702+01:00",
@@ -1697,7 +1697,7 @@
     "informatie_categorieen": [
       {
         "uuid": "be4e21c2-0be5-4616-945e-1f101b0c0e6d",
-        "name": "wet of algemeen verbindend voorschrift"
+        "naam": "wet of algemeen verbindend voorschrift"
       }
     ]
   },
@@ -1708,7 +1708,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T15:34:10.466461+01:00",
@@ -1716,7 +1716,7 @@
     "informatie_categorieen": [
       {
         "uuid": "be4e21c2-0be5-4616-945e-1f101b0c0e6d",
-        "name": "wet of algemeen verbindend voorschrift"
+        "naam": "wet of algemeen verbindend voorschrift"
       }
     ]
   },
@@ -1727,7 +1727,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T15:34:46.996572+01:00",
@@ -1735,7 +1735,7 @@
     "informatie_categorieen": [
       {
         "uuid": "be4e21c2-0be5-4616-945e-1f101b0c0e6d",
-        "name": "wet of algemeen verbindend voorschrift"
+        "naam": "wet of algemeen verbindend voorschrift"
       }
     ]
   },
@@ -1746,7 +1746,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T15:36:56.388939+01:00",
@@ -1754,7 +1754,7 @@
     "informatie_categorieen": [
       {
         "uuid": "be4e21c2-0be5-4616-945e-1f101b0c0e6d",
-        "name": "wet of algemeen verbindend voorschrift"
+        "naam": "wet of algemeen verbindend voorschrift"
       }
     ]
   },
@@ -1765,7 +1765,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T15:41:13.273155+01:00",
@@ -1773,7 +1773,7 @@
     "informatie_categorieen": [
       {
         "uuid": "be4e21c2-0be5-4616-945e-1f101b0c0e6d",
-        "name": "wet of algemeen verbindend voorschrift"
+        "naam": "wet of algemeen verbindend voorschrift"
       }
     ]
   },
@@ -1784,7 +1784,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T15:43:34.770855+01:00",
@@ -1792,7 +1792,7 @@
     "informatie_categorieen": [
       {
         "uuid": "be4e21c2-0be5-4616-945e-1f101b0c0e6d",
-        "name": "wet of algemeen verbindend voorschrift"
+        "naam": "wet of algemeen verbindend voorschrift"
       }
     ]
   },
@@ -1803,7 +1803,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T15:51:23.660272+01:00",
@@ -1811,7 +1811,7 @@
     "informatie_categorieen": [
       {
         "uuid": "be4e21c2-0be5-4616-945e-1f101b0c0e6d",
-        "name": "wet of algemeen verbindend voorschrift"
+        "naam": "wet of algemeen verbindend voorschrift"
       }
     ]
   },
@@ -1822,7 +1822,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T15:52:27.766451+01:00",
@@ -1830,7 +1830,7 @@
     "informatie_categorieen": [
       {
         "uuid": "be4e21c2-0be5-4616-945e-1f101b0c0e6d",
-        "name": "wet of algemeen verbindend voorschrift"
+        "naam": "wet of algemeen verbindend voorschrift"
       }
     ]
   },
@@ -1841,7 +1841,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T15:58:14.576484+01:00",
@@ -1849,7 +1849,7 @@
     "informatie_categorieen": [
       {
         "uuid": "be4e21c2-0be5-4616-945e-1f101b0c0e6d",
-        "name": "wet of algemeen verbindend voorschrift"
+        "naam": "wet of algemeen verbindend voorschrift"
       }
     ]
   },
@@ -1860,7 +1860,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T16:01:35.940775+01:00",
@@ -1868,7 +1868,7 @@
     "informatie_categorieen": [
       {
         "uuid": "be4e21c2-0be5-4616-945e-1f101b0c0e6d",
-        "name": "wet of algemeen verbindend voorschrift"
+        "naam": "wet of algemeen verbindend voorschrift"
       }
     ]
   },
@@ -1879,7 +1879,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T16:13:47.795738+01:00",
@@ -1887,7 +1887,7 @@
     "informatie_categorieen": [
       {
         "uuid": "be4e21c2-0be5-4616-945e-1f101b0c0e6d",
-        "name": "wet of algemeen verbindend voorschrift"
+        "naam": "wet of algemeen verbindend voorschrift"
       }
     ]
   },
@@ -1898,7 +1898,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T16:17:37.18005+01:00",
@@ -1906,7 +1906,7 @@
     "informatie_categorieen": [
       {
         "uuid": "be4e21c2-0be5-4616-945e-1f101b0c0e6d",
-        "name": "wet of algemeen verbindend voorschrift"
+        "naam": "wet of algemeen verbindend voorschrift"
       }
     ]
   },
@@ -1917,7 +1917,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T16:43:05.004504+01:00",
@@ -1925,7 +1925,7 @@
     "informatie_categorieen": [
       {
         "uuid": "be4e21c2-0be5-4616-945e-1f101b0c0e6d",
-        "name": "wet of algemeen verbindend voorschrift"
+        "naam": "wet of algemeen verbindend voorschrift"
       }
     ]
   },
@@ -1936,7 +1936,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T16:43:22.041132+01:00",
@@ -1944,7 +1944,7 @@
     "informatie_categorieen": [
       {
         "uuid": "be4e21c2-0be5-4616-945e-1f101b0c0e6d",
-        "name": "wet of algemeen verbindend voorschrift"
+        "naam": "wet of algemeen verbindend voorschrift"
       }
     ]
   },
@@ -1955,7 +1955,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T16:45:34.530533+01:00",
@@ -1963,7 +1963,7 @@
     "informatie_categorieen": [
       {
         "uuid": "be4e21c2-0be5-4616-945e-1f101b0c0e6d",
-        "name": "wet of algemeen verbindend voorschrift"
+        "naam": "wet of algemeen verbindend voorschrift"
       }
     ]
   },
@@ -1974,7 +1974,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T17:50:26.002681+01:00",
@@ -1982,7 +1982,7 @@
     "informatie_categorieen": [
       {
         "uuid": "be4e21c2-0be5-4616-945e-1f101b0c0e6d",
-        "name": "wet of algemeen verbindend voorschrift"
+        "naam": "wet of algemeen verbindend voorschrift"
       }
     ]
   },
@@ -1993,7 +1993,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-25T16:28:21.248276+01:00",
@@ -2001,7 +2001,7 @@
     "informatie_categorieen": [
       {
         "uuid": "be4e21c2-0be5-4616-945e-1f101b0c0e6d",
-        "name": "wet of algemeen verbindend voorschrift"
+        "naam": "wet of algemeen verbindend voorschrift"
       }
     ]
   },
@@ -2012,7 +2012,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-26T08:41:05.383539+01:00",
@@ -2020,7 +2020,7 @@
     "informatie_categorieen": [
       {
         "uuid": "8f3bdef0-a926-4f67-b1f2-94c583c462ce",
-        "name": "overig besluit van algemene strekking"
+        "naam": "overig besluit van algemene strekking"
       }
     ]
   },
@@ -2031,7 +2031,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-26T10:28:46.116293+01:00",
@@ -2039,79 +2039,79 @@
     "informatie_categorieen": [
       {
         "uuid": "be4e21c2-0be5-4616-945e-1f101b0c0e6d",
-        "name": "wet of algemeen verbindend voorschrift"
+        "naam": "wet of algemeen verbindend voorschrift"
       },
       {
         "uuid": "8f3bdef0-a926-4f67-b1f2-94c583c462ce",
-        "name": "overig besluit van algemene strekking"
+        "naam": "overig besluit van algemene strekking"
       },
       {
         "uuid": "88fb1c5e-e899-456d-b077-6101a9829c11",
-        "name": "ontwerp van wet- en regelgeving met adviesaanvraag"
+        "naam": "ontwerp van wet- en regelgeving met adviesaanvraag"
       },
       {
         "uuid": "9aeb7501-3f77-4f36-8c8f-d21f47c2d6e8",
-        "name": "organisatie en werkwijze"
+        "naam": "organisatie en werkwijze"
       },
       {
         "uuid": "7184027d-5634-4bd4-8121-871916384f0e",
-        "name": "bereikbaarheidsgegevens"
+        "naam": "bereikbaarheidsgegevens"
       },
       {
         "uuid": "ca9a38d6-5774-43fb-acc0-04832e9fd231",
-        "name": "bij vertegenwoordigend orgaan ingekomen stuk"
+        "naam": "bij vertegenwoordigend orgaan ingekomen stuk"
       },
       {
         "uuid": "568ebb54-9e43-4c12-924f-77f7d812026d",
-        "name": "vergaderstuk Staten-Generaal"
+        "naam": "vergaderstuk Staten-Generaal"
       },
       {
         "uuid": "57e3c1e2-53aa-4d2c-888d-7232288dd425",
-        "name": "vergaderstuk decentrale overheid"
+        "naam": "vergaderstuk decentrale overheid"
       },
       {
         "uuid": "380f49a4-8578-4317-b91e-3dfd13bab89b",
-        "name": "agenda of besluitenlijst bestuurscollege"
+        "naam": "agenda of besluitenlijst bestuurscollege"
       },
       {
         "uuid": "5bfcb832-e940-493e-8050-699053f4f56a",
-        "name": "advies"
+        "naam": "advies"
       },
       {
         "uuid": "7ee891df-ca3e-4b19-b9e5-494bc3c485ea",
-        "name": "convenant"
+        "naam": "convenant"
       },
       {
         "uuid": "f4de3422-ce74-45c7-b881-45bebe90984f",
-        "name": "jaarplan of jaarverslag"
+        "naam": "jaarplan of jaarverslag"
       },
       {
         "uuid": "68e33566-9f48-4547-8024-2d0d03b54b4d",
-        "name": "subsidieverplichting anders dan met beschikking"
+        "naam": "subsidieverplichting anders dan met beschikking"
       },
       {
         "uuid": "b84c3b0d-a471-48f5-915f-7fbd8b94188f",
-        "name": "Woo-verzoek of -besluit"
+        "naam": "Woo-verzoek of -besluit"
       },
       {
         "uuid": "e7f1b136-58f1-4d7e-82b3-0571e2388058",
-        "name": "onderzoeksrapport"
+        "naam": "onderzoeksrapport"
       },
       {
         "uuid": "d3008496-a014-431a-8b6b-0813f09e6085",
-        "name": "beschikking"
+        "naam": "beschikking"
       },
       {
         "uuid": "3e9298ed-c90a-49fb-b89d-0cc060b7b0f7",
-        "name": "klachtoordeel"
+        "naam": "klachtoordeel"
       },
       {
         "uuid": "a5361d34-038d-471c-8258-4fcefd9eafde",
-        "name": "Zelf toegevoegde informatiecategorie"
+        "naam": "Zelf toegevoegde informatiecategorie"
       },
       {
         "uuid": "8223209f-a502-4dda-b1b6-c33b61525239",
-        "name": "inspanningsverplichting art 3.1 Woo"
+        "naam": "inspanningsverplichting art 3.1 Woo"
       }
     ]
   },
@@ -2122,7 +2122,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "efcaa3b7-631d-4d62-95fc-699332b28f03",
-      "name": "gemeente Rotterdam"
+      "naam": "gemeente Rotterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-26T13:50:45.344897+01:00",
@@ -2130,7 +2130,7 @@
     "informatie_categorieen": [
       {
         "uuid": "be4e21c2-0be5-4616-945e-1f101b0c0e6d",
-        "name": "wet of algemeen verbindend voorschrift"
+        "naam": "wet of algemeen verbindend voorschrift"
       }
     ]
   },
@@ -2141,7 +2141,7 @@
     "verkorte_titel": "\u00EB\u00EF\u00F6\u00E1\u00E7\u00F2\u0027:\u0022\u0022|{}\u003C\u003E?/,.;][\\\\|5%5\u0060~\u0060",
     "publisher": {
       "uuid": "efcaa3b7-631d-4d62-95fc-699332b28f03",
-      "name": "gemeente Rotterdam"
+      "naam": "gemeente Rotterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-26T14:24:01.627474+01:00",
@@ -2149,7 +2149,7 @@
     "informatie_categorieen": [
       {
         "uuid": "be4e21c2-0be5-4616-945e-1f101b0c0e6d",
-        "name": "wet of algemeen verbindend voorschrift"
+        "naam": "wet of algemeen verbindend voorschrift"
       }
     ]
   },
@@ -2160,7 +2160,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-28T17:08:10.337797+01:00",
@@ -2168,7 +2168,7 @@
     "informatie_categorieen": [
       {
         "uuid": "be4e21c2-0be5-4616-945e-1f101b0c0e6d",
-        "name": "wet of algemeen verbindend voorschrift"
+        "naam": "wet of algemeen verbindend voorschrift"
       }
     ]
   },
@@ -2179,7 +2179,7 @@
     "verkorte_titel": "Wijziging info cat en org",
     "publisher": {
       "uuid": "b2f3a063-c927-4f5f-8060-bb532011f586",
-      "name": "gemeente Sittard-Geleen"
+      "naam": "gemeente Sittard-Geleen"
     },
     "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent in dignissim turpis. Nulla quis consequat ex, vel ultrices est. Phasellus eget mi vel lacus venenatis consectetur. Mauris placerat magna orci, at lobortis sapien vestibulum nec. Aenean in nulla ultricies, rhoncus purus eget, facilisis libero. Curabitur velit arcu, tincidunt fermentum lacinia sit amet, varius sed purus. Proin mollis lacus magna, sit amet dapibus turpis condimentum non. Aliquam quis leo consectetur, pulvinar nunc sit amet, mollis sapien. Pellentesque euismod dolor eget libero tempus condimentum. Praesent sed vehicula elit. Aliquam eu vehicula turpis. Quisque lacinia est at tellus tempus efficitur. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer sapien orci, luctus ac auctor non, aliquet non quam. Maecenas commodo dignissim metus. Duis a bibendum mauris, suscipit imperdiet augue.",
     "registratiedatum": "2024-12-02T09:51:06.839286+01:00",
@@ -2187,11 +2187,11 @@
     "informatie_categorieen": [
       {
         "uuid": "5bfcb832-e940-493e-8050-699053f4f56a",
-        "name": "advies"
+        "naam": "advies"
       },
       {
         "uuid": "f4de3422-ce74-45c7-b881-45bebe90984f",
-        "name": "jaarplan of jaarverslag"
+        "naam": "jaarplan of jaarverslag"
       }
     ]
   },
@@ -2202,7 +2202,7 @@
     "verkorte_titel": "sitemap 2",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "omsch sitemap 2",
     "registratiedatum": "2024-12-02T09:52:15.941547+01:00",
@@ -2210,7 +2210,7 @@
     "informatie_categorieen": [
       {
         "uuid": "8f3bdef0-a926-4f67-b1f2-94c583c462ce",
-        "name": "overig besluit van algemene strekking"
+        "naam": "overig besluit van algemene strekking"
       }
     ]
   },
@@ -2221,7 +2221,7 @@
     "verkorte_titel": "testetst",
     "publisher": {
       "uuid": "9568a916-89b2-4e6d-a098-73c978003cc1",
-      "name": "gemeente Waterland"
+      "naam": "gemeente Waterland"
     },
     "omschrijving": "tetsteakdlnlnnxc;nm",
     "registratiedatum": "2024-12-02T09:55:24.444146+01:00",
@@ -2229,7 +2229,7 @@
     "informatie_categorieen": [
       {
         "uuid": "3e9298ed-c90a-49fb-b89d-0cc060b7b0f7",
-        "name": "klachtoordeel"
+        "naam": "klachtoordeel"
       }
     ]
   },
@@ -2240,7 +2240,7 @@
     "verkorte_titel": "zonder doc.",
     "publisher": {
       "uuid": "b2f3a063-c927-4f5f-8060-bb532011f586",
-      "name": "gemeente Sittard-Geleen"
+      "naam": "gemeente Sittard-Geleen"
     },
     "omschrijving": "",
     "registratiedatum": "2024-12-02T09:55:45.408845+01:00",
@@ -2248,7 +2248,7 @@
     "informatie_categorieen": [
       {
         "uuid": "7184027d-5634-4bd4-8121-871916384f0e",
-        "name": "bereikbaarheidsgegevens"
+        "naam": "bereikbaarheidsgegevens"
       }
     ]
   },
@@ -2259,7 +2259,7 @@
     "verkorte_titel": "verkorte....",
     "publisher": {
       "uuid": "599c0b00-649f-4e17-9f08-337150daff3b",
-      "name": "Gemeentelijke Gezondheidsdienst Rotterdam-Rijnmond"
+      "naam": "Gemeentelijke Gezondheidsdienst Rotterdam-Rijnmond"
     },
     "omschrijving": "efwf g egf eefdefd b  bd",
     "registratiedatum": "2024-12-02T09:56:50.718666+01:00",
@@ -2267,7 +2267,7 @@
     "informatie_categorieen": [
       {
         "uuid": "57e3c1e2-53aa-4d2c-888d-7232288dd425",
-        "name": "vergaderstuk decentrale overheid"
+        "naam": "vergaderstuk decentrale overheid"
       }
     ]
   },
@@ -2278,7 +2278,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "fdb20e6f-9f95-4cd5-ad85-58ae33a48fe2",
-      "name": "gemeente Vijfheerenlanden"
+      "naam": "gemeente Vijfheerenlanden"
     },
     "omschrijving": "",
     "registratiedatum": "2024-12-03T13:51:46.304126+01:00",
@@ -2286,7 +2286,7 @@
     "informatie_categorieen": [
       {
         "uuid": "be4e21c2-0be5-4616-945e-1f101b0c0e6d",
-        "name": "wet of algemeen verbindend voorschrift"
+        "naam": "wet of algemeen verbindend voorschrift"
       }
     ]
   },
@@ -2297,7 +2297,7 @@
     "verkorte_titel": "Samen Veilig",
     "publisher": {
       "uuid": "599c0b00-649f-4e17-9f08-337150daff3b",
-      "name": "Gemeentelijke Gezondheidsdienst Rotterdam-Rijnmond"
+      "naam": "Gemeentelijke Gezondheidsdienst Rotterdam-Rijnmond"
     },
     "omschrijving": "Samen Veilig Midden-Nederland komt in beeld als er zorgen zijn over de veiligheid van een kind of als er sprake is van geweld in de huiselijke sfeer. Met 575 medewerkers maken wij ons sterk voor de veiligheid van inwoners van de provincies Utrecht en Flevoland.",
     "registratiedatum": "2024-12-04T08:49:22.492018+01:00",
@@ -2305,7 +2305,7 @@
     "informatie_categorieen": [
       {
         "uuid": "7ee891df-ca3e-4b19-b9e5-494bc3c485ea",
-        "name": "convenant"
+        "naam": "convenant"
       }
     ]
   },
@@ -2316,7 +2316,7 @@
     "verkorte_titel": "Common Ground",
     "publisher": {
       "uuid": "9568a916-89b2-4e6d-a098-73c978003cc1",
-      "name": "gemeente Waterland"
+      "naam": "gemeente Waterland"
     },
     "omschrijving": "",
     "registratiedatum": "2024-12-04T13:47:38.341885+01:00",
@@ -2324,7 +2324,7 @@
     "informatie_categorieen": [
       {
         "uuid": "5bfcb832-e940-493e-8050-699053f4f56a",
-        "name": "advies"
+        "naam": "advies"
       }
     ]
   },
@@ -2335,7 +2335,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "efcaa3b7-631d-4d62-95fc-699332b28f03",
-      "name": "gemeente Rotterdam"
+      "naam": "gemeente Rotterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-12-05T14:14:03.937922+01:00",
@@ -2343,7 +2343,7 @@
     "informatie_categorieen": [
       {
         "uuid": "fcb20daa-6825-4626-8e58-6f093406ecf8",
-        "name": "Project openbare ruimte"
+        "naam": "Project openbare ruimte"
       }
     ]
   },
@@ -2354,7 +2354,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "efcaa3b7-631d-4d62-95fc-699332b28f03",
-      "name": "gemeente Rotterdam"
+      "naam": "gemeente Rotterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-12-16T14:31:45.883838+01:00",
@@ -2362,7 +2362,7 @@
     "informatie_categorieen": [
       {
         "uuid": "be4e21c2-0be5-4616-945e-1f101b0c0e6d",
-        "name": "wet of algemeen verbindend voorschrift"
+        "naam": "wet of algemeen verbindend voorschrift"
       }
     ]
   },
@@ -2373,7 +2373,7 @@
     "verkorte_titel": "B\u0026W 10-12-204",
     "publisher": {
       "uuid": "efcaa3b7-631d-4d62-95fc-699332b28f03",
-      "name": "gemeente Rotterdam"
+      "naam": "gemeente Rotterdam"
     },
     "omschrijving": "rdvkjng rskjhglerkjhhg lkjer hglkjhglkdrhgkl",
     "registratiedatum": "2024-12-18T10:18:11.240565+01:00",
@@ -2381,7 +2381,7 @@
     "informatie_categorieen": [
       {
         "uuid": "380f49a4-8578-4317-b91e-3dfd13bab89b",
-        "name": "agenda of besluitenlijst bestuurscollege"
+        "naam": "agenda of besluitenlijst bestuurscollege"
       }
     ]
   },
@@ -2392,7 +2392,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "efcaa3b7-631d-4d62-95fc-699332b28f03",
-      "name": "gemeente Rotterdam"
+      "naam": "gemeente Rotterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2025-01-28T11:10:33.055798+01:00",
@@ -2400,7 +2400,7 @@
     "informatie_categorieen": [
       {
         "uuid": "c364dfe3-cdf4-4151-bb24-39412b218f3d",
-        "name": "Extra categorie X"
+        "naam": "Extra categorie X"
       }
     ]
   },
@@ -2411,7 +2411,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "efcaa3b7-631d-4d62-95fc-699332b28f03",
-      "name": "gemeente Rotterdam"
+      "naam": "gemeente Rotterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2025-01-28T11:10:46.081526+01:00",
@@ -2419,7 +2419,7 @@
     "informatie_categorieen": [
       {
         "uuid": "57e3c1e2-53aa-4d2c-888d-7232288dd425",
-        "name": "vergaderstuk decentrale overheid"
+        "naam": "vergaderstuk decentrale overheid"
       }
     ]
   },
@@ -2430,7 +2430,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "efcaa3b7-631d-4d62-95fc-699332b28f03",
-      "name": "gemeente Rotterdam"
+      "naam": "gemeente Rotterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2025-01-29T09:50:19.069877+01:00",
@@ -2438,7 +2438,7 @@
     "informatie_categorieen": [
       {
         "uuid": "57e3c1e2-53aa-4d2c-888d-7232288dd425",
-        "name": "vergaderstuk decentrale overheid"
+        "naam": "vergaderstuk decentrale overheid"
       }
     ]
   },
@@ -2449,7 +2449,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "9568a916-89b2-4e6d-a098-73c978003cc1",
-      "name": "gemeente Waterland"
+      "naam": "gemeente Waterland"
     },
     "omschrijving": "",
     "registratiedatum": "2025-01-29T14:45:29.102929+01:00",
@@ -2457,15 +2457,15 @@
     "informatie_categorieen": [
       {
         "uuid": "5bfcb832-e940-493e-8050-699053f4f56a",
-        "name": "advies"
+        "naam": "advies"
       },
       {
         "uuid": "7ee891df-ca3e-4b19-b9e5-494bc3c485ea",
-        "name": "convenant"
+        "naam": "convenant"
       },
       {
         "uuid": "f4de3422-ce74-45c7-b881-45bebe90984f",
-        "name": "jaarplan of jaarverslag"
+        "naam": "jaarplan of jaarverslag"
       }
     ]
   },
@@ -2476,7 +2476,7 @@
     "verkorte_titel": "titel kort",
     "publisher": {
       "uuid": "efcaa3b7-631d-4d62-95fc-699332b28f03",
-      "name": "gemeente Rotterdam"
+      "naam": "gemeente Rotterdam"
     },
     "omschrijving": "dcvwerft esgerag rdgh erdg hth dr rdfd hdg erhe",
     "registratiedatum": "2025-02-10T15:28:52.361951+01:00",
@@ -2484,15 +2484,15 @@
     "informatie_categorieen": [
       {
         "uuid": "5bfcb832-e940-493e-8050-699053f4f56a",
-        "name": "advies"
+        "naam": "advies"
       },
       {
         "uuid": "7ee891df-ca3e-4b19-b9e5-494bc3c485ea",
-        "name": "convenant"
+        "naam": "convenant"
       },
       {
         "uuid": "f4de3422-ce74-45c7-b881-45bebe90984f",
-        "name": "jaarplan of jaarverslag"
+        "naam": "jaarplan of jaarverslag"
       }
     ]
   },
@@ -2503,7 +2503,7 @@
     "verkorte_titel": "test",
     "publisher": {
       "uuid": "7851919b-05f6-436f-aa05-425512baf90c",
-      "name": "changed"
+      "naam": "changed"
     },
     "omschrijving": "tets",
     "registratiedatum": "2024-10-22T00:00:00+00:00",
@@ -2516,7 +2516,7 @@
     "verkorte_titel": "test2",
     "publisher": {
       "uuid": "7851919b-05f6-436f-aa05-425512baf90c",
-      "name": "changed"
+      "naam": "changed"
     },
     "omschrijving": "test2 .....",
     "registratiedatum": "2024-10-22T00:00:00+00:00",
@@ -2529,7 +2529,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "7851919b-05f6-436f-aa05-425512baf90c",
-      "name": "changed"
+      "naam": "changed"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-06T00:00:00+00:00",
@@ -2542,7 +2542,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "b2f3a063-c927-4f5f-8060-bb532011f586",
-      "name": "gemeente Sittard-Geleen"
+      "naam": "gemeente Sittard-Geleen"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-11T00:00:00+00:00",
@@ -2555,7 +2555,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "b2f3a063-c927-4f5f-8060-bb532011f586",
-      "name": "gemeente Sittard-Geleen"
+      "naam": "gemeente Sittard-Geleen"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-11T00:00:00+00:00",
@@ -2568,7 +2568,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "b2f3a063-c927-4f5f-8060-bb532011f586",
-      "name": "gemeente Sittard-Geleen"
+      "naam": "gemeente Sittard-Geleen"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-11T00:00:00+00:00",
@@ -2581,7 +2581,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "b2f3a063-c927-4f5f-8060-bb532011f586",
-      "name": "gemeente Sittard-Geleen"
+      "naam": "gemeente Sittard-Geleen"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-11T00:00:00+00:00",
@@ -2594,7 +2594,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "b2f3a063-c927-4f5f-8060-bb532011f586",
-      "name": "gemeente Sittard-Geleen"
+      "naam": "gemeente Sittard-Geleen"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-11T00:00:00+00:00",
@@ -2607,7 +2607,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "b2f3a063-c927-4f5f-8060-bb532011f586",
-      "name": "gemeente Sittard-Geleen"
+      "naam": "gemeente Sittard-Geleen"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-11T00:00:00+00:00",
@@ -2620,7 +2620,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "b2f3a063-c927-4f5f-8060-bb532011f586",
-      "name": "gemeente Sittard-Geleen"
+      "naam": "gemeente Sittard-Geleen"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-11T00:00:00+00:00",
@@ -2633,7 +2633,7 @@
     "verkorte_titel": "Worksheet",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "Omschrijving",
     "registratiedatum": "2024-11-14T00:00:00+00:00",
@@ -2646,7 +2646,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T00:00:00+00:00",
@@ -2659,7 +2659,7 @@
     "verkorte_titel": "Presentation",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "Omschrijving",
     "registratiedatum": "2024-11-14T00:00:00+00:00",
@@ -2672,7 +2672,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T00:00:00+00:00",
@@ -2685,7 +2685,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T00:00:00+00:00",
@@ -2698,7 +2698,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T00:00:00+00:00",
@@ -2711,7 +2711,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T00:00:00+00:00",
@@ -2724,7 +2724,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T00:00:00+00:00",
@@ -2737,7 +2737,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T00:00:00+00:00",
@@ -2750,7 +2750,7 @@
     "verkorte_titel": "Worksheet",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "Omschrijving",
     "registratiedatum": "2024-11-14T00:00:00+00:00",
@@ -2763,7 +2763,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T00:00:00+00:00",
@@ -2776,7 +2776,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T00:00:00+00:00",
@@ -2789,7 +2789,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T00:00:00+00:00",
@@ -2802,7 +2802,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T00:00:00+00:00",
@@ -2815,7 +2815,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T00:00:00+00:00",
@@ -2828,7 +2828,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T00:00:00+00:00",
@@ -2841,7 +2841,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T00:00:00+00:00",
@@ -2854,7 +2854,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T00:00:00+00:00",
@@ -2867,7 +2867,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T00:00:00+00:00",
@@ -2880,7 +2880,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T00:00:00+00:00",
@@ -2893,7 +2893,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T00:00:00+00:00",
@@ -2906,7 +2906,7 @@
     "verkorte_titel": "Worksheet",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "Omschrijving",
     "registratiedatum": "2024-11-14T00:00:00+00:00",
@@ -2919,7 +2919,7 @@
     "verkorte_titel": "Common",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "Omschrijving",
     "registratiedatum": "2024-11-14T00:00:00+00:00",
@@ -2932,7 +2932,7 @@
     "verkorte_titel": "Worksheet",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "Omschrijving",
     "registratiedatum": "2024-11-14T00:00:00+00:00",
@@ -2945,7 +2945,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T00:00:00+00:00",
@@ -2958,7 +2958,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T00:00:00+00:00",
@@ -2971,7 +2971,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T00:00:00+00:00",
@@ -2984,7 +2984,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T00:00:00+00:00",
@@ -2997,7 +2997,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T00:00:00+00:00",
@@ -3010,7 +3010,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T00:00:00+00:00",
@@ -3023,7 +3023,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T00:00:00+00:00",
@@ -3036,7 +3036,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T00:00:00+00:00",
@@ -3049,7 +3049,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T00:00:00+00:00",
@@ -3062,7 +3062,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T00:00:00+00:00",
@@ -3075,7 +3075,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T00:00:00+00:00",
@@ -3088,7 +3088,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T00:00:00+00:00",
@@ -3101,7 +3101,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T00:00:00+00:00",
@@ -3114,7 +3114,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-14T00:00:00+00:00",
@@ -3127,7 +3127,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "7851919b-05f6-436f-aa05-425512baf90c",
-      "name": "changed"
+      "naam": "changed"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-15T00:00:00+00:00",
@@ -3140,7 +3140,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-18T00:00:00+00:00",
@@ -3153,7 +3153,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-18T00:00:00+00:00",
@@ -3166,7 +3166,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-18T00:00:00+00:00",
@@ -3179,7 +3179,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-18T00:00:00+00:00",
@@ -3192,7 +3192,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-18T00:00:00+00:00",
@@ -3205,7 +3205,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-18T00:00:00+00:00",
@@ -3218,7 +3218,7 @@
     "verkorte_titel": "Ground",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "Omschrijving",
     "registratiedatum": "2024-11-18T00:00:00+00:00",
@@ -3231,7 +3231,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-18T00:00:00+00:00",
@@ -3244,7 +3244,7 @@
     "verkorte_titel": "Ground",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "Omschrijving",
     "registratiedatum": "2024-11-18T00:00:00+00:00",
@@ -3257,7 +3257,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-18T00:00:00+00:00",
@@ -3270,7 +3270,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-18T00:00:00+00:00",
@@ -3283,7 +3283,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-18T00:00:00+00:00",
@@ -3296,7 +3296,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-18T00:00:00+00:00",
@@ -3309,7 +3309,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-18T00:00:00+00:00",
@@ -3322,7 +3322,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-18T00:00:00+00:00",
@@ -3335,7 +3335,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-18T00:00:00+00:00",
@@ -3348,7 +3348,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-18T00:00:00+00:00",
@@ -3361,7 +3361,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-18T00:00:00+00:00",
@@ -3374,7 +3374,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-18T00:00:00+00:00",
@@ -3387,7 +3387,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-18T00:00:00+00:00",
@@ -3400,7 +3400,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-19T00:00:00+00:00",
@@ -3413,7 +3413,7 @@
     "verkorte_titel": "x",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "x",
     "registratiedatum": "2024-11-20T00:00:00+00:00",
@@ -3426,7 +3426,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T00:00:00+00:00",
@@ -3439,7 +3439,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T00:00:00+00:00",
@@ -3452,7 +3452,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T00:00:00+00:00",
@@ -3465,7 +3465,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T00:00:00+00:00",
@@ -3478,7 +3478,7 @@
     "verkorte_titel": "oude tekst",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "OUDE TEKST",
     "registratiedatum": "2024-11-20T00:00:00+00:00",
@@ -3491,7 +3491,7 @@
     "verkorte_titel": "nieuwe tekst",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "NIEUWE TEKST",
     "registratiedatum": "2024-11-20T00:00:00+00:00",
@@ -3504,7 +3504,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T00:00:00+00:00",
@@ -3517,7 +3517,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T00:00:00+00:00",
@@ -3530,7 +3530,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T00:00:00+00:00",
@@ -3543,7 +3543,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T00:00:00+00:00",
@@ -3556,7 +3556,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T00:00:00+00:00",
@@ -3569,7 +3569,7 @@
     "verkorte_titel": "Ground",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "Omschrijving",
     "registratiedatum": "2024-11-20T00:00:00+00:00",
@@ -3582,7 +3582,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T00:00:00+00:00",
@@ -3595,7 +3595,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T00:00:00+00:00",
@@ -3608,7 +3608,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T00:00:00+00:00",
@@ -3621,7 +3621,7 @@
     "verkorte_titel": "excel",
     "publisher": {
       "uuid": "efcaa3b7-631d-4d62-95fc-699332b28f03",
-      "name": "gemeente Rotterdam"
+      "naam": "gemeente Rotterdam"
     },
     "omschrijving": "excel omschr",
     "registratiedatum": "2024-11-20T00:00:00+00:00",
@@ -3634,7 +3634,7 @@
     "verkorte_titel": "Word",
     "publisher": {
       "uuid": "efcaa3b7-631d-4d62-95fc-699332b28f03",
-      "name": "gemeente Rotterdam"
+      "naam": "gemeente Rotterdam"
     },
     "omschrijving": "Word omschr",
     "registratiedatum": "2024-11-20T00:00:00+00:00",
@@ -3647,7 +3647,7 @@
     "verkorte_titel": "excel",
     "publisher": {
       "uuid": "efcaa3b7-631d-4d62-95fc-699332b28f03",
-      "name": "gemeente Rotterdam"
+      "naam": "gemeente Rotterdam"
     },
     "omschrijving": "excel omschr",
     "registratiedatum": "2024-11-20T00:00:00+00:00",
@@ -3660,7 +3660,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "efcaa3b7-631d-4d62-95fc-699332b28f03",
-      "name": "gemeente Rotterdam"
+      "naam": "gemeente Rotterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T00:00:00+00:00",
@@ -3673,7 +3673,7 @@
     "verkorte_titel": "Word",
     "publisher": {
       "uuid": "efcaa3b7-631d-4d62-95fc-699332b28f03",
-      "name": "gemeente Rotterdam"
+      "naam": "gemeente Rotterdam"
     },
     "omschrijving": "Word omschr",
     "registratiedatum": "2024-11-20T00:00:00+00:00",
@@ -3686,7 +3686,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "6520cce6-18f5-4404-9e95-a8dc8d783263",
-      "name": "gemeente Groningen"
+      "naam": "gemeente Groningen"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T00:00:00+00:00",
@@ -3699,7 +3699,7 @@
     "verkorte_titel": "x",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "x",
     "registratiedatum": "2024-11-20T00:00:00+00:00",
@@ -3712,7 +3712,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-20T00:00:00+00:00",
@@ -3725,7 +3725,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-25T00:00:00+00:00",
@@ -3738,7 +3738,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-25T00:00:00+00:00",
@@ -3751,7 +3751,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-25T00:00:00+00:00",
@@ -3764,7 +3764,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-26T00:00:00+00:00",
@@ -3777,7 +3777,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-26T00:00:00+00:00",
@@ -3790,7 +3790,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-26T00:00:00+00:00",
@@ -3803,7 +3803,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-26T00:00:00+00:00",
@@ -3816,7 +3816,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-26T00:00:00+00:00",
@@ -3829,7 +3829,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-26T00:00:00+00:00",
@@ -3842,7 +3842,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-26T00:00:00+00:00",
@@ -3855,7 +3855,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-26T00:00:00+00:00",
@@ -3868,7 +3868,7 @@
     "verkorte_titel": "600MB",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-26T00:00:00+00:00",
@@ -3881,7 +3881,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-26T00:00:00+00:00",
@@ -3894,7 +3894,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-26T00:00:00+00:00",
@@ -3907,7 +3907,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-26T00:00:00+00:00",
@@ -3920,7 +3920,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-26T00:00:00+00:00",
@@ -3933,7 +3933,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-26T00:00:00+00:00",
@@ -3946,7 +3946,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-26T00:00:00+00:00",
@@ -3959,7 +3959,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-26T00:00:00+00:00",
@@ -3972,7 +3972,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-26T00:00:00+00:00",
@@ -3985,7 +3985,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-26T00:00:00+00:00",
@@ -3998,7 +3998,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-26T00:00:00+00:00",
@@ -4011,7 +4011,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-26T00:00:00+00:00",
@@ -4024,7 +4024,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-26T00:00:00+00:00",
@@ -4037,7 +4037,7 @@
     "verkorte_titel": "Ground",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-26T00:00:00+00:00",
@@ -4050,7 +4050,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "efcaa3b7-631d-4d62-95fc-699332b28f03",
-      "name": "gemeente Rotterdam"
+      "naam": "gemeente Rotterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-26T00:00:00+00:00",
@@ -4063,7 +4063,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-26T00:00:00+00:00",
@@ -4076,7 +4076,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-26T00:00:00+00:00",
@@ -4089,7 +4089,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-26T00:00:00+00:00",
@@ -4102,7 +4102,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "efcaa3b7-631d-4d62-95fc-699332b28f03",
-      "name": "gemeente Rotterdam"
+      "naam": "gemeente Rotterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-27T00:00:00+00:00",
@@ -4115,7 +4115,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-28T00:00:00+00:00",
@@ -4128,7 +4128,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-28T00:00:00+00:00",
@@ -4141,7 +4141,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-28T00:00:00+00:00",
@@ -4154,7 +4154,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-28T00:00:00+00:00",
@@ -4167,7 +4167,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-28T00:00:00+00:00",
@@ -4180,7 +4180,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-11-28T00:00:00+00:00",
@@ -4193,7 +4193,7 @@
     "verkorte_titel": "test 2",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "test 2",
     "registratiedatum": "2024-12-02T00:00:00+00:00",
@@ -4206,7 +4206,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "9568a916-89b2-4e6d-a098-73c978003cc1",
-      "name": "gemeente Waterland"
+      "naam": "gemeente Waterland"
     },
     "omschrijving": "",
     "registratiedatum": "2024-12-02T00:00:00+00:00",
@@ -4219,7 +4219,7 @@
     "verkorte_titel": "sitemap nieuw publ 2",
     "publisher": {
       "uuid": "b2f3a063-c927-4f5f-8060-bb532011f586",
-      "name": "gemeente Sittard-Geleen"
+      "naam": "gemeente Sittard-Geleen"
     },
     "omschrijving": "Lorem ipsum  2 dolor sit amet, consectetur adipiscing elit. Praesent in dignissim turpis. Nulla quis consequat ex, vel ultrices est. Phasellus eget mi vel lacus venenatis consectetur. Mauris placerat magna orci, at lobortis sapien vestibulum nec. Aenean in nulla ultricies, rhoncus purus eget, facilisis libero. Curabitur velit arcu, tincidunt fermentum lacinia sit amet, varius sed purus. Proin mollis lacus magna, sit amet dapibus turpis condimentum non. Aliquam quis leo consectetur, pulvinar nunc sit amet, mollis sapien. Pellentesque euismod dolor eget libero tempus condimentum. Praesent sed vehicula elit. Aliquam eu vehicula turpis. Quisque lacinia est at tellus tempus efficitur. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer sapien orci, luctus ac auctor non, aliquet non quam. Maecenas commodo dignissim metus. Duis a bibendum mauris, suscipit imperdiet augue.",
     "registratiedatum": "2024-12-02T00:00:00+00:00",
@@ -4232,7 +4232,7 @@
     "verkorte_titel": "test 1",
     "publisher": {
       "uuid": "385b6bac-ae67-4b69-8e5a-1456ded384e7",
-      "name": "gemeente Amsterdam"
+      "naam": "gemeente Amsterdam"
     },
     "omschrijving": "test 1",
     "registratiedatum": "2024-12-02T00:00:00+00:00",
@@ -4245,7 +4245,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "fdb20e6f-9f95-4cd5-ad85-58ae33a48fe2",
-      "name": "gemeente Vijfheerenlanden"
+      "naam": "gemeente Vijfheerenlanden"
     },
     "omschrijving": "",
     "registratiedatum": "2024-12-03T00:00:00+00:00",
@@ -4258,7 +4258,7 @@
     "verkorte_titel": "Samen Veilig",
     "publisher": {
       "uuid": "599c0b00-649f-4e17-9f08-337150daff3b",
-      "name": "Gemeentelijke Gezondheidsdienst Rotterdam-Rijnmond"
+      "naam": "Gemeentelijke Gezondheidsdienst Rotterdam-Rijnmond"
     },
     "omschrijving": "Samen Veilig Midden-Nederland komt in beeld als er zorgen zijn over de veiligheid van een kind of als er sprake is van geweld in de huiselijke sfeer. Met 575 medewerkers maken wij ons sterk voor de veiligheid van inwoners van de provincies Utrecht en Flevoland.",
     "registratiedatum": "2024-12-04T00:00:00+00:00",
@@ -4271,7 +4271,7 @@
     "verkorte_titel": "Verkorte titel",
     "publisher": {
       "uuid": "9568a916-89b2-4e6d-a098-73c978003cc1",
-      "name": "gemeente Waterland"
+      "naam": "gemeente Waterland"
     },
     "omschrijving": "",
     "registratiedatum": "2024-12-05T00:00:00+00:00",
@@ -4284,7 +4284,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "efcaa3b7-631d-4d62-95fc-699332b28f03",
-      "name": "gemeente Rotterdam"
+      "naam": "gemeente Rotterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-12-05T00:00:00+00:00",
@@ -4297,7 +4297,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "efcaa3b7-631d-4d62-95fc-699332b28f03",
-      "name": "gemeente Rotterdam"
+      "naam": "gemeente Rotterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2024-12-16T00:00:00+00:00",
@@ -4310,7 +4310,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "efcaa3b7-631d-4d62-95fc-699332b28f03",
-      "name": "gemeente Rotterdam"
+      "naam": "gemeente Rotterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2025-01-28T00:00:00+00:00",
@@ -4323,7 +4323,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "efcaa3b7-631d-4d62-95fc-699332b28f03",
-      "name": "gemeente Rotterdam"
+      "naam": "gemeente Rotterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2025-01-28T00:00:00+00:00",
@@ -4336,7 +4336,7 @@
     "verkorte_titel": "Cmmn Grnd",
     "publisher": {
       "uuid": "9568a916-89b2-4e6d-a098-73c978003cc1",
-      "name": "gemeente Waterland"
+      "naam": "gemeente Waterland"
     },
     "omschrijving": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean dolor elit, placerat quis feugiat quis, mattis id enim. Etiam at lacus in lorem semper semper.",
     "registratiedatum": "2025-01-29T00:00:00+00:00",
@@ -4349,7 +4349,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "efcaa3b7-631d-4d62-95fc-699332b28f03",
-      "name": "gemeente Rotterdam"
+      "naam": "gemeente Rotterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2025-01-29T00:00:00+00:00",
@@ -4362,7 +4362,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "efcaa3b7-631d-4d62-95fc-699332b28f03",
-      "name": "gemeente Rotterdam"
+      "naam": "gemeente Rotterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2025-02-10T00:00:00+00:00",
@@ -4375,7 +4375,7 @@
     "verkorte_titel": "",
     "publisher": {
       "uuid": "efcaa3b7-631d-4d62-95fc-699332b28f03",
-      "name": "gemeente Rotterdam"
+      "naam": "gemeente Rotterdam"
     },
     "omschrijving": "",
     "registratiedatum": "2025-02-10T00:00:00+00:00",

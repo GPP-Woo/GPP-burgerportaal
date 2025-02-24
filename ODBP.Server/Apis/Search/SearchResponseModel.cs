@@ -19,13 +19,13 @@ public record Facets
 public record Bucket
 {
     public required string Uuid { get; init; }
-    public required string Name { get; init; }
+    public required string Naam { get; init; }
     public required long Count { get; init; }
 }
 
 public record ResultTypeBucket
 {
-    public required ResultType Name { get; init; }
+    public required ResultType ResultType { get; init; }
     public required long Count { get; init; }
 }
 
@@ -46,11 +46,11 @@ public record SearchResult
 public record InformatieCategorie
 {
     public required string Uuid { get; init; }
-    public required string Name { get; init; }
+    public required string Naam { get; init; }
 }
 
 public record Org
 {
     public required string Uuid { get; init; }
-    public required string Name { get; init; }
+    public required string Naam { get; init; }
 }

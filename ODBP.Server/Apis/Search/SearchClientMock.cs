@@ -86,8 +86,8 @@ public class SearchClientMock(IHttpContextAccessor acc, ElasticsearchClient elas
                     }
                 }))
             .Aggregations(aa => aa
-                .Add(nameof(SearchResult.InformatieCategorieen), a => a.MultiTerms(t => t.Terms(r => r.Field(z => z.InformatieCategorieen[0].Uuid.Suffix(KeywordSuffix)), r => r.Field(z => z.InformatieCategorieen[0].Name.Suffix(KeywordSuffix)))))
-                .Add(nameof(SearchResult.Publisher), a => a.MultiTerms(t => t.Terms(r => r.Field(z => z.Publisher.Uuid.Suffix(KeywordSuffix)), r => r.Field(z => z.Publisher.Name.Suffix(KeywordSuffix)))))
+                .Add(nameof(SearchResult.InformatieCategorieen), a => a.MultiTerms(t => t.Terms(r => r.Field(z => z.InformatieCategorieen[0].Uuid.Suffix(KeywordSuffix)), r => r.Field(z => z.InformatieCategorieen[0].Naam.Suffix(KeywordSuffix)))))
+                .Add(nameof(SearchResult.Publisher), a => a.MultiTerms(t => t.Terms(r => r.Field(z => z.Publisher.Uuid.Suffix(KeywordSuffix)), r => r.Field(z => z.Publisher.Naam.Suffix(KeywordSuffix)))))
                 .Add(nameof(SearchResult.ResultType), a => a.Terms(t => t.Field(r => r.ResultType.Suffix(KeywordSuffix)))))
             .Sort(GetSort(request))
             , token);
@@ -107,7 +107,7 @@ public class SearchClientMock(IHttpContextAccessor acc, ElasticsearchClient elas
                     ?.Buckets.Select(b => new Bucket
                     {
                         Count = b.DocCount,
-                        Name = b.Key.ElementAt(1).ToString(),
+                        Naam = b.Key.ElementAt(1).ToString(),
                         Uuid = b.Key.ElementAt(0).ToString()
                     })
                     .ToArray() ?? [],
@@ -116,7 +116,7 @@ public class SearchClientMock(IHttpContextAccessor acc, ElasticsearchClient elas
                     ?.Buckets.Select(b => new Bucket
                     {
                         Count = b.DocCount,
-                        Name = b.Key.ElementAt(1).ToString(),
+                        Naam = b.Key.ElementAt(1).ToString(),
                         Uuid = b.Key.ElementAt(0).ToString()
                     }).ToArray() ?? [],
                 ResultTypes = response.Aggregations
@@ -124,7 +124,7 @@ public class SearchClientMock(IHttpContextAccessor acc, ElasticsearchClient elas
                     ?.Buckets.Select(b => new ResultTypeBucket
                     {
                         Count = b.DocCount,
-                        Name = Enum.Parse<ResultType>(b.Key.ToString())
+                        ResultType = Enum.Parse<ResultType>(b.Key.ToString())
                     })
                     .ToArray() ?? []
             },
