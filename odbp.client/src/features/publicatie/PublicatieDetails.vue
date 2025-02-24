@@ -1,8 +1,8 @@
 <template>
   <simple-spinner v-if="loading"></simple-spinner>
 
-  <alert-inline v-else-if="error"
-    >Er is iets misgegaan bij het ophalen van de publicatie...</alert-inline
+  <utrecht-alert v-else-if="error"
+    >Er is iets misgegaan bij het ophalen van de publicatie...</utrecht-alert
   >
 
   <template v-else>
@@ -85,7 +85,7 @@ import { computed, useId } from "vue";
 import { useFetchApi } from "@/api/use-fetch-api";
 import { useAllPages } from "@/composables/use-all-pages";
 import SimpleSpinner from "@/components/SimpleSpinner.vue";
-import AlertInline from "@/components/AlertInline.vue";
+import UtrechtAlert from "@/components/UtrechtAlert.vue";
 import GppWooIcon from "@/components/GppWooIcon.vue";
 import { formatDate } from "@/helpers";
 import type { Publicatie, PublicatieDocument } from "./types";

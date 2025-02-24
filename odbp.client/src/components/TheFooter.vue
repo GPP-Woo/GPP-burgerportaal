@@ -6,8 +6,6 @@
           <template v-for="[key, value] in listItems" :key="key">
             <li v-if="resources?.[key]" class="utrecht-link-list__item">
               <utrecht-link external :href="resources[key]" class="utrecht-link-list__link">
-                <gpp-woo-icon icon="chevron-right" />
-
                 <span class="utrecht-link-list__link-text">{{ value }}</span>
 
                 <span class="visually-hidden">(externe link)</span>
@@ -34,3 +32,11 @@ const listItems = new Map<keyof Resources, string>([
   ["contactUrl", "Contact"]
 ]);
 </script>
+
+<style lang="scss" scoped>
+.utrecht-link-list {
+  flex-flow: row wrap;
+  justify-content: center;
+  column-gap: var(--utrecht-space-inline-2xl);
+}
+</style>

@@ -2,7 +2,7 @@
   <the-header />
 
   <main id="main">
-    <the-hero />
+    <gpp-woo-hero />
 
     <section class="utrecht-page utrecht-page-content">
       <router-view />
@@ -15,6 +15,6 @@
 <script setup lang="ts">
 import { RouterView } from "vue-router";
 import TheHeader from "./components/TheHeader.vue";
-import TheHero from "./components/TheHero.vue";
+import GppWooHero from "./components/GppWooHero.vue";
 import TheFooter from "./components/TheFooter.vue";
 </script>
