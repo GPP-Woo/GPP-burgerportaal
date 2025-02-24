@@ -1,7 +1,7 @@
 <template>
   <div class="zoeken-page">
     <utrecht-heading :level="1">Zoeken</utrecht-heading>
-    <form class="utrecht-form" @submit.prevent.stop="submit">
+    <form class="utrecht-form" @submit.prevent.stop="submit" ref="formElement">
       <utrecht-fieldset class="zoeken">
         <utrecht-form-field
           ><utrecht-form-label for="search-field">Zoekterm</utrecht-form-label>
@@ -28,8 +28,9 @@
           <div>
             <utrecht-select
               id="sort-select"
-              v-model="queryParams.sort"
+              v-model="formFields.sort"
               :options="Object.values(sortOptions)"
+              @change="trySubmit"
             />
             <gpp-woo-icon icon="sort" />
           </div>
@@ -45,6 +46,8 @@
             id="registration-date-from"
             v-model="formFields.registratiedatumVanaf"
             type="date"
+            @blur="trySubmit"
+            @change="trySubmit"
           />
         </utrecht-form-field>
         <utrecht-form-field
@@ -55,6 +58,8 @@
             id="registration-date-until"
             v-model="formFields.registratiedatumTot"
             type="date"
+            @blur="trySubmit"
+            @change="trySubmit"
           />
         </utrecht-form-field>
         <utrecht-form-field
@@ -63,6 +68,8 @@
             id="updated-date-from"
             v-model="formFields.laatstGewijzigdDatumVanaf"
             type="date"
+            @blur="trySubmit"
+            @change="trySubmit"
           />
         </utrecht-form-field>
         <utrecht-form-field
@@ -73,6 +80,8 @@
             id="updated-date-until"
             v-model="formFields.laatstGewijzigdDatumTot"
             type="date"
+            @blur="trySubmit"
+            @change="trySubmit"
           />
         </utrecht-form-field>
       </utrecht-fieldset>
@@ -152,55 +161,69 @@ import GppWooIcon from "@/components/GppWooIcon.vue";
 import SimpleSpinner from "@/components/SimpleSpinner.vue";
 import UtrechtPagination from "@/components/UtrechtPagination.vue";
 import { useLoader } from "@/composables/use-loader";
-import { useQueryValues, type GetSet } from "@/composables/use-router-query";
 import { useSpinner } from "@/composables/use-spinner";
 import { sortOptions, search, resultOptions } from "@/features/search/service";
 import { formatDate } from "@/helpers";
 import { mapPaginatedResultsToUtrechtPagination } from "@/helpers/pagination";
 import { truncate } from "@/helpers/strings";
-import { computed, onMounted, reactive } from "vue";
-import { useRoute, type RouteLocationRaw } from "vue-router";
+import { computed, onMounted, reactive, ref } from "vue";
+import { useRoute, useRouter, type RouteLocationRaw } from "vue-router";
 
 const route = useRoute();
-const single = <T,>(v: T[]) => v[0];
+const formElement = ref<HTMLFormElement>();
 
-const singleNumber: GetSet<number> = {
-  get: (x) => +(x[0] || "1"),
-  set: (x) => x.toString()
-};
+const first = <T,>(v: T | Array<T>) => (Array.isArray(v) ? v[0] : v);
 
-const queryParams = useQueryValues({
-  query: single,
-  registratiedatumVanaf: single,
-  registratiedatumTot: single,
-  laatstGewijzigdDatumVanaf: single,
-  laatstGewijzigdDatumTot: single,
-  sort: (x) =>
-    x[0] === sortOptions.chronological.value
+const parsedQuery = computed(() => ({
+  query: first(route.query.query) || "",
+  registratiedatumVanaf: first(route.query.registratiedatumVanaf) || "",
+  registratiedatumTot: first(route.query.registratiedatumTot) || "",
+  laatstGewijzigdDatumVanaf: first(route.query.laatstGewijzigdDatumVanaf) || "",
+  laatstGewijzigdDatumTot: first(route.query.laatstGewijzigdDatumTot) || "",
+  page: +(first(route.query.page) || "1"),
+  sort:
+    first(route.query.sort) === sortOptions.chronological.value
       ? sortOptions.chronological.value
-      : sortOptions.relevance.value,
-  page: singleNumber
-});
+      : sortOptions.relevance.value
+}));
 
 const formFields = reactive({
   query: "",
   registratiedatumVanaf: "",
   registratiedatumTot: "",
   laatstGewijzigdDatumVanaf: "",
-  laatstGewijzigdDatumTot: ""
+  laatstGewijzigdDatumTot: "",
+  sort: sortOptions.relevance.value as string
 });
 
 onMounted(() => {
   const keys = Object.keys(formFields) as Array<keyof typeof formFields>;
-  keys.forEach((key) => (formFields[key] = queryParams[key]));
+  const query = parsedQuery.value;
+  keys.forEach((key) => (formFields[key] = query[key]));
 });
 
-const submit = () => {
-  Object.assign(queryParams, {
-    ...formFields,
-    page: 1
+const router = useRouter();
+
+const submit = () =>
+  router.push({
+    path: route.path,
+    query: {
+      ...route.query,
+      ...formFields,
+      page: 1
+    }
   });
-};
+
+const trySubmit = () => formElement.value?.checkValidity() && submit();
+
+const { error, loading, data } = useLoader((signal) =>
+  search({
+    ...parsedQuery.value,
+    signal
+  })
+);
+
+const showSpinner = useSpinner(loading);
 
 const getRoute = (page: number): RouteLocationRaw => ({
   path: route.path,
@@ -210,20 +233,11 @@ const getRoute = (page: number): RouteLocationRaw => ({
   }
 });
 
-const { error, loading, data } = useLoader((signal) =>
-  search({
-    ...queryParams,
-    signal
-  })
-);
-
-const showSpinner = useSpinner(loading);
-
 const pagination = computed(
   () =>
     data.value &&
     mapPaginatedResultsToUtrechtPagination({
-      page: queryParams.page,
+      page: parsedQuery.value.page,
       pagination: data.value,
       getRoute
     })
