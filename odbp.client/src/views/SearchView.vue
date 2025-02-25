@@ -86,31 +86,30 @@
     <div class="results" aria-live="polite" aria-atomic="true">
       <simple-spinner v-if="showSpinner" />
 
-      <p v-else-if="error">Er ging iets mis. Probeer het opnieuw.</p>
+      <utrecht-paragraph v-else-if="error"
+        >Er ging iets mis. Probeer het opnieuw.</utrecht-paragraph
+      >
 
       <template v-else-if="data">
         <div v-if="data.results.length">
-          <p class="result-count">{{ data.count }} resultaten gevonden</p>
+          <utrecht-paragraph>{{ data.count }} resultaten gevonden</utrecht-paragraph>
 
           <ol>
             <li
-              v-for="(
-                {
-                  uuid,
-                  officieleTitel,
-                  resultType,
-                  informatieCategorieen,
-                  publisher,
-                  registratiedatum,
-                  laatstGewijzigdDatum,
-                  omschrijving
-                },
-                idx
-              ) in data.results"
-              :key="uuid + idx"
+              v-for="{
+                uuid,
+                officieleTitel,
+                resultType,
+                informatieCategorieen,
+                publisher,
+                registratiedatum,
+                laatstGewijzigdDatum,
+                omschrijving
+              } in data.results"
+              :key="uuid"
             >
               <utrecht-article class="search-result">
-                <utrecht-heading :level="3">
+                <utrecht-heading :level="2">
                   <router-link
                     :to="`/${resultType === resultOptions.document.value ? 'documenten' : 'publicaties'}/${uuid}`"
                   >
@@ -136,19 +135,20 @@
 
                 <utrecht-paragraph>{{ truncate(omschrijving, 150) }}</utrecht-paragraph>
 
-                <p>
+                <utrecht-paragraph>
                   <time :datetime="registratiedatum">{{ formatDate(registratiedatum) }}</time>
 
                   <template
                     v-if="
                       laatstGewijzigdDatum?.substring(0, 10) !== registratiedatum?.substring(0, 10)
                     "
-                    ><span>{{ ", gewijzigd op " }}</span
-                    ><time :datetime="laatstGewijzigdDatum">{{
+                  >
+                    <span>{{ ", gewijzigd op " }}</span>
+                    <time :datetime="laatstGewijzigdDatum">{{
                       formatDate(laatstGewijzigdDatum)
                     }}</time>
                   </template>
-                </p>
+                </utrecht-paragraph>
               </utrecht-article>
             </li>
           </ol>
@@ -156,7 +156,7 @@
           <utrecht-pagination v-if="pagination" v-bind="pagination" class="pagination" />
         </div>
 
-        <p v-else>Geen resultaten gevonden</p>
+        <utrecht-paragraph v-else>Geen resultaten gevonden.</utrecht-paragraph>
       </template>
     </div>
   </div>
@@ -257,6 +257,9 @@ const pagination = computed(
 
 <style lang="scss" scoped>
 .zoeken-page {
+  --utrecht-space-around: 1;
+  --utrecht-paragraph-margin-block-start: 0;
+
   display: grid;
   grid-template-columns: minmax(auto, 14rem) 1fr;
   grid-template-rows: auto auto 1fr;
@@ -309,10 +312,6 @@ const pagination = computed(
   }
 }
 
-input {
-  block-size: 2.5rem; // date and text inputs are not the same height otherwise...
-}
-
 .zoeken > :first-child {
   column-gap: calc(var(--utrecht-space-inline-md) * 2);
   display: flex;
@@ -346,6 +345,9 @@ ul {
 }
 
 article.search-result {
+  --utrecht-heading-2-font-weight: var(--utrecht-heading-3-font-weight);
+  --utrecht-heading-2-margin-block-start: var(--utrecht-heading-3-margin-block-start);
+
   ul {
     display: flex;
     column-gap: var(--utrecht-space-inline-xs);
@@ -353,13 +355,16 @@ article.search-result {
     align-items: center;
     flex-wrap: wrap;
   }
+
   li,
   :has(time) {
     font-size: 0.75em;
   }
+
   .category {
     border-bottom: 1px dotted lightgray;
   }
+
   p {
     margin: 0;
   }
@@ -368,9 +373,5 @@ article.search-result {
 .pagination {
   margin-inline: auto;
   margin-block-start: var(--utrecht-space-inline-md);
-}
-
-.result-count {
-  margin: 0;
 }
 </style>

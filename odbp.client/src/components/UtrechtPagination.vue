@@ -7,7 +7,8 @@
         class="utrecht-pagination__relative-link utrecht-pagination__relative-link--prev"
         rel="prev"
       >
-        Vorige
+        <span class="visually-hidden">Vorige</span>
+        <span>&laquo;</span>
       </router-link>
     </span>
     <span role="group" class="utrecht-pagination__pages">
@@ -32,7 +33,8 @@
         class="utrecht-pagination__relative-link utrecht-pagination__relative-link--next"
         rel="next"
       >
-        Volgende
+        <span class="visually-hidden">Volgende</span>
+        <span>&raquo;</span>
       </router-link>
     </span>
   </nav>
@@ -59,13 +61,16 @@ defineProps<UtrechtPaginationProps>();
 
 <style lang="scss" scoped>
 .vorige {
-  min-inline-size: 8.5ch;
+  min-inline-size: 5ch;
   display: inline-block;
 }
+
 .volgende {
-  min-inline-size: 19ch;
+  min-inline-size: 5ch;
   display: inline-block;
+  text-align: right;
 }
+
 .utrecht-pagination__page-link {
   min-inline-size: 2ch;
   text-align: center;

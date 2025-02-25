@@ -36,6 +36,5 @@ const query = useModel(props, "modelValue");
 input {
   max-inline-size: 100%;
   inline-size: 20rem;
-  block-size: 2.5rem;
 }
 </style>
