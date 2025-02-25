@@ -16,13 +16,13 @@
             {{ naam }}</span
           >
 
-          <utrecht-paragraph>
-            <router-link
-              :to="{ name: 'zoeken' }"
-              class="utrecht-button-link utrecht-button-link--html-a utrecht-button-link--primary-action"
-              >Zoeken</router-link
-            >
-          </utrecht-paragraph>
+          <form v-if="route.name === 'home'" class="utrecht-form" @submit.prevent.stop="submit">
+            <utrecht-fieldset class="zoeken">
+              <utrecht-legend class="visually-hidden">Zoeken</utrecht-legend>
+
+              <search-bar v-model="query" @submit="submit" />
+            </utrecht-fieldset>
+          </form>
         </div>
       </div>
     </div>
@@ -30,11 +30,26 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, ref, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import { injectResources } from "@/resources";
+import SearchBar from "./SearchBar.vue";
 
 const resources = injectResources();
+
 const naam = computed(() => (resources?.name ? resources.name : "-"));
+
+const route = useRoute();
+const router = useRouter();
+
+const query = ref("");
+
+const submit = () => router.push({ name: "zoeken", query: { query: query.value } });
+
+watch(
+  () => route.path,
+  () => (query.value = "")
+);
 </script>
 
 <style lang="scss" scoped>
