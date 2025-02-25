@@ -256,39 +256,53 @@ const pagination = computed(
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/variables.scss";
+
 .zoeken-page {
-  --utrecht-space-around: 1;
   --utrecht-paragraph-margin-block-start: 0;
 
   display: grid;
-  grid-template-columns: minmax(auto, 14rem) 1fr;
-  grid-template-rows: auto auto 1fr;
-  column-gap: clamp(var(--utrecht-space-inline-md), 3vw, var(--utrecht-space-inline-4xl));
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "heading"
+    "search"
+    "filters"
+    "results";
+  column-gap: 3vw;
 
-  > .utrecht-heading-1 {
-    grid-row: 1 / 1;
-    grid-column: 2 / 2;
-    z-index: 1;
+  @media screen and (min-width: $breakpoint-md) {
+    grid-template-columns: minmax(auto, 14rem) 1fr;
+    grid-template-rows: auto auto 1fr;
+    grid-template-areas:
+      ". heading"
+      "filters search"
+      "filters results";
+  }
+
+  .utrecht-heading-1 {
+    grid-area: heading;
   }
 
   form {
-    display: grid;
-    grid-template-columns: subgrid;
-    grid-template-rows: subgrid;
-    grid-column: 1 / -1;
-    grid-row: 1 / -1;
+    display: contents;
   }
 
   .zoeken {
-    grid-column: 2 / 2;
-    grid-row: 2 / 2;
-    z-index: 1;
+    grid-area: search;
+
+    > :first-child {
+      display: flex;
+      flex-wrap: wrap;
+      column-gap: calc(var(--utrecht-space-inline-md) * 2);
+
+      > * {
+        flex: 1 0 auto;
+      }
+    }
   }
 
   .filters {
-    grid-column: 1 / 1;
-    grid-row: 2 / -1;
-    z-index: 1;
+    grid-area: filters;
 
     > :first-child {
       display: grid;
@@ -297,30 +311,18 @@ const pagination = computed(
   }
 
   .results {
-    grid-column: 1 / -1;
-    grid-row: 1 / -1;
-    display: grid;
-    grid-template-columns: subgrid;
-    grid-template-rows: subgrid;
+    grid-area: results;
 
     > * {
-      grid-column: -1 / -1;
-      grid-row: -1 / -1;
       display: flex;
       flex-direction: column;
     }
   }
 }
 
-.zoeken > :first-child {
-  column-gap: calc(var(--utrecht-space-inline-md) * 2);
-  display: flex;
-  flex-wrap: wrap;
-}
-
 :has(> #sort-select) {
-  min-inline-size: 16ch;
   position: relative;
+  max-inline-size: var(--utrecht-form-control-max-inline-size);
 
   > :last-child {
     position: absolute;
@@ -343,7 +345,11 @@ ul {
   margin: 0;
 }
 
-article.search-result {
+.utrecht-form-label {
+  display: block;
+}
+
+.search-result {
   --utrecht-heading-2-font-weight: var(--utrecht-heading-3-font-weight);
   --utrecht-heading-2-margin-block-start: var(--utrecht-heading-3-margin-block-start);
 
@@ -362,10 +368,6 @@ article.search-result {
 
   .category {
     border-bottom: 1px dotted lightgray;
-  }
-
-  p {
-    margin: 0;
   }
 }
 

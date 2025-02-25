@@ -60,13 +60,15 @@ defineProps<UtrechtPaginationProps>();
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/variables.scss";
+
 .vorige {
   min-inline-size: 5ch;
   display: inline-block;
 }
 
 .volgende {
-  min-inline-size: 5ch;
+  min-inline-size: 5.5ch;
   display: inline-block;
   text-align: right;
 }
@@ -74,5 +76,13 @@ defineProps<UtrechtPaginationProps>();
 .utrecht-pagination__page-link {
   min-inline-size: 2ch;
   text-align: center;
+
+  &:not(.utrecht-pagination__page-link--current) {
+    display: none;
+
+    @media screen and (min-width: $breakpoint-md) {
+      display: inline-block;
+    }
+  }
 }
 </style>

@@ -30,11 +30,5 @@ const query = useModel(props, "modelValue");
 <style lang="scss" scoped>
 .search-bar {
   display: flex;
-  flex-wrap: wrap;
-}
-
-input {
-  max-inline-size: 100%;
-  inline-size: 20rem;
 }
 </style>
