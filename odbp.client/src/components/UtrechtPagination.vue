@@ -60,7 +60,7 @@ defineProps<UtrechtPaginationProps>();
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/variables.scss";
+@use "@/assets/variables";
 
 .vorige {
   min-inline-size: 5ch;
@@ -80,7 +80,7 @@ defineProps<UtrechtPaginationProps>();
   &:not(.utrecht-pagination__page-link--current) {
     display: none;
 
-    @media screen and (min-width: $breakpoint-md) {
+    @media screen and (min-width: variables.$breakpoint-md) {
       display: inline-block;
     }
   }
