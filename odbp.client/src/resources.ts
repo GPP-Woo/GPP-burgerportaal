@@ -10,6 +10,7 @@ export type Resources = Partial<{
   websiteUrl: string;
   privacyUrl: string;
   contactUrl: string;
+  welcomeTxt: string;
   a11yUrl: string;
 }>;
 
@@ -32,21 +33,22 @@ const setIcon = (href?: string) =>
 const loadResources = async (sources: (string | undefined)[]) => {
   const promises = sources
     .filter((url): url is string => typeof url === "string" && url.trim() !== "")
-    .map((href) => {
-      return new Promise<{ href: string }>((resolve, reject) => {
-        const link = document.createElement("link");
+    .map(
+      (href) =>
+        new Promise<{ href: string }>((resolve, reject) => {
+          const link = document.createElement("link");
 
-        link.rel = href.endsWith(".css") ? "stylesheet" : "preload";
-        link.rel === "preload" && (link.as = "image");
-        link.href = href;
-        link.crossOrigin = "anonymous";
+          link.rel = href.endsWith(".css") ? "stylesheet" : "preload";
+          link.rel === "preload" && (link.as = "image");
+          link.href = href;
+          link.crossOrigin = "anonymous";
 
-        link.onload = () => resolve({ href });
-        link.onerror = () => reject({ href });
+          link.onload = () => resolve({ href });
+          link.onerror = () => reject({ href });
 
-        document.head.appendChild(link);
-      });
-    });
+          document.head.appendChild(link);
+        })
+    );
 
   const results = await Promise.allSettled(promises);
 

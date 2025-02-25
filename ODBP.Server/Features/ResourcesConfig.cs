@@ -1,4 +1,6 @@
-﻿namespace ODBP.Features
+﻿using System.Text;
+
+namespace ODBP.Features
 {
     public class ResourcesConfig(IConfiguration configuration)
     {
@@ -13,6 +15,15 @@
         public string? WebsiteUrl => Uri.TryCreate(_configuration["RESOURCES:GEMEENTE_WEBSITE_URL"], UriKind.Absolute, out var uri) ? uri.ToString() : null;
         public string? PrivacyUrl => Uri.TryCreate(_configuration["RESOURCES:GEMEENTE_PRIVACY_URL"], UriKind.Absolute, out var uri) ? uri.ToString() : null;
         public string? ContactUrl => Uri.TryCreate(_configuration["RESOURCES:GEMEENTE_CONTACT_URL"], UriKind.Absolute, out var uri) ? uri.ToString() : null;
+        public string? WelcomeTxt
+        {
+            get
+            {
+                var welcomText = _configuration["RESOURCES:GEMEENTE_WELKOMSTTEKST"];
+
+                return !string.IsNullOrWhiteSpace(welcomText) ? Encoding.UTF8.GetString(Convert.FromBase64String(welcomText)) : null;
+            }
+        }
         public string? A11yUrl => Uri.TryCreate(_configuration["RESOURCES:TOEGANKELIJKHEIDSVERKLARING_REGISTER_URL"], UriKind.Absolute, out var uri) ? uri.ToString() : null;
     }
 }
