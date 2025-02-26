@@ -24,7 +24,8 @@ import {
   TableHeaderCell as UtrechtTableHeaderCell,
   Select as UtrechtSelect,
   FormFieldset as UtrechtFieldset,
-  FormFieldsetLegend as UtrechtLegend
+  FormFieldsetLegend as UtrechtLegend,
+  Document as UtrechtDocument
 } from "@utrecht/component-library-vue";
 
 const components = {
@@ -51,7 +52,8 @@ const components = {
   UtrechtTableHeaderCell,
   UtrechtSelect,
   UtrechtFieldset,
-  UtrechtLegend
+  UtrechtLegend,
+  UtrechtDocument
 } as const;
 
 export type OurComponents = typeof components;

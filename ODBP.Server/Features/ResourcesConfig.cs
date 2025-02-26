@@ -21,7 +21,7 @@ namespace ODBP.Features
             {
                 var welcomText = _configuration["RESOURCES:GEMEENTE_WELKOMSTTEKST"];
 
-                return !string.IsNullOrWhiteSpace(welcomText) ? Encoding.UTF8.GetString(Convert.FromBase64String(welcomText)) : null;
+                return !string.IsNullOrWhiteSpace(welcomText) ? welcomText : null;
             }
         }
         public string? A11yUrl => Uri.TryCreate(_configuration["RESOURCES:TOEGANKELIJKHEIDSVERKLARING_REGISTER_URL"], UriKind.Absolute, out var uri) ? uri.ToString() : null;
