@@ -8,14 +8,18 @@ type SearchResponse = {
 };
 
 type SearchResponseItem = {
-  uuid: string;
-  officieleTitel: string;
-  resultType: ResultType;
-  informatieCategorieen: WaardelijstItem[];
-  publisher: WaardelijstItem;
-  registratiedatum: string;
-  laatstGewijzigdDatum: string;
-  omschrijving: string;
+  type: ResultType;
+  record: {
+    uuid: string;
+    officieleTitel: string;
+    informatieCategorieen: WaardelijstItem[];
+    publisher: WaardelijstItem;
+    publicatie: string;
+    creatiedatum: string;
+    registratiedatum: string;
+    laatstGewijzigdDatum: string;
+    omschrijving: string;
+  };
 };
 
 type WaardelijstItem = {

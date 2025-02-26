@@ -1,5 +1,4 @@
-﻿using Elastic.Clients.Elasticsearch;
-using Elastic.Transport;
+﻿using System.Net.Http.Headers;
 using ODBP.Apis.Odrc;
 using ODBP.Apis.Search;
 using ODBP.Config;
@@ -22,6 +21,8 @@ logger.Information("Starting up");
 try
 {
     var builder = WebApplication.CreateBuilder(args);
+    string GetRequiredConfig(string key) => builder.Configuration[key] ?? throw new ArgumentException("Missende environment variabel", key);
+
     builder.Host.UseSerilog(logger);
 
     // Add services to the container.
@@ -46,7 +47,11 @@ try
         b => b.Expire(TimeSpan.FromHours(cacheExpiryHours))));
 
     builder.Services.AddSingleton<ResourcesConfig>();
-    SearchClientMock.AddToServices(builder.Services, builder.Configuration);
+    builder.Services.AddHttpClient<ISearchClient, SearchClient>(httpClient =>
+    {
+        httpClient.BaseAddress = new(GetRequiredConfig("SEARCH_BASE_URL"));
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token", GetRequiredConfig("SEARCH_API_KEY"));
+    });
 
     var app = builder.Build();
 
@@ -65,11 +70,6 @@ try
     app.MapHealthChecks("/healthz");
     app.MapFallbackToIndexHtml();
 
-    if (app.Environment.IsDevelopment())
-    {
-        await SearchClientMock.Seed(app);
-    }
-    
     app.Run();
 }
 catch (Exception ex) when (ex is not HostAbortedException)

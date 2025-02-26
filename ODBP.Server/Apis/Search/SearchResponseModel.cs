@@ -2,10 +2,10 @@
 
 public record PaginatedSearchResults
 {
-    public required long Count { get; init; }
+    public long Count { get; init; }
     public bool Previous { get; init; }
     public bool Next { get; init; }
-    public required IReadOnlyCollection<SearchResult> Results { get; init; }
+    public IReadOnlyCollection<SearchResult> Results { get; init; } = [];
     public Facets? Facets { get; init; }
 }
 
@@ -25,22 +25,28 @@ public record Bucket
 
 public record ResultTypeBucket
 {
-    public required ResultType ResultType { get; init; }
+    public required ResultType Naam { get; init; }
     public required long Count { get; init; }
 }
 
 public record SearchResult
 {
-    public ResultType? ResultType { get; init; }
+    public ResultType? Type { get; init; }
+    public required Record Record { get; init; }
+}
+
+public record Record
+{
     public string? Uuid { get; init; }
+    public string? Publicatie { get; init; }
     public string? OfficieleTitel { get; init; }
     public string? VerkorteTitel { get; init; }
     public Org? Publisher { get; init; }
     public string? Omschrijving { get; init; }
+    public DateTimeOffset? Creatiedatum { get; init; }
     public DateTimeOffset? Registratiedatum { get; init; }
     public DateTimeOffset? LaatstGewijzigdDatum { get; init; }
     public InformatieCategorie[] InformatieCategorieen { get; init; } = [];
-
 }
 
 public record InformatieCategorie
