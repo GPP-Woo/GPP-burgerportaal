@@ -97,21 +97,23 @@
           <ol>
             <li
               v-for="{
-                uuid,
-                officieleTitel,
-                resultType,
-                informatieCategorieen,
-                publisher,
-                registratiedatum,
-                laatstGewijzigdDatum,
-                omschrijving
+                type,
+                record: {
+                  uuid,
+                  officieleTitel,
+                  informatieCategorieen,
+                  publisher,
+                  registratiedatum,
+                  laatstGewijzigdDatum,
+                  omschrijving
+                }
               } in data.results"
               :key="uuid"
             >
               <utrecht-article class="search-result">
                 <utrecht-heading :level="2">
                   <router-link
-                    :to="`/${resultType === resultOptions.document.value ? 'documenten' : 'publicaties'}/${uuid}`"
+                    :to="`/${type === resultOptions.document.value ? 'documenten' : 'publicaties'}/${uuid}`"
                   >
                     {{ officieleTitel }}
                   </router-link>
@@ -119,7 +121,7 @@
 
                 <ul>
                   <li class="result-type">
-                    <strong>{{ resultOptions[resultType].label }}</strong>
+                    <strong>{{ resultOptions[type].label }}</strong>
                   </li>
 
                   <li class="publisher">{{ publisher.naam }}</li>
