@@ -256,7 +256,7 @@ const pagination = computed(
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/variables.scss";
+@use "@/assets/variables";
 
 .zoeken-page {
   --utrecht-paragraph-margin-block-start: 0;
@@ -270,7 +270,7 @@ const pagination = computed(
     "results";
   column-gap: 3vw;
 
-  @media screen and (min-width: $breakpoint-md) {
+  @media screen and (min-width: variables.$breakpoint-md) {
     grid-template-columns: minmax(auto, 14rem) 1fr;
     grid-template-rows: auto auto 1fr;
     grid-template-areas:
