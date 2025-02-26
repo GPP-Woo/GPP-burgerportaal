@@ -97,21 +97,23 @@
           <ol>
             <li
               v-for="{
-                uuid,
-                officieleTitel,
-                resultType,
-                informatieCategorieen,
-                publisher,
-                registratiedatum,
-                laatstGewijzigdDatum,
-                omschrijving
+                type,
+                record: {
+                  uuid,
+                  officieleTitel,
+                  informatieCategorieen,
+                  publisher,
+                  registratiedatum,
+                  laatstGewijzigdDatum,
+                  omschrijving
+                }
               } in data.results"
               :key="uuid"
             >
               <utrecht-article class="search-result">
                 <utrecht-heading :level="2">
                   <router-link
-                    :to="`/${resultType === resultOptions.document.value ? 'documenten' : 'publicaties'}/${uuid}`"
+                    :to="`/${type === resultOptions.document.value ? 'documenten' : 'publicaties'}/${uuid}`"
                   >
                     {{ officieleTitel }}
                   </router-link>
@@ -119,7 +121,7 @@
 
                 <ul>
                   <li class="result-type">
-                    <strong>{{ resultOptions[resultType].label }}</strong>
+                    <strong>{{ resultOptions[type].label }}</strong>
                   </li>
 
                   <li class="publisher">{{ publisher.naam }}</li>
@@ -256,27 +258,26 @@ const pagination = computed(
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/variables.scss";
+@use "@/assets/variables";
 
 .zoeken-page {
   --utrecht-paragraph-margin-block-start: 0;
 
   display: grid;
-  grid-template-columns: 1fr;
   grid-template-areas:
     "heading"
     "search"
     "filters"
     "results";
-  column-gap: 3vw;
 
-  @media screen and (min-width: $breakpoint-md) {
-    grid-template-columns: minmax(auto, 14rem) 1fr;
+  @media screen and (min-width: variables.$breakpoint-md) {
+    grid-template-columns: minmax(auto, 15rem) 1fr;
     grid-template-rows: auto auto 1fr;
     grid-template-areas:
       ". heading"
       "filters search"
       "filters results";
+    column-gap: 3vw;
   }
 
   .utrecht-heading-1 {
@@ -306,7 +307,7 @@ const pagination = computed(
 
     > :first-child {
       display: grid;
-      gap: 0.5rem;
+      gap: var(--utrecht-space-inline-xs);
     }
   }
 
@@ -363,7 +364,7 @@ ul {
 
   li,
   :has(time) {
-    font-size: 0.75em;
+    font-size: var(--utrecht-typography-scale-xs-font-size);
   }
 
   .category {
