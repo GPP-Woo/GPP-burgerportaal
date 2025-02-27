@@ -40,7 +40,21 @@ class AnchorModifier {
   };
 }
 
-// console.log(node.href.startsWith("http") && !node.href.includes(location.origin));
+const modifyExternalLinks = (html: string) => {
+  const container = Object.assign(document.createElement("div"), { innerHTML: html });
+
+  ((container.querySelectorAll("a") || []) as NodeListOf<HTMLAnchorElement>).forEach(
+    (anchor) =>
+      anchor.origin !== location.origin &&
+      new AnchorModifier(anchor)
+        .addClass("gpp-woo-link--icon")
+        .addRelationships("external", "noopener", "noreferrer")
+        .appendHiddenText("(externe link)")
+        .appendIconExternal()
+  );
+
+  return container.innerHTML;
+};
 
 DOMPurify.addHook("afterSanitizeAttributes", (node) => {
   node.tagName === "H1" && node.classList.add("utrecht-heading-1");
@@ -63,15 +77,5 @@ export function sanitizeHtml(dirtyHtml: string) {
     ALLOWED_ATTR: ["href"]
   });
 
-  const container = Object.assign(document.createElement("div"), { innerHTML: cleanHtml });
-
-  ((container.querySelectorAll("a") || []) as NodeListOf<HTMLAnchorElement>).forEach((anchor) =>
-    new AnchorModifier(anchor)
-      .addClass("gpp-woo-link--icon")
-      .addRelationships("external", "noopener", "noreferrer")
-      .appendHiddenText("(externe link)")
-      .appendIconExternal()
-  );
-
-  return container.innerHTML;
+  return modifyExternalLinks(cleanHtml);
 }

@@ -10,7 +10,7 @@ export type Resources = Partial<{
   websiteUrl: string;
   privacyUrl: string;
   contactUrl: string;
-  welcomeTxt: string;
+  welcome: string;
   a11yUrl: string;
 }>;
 
