@@ -83,8 +83,24 @@
 
         <ul v-if="data?.facets?.informatieCategorieen">
           <li v-for="{ uuid, naam, count } in data.facets.informatieCategorieen" :key="uuid">
-            <input type="checkbox" :value="uuid" v-model="formFields.informatieCategorieen" @change="trySubmit">
-            {{ naam }} ({{ count }})
+            <utrecht-form-field>
+              <utrecht-form-label
+                type="checkbox"
+                :checked="formFields.informatieCategorieen.includes(uuid)"
+              >
+                <input
+                  type="checkbox"
+                  class="utrecht-checkbox utrecht-checkbox--html-input utrecht-checkbox--custom"
+                  v-model="formFields.informatieCategorieen"
+                  :value="uuid"
+                  @change="trySubmit"
+                />
+
+                <!-- <utrecht-checkbox :modelValue="uuid" @update:modelValue="console.log" /> -->
+
+                {{ naam }} ({{ count }})
+              </utrecht-form-label>
+            </utrecht-form-field>
           </li>
         </ul>
       </utrecht-fieldset>
@@ -396,5 +412,11 @@ ul {
 .pagination {
   margin-inline: auto;
   margin-block-start: var(--utrecht-space-inline-md);
+}
+
+.utrecht-form-label--checkbox {
+  display: flex;
+  align-items: flex-start;
+  column-gap: 0.5rem;
 }
 </style>
