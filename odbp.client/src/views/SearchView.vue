@@ -264,21 +264,20 @@ const pagination = computed(
   --utrecht-paragraph-margin-block-start: 0;
 
   display: grid;
-  grid-template-columns: 1fr;
   grid-template-areas:
     "heading"
     "search"
     "filters"
     "results";
-  column-gap: 3vw;
 
   @media screen and (min-width: variables.$breakpoint-md) {
-    grid-template-columns: minmax(auto, 14rem) 1fr;
+    grid-template-columns: minmax(auto, 15rem) 1fr;
     grid-template-rows: auto auto 1fr;
     grid-template-areas:
       ". heading"
       "filters search"
       "filters results";
+    column-gap: 3vw;
   }
 
   .utrecht-heading-1 {
@@ -308,7 +307,7 @@ const pagination = computed(
 
     > :first-child {
       display: grid;
-      gap: 0.5rem;
+      gap: var(--utrecht-space-inline-xs);
     }
   }
 
@@ -365,7 +364,7 @@ ul {
 
   li,
   :has(time) {
-    font-size: 0.75em;
+    font-size: var(--utrecht-typography-scale-xs-font-size);
   }
 
   .category {

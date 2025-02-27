@@ -28,6 +28,7 @@ namespace ODBP.Features.Environment
                 _resourcesConfig.WebsiteUrl,
                 _resourcesConfig.PrivacyUrl,
                 _resourcesConfig.ContactUrl,
+                _resourcesConfig.Welcome,
                 _resourcesConfig.A11yUrl
             };
 

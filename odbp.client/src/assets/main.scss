@@ -59,6 +59,10 @@
     display: inline-flex;
     align-items: center;
     gap: var(--utrecht-button-icon-gap);
+
+    .utrecht-article & {
+      --utrecht-icon-size: .75rem;
+    }
   }
 
   .utrecht-textbox--html-input {
