@@ -80,6 +80,13 @@
             @change="trySubmit"
           />
         </utrecht-form-field>
+
+        <ul v-if="data?.facets?.informatieCategorieen">
+          <li v-for="{ uuid, naam, count } in data.facets.informatieCategorieen" :key="uuid">
+            <input type="checkbox" :value="uuid" v-model="formFields.informatieCategorieen" @change="trySubmit">
+            {{ naam }} ({{ count }})
+          </li>
+        </ul>
       </utrecht-fieldset>
     </form>
 
@@ -181,6 +188,13 @@ const formElement = ref<HTMLFormElement>();
 
 const first = <T,>(v: T | Array<T>) => (Array.isArray(v) ? v[0] : v);
 
+const array = <T,>(v: T | Array<T>) =>
+  v === "" || v === null || v === undefined
+    ? []
+    : Array.isArray(v)
+      ? v.filter((val) => val !== "" && val !== null)
+      : [v];
+
 const parsedQuery = computed(() => ({
   query: first(route.query.query) || "",
   registratiedatumVanaf: first(route.query.registratiedatumVanaf) || "",
@@ -191,7 +205,8 @@ const parsedQuery = computed(() => ({
   sort:
     first(route.query.sort) === sortOptions.chronological.value
       ? sortOptions.chronological.value
-      : sortOptions.relevance.value
+      : sortOptions.relevance.value,
+  informatieCategorieen: array(route.query.informatieCategorieen)
 }));
 
 const formFields = reactive({
@@ -200,13 +215,19 @@ const formFields = reactive({
   registratiedatumTot: "",
   laatstGewijzigdDatumVanaf: "",
   laatstGewijzigdDatumTot: "",
-  sort: sortOptions.relevance.value as string
+  sort: sortOptions.relevance.value as string,
+  informatieCategorieen: [] as string[]
 });
 
 onMounted(() => {
   const keys = Object.keys(formFields) as Array<keyof typeof formFields>;
   const query = parsedQuery.value;
-  keys.forEach((key) => (formFields[key] = query[key]));
+
+  keys.forEach((key) =>
+    Array.isArray(formFields[key])
+      ? ((formFields[key] as string[]) = query[key] as string[])
+      : ((formFields[key] as string) = query[key] as string)
+  );
 });
 
 const router = useRouter();
