@@ -32,7 +32,7 @@ type Facets = {
   informatieCategorieen: Bucket[];
 };
 
-type Bucket = {
+export type Bucket = {
   uuid: string;
   naam: string;
   count: number;
@@ -67,6 +67,7 @@ export async function search({
   registratiedatumTot?: string | null;
   laatstGewijzigdDatumVanaf?: string | null;
   laatstGewijzigdDatumTot?: string | null;
+  informatieCategorieen?: string[];
   signal?: AbortSignal;
 }): Promise<SearchResponse> {
   return fetch("/api/zoeken", {
