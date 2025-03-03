@@ -218,7 +218,7 @@ const parsedQuery = computed(() => ({
   registratiedatumTot: first(route.query.registratiedatumTot) || "",
   laatstGewijzigdDatumVanaf: first(route.query.laatstGewijzigdDatumVanaf) || "",
   laatstGewijzigdDatumTot: first(route.query.laatstGewijzigdDatumTot) || "",
-  informatieCategorieen: array(route.query.informatieCategorieen) || [""]
+  informatieCategorieen: array(route.query.informatieCategorieen) || []
 }));
 
 const formFields = reactive({
@@ -228,7 +228,7 @@ const formFields = reactive({
   registratiedatumTot: "",
   laatstGewijzigdDatumVanaf: "",
   laatstGewijzigdDatumTot: "",
-  informatieCategorieen: [""]
+  informatieCategorieen: [] as string[]
 });
 
 onMounted(() => {
