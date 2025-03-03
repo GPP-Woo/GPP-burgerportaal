@@ -89,7 +89,14 @@
           </utrecht-form-field>
         </utrecht-fieldset>
 
-        <facet-fieldset
+        <bucket-group
+          legend="Organisaties"
+          :buckets="data?.facets?.publishers"
+          v-model="formFields.publishers"
+          @change="trySubmit"
+        />
+
+        <bucket-group
           legend="Informatiecategorieën"
           :buckets="data?.facets?.informatieCategorieen"
           v-model="formFields.informatieCategorieen"
@@ -186,13 +193,13 @@ import GppWooIcon from "@/components/GppWooIcon.vue";
 import SimpleSpinner from "@/components/SimpleSpinner.vue";
 import UtrechtPagination from "@/components/UtrechtPagination.vue";
 import SearchBar from "@/components/SearchBar.vue";
+import BucketGroup from "@/features/search/components/BucketGroup.vue";
 import { useLoader } from "@/composables/use-loader";
 import { useSpinner } from "@/composables/use-spinner";
 import { sortOptions, search, resultOptions } from "@/features/search/service";
 import { formatDate, mapPaginatedResultsToUtrechtPagination, truncate } from "@/helpers";
 import { computed, onMounted, reactive, ref } from "vue";
 import { useRoute, useRouter, type RouteLocationRaw } from "vue-router";
-import FacetFieldset from "@/features/search/components/FacetFieldset.vue";
 
 const route = useRoute();
 const formElement = ref<HTMLFormElement>();
@@ -218,6 +225,7 @@ const parsedQuery = computed(() => ({
   registratiedatumTot: first(route.query.registratiedatumTot) || "",
   laatstGewijzigdDatumVanaf: first(route.query.laatstGewijzigdDatumVanaf) || "",
   laatstGewijzigdDatumTot: first(route.query.laatstGewijzigdDatumTot) || "",
+  publishers: array(route.query.publishers) || [],
   informatieCategorieen: array(route.query.informatieCategorieen) || []
 }));
 
@@ -228,6 +236,7 @@ const formFields = reactive({
   registratiedatumTot: "",
   laatstGewijzigdDatumVanaf: "",
   laatstGewijzigdDatumTot: "",
+  publishers: [] as string[],
   informatieCategorieen: [] as string[]
 });
 
@@ -304,7 +313,7 @@ const pagination = computed(
     "results";
 
   @media screen and (min-width: variables.$breakpoint-md) {
-    grid-template-columns: minmax(auto, 16rem) 1fr;
+    grid-template-columns: minmax(auto, 18rem) 1fr;
     grid-template-rows: auto auto 1fr;
     grid-template-areas:
       ". heading"
@@ -339,7 +348,6 @@ const pagination = computed(
     grid-area: filters;
     display: flex;
     flex-direction: column;
-    row-gap: var(--utrecht-space-inline-xs);
   }
 
   .results {

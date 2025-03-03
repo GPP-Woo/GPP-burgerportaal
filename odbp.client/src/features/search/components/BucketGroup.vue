@@ -1,5 +1,5 @@
 <template>
-  <utrecht-fieldset v-if="buckets?.length">
+  <utrecht-fieldset v-if="buckets?.length" role="group">
     <utrecht-legend>{{ legend }}</utrecht-legend>
 
     <utrecht-form-field v-for="{ uuid, naam, count } in buckets" :key="uuid" type="checkbox">
@@ -11,7 +11,8 @@
           :value="uuid"
           @change="$emit('change')"
         />
-        {{ naam }} ({{ count }})
+        <span class="bucket-name">{{ naam }}</span>
+        ({{ count }})
       </utrecht-form-label>
     </utrecht-form-field>
   </utrecht-fieldset>
@@ -31,6 +32,10 @@ const model = useModel(props, "modelValue");
 </script>
 
 <style lang="scss" scoped>
+.utrecht-form-fieldset {
+  --utrecht-space-around: 2;
+}
+
 .utrecht-form-field--checkbox {
   display: block;
 }
@@ -38,6 +43,10 @@ const model = useModel(props, "modelValue");
 .utrecht-form-label--checkbox {
   display: flex;
   align-items: flex-start;
-  column-gap: 0.5rem;
+  column-gap: var(--utrecht-space-inline-xs);;
+
+  .bucket-name {
+    flex: 1;
+  }
 }
 </style>

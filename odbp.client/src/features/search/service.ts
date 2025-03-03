@@ -29,6 +29,7 @@ type WaardelijstItem = {
 };
 
 type Facets = {
+  publishers: Bucket[];
   informatieCategorieen: Bucket[];
 };
 
@@ -67,6 +68,7 @@ export async function search({
   registratiedatumTot?: string | null;
   laatstGewijzigdDatumVanaf?: string | null;
   laatstGewijzigdDatumTot?: string | null;
+  publishers?: string[];
   informatieCategorieen?: string[];
   signal?: AbortSignal;
 }): Promise<SearchResponse> {

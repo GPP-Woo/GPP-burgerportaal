@@ -13,7 +13,7 @@ public record Facets
 {
     public ResultTypeBucket[] ResultTypes { get; init; } = [];
     public Bucket[] InformatieCategorieen { get; init; } = [];
-    public Bucket[] Organisaties { get; init; } = [];
+    public Bucket[] Publishers { get; init; } = [];
 }
 
 public record Bucket
@@ -41,7 +41,7 @@ public record Record
     public string? Publicatie { get; init; }
     public string? OfficieleTitel { get; init; }
     public string? VerkorteTitel { get; init; }
-    public Org? Publisher { get; init; }
+    public Publisher? Publisher { get; init; }
     public string? Omschrijving { get; init; }
     public DateTimeOffset? Creatiedatum { get; init; }
     public DateTimeOffset? Registratiedatum { get; init; }
@@ -55,7 +55,7 @@ public record InformatieCategorie
     public required string Naam { get; init; }
 }
 
-public record Org
+public record Publisher
 {
     public required string Uuid { get; init; }
     public required string Naam { get; init; }
