@@ -3,18 +3,16 @@
     <utrecht-legend>{{ legend }}</utrecht-legend>
 
     <utrecht-form-field v-for="{ uuid, naam, count } in buckets" :key="uuid" type="checkbox">
-      <!-- <p class="utrecht-form-field__label utrecht-form-field__label--checkbox"> -->
-        <utrecht-form-label type="checkbox" :checked="model.includes(uuid)">
-          <input
-            type="checkbox"
-            class="utrecht-checkbox utrecht-checkbox--html-input utrecht-checkbox--custom"
-            v-model="model"
-            :value="uuid"
-            @change="$emit('change')"
-          />
-          {{ naam }} ({{ count }})
-        </utrecht-form-label>
-      <!-- </p> -->
+      <utrecht-form-label type="checkbox" :checked="model.includes(uuid)">
+        <input
+          type="checkbox"
+          class="utrecht-checkbox utrecht-checkbox--html-input utrecht-checkbox--custom"
+          v-model="model"
+          :value="uuid"
+          @change="$emit('change')"
+        />
+        {{ naam }} ({{ count }})
+      </utrecht-form-label>
     </utrecht-form-field>
   </utrecht-fieldset>
 </template>
