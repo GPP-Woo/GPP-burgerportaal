@@ -2,17 +2,23 @@
   <utrecht-fieldset v-if="buckets?.length" role="group">
     <utrecht-legend>{{ legend }}</utrecht-legend>
 
-    <utrecht-form-field v-for="{ uuid, naam, count } in buckets" :key="uuid" type="checkbox">
-      <utrecht-form-label type="checkbox" :checked="model.includes(uuid)">
+    <utrecht-form-field v-for="(bucket, index) in buckets" :key="index" type="checkbox">
+      <utrecht-form-label type="checkbox" :checked="model.includes(getBucketRef(bucket))">
         <input
           type="checkbox"
           class="utrecht-checkbox utrecht-checkbox--html-input utrecht-checkbox--custom"
           v-model="model"
-          :value="uuid"
+          :value="getBucketRef(bucket)"
           @change="$emit('change')"
         />
-        <span class="bucket-name">{{ naam }}</span>
-        ({{ count }})
+
+        <span class="bucket-name">{{
+          bucket.naam in resultOptions
+            ? resultOptions[bucket.naam as ResultType].label
+            : bucket.naam
+        }}</span>
+
+        <span class="bucket-count">({{ bucket.count }})</span>
       </utrecht-form-label>
     </utrecht-form-field>
   </utrecht-fieldset>
@@ -20,15 +26,18 @@
 
 <script setup lang="ts">
 import { useModel } from "vue";
-import type { Bucket } from "../service";
+import { resultOptions, type Bucket, type ResultType, type ResultTypeBucket } from "../service";
 
 const props = defineProps<{
   legend: string;
-  buckets?: Readonly<Bucket[]>;
+  buckets?: Readonly<Bucket[] | ResultTypeBucket[]>;
   modelValue: string[];
 }>();
 
 const model = useModel(props, "modelValue");
+
+const getBucketRef = (bucket: Bucket | ResultTypeBucket) =>
+  "uuid" in bucket ? bucket.uuid : bucket.naam;
 </script>
 
 <style lang="scss" scoped>
@@ -43,7 +52,7 @@ const model = useModel(props, "modelValue");
 .utrecht-form-label--checkbox {
   display: flex;
   align-items: flex-start;
-  column-gap: var(--utrecht-space-inline-xs);;
+  column-gap: var(--utrecht-space-inline-xs);
 
   .bucket-name {
     flex: 1;

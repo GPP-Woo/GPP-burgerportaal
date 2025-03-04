@@ -90,6 +90,13 @@
         </utrecht-fieldset>
 
         <bucket-group
+          legend="Resultaat type"
+          :buckets="data?.facets?.resultTypes"
+          v-model="formFields.resultType"
+          @change="trySubmit"
+        />
+
+        <bucket-group
           legend="Organisaties"
           :buckets="data?.facets?.publishers"
           v-model="formFields.publishers"
@@ -196,7 +203,7 @@ import SearchBar from "@/components/SearchBar.vue";
 import BucketGroup from "@/features/search/components/BucketGroup.vue";
 import { useLoader } from "@/composables/use-loader";
 import { useSpinner } from "@/composables/use-spinner";
-import { sortOptions, search, resultOptions } from "@/features/search/service";
+import { sortOptions, resultOptions, search, type ResultType } from "@/features/search/service";
 import { formatDate, mapPaginatedResultsToUtrechtPagination, truncate } from "@/helpers";
 import { computed, onMounted, reactive, ref } from "vue";
 import { useRoute, useRouter, type RouteLocationRaw } from "vue-router";
@@ -225,6 +232,7 @@ const parsedQuery = computed(() => ({
   registratiedatumTot: first(route.query.registratiedatumTot) || "",
   laatstGewijzigdDatumVanaf: first(route.query.laatstGewijzigdDatumVanaf) || "",
   laatstGewijzigdDatumTot: first(route.query.laatstGewijzigdDatumTot) || "",
+  resultType: array(route.query.resultType) || [],
   publishers: array(route.query.publishers) || [],
   informatieCategorieen: array(route.query.informatieCategorieen) || []
 }));
@@ -236,6 +244,7 @@ const formFields = reactive({
   registratiedatumTot: "",
   laatstGewijzigdDatumVanaf: "",
   laatstGewijzigdDatumTot: "",
+  resultType: [] as string[],
   publishers: [] as string[],
   informatieCategorieen: [] as string[]
 });
@@ -274,6 +283,7 @@ const trySubmit = () => {
 const { error, loading, data } = useLoader((signal) =>
   search({
     ...parsedQuery.value,
+    ...{ resultType: first(parsedQuery.value.resultType) as ResultType },
     signal
   })
 );
