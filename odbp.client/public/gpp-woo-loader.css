@@ -12,9 +12,8 @@ body {
   justify-content: center;
   font-family: Arial, Helvetica, sans-serif !important;
   font-size: 1.5rem;
-  line-height: 2;
   margin: 1rem 2rem;
-  padding-inline: 1rem;
+  padding: 1rem;
   border: 2px solid #c0c0c0;
   border-radius: 0.5rem;
   background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);

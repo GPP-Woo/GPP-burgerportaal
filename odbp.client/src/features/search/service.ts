@@ -1,10 +1,11 @@
 import { addToDate, formatIsoDate } from "@/helpers";
 
 type SearchResponse = {
-  results: SearchResponseItem[];
   count: number;
-  next: boolean;
   previous: boolean;
+  next: boolean;
+  results: SearchResponseItem[];
+  facets?: Facets;
 };
 
 type SearchResponseItem = {
@@ -25,6 +26,17 @@ type SearchResponseItem = {
 type WaardelijstItem = {
   uuid: string;
   naam: string;
+};
+
+type Facets = {
+  publishers: Bucket[];
+  informatieCategorieen: Bucket[];
+};
+
+export type Bucket = {
+  uuid: string;
+  naam: string;
+  count: number;
 };
 
 export const sortOptions = {
@@ -56,6 +68,8 @@ export async function search({
   registratiedatumTot?: string | null;
   laatstGewijzigdDatumVanaf?: string | null;
   laatstGewijzigdDatumTot?: string | null;
+  publishers?: string[];
+  informatieCategorieen?: string[];
   signal?: AbortSignal;
 }): Promise<SearchResponse> {
   return fetch("/api/zoeken", {
