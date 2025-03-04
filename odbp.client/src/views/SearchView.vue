@@ -1,9 +1,9 @@
 <template>
-  <div class="zoeken-page">
+  <div class="search-page">
     <utrecht-heading :level="1">Zoeken</utrecht-heading>
 
     <form class="utrecht-form" @submit.prevent.stop="submit" ref="formElement">
-      <utrecht-fieldset class="zoeken">
+      <utrecht-fieldset class="search">
         <utrecht-legend class="visually-hidden">Zoeken en sorteren</utrecht-legend>
 
         <search-bar v-model="formFields.query" @submit="trySubmit" />
@@ -24,91 +24,93 @@
         </utrecht-form-field>
       </utrecht-fieldset>
 
-      <section class="filters">
-        <utrecht-heading :level="2" class="visually-hidden">Filters</utrecht-heading>
+      <section class="filter-section">
+        <utrecht-heading :level="2">Filters</utrecht-heading>
 
-        <utrecht-fieldset>
-          <utrecht-legend class="visually-hidden">Registratiedatum</utrecht-legend>
+        <div class="filters">
+          <utrecht-fieldset>
+            <utrecht-legend class="visually-hidden">Registratiedatum</utrecht-legend>
 
-          <utrecht-form-field>
-            <utrecht-form-label for="registration-date-from"
-              >Registratiedatum vanaf</utrecht-form-label
-            >
+            <utrecht-form-field>
+              <utrecht-form-label for="registration-date-from"
+                >Registratiedatum vanaf</utrecht-form-label
+              >
 
-            <utrecht-textbox
-              id="registration-date-from"
-              v-model="formFields.registratiedatumVanaf"
-              type="date"
-              @blur="trySubmit"
-              @change="trySubmit"
-            />
-          </utrecht-form-field>
+              <utrecht-textbox
+                id="registration-date-from"
+                v-model="formFields.registratiedatumVanaf"
+                type="date"
+                @blur="trySubmit"
+                @change="trySubmit"
+              />
+            </utrecht-form-field>
 
-          <utrecht-form-field>
-            <utrecht-form-label for="registration-date-until"
-              >Registratiedatum tot en met</utrecht-form-label
-            >
+            <utrecht-form-field>
+              <utrecht-form-label for="registration-date-until"
+                >Registratiedatum tot en met</utrecht-form-label
+              >
 
-            <utrecht-textbox
-              id="registration-date-until"
-              v-model="formFields.registratiedatumTot"
-              type="date"
-              @blur="trySubmit"
-              @change="trySubmit"
-            />
-          </utrecht-form-field>
-        </utrecht-fieldset>
+              <utrecht-textbox
+                id="registration-date-until"
+                v-model="formFields.registratiedatumTot"
+                type="date"
+                @blur="trySubmit"
+                @change="trySubmit"
+              />
+            </utrecht-form-field>
+          </utrecht-fieldset>
 
-        <utrecht-fieldset>
-          <utrecht-legend class="visually-hidden">Wijzigingsdatum</utrecht-legend>
+          <utrecht-fieldset>
+            <utrecht-legend class="visually-hidden">Wijzigingsdatum</utrecht-legend>
 
-          <utrecht-form-field>
-            <utrecht-form-label for="update-date-from">Wijzigingsdatum vanaf</utrecht-form-label>
+            <utrecht-form-field>
+              <utrecht-form-label for="update-date-from">Wijzigingsdatum vanaf</utrecht-form-label>
 
-            <utrecht-textbox
-              id="updated-date-from"
-              v-model="formFields.laatstGewijzigdDatumVanaf"
-              type="date"
-              @blur="trySubmit"
-              @change="trySubmit"
-            />
-          </utrecht-form-field>
+              <utrecht-textbox
+                id="updated-date-from"
+                v-model="formFields.laatstGewijzigdDatumVanaf"
+                type="date"
+                @blur="trySubmit"
+                @change="trySubmit"
+              />
+            </utrecht-form-field>
 
-          <utrecht-form-field>
-            <utrecht-form-label for="updated-date-until"
-              >Wijzigingsdatum tot en met</utrecht-form-label
-            >
+            <utrecht-form-field>
+              <utrecht-form-label for="updated-date-until"
+                >Wijzigingsdatum tot en met</utrecht-form-label
+              >
 
-            <utrecht-textbox
-              id="updated-date-until"
-              v-model="formFields.laatstGewijzigdDatumTot"
-              type="date"
-              @blur="trySubmit"
-              @change="trySubmit"
-            />
-          </utrecht-form-field>
-        </utrecht-fieldset>
+              <utrecht-textbox
+                id="updated-date-until"
+                v-model="formFields.laatstGewijzigdDatumTot"
+                type="date"
+                @blur="trySubmit"
+                @change="trySubmit"
+              />
+            </utrecht-form-field>
+          </utrecht-fieldset>
 
-        <bucket-group
-          legend="Resultaat type"
-          :buckets="data?.facets?.resultTypes"
-          v-model="formFields.resultType"
-          @change="trySubmit"
-        />
+          <bucket-group
+            legend="Resultaat type"
+            :buckets="data?.facets?.resultTypes"
+            v-model="formFields.resultType"
+            @change="trySubmit"
+          />
 
-        <bucket-group
-          legend="Organisaties"
-          :buckets="data?.facets?.publishers"
-          v-model="formFields.publishers"
-          @change="trySubmit"
-        />
+          <bucket-group
+            legend="Organisaties"
+            :buckets="data?.facets?.publishers"
+            v-model="formFields.publishers"
+            @change="trySubmit"
+          />
 
-        <bucket-group
-          legend="Informatiecategorieën"
-          :buckets="data?.facets?.informatieCategorieen"
-          v-model="formFields.informatieCategorieen"
-          @change="trySubmit"
-        />
+          <bucket-group
+            legend="Informatiecategorieën"
+            :buckets="data?.facets?.informatieCategorieen"
+            v-model="formFields.informatieCategorieen"
+            @change="trySubmit"
+          />
+        </div>
       </section>
     </form>
 
@@ -283,6 +285,8 @@ const trySubmit = () => {
 const { error, loading, data } = useLoader((signal) =>
   search({
     ...parsedQuery.value,
+    // resultTypes is offered as a facet so it's handled as an array in this component
+    // and then here it's passed as enum, as expected by search
     ...{ resultType: first(parsedQuery.value.resultType) as ResultType },
     signal
   })
@@ -312,13 +316,14 @@ const pagination = computed(
 <style lang="scss" scoped>
 @use "@/assets/variables";
 
-.zoeken-page {
+.search-page {
   --utrecht-paragraph-margin-block-start: 0;
 
   display: grid;
   grid-template-areas:
     "heading"
     "search"
+    "subheading"
     "filters"
     "results";
 
@@ -326,7 +331,7 @@ const pagination = computed(
     grid-template-columns: minmax(auto, 18rem) 1fr;
     grid-template-rows: auto auto 1fr;
     grid-template-areas:
-      ". heading"
+      "subheading heading"
       "filters search"
       "filters results";
     column-gap: 3vw;
@@ -334,19 +339,27 @@ const pagination = computed(
 
   .utrecht-heading-1 {
     grid-area: heading;
+    margin-block: var(--utrecht-space-block-xs);
   }
 
-  form {
+  .utrecht-heading-2 {
+    grid-area: subheading;
+    align-self: center;
+    margin-block: var(--utrecht-space-block-xs);
+  }
+
+  form,
+  .filter-section {
     display: contents;
   }
 
-  .zoeken {
+  .search {
     grid-area: search;
 
     > :first-child {
       display: flex;
       flex-wrap: wrap;
-      column-gap: calc(var(--utrecht-space-inline-md) * 2);
+      column-gap: var(--utrecht-space-inline-3xl);
 
       > * {
         flex: 1 0 auto;
