@@ -43,11 +43,13 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from) => {
-  document.title = `${to.meta?.title || ""} | ${import.meta.env.VITE_APP_TITLE}`;
+  document.title = `${to.meta?.title || ""}`;
+
   // keep focus if only the query params are different
   if (to.path === from.path) {
     return;
   }
+  
   document.body.setAttribute("tabindex", "-1");
   document.body.focus();
   document.body.removeAttribute("tabindex");

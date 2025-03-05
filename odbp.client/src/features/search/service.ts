@@ -29,6 +29,7 @@ type WaardelijstItem = {
 };
 
 type Facets = {
+  resultTypes: ResultTypeBucket[];
   publishers: Bucket[];
   informatieCategorieen: Bucket[];
 };
@@ -38,6 +39,8 @@ export type Bucket = {
   naam: string;
   count: number;
 };
+
+export type ResultTypeBucket = Omit<Bucket, "uuid">;
 
 export const sortOptions = {
   relevance: { label: "Relevantie", value: "relevance" },
@@ -68,6 +71,7 @@ export async function search({
   registratiedatumTot?: string | null;
   laatstGewijzigdDatumVanaf?: string | null;
   laatstGewijzigdDatumTot?: string | null;
+  resultType?: ResultType;
   publishers?: string[];
   informatieCategorieen?: string[];
   signal?: AbortSignal;
