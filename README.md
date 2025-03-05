@@ -34,7 +34,7 @@ Voor alle externe resources moet `Access-Control-Allow-Origin: *` of bijvoorbeel
 
 En voor het favicon naast de CORS-header ook CORP-header `Cross-Origin-Resource-Policy: cross-origin` instellen.
 
-Als een resource niet correct is geconfigureerd, zal deze niet geladen worden door de browser.
+Als een resource niet correct is geconfigureerd, zal deze niet geladen worden door de browser. **Let op:** er kunnen in de geconfigureerde externe resources ook geen verwijzingen staan naar andere externe resources of data URIs. Externe resources die niet zijn geconfigureerd zullen ook niet geladen worden door de browser.
 
 ## NLDS – NL Design System
 

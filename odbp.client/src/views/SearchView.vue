@@ -91,7 +91,7 @@
           </utrecht-fieldset>
 
           <bucket-group
-            legend="Resultaat type"
+            legend="Type informatie"
             :buckets="data?.facets?.resultTypes"
             v-model="formFields.resultType"
             @change="trySubmit"
