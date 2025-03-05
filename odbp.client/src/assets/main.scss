@@ -61,11 +61,29 @@
     gap: var(--utrecht-button-icon-gap);
 
     .utrecht-article & {
-      --utrecht-icon-size: .75rem;
+      --utrecht-icon-size: 0.75rem;
     }
   }
 
   .utrecht-textbox--html-input {
     block-size: 2.5rem; // date and text inputs are not the same height otherwise...
+  }
+
+  // overriding background-image for utrecht-checkbox--custom because of use of data uri, which gives csp-error
+  // in our current version 5 of @utrecht/component-library-css for some reason focus and active states have this background-image set as wel
+  // in version 7 this is changed, override for focus and active states can be removed when upgrading to 7 or higher
+  .utrecht-checkbox--custom.utrecht-checkbox--checked,
+  .utrecht-custom-checkbox--checked,
+  .utrecht-checkbox--custom.utrecht-checkbox--active,
+  .utrecht-custom-checkbox--active,
+  .utrecht-checkbox--custom.utrecht-checkbox--focus,
+  .utrecht-custom-checkbox--focus,
+  .utrecht-checkbox--custom.utrecht-checkbox--html-input:focus,
+  .utrecht-custom-checkbox--html-input:focus,
+  .utrecht-checkbox--custom.utrecht-checkbox--html-input:active,
+  .utrecht-custom-checkbox--html-input:active,
+  .utrecht-checkbox--custom.utrecht-checkbox--html-input:checked,
+  .utrecht-custom-checkbox--html-input:checked {
+    background-image: url("@/assets/icon-check.svg");
   }
 }

@@ -43,6 +43,8 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from) => {
+  document.title = `${to.meta?.title || ""}`;
+
   // keep focus if only the query params are different
   if (to.path === from.path) {
     return;
