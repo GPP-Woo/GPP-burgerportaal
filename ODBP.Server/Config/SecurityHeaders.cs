@@ -20,6 +20,11 @@ namespace Microsoft.AspNetCore.Builder
                 resourcesConfig.ImageUrl
             };
 
+            var fontSources = new List<string?> {
+                "'self'",
+                resourcesConfig.FontSources
+            };
+
             return app.UseSecurityHeaders(x => x
                 .AddDefaultSecurityHeaders()
                 .AddCrossOriginOpenerPolicy(x =>
@@ -42,7 +47,7 @@ namespace Microsoft.AspNetCore.Builder
                     csp.AddScriptSrc().Self();
                     csp.AddStyleSrc().From(string.Join(" ", styleSources.Where(src => !string.IsNullOrWhiteSpace(src))));
                     csp.AddImgSrc().From(string.Join(" ", imgSources.Where(src => !string.IsNullOrWhiteSpace(src))));
-                    csp.AddFontSrc().Self();
+                    csp.AddFontSrc().From(string.Join(" ", fontSources.Where(src => !string.IsNullOrWhiteSpace(src))));
                     csp.AddFrameAncestors().None();
                     csp.AddFormAction().Self();
                     csp.AddBaseUri().None();

@@ -26,6 +26,19 @@ namespace ODBP.Features
         public string? FaviconUrl => Uri.TryCreate(_configuration["RESOURCES:GEMEENTE_FAVICON_URL"], UriKind.Absolute, out var uri) ? uri.ToString() : null;
         public string? ImageUrl => Uri.TryCreate(_configuration["RESOURCES:GEMEENTE_MAIN_IMAGE_URL"], UriKind.Absolute, out var uri) ? uri.ToString() : null;
         public string? TokensUrl => Uri.TryCreate(_configuration["RESOURCES:GEMEENTE_DESIGN_TOKENS_URL"], UriKind.Absolute, out var uri) ? uri.ToString() : null;
+        public string? FontSources
+        {
+            get
+            {
+                var arr = _configuration["RESOURCES:GEMEENTE_WEB_FONT_SOURCES"]?.Split(" ", StringSplitOptions.RemoveEmptyEntries)
+                    .Where(s => Uri.TryCreate(s, UriKind.Absolute, out _))
+                    .ToArray();
+
+                var sources = string.Join(" ", arr ?? []);
+
+                return !string.IsNullOrWhiteSpace(sources) ? sources : null;
+            }
+        }
         public string? Theme
         {
             get

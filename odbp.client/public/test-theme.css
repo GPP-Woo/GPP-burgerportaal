@@ -1,5 +1,19 @@
+@font-face {
+  font-family: "Titillium Web";
+  src: url(https://fonts.gstatic.com/s/titilliumweb/v17/NaPecZTIAOhVxoMyOr9n_E7fdMPmDQ.woff2)
+    format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Titillium Web";
+  src: url(https://fonts.gstatic.com/s/titilliumweb/v17/NaPDcZTIAOhVxoMyOr9n_E7ffHjDGItzYw.woff2)
+    format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+
 .test-theme {
-  --utrecht-unordered-list-marker-color: var(--utrecht-color-green-40);
-  --utrecht-page-footer-background-color: var(--utrecht-color-green-40);
-  --utrecht-page-footer-background-image: none;
+  --utrecht-typography-sans-serif-font-family: "Titillium Web", Helvetica, Arial, sans-serif;
 }
