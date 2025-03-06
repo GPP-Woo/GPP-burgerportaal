@@ -19,6 +19,7 @@ namespace ODBP.Features.Environment
         {
             var response = new
             {
+                _resourcesConfig.Title,
                 _resourcesConfig.Name,
                 _resourcesConfig.LogoUrl,
                 _resourcesConfig.FaviconUrl,

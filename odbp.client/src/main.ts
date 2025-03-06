@@ -2,14 +2,11 @@ import "./assets/main.scss";
 
 import { createApp } from "vue";
 import App from "./App.vue";
-import router from "./router";
 import { registerComponents } from "@/components/register";
 import { loadThemeResources } from "./resources";
 import { loadWaardelijsten } from "./stores/waardelijsten";
 
 const app = createApp(App);
-
-app.use(router);
 
 registerComponents(app);
 
@@ -19,6 +16,11 @@ registerComponents(app);
 
   // Preload waardelijsten to be used in different app components
   await loadWaardelijsten();
+
+  // Load router after theme, to be able to use theme settings
+  const { default: router } = await import("./router");
+
+  app.use(router);
 
   app.mount("#app");
 })();
