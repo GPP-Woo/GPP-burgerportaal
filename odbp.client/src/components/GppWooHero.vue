@@ -12,8 +12,8 @@
       <div class="gpp-woo-card">
         <div class="gpp-woo-card-content">
           <span class="utrecht-heading-2"
-            >Open {{ naam }}, zoek hier in openbaar gemaakte informatie van Gemeente
-            {{ naam }}</span
+            >{{ resources?.title ? `${resources.title}, ` : `` }}zoek hier in openbaar gemaakte
+            informatie{{ resources?.name ? ` van ${resources.name}` : `` }}</span
           >
 
           <form v-if="route.name === 'home'" class="utrecht-form" @submit.prevent.stop="submit">
@@ -30,14 +30,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from "vue";
+import { ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { injectResources } from "@/resources";
 import SearchBar from "./SearchBar.vue";
 
 const resources = injectResources();
-
-const naam = computed(() => (resources?.name ? resources.name : "-"));
 
 const route = useRoute();
 const router = useRouter();

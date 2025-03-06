@@ -1,6 +1,7 @@
 import { inject, type App } from "vue";
 
 export type Resources = Partial<{
+  title: string;
   name: string;
   logoUrl: string;
   faviconUrl: string;
@@ -24,6 +25,8 @@ const getResources = async (): Promise<Resources> => {
     return {};
   }
 };
+
+const setTitle = (title?: string) => title && (document.title = title);
 
 const setTheme = (theme?: string) => theme && document.body.classList.add(theme);
 
@@ -73,6 +76,9 @@ export const loadThemeResources = async (app: App): Promise<void> => {
     // Tokens will be loaded directly (as unlayered css, to be sure it takes precedence over the layered project css)
     // Images will be preloaded, waiting to be referenced from the app
     await loadResources([resources.tokensUrl, resources.logoUrl, resources.imageUrl]);
+
+    // Set portal title
+    setTitle(resources.title);
 
     // Replace the provided favicon link
     setIcon(resources.faviconUrl);

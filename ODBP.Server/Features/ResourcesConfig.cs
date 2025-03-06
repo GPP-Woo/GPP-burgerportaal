@@ -6,6 +6,14 @@ namespace ODBP.Features
     {
         private readonly IConfiguration _configuration = configuration;
 
+        public string? Title
+        {
+            get
+            {
+                var title = _configuration["RESOURCES:PORTAAL_TITEL"];
+                return !string.IsNullOrWhiteSpace(title) ? title : null;
+            }
+        }
         public string? Name
         {
             get
