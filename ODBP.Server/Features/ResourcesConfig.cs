@@ -30,7 +30,7 @@ namespace ODBP.Features
         {
             get
             {
-                var arr = _configuration["RESOURCES:GEMEENTE_CUSTOM_FONT_SOURCES"]?.Split(" ", StringSplitOptions.RemoveEmptyEntries)
+                var arr = _configuration["RESOURCES:GEMEENTE_WEB_FONT_SOURCES"]?.Split(" ", StringSplitOptions.RemoveEmptyEntries)
                     .Where(s => Uri.TryCreate(s, UriKind.Absolute, out _))
                     .ToArray();
 
