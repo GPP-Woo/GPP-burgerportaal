@@ -37,22 +37,14 @@ const setIcon = (href?: string) =>
 const appendSvg = async (url: string): Promise<{ href: string }> => {
   try {
     const response = await fetch(url);
-    const svgString = await response.text();
-    const sanitizedSvg = sanitizeSvg(svgString)
+    const svg = await response.text();
 
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(sanitizedSvg, "image/svg+xml");
-    const svg = doc.documentElement;
-
-    const symbol = document.createElementNS("http://www.w3.org/2000/svg", "symbol");
-
-    for (const attr of svg.attributes) symbol.setAttribute(attr.name, attr.value);
-
-    while (svg.firstChild) symbol.appendChild(svg.firstChild);
-
-    symbol.id = btoa(url);
-
-    document.getElementById("svg-resources")?.appendChild(symbol);
+    document.body.appendChild(
+      Object.assign(document.createElement("template"), {
+        id: btoa(url),
+        innerHTML: sanitizeSvg(svg)
+      })
+    );
 
     return Promise.resolve({ href: url });
   } catch {
@@ -102,7 +94,7 @@ export const loadThemeResources = async (app: App): Promise<void> => {
     // (this is done before mounting the app to prevent layout shifts)
     // Tokens will be loaded directly (as unlayered css, to be sure it takes precedence over the layered project css)
     // Images will be preloaded, waiting to be referenced from the app
-    // Svgs will be fetched and added to svg-resources sprite
+    // Svgs will be fetched and appended as a template for further referencing
     await loadResources([resources.tokensUrl, resources.logoUrl, resources.imageUrl]);
 
     // Set portal title

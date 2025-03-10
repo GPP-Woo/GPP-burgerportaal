@@ -81,5 +81,5 @@ export function sanitizeHtml(dirtyHtml: string) {
 }
 
 export function sanitizeSvg(dirtySvg: string) {
-  return DOMPurify.sanitize(dirtySvg, {USE_PROFILES: {svg: true, svgFilters: true}});
+  return DOMPurify.sanitize(dirtySvg, { USE_PROFILES: { svg: true, svgFilters: true } });
 }

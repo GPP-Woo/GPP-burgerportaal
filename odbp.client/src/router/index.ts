@@ -51,7 +51,7 @@ router.beforeEach((to, from) => {
   if (to.path === from.path) {
     return;
   }
-  
+
   document.body.setAttribute("tabindex", "-1");
   document.body.focus();
   document.body.removeAttribute("tabindex");
