@@ -34,7 +34,7 @@ const setTheme = (theme?: string) => theme && document.body.classList.add(theme)
 const setIcon = (href?: string) =>
   href && ((document.querySelector("link[rel~='icon']") as HTMLLinkElement).href = href);
 
-const appendSvg = async (url: string): Promise<{ href: string }> => {
+const appendSvgTemplate = async (url: string): Promise<{ href: string }> => {
   try {
     const response = await fetch(url);
     const svg = await response.text();
@@ -74,7 +74,7 @@ const linkResource = async (href: string) =>
 const loadResources = async (sources: (string | undefined)[]) => {
   const promises = sources
     .filter((url): url is string => typeof url === "string" && url.trim() !== "")
-    .map((href) => (href.endsWith(".svg") ? appendSvg(href) : linkResource(href)));
+    .map((href) => (href.endsWith(".svg") ? appendSvgTemplate(href) : linkResource(href)));
 
   const results = await Promise.allSettled(promises);
 
