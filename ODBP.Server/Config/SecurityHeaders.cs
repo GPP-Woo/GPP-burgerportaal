@@ -8,6 +8,8 @@ namespace Microsoft.AspNetCore.Builder
         {
             var resourcesConfig = app.Services.GetRequiredService<ResourcesConfig>();
 
+            var connectSources = new List<string?> { };
+
             var styleSources = new List<string?> {
                 "'self'",
                 resourcesConfig.TokensUrl
@@ -16,7 +18,6 @@ namespace Microsoft.AspNetCore.Builder
             var imgSources = new List<string?> {
                 "'self'",
                 resourcesConfig.FaviconUrl,
-                resourcesConfig.LogoUrl,
                 resourcesConfig.ImageUrl
             };
 
@@ -24,6 +25,21 @@ namespace Microsoft.AspNetCore.Builder
                 "'self'",
                 resourcesConfig.FontSources
             };
+
+            // Add svg logo to connectSources to be able to fetch through js
+            var logoUrl = resourcesConfig.LogoUrl;
+
+            if (!string.IsNullOrEmpty(logoUrl))
+            {
+                if (logoUrl.EndsWith(".svg", StringComparison.OrdinalIgnoreCase))
+                {
+                    connectSources.Add(logoUrl);
+                }
+                else
+                {
+                    imgSources.Add(logoUrl);
+                }
+            }
 
             return app.UseSecurityHeaders(x => x
                 .AddDefaultSecurityHeaders()

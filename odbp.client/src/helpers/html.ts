@@ -57,13 +57,13 @@ const modifyExternalLinks = (html: string) => {
 };
 
 DOMPurify.addHook("afterSanitizeAttributes", (node) => {
-  node.tagName === "H1" && node.classList.add("utrecht-heading-1");
-  node.tagName === "H2" && node.classList.add("utrecht-heading-2");
-  node.tagName === "P" && node.classList.add("utrecht-paragraph");
-  node.tagName === "A" && node.classList.add("utrecht-link", "utrecht-link--html-a");
-  node.tagName === "UL" && node.classList.add("utrecht-unordered-list");
-  node.tagName === "OL" && node.classList.add("utrecht-ordered-list");
-  node.tagName === "LI" &&
+  if (node.tagName === "H1") node.classList.add("utrecht-heading-1");
+  if (node.tagName === "H2") node.classList.add("utrecht-heading-2");
+  if (node.tagName === "P") node.classList.add("utrecht-paragraph");
+  if (node.tagName === "A") node.classList.add("utrecht-link", "utrecht-link--html-a");
+  if (node.tagName === "UL") node.classList.add("utrecht-unordered-list");
+  if (node.tagName === "OL") node.classList.add("utrecht-ordered-list");
+  if (node.tagName === "LI")
     node.classList.add(
       node.parentNode?.nodeName === "OL"
         ? "utrecht-ordered-list__item"
@@ -78,4 +78,8 @@ export function sanitizeHtml(dirtyHtml: string) {
   });
 
   return modifyExternalLinks(cleanHtml);
+}
+
+export function sanitizeSvg(dirtySvg: string) {
+  return DOMPurify.sanitize(dirtySvg, {USE_PROFILES: {svg: true, svgFilters: true}});
 }

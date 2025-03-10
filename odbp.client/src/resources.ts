@@ -1,4 +1,5 @@
 import { inject, type App } from "vue";
+import { sanitizeSvg } from "./helpers";
 
 export type Resources = Partial<{
   title: string;
@@ -33,29 +34,55 @@ const setTheme = (theme?: string) => theme && document.body.classList.add(theme)
 const setIcon = (href?: string) =>
   href && ((document.querySelector("link[rel~='icon']") as HTMLLinkElement).href = href);
 
+const appendSvg = async (url: string): Promise<{ href: string }> => {
+  try {
+    const response = await fetch(url);
+    const svgString = await response.text();
+    const sanitizedSvg = sanitizeSvg(svgString)
+
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(sanitizedSvg, "image/svg+xml");
+    const svg = doc.documentElement;
+
+    const symbol = document.createElementNS("http://www.w3.org/2000/svg", "symbol");
+
+    for (const attr of svg.attributes) symbol.setAttribute(attr.name, attr.value);
+
+    while (svg.firstChild) symbol.appendChild(svg.firstChild);
+
+    symbol.id = btoa(url);
+
+    document.getElementById("svg-resources")?.appendChild(symbol);
+
+    return Promise.resolve({ href: url });
+  } catch {
+    return Promise.reject({ href: url });
+  }
+};
+
+const linkResource = async (href: string) =>
+  new Promise<{ href: string }>((resolve, reject) => {
+    const link = document.createElement("link");
+
+    link.rel = href.endsWith(".css") ? "stylesheet" : "preload";
+
+    if (link.rel === "preload") {
+      link.as = "image";
+    }
+
+    link.href = href;
+    link.crossOrigin = "anonymous";
+
+    link.onload = () => resolve({ href });
+    link.onerror = () => reject({ href });
+
+    document.head.appendChild(link);
+  });
+
 const loadResources = async (sources: (string | undefined)[]) => {
   const promises = sources
     .filter((url): url is string => typeof url === "string" && url.trim() !== "")
-    .map(
-      (href) =>
-        new Promise<{ href: string }>((resolve, reject) => {
-          const link = document.createElement("link");
-
-          link.rel = href.endsWith(".css") ? "stylesheet" : "preload";
-
-          if (link.rel === "preload") {
-            link.as = "image";
-          }
-
-          link.href = href;
-          link.crossOrigin = "anonymous";
-
-          link.onload = () => resolve({ href });
-          link.onerror = () => reject({ href });
-
-          document.head.appendChild(link);
-        })
-    );
+    .map((href) => (href.endsWith(".svg") ? appendSvg(href) : linkResource(href)));
 
   const results = await Promise.allSettled(promises);
 
@@ -75,6 +102,7 @@ export const loadThemeResources = async (app: App): Promise<void> => {
     // (this is done before mounting the app to prevent layout shifts)
     // Tokens will be loaded directly (as unlayered css, to be sure it takes precedence over the layered project css)
     // Images will be preloaded, waiting to be referenced from the app
+    // Svgs will be fetched and added to svg-resources sprite
     await loadResources([resources.tokensUrl, resources.logoUrl, resources.imageUrl]);
 
     // Set portal title
