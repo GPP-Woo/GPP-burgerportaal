@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Mvc;
@@ -44,8 +43,11 @@ namespace ODBP.Features.Sitemap.SitemapInstances
             {
                 var document = item.Deserialize(SitemapPublicatieContext.Default.OdrcDocument);
                 // als we de publicatie niet bij het document kunnen vinden, is de publicatie niet bekend of heeft deze niet de status gepubliceerd
-                // dan negeren we het document
-                if (document == null || !gepubliceerdePublicaties.TryGetValue(document.Publicatie, out var publicatie))
+                // als we de publisher niet bij de publicatie kunnen vinden, is de organisatie niet bekend of heeft deze als oorsprong "zelf_toegevoegd"
+                // in al deze gevallen negeren we het document
+                if (document == null || 
+                    !gepubliceerdePublicaties.TryGetValue(document.Publicatie, out var publicatie) ||
+                    !organisaties.TryGetValue(publicatie.Publisher, out var publisher))
                 {
                     continue;
                 }
@@ -64,9 +66,7 @@ namespace ODBP.Features.Sitemap.SitemapInstances
                             Creatiedatum = document.Creatiedatum,
                             // als we om de een of andere reden geen organisatie kunnen vinden obv van de publisher id, laten we deze leeg
                             // we voorzien niet dat dit gebeurt maar het is altijd beter om een document met minder metadata te tonen dan helemaal niet
-                            Publisher = organisaties.TryGetValue(publicatie.Publisher, out var publisher)
-                                ? publisher
-                                : null,
+                            Publisher = publisher,
                             Opsteller = publicatie.Opsteller != null && organisaties.TryGetValue(publicatie.Opsteller, out var opsteller)
                                 ? opsteller
                                 : null,
@@ -114,9 +114,11 @@ namespace ODBP.Features.Sitemap.SitemapInstances
             var result = new Dictionary<string, ResourceWithValue>();
             await foreach (var item in GetAllPages(client, path, token))
             {
-                if (item.TryGetProperty("uuid", out var uuidProp)
-                    && item.TryGetProperty("identifier", out var identifierProp)
-                    && item.TryGetProperty("naam", out var naamprop)
+                if (item.TryGetProperty("uuid"u8, out var uuidProp)
+                    && item.TryGetProperty("identifier"u8, out var identifierProp)
+                    && item.TryGetProperty("naam"u8, out var naamprop)
+                    && item.TryGetProperty("oorsprong"u8, out var oorsprong)
+                    && !oorsprong.ValueEquals("zelf_toegevoegd"u8) // zelf toegevoegde organisaties & informatiecategorieen uitfilteren
                     && uuidProp.ValueKind == JsonValueKind.String
                     && identifierProp.ValueKind == JsonValueKind.String
                     && naamprop.ValueKind == JsonValueKind.String
@@ -156,11 +158,11 @@ namespace ODBP.Features.Sitemap.SitemapInstances
                 response.EnsureSuccessStatusCode();
                 await using var stream = await response.Content.ReadAsStreamAsync(token);
                 using var doc = await JsonDocument.ParseAsync(stream, cancellationToken: token);
-                if (doc.RootElement.TryGetProperty("next", out var nextProp) && nextProp.ValueKind == JsonValueKind.String)
+                if (doc.RootElement.TryGetProperty("next"u8, out var nextProp) && nextProp.ValueKind == JsonValueKind.String)
                 {
                     next = nextProp.GetString();
                 }
-                if (doc.RootElement.TryGetProperty("results", out var resultsProp) && resultsProp.ValueKind == JsonValueKind.Array)
+                if (doc.RootElement.TryGetProperty("results"u8, out var resultsProp) && resultsProp.ValueKind == JsonValueKind.Array)
                 {
                     foreach (var item in resultsProp.EnumerateArray())
                     {
