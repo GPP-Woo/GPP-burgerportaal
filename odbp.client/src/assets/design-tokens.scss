@@ -3,7 +3,7 @@
 .gpp-woo-theme {
   @include mixin.utrecht-theme;
 
-  // utrecht overrides for gpp-woo-theme
+  // utrecht token overrides for gpp-woo-theme
   --utrecht-space-around: 1.5;
 
   --utrecht-surface-background-color: var(--utrecht-color-white);
@@ -29,18 +29,35 @@
 
   --utrecht-pagination-margin-block-start: var(--utrecht-space-inline-md);
 
-  // custom gpp-woo css variables
-  // card
+  // gpp-woo css variables
+
+  // gpp-woo-page-footer
+  --gpp-woo-page-footer-link-list-column-gap: var(--utrecht-space-inline-3xl);
+
+  // gpp-woo-card
   --gpp-woo-card-max-inline-size: calc(var(--utrecht-page-max-inline-size) / 2);
   --gpp-woo-card-background-color: var(--utrecht-surface-background-color);
   --gpp-woo-card-box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1), 0px 6px 12px rgba(0, 0, 0, 0.06);
   --gpp-woo-card-content-padding-block: var(--utrecht-space-block-xl);
   --gpp-woo-card-content-padding-inline: var(--utrecht-space-inline-xl);
 
-  // search
+  // gpp-woo-search-page
   --gpp-woo-search-page-heading-1-margin-block: var(--utrecht-space-block-xs);
   --gpp-woo-search-page-heading-2-margin-block: var(--utrecht-space-block-xs);
+  --gpp-woo-search-page-heading-3-margin-block-end: var(--utrecht-heading-3-margin-block-end);
+  --gpp-woo-search-page-heading-3-margin-block-start: var(--utrecht-heading-3-margin-block-start);
+  --gpp-woo-search-page-paragraph-has-time-font-size: var(--utrecht-typography-scale-xs-font-size);
+  
   --gpp-woo-search-fieldset-column-gap: var(--utrecht-space-inline-3xl);
   --gpp-woo-search-bar-column-gap: var(--utrecht-space-inline-xs);
   --gpp-woo-result-list-item-margin-block: 0;
+  
+  --gpp-woo-meta-list-margin-block: 0;
+  --gpp-woo-meta-list-column-gap: var(--utrecht-space-inline-xs);
+  --gpp-woo-meta-list-row-gap: var(--utrecht-space-inline-2xs);
+  --gpp-woo-meta-list-item-font-size: var(--utrecht-typography-scale-xs-font-size);
+  --gpp-woo-meta-list-item-category-border-bottom: 1px dotted rgb(211, 211, 211);
+
+  --gpp-woo-buckets-fieldset-space-around: 2;
+  --gpp-woo-buckets-form-label-column-gap: var(--utrecht-space-inline-xs);
 }

@@ -1,5 +1,5 @@
 <template>
-  <utrecht-fieldset v-if="buckets?.length" role="group">
+  <utrecht-fieldset v-if="buckets?.length" role="group" class="gpp-woo-buckets-fieldset">
     <utrecht-legend>{{ legend }}</utrecht-legend>
 
     <utrecht-form-field v-for="(bucket, index) in buckets" :key="index" type="checkbox">
@@ -42,7 +42,7 @@ const getBucketRef = (bucket: Bucket | ResultTypeBucket) =>
 
 <style lang="scss" scoped>
 .utrecht-form-fieldset {
-  --utrecht-space-around: 2;
+  --utrecht-space-around: var(--gpp-woo-buckets-fieldset-space-around);
 }
 
 .utrecht-form-field--checkbox {
@@ -52,7 +52,7 @@ const getBucketRef = (bucket: Bucket | ResultTypeBucket) =>
 .utrecht-form-label--checkbox {
   display: flex;
   align-items: flex-start;
-  column-gap: var(--utrecht-space-inline-xs);
+  column-gap: var(--gpp-woo-buckets-form-label-column-gap);
 
   .bucket-name {
     flex: 1;

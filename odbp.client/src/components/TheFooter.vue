@@ -1,5 +1,5 @@
 <template>
-  <utrecht-page-footer>
+  <utrecht-page-footer class="gpp-woo-page-footer">
     <div class="utrecht-page-footer__content">
       <div class="utrecht-page-footer__navigation">
         <ul role="list" class="utrecht-link-list utrecht-link-list--html-ul">
@@ -37,6 +37,6 @@ const listItems = new Map<keyof Resources, string>([
 .utrecht-link-list {
   flex-flow: row wrap;
   justify-content: center;
-  column-gap: var(--utrecht-space-inline-2xl);
+  column-gap: var(--gpp-woo-page-footer-link-list-column-gap);
 }
 </style>
