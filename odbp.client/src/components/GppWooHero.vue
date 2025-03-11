@@ -54,7 +54,7 @@ watch(
 .gpp-woo-hero {
   position: relative;
 
-  .gpp-woo-hero__image {
+  &__image {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -72,7 +72,7 @@ watch(
   background-color: var(--gpp-woo-card-background-color);
   box-shadow: var(--gpp-woo-card-box-shadow);
 
-  .gpp-woo-card__content {
+  &__content {
     padding-block: var(--gpp-woo-card-content-padding-block);
     padding-inline: var(--gpp-woo-card-content-padding-inline);
   }

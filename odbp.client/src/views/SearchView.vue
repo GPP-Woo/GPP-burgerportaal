@@ -1,9 +1,9 @@
 <template>
-  <div class="search-page">
+  <div class="gpp-woo-search-page">
     <utrecht-heading :level="1">Zoeken</utrecht-heading>
 
-    <form class="utrecht-form" @submit.prevent.stop="submit" ref="formElement">
-      <utrecht-fieldset class="search">
+    <form class="utrecht-form gpp-woo-contents" @submit.prevent.stop="submit" ref="formElement">
+      <utrecht-fieldset class="gpp-woo-search">
         <utrecht-legend class="visually-hidden">Zoeken en sorteren</utrecht-legend>
 
         <gpp-woo-search-bar v-model="formFields.query" @submit="trySubmit" />
@@ -24,10 +24,10 @@
         </utrecht-form-field>
       </utrecht-fieldset>
 
-      <section class="filter-section">
+      <section class="gpp-woo-contents">
         <utrecht-heading :level="2">Filters</utrecht-heading>
 
-        <div class="filters">
+        <div class="gpp-woo-filters">
           <utrecht-fieldset>
             <utrecht-legend class="visually-hidden">Registratiedatum</utrecht-legend>
 
@@ -114,7 +114,7 @@
       </section>
     </form>
 
-    <section class="results" aria-live="polite" aria-atomic="true">
+    <section class="gpp-woo-results" aria-live="polite" aria-atomic="true">
       <utrecht-heading :level="2" class="visually-hidden">Zoekresultaat</utrecht-heading>
 
       <simple-spinner v-if="showSpinner" />
@@ -127,7 +127,7 @@
         <div v-if="data.results.length">
           <utrecht-paragraph>{{ data.count }} resultaten gevonden</utrecht-paragraph>
 
-          <ol>
+          <ol class="gpp-woo-result-list">
             <li
               v-for="{
                 type,
@@ -142,8 +142,9 @@
                 }
               } in data.results"
               :key="uuid"
+              class="gpp-woo-result-list__item"
             >
-              <utrecht-article class="search-result">
+              <utrecht-article>
                 <utrecht-heading :level="3">
                   <router-link
                     :to="`/${type === resultOptions.document.value ? 'documenten' : 'publicaties'}/${uuid}`"
@@ -153,15 +154,17 @@
                   </router-link>
                 </utrecht-heading>
 
-                <ul>
-                  <li class="result-type">
+                <ul class="gpp-woo-meta-list">
+                  <li class="gpp-woo-meta-list__item gpp-woo-meta-list__item--type">
                     <strong>{{ resultOptions[type].label }}</strong>
                   </li>
 
-                  <li class="publisher">{{ publisher.naam }}</li>
+                  <li class="gpp-woo-meta-list__item gpp-woo-meta-list__item--publisher">
+                    {{ publisher.naam }}
+                  </li>
 
                   <li
-                    class="category"
+                    class="gpp-woo-meta-list__item gpp-woo-meta-list__item--category"
                     v-for="categorie in informatieCategorieen"
                     :key="categorie.uuid"
                   >
@@ -180,6 +183,7 @@
                     "
                   >
                     <span>{{ ", gewijzigd op " }}</span>
+
                     <time :datetime="laatstGewijzigdDatum">{{
                       formatDate(laatstGewijzigdDatum)
                     }}</time>
@@ -189,7 +193,7 @@
             </li>
           </ol>
 
-          <utrecht-pagination v-if="pagination" v-bind="pagination" class="pagination" />
+          <utrecht-pagination v-if="pagination" v-bind="pagination" />
         </div>
 
         <utrecht-paragraph v-else>Geen resultaten gevonden.</utrecht-paragraph>
@@ -317,7 +321,7 @@ const pagination = computed(
 <style lang="scss" scoped>
 @use "@/assets/variables";
 
-.search-page {
+.gpp-woo-search-page {
   --utrecht-paragraph-margin-block-start: 0;
 
   display: grid;
@@ -340,41 +344,40 @@ const pagination = computed(
 
   .utrecht-heading-1 {
     grid-area: heading;
-    margin-block: var(--utrecht-space-block-xs);
+    margin-block: var(--gpp-woo-search-page-heading-1-margin-block);
   }
 
   .utrecht-heading-2 {
     grid-area: subheading;
     align-self: center;
-    margin-block: var(--utrecht-space-block-xs);
+    margin-block: var(--gpp-woo-search-page-heading-2-margin-block);
   }
 
-  form,
-  .filter-section {
+  .gpp-woo-contents {
     display: contents;
   }
 
-  .search {
+  .gpp-woo-search {
     grid-area: search;
 
     > :first-child {
       display: flex;
       flex-wrap: wrap;
-      column-gap: var(--utrecht-space-inline-3xl);
+      column-gap: var(--gpp-woo-search-fieldset-column-gap);
 
-      > * {
+      > .utrecht-form-field {
         flex: 1 0 auto;
       }
     }
   }
 
-  .filters {
+  .gpp-woo-filters {
     grid-area: filters;
     display: flex;
     flex-direction: column;
   }
 
-  .results {
+  .gpp-woo-results {
     grid-area: results;
 
     > * {
@@ -384,56 +387,59 @@ const pagination = computed(
   }
 }
 
+.gpp-woo-result-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  &__item {
+    margin-block: var(--gpp-woo-result-list-item-margin-block);
+  }
+
+  :has(time) {
+    font-size: var(--utrecht-typography-scale-xs-font-size);
+  }
+}
+
+.gpp-woo-meta-list {
+  list-style: none;
+  padding: 0;
+  margin-block: var(--gpp-woo-result-list-item-margin-block);
+  
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  column-gap: var(--utrecht-space-inline-xs);
+  row-gap: var(--utrecht-space-inline-2xs);
+
+  &__item {
+    font-size: var(--utrecht-typography-scale-xs-font-size);
+
+    &--category {
+      border-bottom: 1px dotted lightgray;
+    }
+  }
+}
+
+.utrecht-pagination {
+  margin-inline: auto;
+}
+
 :has(> #sort-select) {
   position: relative;
   max-inline-size: var(--utrecht-form-control-max-inline-size);
 
   > :last-child {
+    display: flex;
     position: absolute;
     inset-inline-end: 0;
     block-size: 100%;
     inline-size: 0.5rem;
-    display: flex;
     padding-inline-end: var(
       --utrecht-select-padding-inline-end,
       var(--utrecht-form-control-padding-inline-end)
     );
     pointer-events: none;
   }
-}
-
-ol,
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.utrecht-form-label {
-  display: block;
-}
-
-.search-result {
-  ul {
-    display: flex;
-    column-gap: var(--utrecht-space-inline-xs);
-    row-gap: var(--utrecht-space-inline-2xs);
-    align-items: center;
-    flex-wrap: wrap;
-  }
-
-  li,
-  :has(time) {
-    font-size: var(--utrecht-typography-scale-xs-font-size);
-  }
-
-  .category {
-    border-bottom: 1px dotted lightgray;
-  }
-}
-
-.pagination {
-  margin-inline: auto;
-  margin-block-start: var(--utrecht-space-inline-md);
 }
 </style>
