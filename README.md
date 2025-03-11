@@ -74,3 +74,4 @@ Op dit moment is de implementatie gebaseerd op alleen het Utrecht Design System,
 | **Form label** (`utrecht-form-label`)         | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-form-label--design-tokens)     |
 | **Textbox** (`utrecht-textbox`)               | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-textbox--design-tokens)        |
 | **Table** (`utrecht-table`)                   | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-table--design-tokens)          |
+| **Logo** (`utrecht-logo`)                     | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-logo--design-tokens)           |
