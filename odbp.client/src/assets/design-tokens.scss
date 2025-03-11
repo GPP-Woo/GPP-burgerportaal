@@ -3,6 +3,7 @@
 .gpp-woo-theme {
   @include mixin.utrecht-theme;
 
+  // utrecht overrides for gpp-woo-theme
   --utrecht-space-around: 1.5;
 
   --utrecht-surface-background-color: var(--utrecht-color-white);
@@ -12,8 +13,8 @@
   --utrecht-page-header-background-color: var(--utrecht-color-white);
   --utrecht-nav-bar-background-color: transparent;
 
-  --utrecht-logo-max-block-size: 6rem;
-  --utrecht-logo-max-inline-size: 32rem;
+  --utrecht-logo-max-block-size: auto;
+  --utrecht-logo-max-inline-size: 24rem;
   --utrecht-logo-min-block-size: 3rem;
   --utrecht-logo-min-inline-size: 18rem;
 
@@ -26,8 +27,12 @@
 
   --utrecht-button-icon-size: var(--utrecht-link-icon-size);
 
+  // custom gpp-woo css variables
   --gpp-woo-card-max-inline-size: calc(var(--utrecht-page-max-inline-size) / 2);
   --gpp-woo-card-background-color: var(--utrecht-surface-background-color);
+  --gpp-woo-card-box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1), 0px 6px 12px rgba(0, 0, 0, 0.06);
   --gpp-woo-card-content-padding-block: var(--utrecht-space-block-xl);
   --gpp-woo-card-content-padding-inline: var(--utrecht-space-inline-xl);
+
+  --gpp-woo-search-bar-column-gap: var(--utrecht-space-inline-xs);
 }

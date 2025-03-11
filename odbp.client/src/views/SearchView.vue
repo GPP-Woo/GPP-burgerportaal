@@ -6,7 +6,7 @@
       <utrecht-fieldset class="search">
         <utrecht-legend class="visually-hidden">Zoeken en sorteren</utrecht-legend>
 
-        <search-bar v-model="formFields.query" @submit="trySubmit" />
+        <gpp-woo-search-bar v-model="formFields.query" @submit="trySubmit" />
 
         <utrecht-form-field>
           <utrecht-form-label for="sort-select">Sorteren</utrecht-form-label>
@@ -202,7 +202,7 @@
 import GppWooIcon from "@/components/GppWooIcon.vue";
 import SimpleSpinner from "@/components/SimpleSpinner.vue";
 import UtrechtPagination from "@/components/UtrechtPagination.vue";
-import SearchBar from "@/components/SearchBar.vue";
+import GppWooSearchBar from "@/components/GppWooSearchBar.vue";
 import BucketGroup from "@/features/search/components/BucketGroup.vue";
 import { useLoader } from "@/composables/use-loader";
 import { useSpinner } from "@/composables/use-spinner";
