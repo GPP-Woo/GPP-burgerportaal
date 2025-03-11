@@ -8,7 +8,9 @@ namespace Microsoft.AspNetCore.Builder
         {
             var resourcesConfig = app.Services.GetRequiredService<ResourcesConfig>();
 
-            var connectSources = new List<string?> { };
+            var connectSources = new List<string?> {
+                "'self'"
+            };
 
             var styleSources = new List<string?> {
                 "'self'",
@@ -59,7 +61,7 @@ namespace Microsoft.AspNetCore.Builder
                 {
                     csp.AddUpgradeInsecureRequests();
                     csp.AddDefaultSrc().None();
-                    csp.AddConnectSrc().Self();
+                    csp.AddConnectSrc().From(string.Join(" ", connectSources.Where(src => !string.IsNullOrWhiteSpace(src))));
                     csp.AddScriptSrc().Self();
                     csp.AddStyleSrc().From(string.Join(" ", styleSources.Where(src => !string.IsNullOrWhiteSpace(src))));
                     csp.AddImgSrc().From(string.Join(" ", imgSources.Where(src => !string.IsNullOrWhiteSpace(src))));

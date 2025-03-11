@@ -31,10 +31,10 @@ const setTitle = (title?: string) => title && (document.title = title);
 
 const setTheme = (theme?: string) => theme && document.body.classList.add(theme);
 
-const setIcon = (href?: string) =>
-  href && ((document.querySelector("link[rel~='icon']") as HTMLLinkElement).href = href);
+const setIcon = (url?: string) =>
+  url && ((document.querySelector("link[rel~='icon']") as HTMLLinkElement).href = url);
 
-const appendSvgTemplate = async (url: string): Promise<{ href: string }> => {
+const appendSvgTemplate = async (url: string): Promise<{ url: string }> => {
   try {
     const response = await fetch(url);
     const svg = await response.text();
@@ -46,27 +46,27 @@ const appendSvgTemplate = async (url: string): Promise<{ href: string }> => {
       })
     );
 
-    return Promise.resolve({ href: url });
+    return Promise.resolve({ url });
   } catch {
-    return Promise.reject({ href: url });
+    return Promise.reject({ url });
   }
 };
 
-const linkResource = async (href: string) =>
-  new Promise<{ href: string }>((resolve, reject) => {
+const linkResource = async (url: string) =>
+  new Promise<{ url: string }>((resolve, reject) => {
     const link = document.createElement("link");
 
-    link.rel = href.endsWith(".css") ? "stylesheet" : "preload";
+    link.rel = url.endsWith(".css") ? "stylesheet" : "preload";
 
     if (link.rel === "preload") {
       link.as = "image";
     }
 
-    link.href = href;
+    link.href = url;
     link.crossOrigin = "anonymous";
 
-    link.onload = () => resolve({ href });
-    link.onerror = () => reject({ href });
+    link.onload = () => resolve({ url });
+    link.onerror = () => reject({ url });
 
     document.head.appendChild(link);
   });
@@ -74,7 +74,7 @@ const linkResource = async (href: string) =>
 const loadResources = async (sources: (string | undefined)[]) => {
   const promises = sources
     .filter((url): url is string => typeof url === "string" && url.trim() !== "")
-    .map((href) => (href.endsWith(".svg") ? appendSvgTemplate(href) : linkResource(href)));
+    .map((url) => (url.endsWith(".svg") ? appendSvgTemplate(url) : linkResource(url)));
 
   const results = await Promise.allSettled(promises);
 
@@ -82,7 +82,7 @@ const loadResources = async (sources: (string | undefined)[]) => {
     (result): result is PromiseRejectedResult => result.status === "rejected"
   );
 
-  if (rejected.length) throw new Error(rejected.map((r) => r.reason.href).join(", "));
+  if (rejected.length) throw new Error(rejected.map((r) => r.reason.url).join(", "));
 };
 
 export const loadThemeResources = async (app: App): Promise<void> => {
