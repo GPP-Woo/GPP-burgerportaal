@@ -8,6 +8,10 @@ namespace Microsoft.AspNetCore.Builder
         {
             var resourcesConfig = app.Services.GetRequiredService<ResourcesConfig>();
 
+            var connectSources = new List<string?> {
+                "'self'"
+            };
+
             var styleSources = new List<string?> {
                 "'self'",
                 resourcesConfig.TokensUrl
@@ -16,7 +20,6 @@ namespace Microsoft.AspNetCore.Builder
             var imgSources = new List<string?> {
                 "'self'",
                 resourcesConfig.FaviconUrl,
-                resourcesConfig.LogoUrl,
                 resourcesConfig.ImageUrl
             };
 
@@ -24,6 +27,21 @@ namespace Microsoft.AspNetCore.Builder
                 "'self'",
                 resourcesConfig.FontSources
             };
+
+            // Add svg logo to connectSources to be able to fetch through js
+            var logoUrl = resourcesConfig.LogoUrl;
+
+            if (!string.IsNullOrEmpty(logoUrl))
+            {
+                if (logoUrl.EndsWith(".svg", StringComparison.OrdinalIgnoreCase))
+                {
+                    connectSources.Add(logoUrl);
+                }
+                else
+                {
+                    imgSources.Add(logoUrl);
+                }
+            }
 
             return app.UseSecurityHeaders(x => x
                 .AddDefaultSecurityHeaders()
@@ -43,7 +61,7 @@ namespace Microsoft.AspNetCore.Builder
                 {
                     csp.AddUpgradeInsecureRequests();
                     csp.AddDefaultSrc().None();
-                    csp.AddConnectSrc().Self();
+                    csp.AddConnectSrc().From(string.Join(" ", connectSources.Where(src => !string.IsNullOrWhiteSpace(src))));
                     csp.AddScriptSrc().Self();
                     csp.AddStyleSrc().From(string.Join(" ", styleSources.Where(src => !string.IsNullOrWhiteSpace(src))));
                     csp.AddImgSrc().From(string.Join(" ", imgSources.Where(src => !string.IsNullOrWhiteSpace(src))));
