@@ -166,6 +166,10 @@ const pagination = computed(
 @use "@/assets/variables";
 
 .gpp-woo-search {
+  --utrecht-heading-1-margin-block-end: var(--gpp-woo-search-heading-1-margin-block-end);
+  --utrecht-heading-1-margin-block-start: var(--gpp-woo-search-heading-1-margin-block-start);
+  --utrecht-heading-2-margin-block-end: var(--gpp-woo-search-heading-2-margin-block-end);
+  --utrecht-heading-2-margin-block-start: var(--gpp-woo-search-heading-2-margin-block-start);
   --utrecht-paragraph-margin-block-start: var(--gpp-woo-search-paragraph-margin-block-start);
 
   display: grid;
@@ -188,23 +192,11 @@ const pagination = computed(
 
   .utrecht-heading-1 {
     grid-area: heading;
-    margin-block-end: calc(
-      var(--utrecht-space-around, 0) * var(--gpp-woo-search-heading-1-margin-block-end, 0)
-    );
-    margin-block-start: calc(
-      var(--utrecht-space-around, 0) * var(--gpp-woo-search-heading-1-margin-block-start, 0)
-    );
   }
 
   .utrecht-heading-2 {
     grid-area: subheading;
     align-self: center;
-    margin-block-end: calc(
-      var(--utrecht-space-around, 0) * var(--gpp-woo-search-heading-2-margin-block-end, 0)
-    );
-    margin-block-start: calc(
-      var(--utrecht-space-around, 0) * var(--gpp-woo-search-heading-2-margin-block-start, 0)
-    );
   }
 
   form,

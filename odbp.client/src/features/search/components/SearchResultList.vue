@@ -71,6 +71,13 @@ defineProps<{ results: Readonly<SearchResponseItem[]> }>();
 
 <style lang="scss" scoped>
 .gpp-woo-search-result-list {
+  --utrecht-heading-3-margin-block-end: var(
+    --gpp-woo-search-result-list-heading-3-margin-block-end
+  );
+  --utrecht-heading-3-margin-block-start: var(
+    --gpp-woo-search-result-list-heading-3-margin-block-start
+  );
+
   list-style: none;
   margin: 0;
   padding: 0;
@@ -78,16 +85,6 @@ defineProps<{ results: Readonly<SearchResponseItem[]> }>();
   &__item {
     margin-block: var(--gpp-woo-search-result-list-item-margin-block);
   }
-}
-
-.utrecht-heading-3 {
-  margin-block-end: calc(
-    var(--utrecht-space-around, 0) * var(--gpp-woo-search-result-list-heading-3-margin-block-end, 0)
-  );
-  margin-block-start: calc(
-    var(--utrecht-space-around, 0) *
-      var(--gpp-woo-search-result-list-heading-3-margin-block-start, 0)
-  );
 }
 
 .utrecht-paragraph:has(time) {
