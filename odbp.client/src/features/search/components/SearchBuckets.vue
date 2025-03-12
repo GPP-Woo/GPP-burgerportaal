@@ -1,5 +1,5 @@
 <template>
-  <utrecht-fieldset v-if="buckets?.length" role="group" class="gpp-woo-buckets-fieldset">
+  <utrecht-fieldset v-if="buckets?.length" role="group" class="gpp-woo-search-buckets">
     <utrecht-legend>{{ legend }}</utrecht-legend>
 
     <utrecht-form-field v-for="(bucket, index) in buckets" :key="index" type="checkbox">
@@ -12,13 +12,13 @@
           @change="$emit('change')"
         />
 
-        <span class="bucket-name">{{
+        <span class="gpp-woo-search-buckets__name">{{
           bucket.naam in resultOptions
             ? resultOptions[bucket.naam as ResultType].label
             : bucket.naam
         }}</span>
 
-        <span class="bucket-count">({{ bucket.count }})</span>
+        <span class="gpp-woo-search-buckets__count">({{ bucket.count }})</span>
       </utrecht-form-label>
     </utrecht-form-field>
   </utrecht-fieldset>
@@ -42,7 +42,7 @@ const getBucketRef = (bucket: Bucket | ResultTypeBucket) =>
 
 <style lang="scss" scoped>
 .utrecht-form-fieldset {
-  --utrecht-space-around: var(--gpp-woo-buckets-fieldset-space-around);
+  --utrecht-space-around: var(--gpp-woo-search-buckets-fieldset-space-around);
 }
 
 .utrecht-form-field--checkbox {
@@ -52,9 +52,9 @@ const getBucketRef = (bucket: Bucket | ResultTypeBucket) =>
 .utrecht-form-label--checkbox {
   display: flex;
   align-items: flex-start;
-  column-gap: var(--gpp-woo-buckets-form-label-column-gap);
+  column-gap: var(--gpp-woo-search-buckets-form-label-column-gap);
 
-  .bucket-name {
+  .gpp-woo-search-buckets__name {
     flex: 1;
   }
 }

@@ -2,7 +2,7 @@
   <utrecht-form-field>
     <utrecht-form-label for="search-field">Zoekterm</utrecht-form-label>
 
-    <div class="gpp-woo-search-bar">
+    <div class="gpp-woo-search-field">
       <utrecht-textbox
         id="search-field"
         aria-placeholder="Hier zoeken"
@@ -28,8 +28,8 @@ const query = useModel(props, "modelValue");
 </script>
 
 <style lang="scss" scoped>
-.gpp-woo-search-bar {
+.gpp-woo-search-field {
   display: flex;
-  column-gap: var(--gpp-woo-search-bar-column-gap);
+  column-gap: var(--gpp-woo-search-field-column-gap);
 }
 </style>

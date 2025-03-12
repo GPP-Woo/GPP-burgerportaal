@@ -20,7 +20,7 @@
             <utrecht-fieldset class="zoeken">
               <utrecht-legend class="visually-hidden">Zoeken</utrecht-legend>
 
-              <gpp-woo-search-bar v-model="query" @submit="submit" />
+              <gpp-woo-search-field v-model="query" @submit="submit" />
             </utrecht-fieldset>
           </form>
         </div>
@@ -33,7 +33,7 @@
 import { ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { injectResources } from "@/resources";
-import GppWooSearchBar from "./GppWooSearchBar.vue";
+import GppWooSearchField from "./GppWooSearchField.vue";
 
 const resources = injectResources();
 

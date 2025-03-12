@@ -1,0 +1,117 @@
+<template>
+  <ol class="gpp-woo-search-result-list">
+    <li
+      v-for="{
+        type,
+        record: {
+          uuid,
+          officieleTitel,
+          informatieCategorieen,
+          publisher,
+          registratiedatum,
+          laatstGewijzigdDatum,
+          omschrijving
+        }
+      } in results"
+      :key="uuid"
+      class="gpp-woo-search-result-list__item"
+    >
+      <utrecht-article>
+        <utrecht-heading :level="3">
+          <router-link
+            :to="`/${type === resultOptions.document.value ? 'documenten' : 'publicaties'}/${uuid}`"
+            class="utrecht-link utrecht-link--html-a"
+          >
+            {{ officieleTitel }}
+          </router-link>
+        </utrecht-heading>
+
+        <ul class="gpp-woo-meta-data-list">
+          <li class="gpp-woo-meta-data-list__item">
+            <strong>{{ resultOptions[type].label }}</strong>
+          </li>
+
+          <li class="gpp-woo-meta-data-list__item">
+            {{ publisher.naam }}
+          </li>
+
+          <li
+            class="gpp-woo-meta-data-list__item gpp-woo-meta-data-list__item--category"
+            v-for="categorie in informatieCategorieen"
+            :key="categorie.uuid"
+          >
+            {{ categorie.naam }}
+          </li>
+        </ul>
+
+        <utrecht-paragraph>{{ truncate(omschrijving, 150) }}</utrecht-paragraph>
+
+        <utrecht-paragraph>
+          <time :datetime="registratiedatum">{{ formatDate(registratiedatum) }}</time>
+
+          <template
+            v-if="laatstGewijzigdDatum?.substring(0, 10) !== registratiedatum?.substring(0, 10)"
+          >
+            <span>{{ ", gewijzigd op " }}</span>
+
+            <time :datetime="laatstGewijzigdDatum">{{ formatDate(laatstGewijzigdDatum) }}</time>
+          </template>
+        </utrecht-paragraph>
+      </utrecht-article>
+    </li>
+  </ol>
+</template>
+
+<script setup lang="ts">
+import { formatDate, truncate } from "@/helpers";
+import { resultOptions, type SearchResponseItem } from "@/features/search/service";
+
+defineProps<{ results: Readonly<SearchResponseItem[]> }>();
+</script>
+
+<style lang="scss" scoped>
+.gpp-woo-search-result-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  &__item {
+    margin-block: var(--gpp-woo-search-result-list-item-margin-block);
+  }
+}
+
+.utrecht-heading-3 {
+  margin-block-end: calc(
+    var(--utrecht-space-around, 0) * var(--gpp-woo-search-result-list-heading-3-margin-block-end, 0)
+  );
+  margin-block-start: calc(
+    var(--utrecht-space-around, 0) *
+      var(--gpp-woo-search-result-list-heading-3-margin-block-start, 0)
+  );
+}
+
+.utrecht-paragraph:has(time) {
+  font-size: var(--gpp-woo-search-result-list-paragraph-has-time-font-size);
+}
+
+.gpp-woo-meta-data-list {
+  list-style: none;
+  padding: 0;
+  margin-block: var(--gpp-woo-meta-data-list-margin-block);
+
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  column-gap: var(--gpp-woo-meta-data-list-column-gap);
+  row-gap: var(--gpp-woo-meta-data-list-row-gap);
+
+  &__item {
+    font-size: var(--gpp-woo-meta-data-list-item-font-size);
+
+    &--category {
+      // will be a badge: https://github.com/GPP-Woo/GPP-burgerportaal/issues/65
+      border-bottom: 1px dotted rgb(211, 211, 211);
+    }
+  }
+}
+</style>

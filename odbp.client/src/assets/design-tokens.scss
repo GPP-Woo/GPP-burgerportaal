@@ -41,23 +41,33 @@
   --gpp-woo-card-content-padding-block: var(--utrecht-space-block-xl);
   --gpp-woo-card-content-padding-inline: var(--utrecht-space-inline-xl);
 
-  // gpp-woo-search-page
-  --gpp-woo-search-page-heading-1-margin-block: var(--utrecht-space-block-xs);
-  --gpp-woo-search-page-heading-2-margin-block: var(--utrecht-space-block-xs);
-  --gpp-woo-search-page-heading-3-margin-block-end: var(--utrecht-heading-3-margin-block-end);
-  --gpp-woo-search-page-heading-3-margin-block-start: var(--utrecht-heading-3-margin-block-start);
-  --gpp-woo-search-page-paragraph-has-time-font-size: var(--utrecht-typography-scale-xs-font-size);
-  
-  --gpp-woo-search-fieldset-column-gap: var(--utrecht-space-inline-3xl);
-  --gpp-woo-search-bar-column-gap: var(--utrecht-space-inline-xs);
-  --gpp-woo-result-list-item-margin-block: 0;
-  
-  --gpp-woo-meta-list-margin-block: 0;
-  --gpp-woo-meta-list-column-gap: var(--utrecht-space-inline-xs);
-  --gpp-woo-meta-list-row-gap: var(--utrecht-space-inline-2xs);
-  --gpp-woo-meta-list-item-font-size: var(--utrecht-typography-scale-xs-font-size);
-  --gpp-woo-meta-list-item-category-border-bottom: 1px dotted rgb(211, 211, 211);
+  // gpp-woo-search
+  --gpp-woo-search-grid-column-gap: 3vw;
+  --gpp-woo-search-heading-1-margin-block-end: var(--utrecht-space-block-xs);
+  --gpp-woo-search-heading-1-margin-block-start: var(--utrecht-space-block-xs);
+  --gpp-woo-search-heading-2-margin-block-end: var(--utrecht-space-block-xs);
+  --gpp-woo-search-heading-2-margin-block-start: var(--utrecht-space-block-xs);
+  --gpp-woo-search-paragraph-margin-block-start: 0;
 
-  --gpp-woo-buckets-fieldset-space-around: 2;
-  --gpp-woo-buckets-form-label-column-gap: var(--utrecht-space-inline-xs);
+  --gpp-woo-search-bar-fieldset-column-gap: var(--utrecht-space-inline-3xl);
+  --gpp-woo-search-field-column-gap: var(--utrecht-space-inline-xs);
+
+  --gpp-woo-search-buckets-fieldset-space-around: 2;
+  --gpp-woo-search-buckets-form-label-column-gap: var(--utrecht-space-inline-xs);
+
+  --gpp-woo-search-result-list-item-margin-block: 0;
+  --gpp-woo-search-result-list-heading-3-margin-block-end: var(
+    --utrecht-heading-3-margin-block-end
+  );
+  --gpp-woo-search-result-list-heading-3-margin-block-start: var(
+    --utrecht-heading-3-margin-block-start
+  );
+  --gpp-woo-search-result-list-paragraph-has-time-font-size: var(
+    --utrecht-typography-scale-xs-font-size
+  );
+
+  --gpp-woo-meta-data-list-margin-block: 0;
+  --gpp-woo-meta-data-list-column-gap: var(--utrecht-space-inline-xs);
+  --gpp-woo-meta-data-list-row-gap: var(--utrecht-space-inline-2xs);
+  --gpp-woo-meta-data-list-item-font-size: var(--utrecht-typography-scale-xs-font-size);
 }
