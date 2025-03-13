@@ -36,7 +36,7 @@
           </li>
 
           <li
-            class="gpp-woo-meta-data-list__item gpp-woo-meta-data-list__item--category"
+            class="gpp-woo-meta-data-list__item utrecht-data-badge"
             v-for="categorie in informatieCategorieen"
             :key="categorie.uuid"
           >
@@ -101,14 +101,5 @@ defineProps<{ results: Readonly<SearchResponseItem[]> }>();
   flex-wrap: wrap;
   column-gap: var(--gpp-woo-meta-data-list-column-gap);
   row-gap: var(--gpp-woo-meta-data-list-row-gap);
-
-  &__item {
-    font-size: var(--gpp-woo-meta-data-list-item-font-size);
-
-    &--category {
-      // will be a badge: https://github.com/GPP-Woo/GPP-burgerportaal/issues/65
-      border-bottom: 1px dotted rgb(211, 211, 211);
-    }
-  }
 }
 </style>
