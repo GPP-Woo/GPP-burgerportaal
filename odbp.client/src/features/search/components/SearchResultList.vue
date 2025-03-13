@@ -36,7 +36,7 @@
           </li>
 
           <li
-            class="gpp-woo-meta-data-list__item utrecht-data-badge"
+            class="gpp-woo-meta-data-list__item gpp-woo-meta-data-list__item--category"
             v-for="categorie in informatieCategorieen"
             :key="categorie.uuid"
           >
@@ -101,5 +101,13 @@ defineProps<{ results: Readonly<SearchResponseItem[]> }>();
   flex-wrap: wrap;
   column-gap: var(--gpp-woo-meta-data-list-column-gap);
   row-gap: var(--gpp-woo-meta-data-list-row-gap);
+
+  &__item {
+    font-size: var(--gpp-woo-meta-data-list-item-font-size);
+
+    &--category {
+      border-bottom: var(--gpp-woo-meta-data-list-item-category-border-bottom);
+    }
+  }
 }
 </style>

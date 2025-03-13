@@ -25,7 +25,7 @@
 
   --gpp-woo-search-result-list-item-margin-block: 0;
   --gpp-woo-search-result-list-heading-3-margin-block-end: var(
-    --utrecht-space-inline-xs
+    --utrecht-heading-3-margin-block-end
   );
   --gpp-woo-search-result-list-heading-3-margin-block-start: var(
     --utrecht-heading-3-margin-block-start
@@ -38,4 +38,5 @@
   --gpp-woo-meta-data-list-column-gap: var(--utrecht-space-inline-xs);
   --gpp-woo-meta-data-list-row-gap: var(--utrecht-space-inline-2xs);
   --gpp-woo-meta-data-list-item-font-size: var(--utrecht-typography-scale-xs-font-size);
+  --gpp-woo-meta-data-list-item-category-border-bottom: 1px dotted rgb(170, 170, 170);
 }
