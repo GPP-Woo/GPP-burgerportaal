@@ -4,13 +4,13 @@
       <img
         v-if="resources?.imageUrl"
         :src="resources.imageUrl"
-        class="gpp-woo-hero-image"
+        class="gpp-woo-hero__image"
         alt="Afbeelding gemeente"
         crossorigin="anonymous"
       />
 
       <div class="gpp-woo-card">
-        <div class="gpp-woo-card-content">
+        <div class="gpp-woo-card__content">
           <span class="utrecht-heading-2"
             >{{ resources?.title ? `${resources.title}, ` : `` }}zoek hier in openbaar gemaakte
             informatie{{ resources?.name ? ` van ${resources.name}` : `` }}</span
@@ -20,7 +20,7 @@
             <utrecht-fieldset class="zoeken">
               <utrecht-legend class="visually-hidden">Zoeken</utrecht-legend>
 
-              <search-bar v-model="query" @submit="submit" />
+              <gpp-woo-search-field v-model="query" @submit="submit" />
             </utrecht-fieldset>
           </form>
         </div>
@@ -33,7 +33,7 @@
 import { ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { injectResources } from "@/resources";
-import SearchBar from "./SearchBar.vue";
+import GppWooSearchField from "./GppWooSearchField.vue";
 
 const resources = injectResources();
 
@@ -54,7 +54,7 @@ watch(
 .gpp-woo-hero {
   position: relative;
 
-  .gpp-woo-hero-image {
+  &__image {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -70,8 +70,9 @@ watch(
 .gpp-woo-card {
   inline-size: min(100%, var(--gpp-woo-card-max-inline-size));
   background-color: var(--gpp-woo-card-background-color);
+  box-shadow: var(--gpp-woo-card-box-shadow);
 
-  .gpp-woo-card-content {
+  &__content {
     padding-block: var(--gpp-woo-card-content-padding-block);
     padding-inline: var(--gpp-woo-card-content-padding-inline);
   }

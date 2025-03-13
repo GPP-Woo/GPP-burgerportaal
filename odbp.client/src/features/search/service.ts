@@ -8,12 +8,12 @@ type SearchResponse = {
   facets?: Facets;
 };
 
-type SearchResponseItem = {
+export type SearchResponseItem = {
   type: ResultType;
   record: {
     uuid: string;
     officieleTitel: string;
-    informatieCategorieen: WaardelijstItem[];
+    informatieCategorieen: Readonly<WaardelijstItem[]>;
     publisher: WaardelijstItem;
     publicatie: string;
     creatiedatum: string;
@@ -23,15 +23,10 @@ type SearchResponseItem = {
   };
 };
 
-type WaardelijstItem = {
-  uuid: string;
-  naam: string;
-};
-
-type Facets = {
-  resultTypes: ResultTypeBucket[];
-  publishers: Bucket[];
-  informatieCategorieen: Bucket[];
+export type Facets = {
+  resultTypes: Readonly<ResultTypeBucket[]>;
+  publishers: Readonly<Bucket[]>;
+  informatieCategorieen: Readonly<Bucket[]>;
 };
 
 export type Bucket = {
@@ -41,6 +36,23 @@ export type Bucket = {
 };
 
 export type ResultTypeBucket = Omit<Bucket, "uuid">;
+
+type WaardelijstItem = {
+  uuid: string;
+  naam: string;
+};
+
+export type SearchFormFields = {
+  query: string;
+  sort: string;
+  registratiedatumVanaf: string;
+  registratiedatumTot: string;
+  laatstGewijzigdDatumVanaf: string;
+  laatstGewijzigdDatumTot: string;
+  resultType: string[];
+  publishers: string[];
+  informatieCategorieen: string[];
+};
 
 export const sortOptions = {
   relevance: { label: "Relevantie", value: "relevance" },
