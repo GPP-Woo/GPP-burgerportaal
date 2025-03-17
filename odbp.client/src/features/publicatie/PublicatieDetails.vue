@@ -25,7 +25,11 @@
           <utrecht-table-row v-for="[key, value] in publicatieRows" :key="key">
             <template v-if="value?.length">
               <utrecht-table-header-cell scope="row">{{ key }}</utrecht-table-header-cell>
-              <utrecht-table-cell>{{ value }}</utrecht-table-cell>
+              <utrecht-table-cell>
+                <utrecht-badge-list v-if="Array.isArray(value)" :badges="value" />
+
+                <template v-else>{{ value }}</template>
+              </utrecht-table-cell>
             </template>
           </utrecht-table-row>
         </utrecht-table-body>
@@ -86,6 +90,7 @@ import { useFetchApi } from "@/api/use-fetch-api";
 import { useAllPages } from "@/composables/use-all-pages";
 import SimpleSpinner from "@/components/SimpleSpinner.vue";
 import UtrechtAlert from "@/components/UtrechtAlert.vue";
+import UtrechtBadgeList from "@/components/UtrechtBadgeList.vue";
 import GppWooIcon from "@/components/GppWooIcon.vue";
 import { formatDate } from "@/helpers";
 import type { Publicatie, PublicatieDocument } from "./types";
@@ -112,9 +117,9 @@ const {
   error: documentenError
 } = useAllPages<PublicatieDocument>(`${API_URL}/documenten/?publicatie=${props.uuid}`);
 
-const publicatieRows = computed<Map<string, string | undefined>>(
+const publicatieRows = computed(
   () =>
-    new Map([
+    new Map<string, string | string[] | undefined>([
       ["Officiële titel", publicatieData.value?.officieleTitel],
       ["Verkorte titel", publicatieData.value?.verkorteTitel],
       ["Omschrijving", publicatieData.value?.omschrijving],
@@ -125,13 +130,11 @@ const publicatieRows = computed<Map<string, string | undefined>>(
       ],
       [
         "Informatiecategorieën",
-        publicatieData.value?.informatieCategorieen
-          .map(
-            (uuid) =>
-              waardelijsten.value.informatiecategorieen.find((c) => c.uuid === uuid)?.naam ||
-              "onbekend"
-          )
-          .join(", ")
+        publicatieData.value?.informatieCategorieen.map(
+          (uuid) =>
+            waardelijsten.value.informatiecategorieen.find((c) => c.uuid === uuid)?.naam ||
+            "onbekend"
+        )
       ],
       ["Geregistreerd op", formatDate(publicatieData.value?.registratiedatum)],
       ["Laatst gewijzigd op", formatDate(publicatieData.value?.laatstGewijzigdDatum)]

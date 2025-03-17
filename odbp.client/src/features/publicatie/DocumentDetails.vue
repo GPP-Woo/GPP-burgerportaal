@@ -121,7 +121,7 @@ watch(
   async (publicatie) => publicatie && (await getPublicatie().execute())
 );
 
-const documentRows = computed<Map<string, string | undefined>>(
+const documentRows = computed(
   () =>
     new Map([
       ["Identificatie", documentData.value?.identifier],
