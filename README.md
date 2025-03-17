@@ -75,3 +75,9 @@ Op dit moment is de implementatie gebaseerd op alleen het Utrecht Design System,
 | **Textbox** (`utrecht-textbox`)               | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-textbox--design-tokens)        |
 | **Table** (`utrecht-table`)                   | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-table--design-tokens)          |
 | **Logo** (`utrecht-logo`)                     | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-logo--design-tokens)           |
+
+### GPP Woo Theme
+
+Naast de bovenstaande componenten bestaat de interface van het Burgerportaal ook uit verschillende custom componenten en elementen. Deze (gpp-woo) componenten en elementen kunnen via een aantal voorgedefinieerde css-variabelen worden aangepast voor een uniforme uitstraling binnen de huisstijl van de gemeente.
+
+Ter referentie [`gpp-woo-theme`](./odbp.client/src/assets/_mixin-theme.scss).
