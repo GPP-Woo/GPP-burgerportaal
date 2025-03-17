@@ -123,11 +123,27 @@ const submit = () =>
     }
   });
 
+const filterFacets = (key: keyof Pick<SearchFormFields, "publishers" | "informatieCategorieen">) =>
+  formFields.value[key].filter((uuid) =>
+    data.value?.facets?.[key]?.some((bucket) => bucket.uuid === uuid)
+  );
+
 const trySubmit = () => {
+  // -- Test --
+  // Remove bucket entries from formField facets that are not present anymore in search response facets
+  formFields.value = {
+    ...formFields.value,
+    ...{ publishers: filterFacets(`publishers`) },
+    ...{ informatieCategorieen: filterFacets(`informatieCategorieen`) }
+  };
+
   if (!formElement.value?.checkValidity()) return;
+
   const keys = Object.keys(formFields.value) as Array<keyof SearchFormFields>;
   const query = parsedQuery.value;
+
   if (keys.every((key) => query[key] === formFields.value[key])) return;
+
   submit();
 };
 
