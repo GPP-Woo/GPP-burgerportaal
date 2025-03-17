@@ -106,8 +106,7 @@ defineProps<{ results: Readonly<SearchResponseItem[]> }>();
     font-size: var(--gpp-woo-meta-data-list-item-font-size);
 
     &--category {
-      // will be a badge: https://github.com/GPP-Woo/GPP-burgerportaal/issues/65
-      border-bottom: 1px dotted rgb(211, 211, 211);
+      border-bottom: var(--gpp-woo-meta-data-list-item-category-border-bottom);
     }
   }
 }
