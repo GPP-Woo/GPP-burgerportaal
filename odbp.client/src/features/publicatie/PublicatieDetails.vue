@@ -71,7 +71,7 @@
                 :download="bestandsnaam"
                 class="gpp-woo-link--icon"
               >
-                <gpp-woo-icon icon="download" />
+                <utrecht-icon icon="download" />
 
                 Download ({{ bestandsnaam.split(".").pop()
                 }}{{ bestandsomvang ? `, ${Math.floor(bestandsomvang / 1024)}kb` : null }})
@@ -91,7 +91,7 @@ import { useAllPages } from "@/composables/use-all-pages";
 import SimpleSpinner from "@/components/SimpleSpinner.vue";
 import UtrechtAlert from "@/components/UtrechtAlert.vue";
 import UtrechtBadgeList from "@/components/UtrechtBadgeList.vue";
-import GppWooIcon from "@/components/GppWooIcon.vue";
+import UtrechtIcon from "@/components/UtrechtIcon.vue";
 import { formatDate } from "@/helpers";
 import type { Publicatie, PublicatieDocument } from "./types";
 import { waardelijsten } from "@/stores/waardelijsten";

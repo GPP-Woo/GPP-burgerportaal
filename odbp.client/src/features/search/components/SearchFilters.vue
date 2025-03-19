@@ -1,15 +1,17 @@
 <template>
-  <utrecht-heading :level="2" class="utrecht-accordion__header">
+  <utrecht-heading :level="2">
     <utrecht-button
       v-if="!isLargeViewportWidth"
       type="button"
       :aria-controls="panelId"
       :aria-expanded="isExpanded"
-      appearance="subtle-button"
-      class="utrecht-accordion__button"
+      appearance="primary-action-button"
       @click="isExpanded = !isExpanded"
-      >Filters</utrecht-button
     >
+      Filters
+
+      <utrecht-icon :icon="!isExpanded ? `chevron-down` : `chevron-up`" />
+    </utrecht-button>
 
     <template v-else>Filters</template>
   </utrecht-heading>
@@ -105,6 +107,7 @@
 <script setup lang="ts">
 import { ref, useId, useModel, watch } from "vue";
 import { useMediaQuery } from "@vueuse/core";
+import UtrechtIcon from "@/components/UtrechtIcon.vue";
 import SearchBuckets from "@/features/search/components/SearchBuckets.vue";
 import type { SearchFormFields, Facets } from "../service";
 
@@ -113,10 +116,10 @@ const model = useModel(props, "modelValue");
 
 const panelId = useId();
 
-const isLargeViewportWidth = useMediaQuery(
-  `(min-width: ${getComputedStyle(document.documentElement).getPropertyValue("--breakpoint-md")})`
-);
+const breakpoint = getComputedStyle(document.documentElement).getPropertyValue("--breakpoint-md");
+const isLargeViewportWidth = useMediaQuery(`(min-width: ${breakpoint})`);
 
+// initial expand or collapse depending on vw
 const isExpanded = ref(isLargeViewportWidth.value);
 
 // expand panel when screen widens and moves beyond breakpoint
@@ -128,7 +131,17 @@ watch(isLargeViewportWidth, (value) => value && (isExpanded.value = true));
   align-self: center;
 }
 
-.utrecht-form-label {
-  display: block;
+.utrecht-button {
+  --utrecht-button-focus-scale: 1;
+  --utrecht-button-hover-scale: 1;
+  --utrecht-button-inline-size: 100%;
+  --utrecht-button-min-inline-size: 100%;
+  --utrecht-button-font-weight: normal;
+
+  justify-content: space-between;
+}
+
+.utrecht-form-field {
+  --utrecht-form-control-max-inline-size: 100%;
 }
 </style>
