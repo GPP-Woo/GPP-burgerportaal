@@ -1,5 +1,26 @@
 <template>
-  <div>
+  <utrecht-heading :level="2" class="utrecht-accordion__header">
+    <utrecht-button
+      v-if="!isLargeViewportWidth"
+      type="button"
+      :aria-controls="panelId"
+      :aria-expanded="isExpanded"
+      appearance="subtle-button"
+      class="utrecht-accordion__button"
+      @click="isExpanded = !isExpanded"
+      >Filters</utrecht-button
+    >
+
+    <template v-else>Filters</template>
+  </utrecht-heading>
+
+  <div
+    v-bind="$attrs"
+    :id="panelId"
+    :hidden="!isExpanded"
+    :aria-hidden="!isLargeViewportWidth ? !isExpanded : undefined"
+    class="gpp-woo-search-filters"
+  >
     <utrecht-fieldset>
       <utrecht-legend class="visually-hidden">Registratiedatum</utrecht-legend>
 
@@ -82,10 +103,32 @@
 </template>
 
 <script setup lang="ts">
-import { useModel } from "vue";
+import { ref, useId, useModel, watch } from "vue";
+import { useMediaQuery } from "@vueuse/core";
 import SearchBuckets from "@/features/search/components/SearchBuckets.vue";
 import type { SearchFormFields, Facets } from "../service";
 
 const props = defineProps<{ modelValue: SearchFormFields; facets?: Facets }>();
 const model = useModel(props, "modelValue");
+
+const panelId = useId();
+
+const isLargeViewportWidth = useMediaQuery(
+  `(min-width: ${getComputedStyle(document.documentElement).getPropertyValue("--breakpoint-md")})`
+);
+
+const isExpanded = ref(isLargeViewportWidth.value);
+
+// expand panel when screen widens and moves beyond breakpoint
+watch(isLargeViewportWidth, (value) => value && (isExpanded.value = true));
 </script>
+
+<style lang="scss" scoped>
+.utrecht-heading-2 {
+  align-self: center;
+}
+
+.utrecht-form-label {
+  display: block;
+}
+</style>

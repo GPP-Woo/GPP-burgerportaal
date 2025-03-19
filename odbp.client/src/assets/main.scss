@@ -11,6 +11,10 @@
 }
 
 @layer layout {
+  :root {
+    --breakpoint-md: #{variables.$breakpoint-md};
+  }
+
   html,
   body,
   #app {
@@ -42,7 +46,7 @@
       inline-size: auto;
     }
 
-    @media screen and (min-width: variables.$breakpoint-md) {
+    @media screen and (min-width: #{variables.$breakpoint-md}) {
       & {
         display: flex;
         justify-content: space-between;
