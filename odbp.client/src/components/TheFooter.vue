@@ -16,10 +16,11 @@
           </template>
         </ul>
       </div>
-      <div v-if="versionInfo" class="gpp-woo-page-footer-version-info">
-        <span v-if="versionInfo.semanticVersion">Versie: {{ versionInfo.semanticVersion }}</span>
-        <span v-if="versionInfo.gitSha">Commit: {{ versionInfo.gitSha }}</span>
-      </div>
+    </div>
+
+    <div v-if="versionInfo" class="gpp-woo-page-footer__version-info">
+      <span v-if="versionInfo.semanticVersion">Versie: {{ versionInfo.semanticVersion }}</span>
+      <span v-if="versionInfo.gitSha">Commit: {{ versionInfo.gitSha }}</span>
     </div>
   </utrecht-page-footer>
 </template>
@@ -47,16 +48,18 @@ const listItems = new Map<keyof Resources, string>([
   justify-content: center;
   column-gap: var(--gpp-woo-page-footer-link-list-column-gap);
 }
-.gpp-woo-page-footer-version-info {
-  font-size: 8px;
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  translate: -50% -100%;
-  display: flex;
-  gap: 1rem;
-}
+
 .gpp-woo-page-footer {
   position: relative;
+
+  &__version-info {
+    font-size: 8px;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    translate: -50% -100%;
+    display: flex;
+    gap: 1rem;
+  }
 }
 </style>
