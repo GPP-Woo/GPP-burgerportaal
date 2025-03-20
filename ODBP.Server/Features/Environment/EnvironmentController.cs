@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using static ODBP.Features.Environment.EnvironmentController;
+﻿using System.Reflection;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ODBP.Features.Environment
 {
@@ -7,7 +7,10 @@ namespace ODBP.Features.Environment
     [ApiController]
     public class EnvironmentController : ControllerBase
     {
+        private record VersionInfo(string? SemanticVersion, string? GitSha);
+
         private readonly ResourcesConfig _resourcesConfig;
+        private static readonly VersionInfo s_versionInfo = GetVersionInfo();
 
         public EnvironmentController(ResourcesConfig resourcesConfig)
         {
@@ -34,6 +37,21 @@ namespace ODBP.Features.Environment
             };
 
             return Ok(response);
+        }
+
+        [HttpGet("version")]
+        public IActionResult GetVersion()
+        {
+            return Ok(s_versionInfo);
+        }
+
+        private static VersionInfo GetVersionInfo()
+        {
+            var parts = Assembly.GetExecutingAssembly()
+                .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?
+                .InformationalVersion
+                ?.Split('+') ?? [];
+            return new VersionInfo(parts.ElementAtOrDefault(0), parts.ElementAtOrDefault(1));
         }
     }
 }
