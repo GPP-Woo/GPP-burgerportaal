@@ -6,13 +6,10 @@
       <search-bar v-model="formFields" @submit="trySubmit" class="gpp-woo-search-bar" />
 
       <section>
-        <utrecht-heading :level="2">Filters</utrecht-heading>
-
         <search-filters
           v-model="formFields"
           :facets="data?.facets"
           @submit="trySubmit"
-          class="gpp-woo-search-filters"
         />
       </section>
     </form>
@@ -196,7 +193,7 @@ const pagination = computed(
     "filters"
     "results";
 
-  @media screen and (min-width: variables.$breakpoint-md) {
+  @media screen and (min-width: #{variables.$breakpoint-md}) {
     grid-template-columns: minmax(auto, 18rem) 1fr;
     grid-template-rows: auto auto 1fr;
     grid-template-areas:
@@ -210,11 +207,6 @@ const pagination = computed(
     grid-area: heading;
   }
 
-  .utrecht-heading-2 {
-    grid-area: subheading;
-    align-self: center;
-  }
-
   form,
   form > section {
     display: contents;
@@ -224,10 +216,12 @@ const pagination = computed(
     grid-area: bar;
   }
 
-  .gpp-woo-search-filters {
+  :deep(.utrecht-heading-2) {
+    grid-area: subheading;
+  }
+
+  :deep(.gpp-woo-search-filters) {
     grid-area: filters;
-    display: flex;
-    flex-direction: column;
   }
 
   .gpp-woo-search-results {

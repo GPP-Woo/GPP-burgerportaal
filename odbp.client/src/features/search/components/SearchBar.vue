@@ -15,7 +15,7 @@
           @change="$emit('submit')"
         />
 
-        <gpp-woo-icon icon="sort" />
+        <utrecht-icon icon="sort" />
       </div>
     </utrecht-form-field>
   </utrecht-fieldset>
@@ -23,7 +23,7 @@
 
 <script setup lang="ts">
 import { useModel } from "vue";
-import GppWooIcon from "@/components/GppWooIcon.vue";
+import UtrechtIcon from "@/components/UtrechtIcon.vue";
 import GppWooSearchField from "@/components/GppWooSearchField.vue";
 import { sortOptions, type SearchFormFields } from "@/features/search/service";
 

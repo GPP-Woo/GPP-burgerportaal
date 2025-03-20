@@ -10,7 +10,7 @@
 
                 <span class="visually-hidden">(externe link)</span>
 
-                <gpp-woo-icon icon="external" />
+                <utrecht-icon icon="external" />
               </utrecht-link>
             </li>
           </template>
@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import GppWooIcon from "@/components/GppWooIcon.vue";
+import UtrechtIcon from "@/components/UtrechtIcon.vue";
 import { injectResources, type Resources } from "@/resources";
 
 const resources = injectResources();

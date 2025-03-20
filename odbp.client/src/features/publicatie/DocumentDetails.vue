@@ -35,7 +35,7 @@
           :download="documentData?.bestandsnaam"
           class="utrecht-button-link utrecht-button-link--html-a utrecht-button-link--primary-action"
         >
-          <gpp-woo-icon icon="download" />
+          <utrecht-icon icon="download" />
 
           Download ({{ documentData?.bestandsnaam.split(".").pop()
           }}{{
@@ -87,7 +87,7 @@ import { computed, useId, watch } from "vue";
 import { useFetchApi } from "@/api/use-fetch-api";
 import SimpleSpinner from "@/components/SimpleSpinner.vue";
 import UtrechtAlert from "@/components/UtrechtAlert.vue";
-import GppWooIcon from "@/components/GppWooIcon.vue";
+import UtrechtIcon from "@/components/UtrechtIcon.vue";
 import { formatDate } from "@/helpers";
 import type { Publicatie, PublicatieDocument } from "./types";
 import { waardelijsten } from "@/stores/waardelijsten";
