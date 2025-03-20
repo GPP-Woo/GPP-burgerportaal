@@ -143,5 +143,9 @@ watch(isLargeViewportWidth, (value) => value && (isExpanded.value = true));
 
 .utrecht-form-field {
   --utrecht-form-control-max-inline-size: 100%;
+
+  .utrecht-form-label {
+    display: block;
+  }
 }
 </style>
