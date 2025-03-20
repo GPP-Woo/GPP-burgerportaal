@@ -16,6 +16,10 @@
           </template>
         </ul>
       </div>
+      <div v-if="versionInfo" class="gpp-woo-page-footer-version-info">
+        <span v-if="versionInfo.semanticVersion">Versie: {{ versionInfo.semanticVersion }}</span>
+        <span v-if="versionInfo.gitSha">Commit: {{ versionInfo.gitSha }}</span>
+      </div>
     </div>
   </utrecht-page-footer>
 </template>
@@ -23,8 +27,12 @@
 <script setup lang="ts">
 import UtrechtIcon from "@/components/UtrechtIcon.vue";
 import { injectResources, type Resources } from "@/resources";
+import { useLoader } from "@/composables/use-loader";
 
 const resources = injectResources();
+const { data: versionInfo } = useLoader<{ semanticVersion?: string; gitSha?: string }>(() =>
+  fetch("/api/environment/version").then((r) => (r.ok ? r.json() : undefined))
+);
 
 const listItems = new Map<keyof Resources, string>([
   ["a11yUrl", "Toegankelijkheid"],
@@ -38,5 +46,17 @@ const listItems = new Map<keyof Resources, string>([
   flex-flow: row wrap;
   justify-content: center;
   column-gap: var(--gpp-woo-page-footer-link-list-column-gap);
+}
+.gpp-woo-page-footer-version-info {
+  font-size: 8px;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  translate: -50% -100%;
+  display: flex;
+  gap: 1rem;
+}
+.gpp-woo-page-footer {
+  position: relative;
 }
 </style>
