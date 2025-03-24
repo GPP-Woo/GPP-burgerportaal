@@ -76,6 +76,12 @@
 
   .utrecht-textbox--html-input {
     block-size: 2.5rem; // date and text inputs are not the same height otherwise...
+
+    &[type="date"] {
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      appearance: none;
+    }
   }
 
   // overriding background-image for utrecht-checkbox--custom
