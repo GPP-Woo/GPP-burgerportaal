@@ -49,7 +49,7 @@ export type SearchFormFields = {
   registratiedatumTot: string;
   laatstGewijzigdDatumVanaf: string;
   laatstGewijzigdDatumTot: string;
-  resultType: string[];
+  resultTypes: string[];
   publishers: string[];
   informatieCategorieen: string[];
 };
@@ -83,7 +83,7 @@ export async function search({
   registratiedatumTot?: string | null;
   laatstGewijzigdDatumVanaf?: string | null;
   laatstGewijzigdDatumTot?: string | null;
-  resultType?: ResultType;
+  resultTypes?: string[];
   publishers?: string[];
   informatieCategorieen?: string[];
   signal?: AbortSignal;

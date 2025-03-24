@@ -6,11 +6,7 @@
       <search-bar v-model="formFields" @submit="trySubmit" class="gpp-woo-search-bar" />
 
       <section>
-        <search-filters
-          v-model="formFields"
-          :facets="data?.facets"
-          @submit="trySubmit"
-        />
+        <search-filters v-model="formFields" :facets="data?.facets" @submit="trySubmit" />
       </section>
     </form>
 
@@ -48,12 +44,7 @@ import SearchFilters from "@/features/search/components/SearchFilters.vue";
 import SearchResultList from "@/features/search/components/SearchResultList.vue";
 import { useLoader } from "@/composables/use-loader";
 import { useSpinner } from "@/composables/use-spinner";
-import {
-  sortOptions,
-  search,
-  type ResultType,
-  type SearchFormFields
-} from "@/features/search/service";
+import { sortOptions, search, type SearchFormFields } from "@/features/search/service";
 import { mapPaginatedResultsToUtrechtPagination } from "@/helpers";
 
 const route = useRoute();
@@ -80,7 +71,7 @@ const parsedQuery = computed(() => ({
   registratiedatumTot: first(route.query.registratiedatumTot) || "",
   laatstGewijzigdDatumVanaf: first(route.query.laatstGewijzigdDatumVanaf) || "",
   laatstGewijzigdDatumTot: first(route.query.laatstGewijzigdDatumTot) || "",
-  resultType: array(route.query.resultType) || [],
+  resultTypes: array(route.query.resultTypes) || [],
   publishers: array(route.query.publishers) || [],
   informatieCategorieen: array(route.query.informatieCategorieen) || []
 }));
@@ -92,7 +83,7 @@ const formFields = ref<SearchFormFields>({
   registratiedatumTot: "",
   laatstGewijzigdDatumVanaf: "",
   laatstGewijzigdDatumTot: "",
-  resultType: [],
+  resultTypes: [],
   publishers: [],
   informatieCategorieen: []
 });
@@ -120,9 +111,13 @@ const submit = () =>
     }
   });
 
-const filterFacets = (key: keyof Pick<SearchFormFields, "publishers" | "informatieCategorieen">) =>
-  formFields.value[key].filter((uuid) =>
-    data.value?.facets?.[key]?.some((bucket) => bucket.uuid === uuid)
+const filterFacets = (
+  key: keyof Pick<SearchFormFields, "publishers" | "informatieCategorieen" | "resultTypes">
+) =>
+  formFields.value[key].filter((nameOrUuid) =>
+    data.value?.facets?.[key]?.some(
+      (bucket) => ("uuid" in bucket && bucket.uuid === nameOrUuid) || bucket.naam === nameOrUuid
+    )
   );
 
 const trySubmit = () => {
@@ -130,8 +125,9 @@ const trySubmit = () => {
   // Remove bucket entries from formField facets that are not present anymore in search response facets
   formFields.value = {
     ...formFields.value,
-    ...{ publishers: filterFacets(`publishers`) },
-    ...{ informatieCategorieen: filterFacets(`informatieCategorieen`) }
+    publishers: filterFacets(`publishers`),
+    informatieCategorieen: filterFacets(`informatieCategorieen`),
+    resultTypes: filterFacets(`resultTypes`)
   };
 
   if (!formElement.value?.checkValidity()) return;
@@ -147,9 +143,6 @@ const trySubmit = () => {
 const { error, loading, data } = useLoader((signal) =>
   search({
     ...parsedQuery.value,
-    // resultTypes is offered as a facet so it's handled as an array in this component
-    // and then here it's passed as enum, as expected by search
-    ...{ resultType: first(parsedQuery.value.resultType) as ResultType },
     signal
   })
 );
