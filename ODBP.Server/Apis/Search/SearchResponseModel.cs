@@ -25,13 +25,13 @@ public record Bucket
 
 public record ResultTypeBucket
 {
-    public required ResultType Naam { get; init; }
+    public required string Naam { get; init; }
     public required long Count { get; init; }
 }
 
 public record SearchResult
 {
-    public ResultType? Type { get; init; }
+    public string? Type { get; init; }
     public required Record Record { get; init; }
 }
 

@@ -84,7 +84,7 @@
     <search-buckets
       legend="Type informatie"
       :buckets="facets?.resultTypes"
-      v-model="model.resultType"
+      v-model="model.resultTypes"
       @change="$emit('submit')"
     />
 
