@@ -121,7 +121,6 @@ const filterFacets = (
   );
 
 const trySubmit = () => {
-  // -- Test --
   // Remove bucket entries from formField facets that are not present anymore in search response facets
   formFields.value = {
     ...formFields.value,
