@@ -18,6 +18,14 @@
           >
         </li>
 
+        <li class="utrecht-nav-list__item">
+          <router-link
+            :to="{ name: 'onderwerp', params: { uuid: 'Onderwerp' } }"
+            class="utrecht-link utrecht-link--html-a utrecht-nav-list__link"
+            >Onderwerp</router-link
+          >
+        </li>
+
         <li v-if="resources?.websiteUrl" class="utrecht-nav-list__item">
           <utrecht-link
             external

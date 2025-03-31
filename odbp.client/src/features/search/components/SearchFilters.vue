@@ -1,5 +1,5 @@
 <template>
-  <utrecht-heading :level="2">
+  <utrecht-heading :level="2" class="gpp-woo-search-subheading">
     <utrecht-button
       v-if="!isLargeViewportWidth"
       type="button"
