@@ -12,7 +12,11 @@
 
         <li class="utrecht-nav-list__item">
           <router-link
-            :to="{ name: 'zoeken' }"
+            :to="
+              $route.name === 'zoeken'
+                ? { name: 'zoeken', query: $route.query }
+                : { name: 'zoeken' }
+            "
             class="utrecht-link utrecht-link--html-a utrecht-nav-list__link"
             >Zoeken</router-link
           >
