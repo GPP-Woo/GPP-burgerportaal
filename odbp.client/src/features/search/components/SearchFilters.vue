@@ -57,7 +57,7 @@
       <utrecht-legend class="visually-hidden">Wijzigingsdatum</utrecht-legend>
 
       <utrecht-form-field>
-        <utrecht-form-label for="update-date-from">Wijzigingsdatum vanaf</utrecht-form-label>
+        <utrecht-form-label for="updated-date-from">Wijzigingsdatum vanaf</utrecht-form-label>
 
         <utrecht-textbox
           id="updated-date-from"
