@@ -9,25 +9,29 @@
     <utrecht-heading :level="1">{{ documentData?.officieleTitel }}</utrecht-heading>
 
     <section>
-      <utrecht-table>
-        <utrecht-table-caption>Over dit document</utrecht-table-caption>
+      <gpp-woo-responsive-table>
+        <utrecht-table>
+          <utrecht-table-caption>Over dit document</utrecht-table-caption>
 
-        <utrecht-table-header class="utrecht-table__header--hidden">
-          <utrecht-table-row>
-            <utrecht-table-header-cell scope="col">Documentkenmerk</utrecht-table-header-cell>
-            <utrecht-table-header-cell scope="col">Documentkenmerkwaarde</utrecht-table-header-cell>
-          </utrecht-table-row>
-        </utrecht-table-header>
+          <utrecht-table-header class="utrecht-table__header--hidden">
+            <utrecht-table-row>
+              <utrecht-table-header-cell scope="col">Documentkenmerk</utrecht-table-header-cell>
+              <utrecht-table-header-cell scope="col"
+                >Documentkenmerkwaarde</utrecht-table-header-cell
+              >
+            </utrecht-table-row>
+          </utrecht-table-header>
 
-        <utrecht-table-body>
-          <utrecht-table-row v-for="[key, value] in documentRows" :key="key">
-            <template v-if="value?.length">
-              <utrecht-table-header-cell scope="row">{{ key }}</utrecht-table-header-cell>
-              <utrecht-table-cell>{{ value }}</utrecht-table-cell>
-            </template>
-          </utrecht-table-row>
-        </utrecht-table-body>
-      </utrecht-table>
+          <utrecht-table-body>
+            <utrecht-table-row v-for="[key, value] in documentRows" :key="key">
+              <template v-if="value?.length">
+                <utrecht-table-header-cell scope="row">{{ key }}</utrecht-table-header-cell>
+                <utrecht-table-cell>{{ value }}</utrecht-table-cell>
+              </template>
+            </utrecht-table-row>
+          </utrecht-table-body>
+        </utrecht-table>
+      </gpp-woo-responsive-table>
 
       <utrecht-paragraph>
         <a
@@ -46,38 +50,40 @@
         </a>
       </utrecht-paragraph>
 
-      <utrecht-heading :level="2" :id="headingId">Gekoppelde publicatie</utrecht-heading>
+      <gpp-woo-responsive-table>
+        <utrecht-heading :level="2" :id="headingId">Gekoppelde publicatie</utrecht-heading>
 
-      <utrecht-table :aria-labelledby="headingId">
-        <utrecht-table-header class="utrecht-table__header--hidden">
-          <utrecht-table-row>
-            <utrecht-table-header-cell scope="col">Publicatiekenmerk</utrecht-table-header-cell>
-            <utrecht-table-header-cell scope="col"
-              >Publicatiekenmerkwaarde</utrecht-table-header-cell
-            >
-          </utrecht-table-row>
-        </utrecht-table-header>
-
-        <utrecht-table-body>
-          <utrecht-table-row>
-            <utrecht-table-header-cell scope="row">Officiële titel</utrecht-table-header-cell>
-            <utrecht-table-cell>
-              <router-link
-                :to="{ name: 'publicatie', params: { uuid: publicatieData?.uuid } }"
-                class="utrecht-link utrecht-link--html-a"
-                >{{ publicatieData?.officieleTitel }}</router-link
+        <utrecht-table :aria-labelledby="headingId">
+          <utrecht-table-header class="utrecht-table__header--hidden">
+            <utrecht-table-row>
+              <utrecht-table-header-cell scope="col">Publicatiekenmerk</utrecht-table-header-cell>
+              <utrecht-table-header-cell scope="col"
+                >Publicatiekenmerkwaarde</utrecht-table-header-cell
               >
-            </utrecht-table-cell>
-          </utrecht-table-row>
+            </utrecht-table-row>
+          </utrecht-table-header>
 
-          <utrecht-table-row>
-            <utrecht-table-header-cell scope="row">Laatst gewijzigd op</utrecht-table-header-cell>
-            <utrecht-table-cell>{{
-              formatDate(publicatieData?.laatstGewijzigdDatum)
-            }}</utrecht-table-cell>
-          </utrecht-table-row>
-        </utrecht-table-body>
-      </utrecht-table>
+          <utrecht-table-body>
+            <utrecht-table-row>
+              <utrecht-table-header-cell scope="row">Officiële titel</utrecht-table-header-cell>
+              <utrecht-table-cell>
+                <router-link
+                  :to="{ name: 'publicatie', params: { uuid: publicatieData?.uuid } }"
+                  class="utrecht-link utrecht-link--html-a"
+                  >{{ publicatieData?.officieleTitel }}</router-link
+                >
+              </utrecht-table-cell>
+            </utrecht-table-row>
+
+            <utrecht-table-row>
+              <utrecht-table-header-cell scope="row">Laatst gewijzigd op</utrecht-table-header-cell>
+              <utrecht-table-cell>{{
+                formatDate(publicatieData?.laatstGewijzigdDatum)
+              }}</utrecht-table-cell>
+            </utrecht-table-row>
+          </utrecht-table-body>
+        </utrecht-table>
+      </gpp-woo-responsive-table>
     </section>
   </template>
 </template>
@@ -88,6 +94,7 @@ import { useFetchApi } from "@/api/use-fetch-api";
 import SimpleSpinner from "@/components/SimpleSpinner.vue";
 import UtrechtAlert from "@/components/UtrechtAlert.vue";
 import UtrechtIcon from "@/components/UtrechtIcon.vue";
+import GppWooResponsiveTable from "@/components/GppWooResponsiveTable.vue";
 import { formatDate } from "@/helpers";
 import type { Publicatie, PublicatieDocument } from "./types";
 import { waardelijsten } from "@/stores/waardelijsten";
@@ -138,9 +145,3 @@ const documentRows = computed(
     ])
 );
 </script>
-
-<style lang="scss" scoped>
-th[scope="row"] {
-  inline-size: 20ch;
-}
-</style>
