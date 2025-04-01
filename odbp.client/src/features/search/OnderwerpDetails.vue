@@ -1,29 +1,32 @@
 <template>
-  <utrecht-heading :level="1" :id="headingId">{{ uuid }}</utrecht-heading>
+  <gpp-woo-responsive-table>
+    <utrecht-heading :level="1" :id="headingId">{{ uuid }}</utrecht-heading>
 
-  <utrecht-table :aria-labelledby="headingId">
-    <utrecht-table-header class="utrecht-table__header--hidden">
-      <utrecht-table-row>
-        <utrecht-table-header-cell scope="col">Onderwerpkenmerk</utrecht-table-header-cell>
-        <utrecht-table-header-cell scope="col">Onderwerpkenmerkwaarde</utrecht-table-header-cell>
-      </utrecht-table-row>
-    </utrecht-table-header>
+    <utrecht-table :aria-labelledby="headingId">
+      <utrecht-table-header class="utrecht-table__header--hidden">
+        <utrecht-table-row>
+          <utrecht-table-header-cell scope="col">Onderwerpkenmerk</utrecht-table-header-cell>
+          <utrecht-table-header-cell scope="col">Onderwerpkenmerkwaarde</utrecht-table-header-cell>
+        </utrecht-table-row>
+      </utrecht-table-header>
 
-    <utrecht-table-body>
-      <utrecht-table-row v-for="[key, value] in publicatieRows" :key="key">
-        <template v-if="value?.length">
-          <utrecht-table-header-cell scope="row">{{ key }}</utrecht-table-header-cell>
-          <utrecht-table-cell>{{ value }}</utrecht-table-cell>
-        </template>
-      </utrecht-table-row>
-    </utrecht-table-body>
-  </utrecht-table>
+      <utrecht-table-body>
+        <utrecht-table-row v-for="[key, value] in publicatieRows" :key="key">
+          <template v-if="value?.length">
+            <utrecht-table-header-cell scope="row">{{ key }}</utrecht-table-header-cell>
+            <utrecht-table-cell>{{ value }}</utrecht-table-cell>
+          </template>
+        </utrecht-table-row>
+      </utrecht-table-body>
+    </utrecht-table>
+  </gpp-woo-responsive-table>
 
   <search-grid :onderwerp="uuid" />
 </template>
 
 <script setup lang="ts">
 import { computed, useId } from "vue";
+import GppWooResponsiveTable from "@/components/GppWooResponsiveTable.vue";
 import SearchGrid from "@/features/search/SearchGrid.vue";
 import { formatDate } from "@/helpers";
 
@@ -48,10 +51,6 @@ const publicatieRows = computed(
 </script>
 
 <style lang="scss" scoped>
-th[scope="row"] {
-  inline-size: 20ch;
-}
-
 .gpp-woo-search {
   margin-block-start: 2rem;
 }
