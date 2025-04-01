@@ -51,4 +51,8 @@ const publicatieRows = computed(
 th[scope="row"] {
   inline-size: 20ch;
 }
+
+.gpp-woo-search {
+  margin-block-start: 2rem;
+}
 </style>

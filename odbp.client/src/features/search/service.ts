@@ -27,6 +27,7 @@ export type Facets = {
   resultTypes: Readonly<ResultTypeBucket[]>;
   publishers: Readonly<Bucket[]>;
   informatieCategorieen: Readonly<Bucket[]>;
+  onderwerpen: Readonly<Bucket[]>;
 };
 
 export type Bucket = {
@@ -52,6 +53,7 @@ export type SearchFormFields = {
   resultTypes: string[];
   publishers: string[];
   informatieCategorieen: string[];
+  onderwerpen: string[];
 };
 
 export const sortOptions = {

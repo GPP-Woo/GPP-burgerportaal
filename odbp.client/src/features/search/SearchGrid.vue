@@ -1,8 +1,10 @@
 <template>
   <div class="gpp-woo-search">
-    <utrecht-heading :level="!onderwerp ? 1 : 2" class="gpp-woo-search-heading"
-      >Zoeken</utrecht-heading
+    <utrecht-heading v-if="onderwerp" :level="2" class="gpp-woo-search-heading"
+      >Alle publicaties over {{ onderwerp }}</utrecht-heading
     >
+
+    <utrecht-heading v-else :level="1" class="gpp-woo-search-heading">Zoeken</utrecht-heading>
 
     <form class="utrecht-form" @submit.prevent.stop="submit" ref="formElement">
       <search-bar v-model="formFields" @submit="trySubmit" class="gpp-woo-search-bar" />
@@ -49,7 +51,7 @@ import { useSpinner } from "@/composables/use-spinner";
 import { sortOptions, search, type SearchFormFields } from "@/features/search/service";
 import { mapPaginatedResultsToUtrechtPagination } from "@/helpers";
 
-defineProps<{ onderwerp?: string }>();
+const props = defineProps<{ onderwerp?: string }>();
 
 const route = useRoute();
 const formElement = ref<HTMLFormElement>();
@@ -77,7 +79,8 @@ const parsedQuery = computed(() => ({
   laatstGewijzigdDatumTot: first(route.query.laatstGewijzigdDatumTot) || "",
   resultTypes: array(route.query.resultTypes) || [],
   publishers: array(route.query.publishers) || [],
-  informatieCategorieen: array(route.query.informatieCategorieen) || []
+  informatieCategorieen: array(route.query.informatieCategorieen) || [],
+  onderwerpen: array(route.query.onderwerpen) || []
 }));
 
 const formFields = ref<SearchFormFields>({
@@ -89,7 +92,8 @@ const formFields = ref<SearchFormFields>({
   laatstGewijzigdDatumTot: "",
   resultTypes: [],
   publishers: [],
-  informatieCategorieen: []
+  informatieCategorieen: [],
+  onderwerpen: []
 });
 
 onMounted(() => {
@@ -111,12 +115,17 @@ const submit = () =>
     query: {
       ...route.query,
       ...formFields.value,
+      // force onderwerp in route query when onderwerp details
+      ...{ onderwerpen: props.onderwerp ? [props.onderwerp] : formFields.value.onderwerpen },
       page: 1
     }
   });
 
 const filterFacets = (
-  key: keyof Pick<SearchFormFields, "publishers" | "informatieCategorieen" | "resultTypes">
+  key: keyof Pick<
+    SearchFormFields,
+    "publishers" | "informatieCategorieen" | "resultTypes" | "onderwerpen"
+  >
 ) =>
   formFields.value[key].filter((nameOrUuid) =>
     data.value?.facets?.[key]?.some(
@@ -131,6 +140,7 @@ const trySubmit = () => {
     publishers: filterFacets(`publishers`),
     informatieCategorieen: filterFacets(`informatieCategorieen`),
     resultTypes: filterFacets(`resultTypes`)
+    // onderwerpen: filterFacets(`onderwerpen`)
   };
 
   if (!formElement.value?.checkValidity()) return;
@@ -146,6 +156,8 @@ const trySubmit = () => {
 const { error, loading, data } = useLoader((signal) =>
   search({
     ...parsedQuery.value,
+    // force onderwerp in search query when onderwerp details
+    ...{ onderwerpen: props.onderwerp ? [props.onderwerp] : parsedQuery.value.onderwerpen },
     signal
   })
 );

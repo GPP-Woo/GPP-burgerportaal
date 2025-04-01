@@ -123,7 +123,7 @@ const isLargeViewportWidth = useMediaQuery(`(min-width: ${breakpoint})`);
 const isExpanded = ref(isLargeViewportWidth.value);
 
 // expand panel when screen widens and moves beyond breakpoint
-watch(isLargeViewportWidth, (value) => value && (isExpanded.value = true));
+watch(isLargeViewportWidth, (bool) => bool && (isExpanded.value = true));
 </script>
 
 <style lang="scss" scoped>
