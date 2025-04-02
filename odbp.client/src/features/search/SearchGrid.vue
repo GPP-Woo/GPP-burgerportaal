@@ -1,7 +1,7 @@
 <template>
   <div class="gpp-woo-search">
     <utrecht-heading v-if="onderwerp" :level="2" class="gpp-woo-search-heading"
-      >Alle publicaties over {{ onderwerp }}</utrecht-heading
+      >Alle publicaties over dit onderwerp</utrecht-heading
     >
 
     <utrecht-heading v-else :level="1" class="gpp-woo-search-heading">Zoeken</utrecht-heading>

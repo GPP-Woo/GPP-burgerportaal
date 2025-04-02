@@ -4,3 +4,9 @@ export type PagedResult<T> = Readonly<{
   previous?: string;
   results: T[];
 }>;
+
+export const PublicatieStatus = Object.freeze({
+  concept: "concept",
+  gepubliceerd: "gepubliceerd",
+  ingetrokken: "ingetrokken"
+});
