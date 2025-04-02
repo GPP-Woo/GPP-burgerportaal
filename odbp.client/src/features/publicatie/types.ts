@@ -1,8 +1,4 @@
-export const PublicatieStatus = Object.freeze({
-  concept: "concept",
-  gepubliceerd: "gepubliceerd",
-  ingetrokken: "ingetrokken"
-});
+import type { PublicatieStatus } from "@/api";
 
 export type Publicatie = {
   uuid?: string;
