@@ -1,6 +1,12 @@
 <template>
+  <simple-spinner v-if="isFetching"></simple-spinner>
+
+  <utrecht-alert v-else-if="error"
+    >Er is iets misgegaan bij het ophalen van de publicatie...</utrecht-alert
+  >
+
   <gpp-woo-responsive-table>
-    <utrecht-heading :level="1" :id="headingId">{{ uuid }}</utrecht-heading>
+    <utrecht-heading :level="1" :id="headingId">{{ data?.officieleTitel }}</utrecht-heading>
 
     <utrecht-table :aria-labelledby="headingId">
       <utrecht-table-header class="utrecht-table__header--hidden">
@@ -11,7 +17,7 @@
       </utrecht-table-header>
 
       <utrecht-table-body>
-        <utrecht-table-row v-for="[key, value] in publicatieRows" :key="key">
+        <utrecht-table-row v-for="[key, value] in rows" :key="key">
           <template v-if="value?.length">
             <utrecht-table-header-cell scope="row">{{ key }}</utrecht-table-header-cell>
             <utrecht-table-cell>{{ value }}</utrecht-table-cell>
@@ -20,38 +26,35 @@
       </utrecht-table-body>
     </utrecht-table>
   </gpp-woo-responsive-table>
-
-  <search-grid :onderwerp="uuid" />
 </template>
 
 <script setup lang="ts">
 import { computed, useId } from "vue";
+import { useFetchApi } from "@/api";
+import SimpleSpinner from "@/components/SimpleSpinner.vue";
+import UtrechtAlert from "@/components/UtrechtAlert.vue";
 import GppWooResponsiveTable from "@/components/GppWooResponsiveTable.vue";
-import SearchGrid from "@/features/search/SearchGrid.vue";
 import { formatDate } from "@/helpers";
+import type { Onderwerp } from "./types";
 
-defineProps<{ uuid: string }>();
+const API_URL = `/api/v1`;
+
+const props = defineProps<{ uuid: string }>();
 
 const headingId = useId();
 
-const publicatieRows = computed(
+const { data, isFetching, error } = useFetchApi(
+  () => `${API_URL}/onderwerpen/${props.uuid}`
+).json<Onderwerp>();
+
+const rows = computed(
   () =>
     new Map<string, string | undefined>([
-      [
-        "Omschrijving",
-        `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`
-      ],
-      ["Geregistreerd op", formatDate(`2025-03-12T16:23:57.37167+01:00`)],
-      ["Laatst gewijzigd op", formatDate(`2025-03-12T16:23:57.371694+01:00`)]
+      ["Omschrijving", data.value?.omschrijving],
+      ["Geregistreerd op", formatDate(data.value?.registratiedatum)],
+      ["Laatst gewijzigd op", formatDate(data.value?.laatstGewijzigdDatum)]
     ])
 );
 </script>
 
-<style lang="scss" scoped>
-.gpp-woo-search {
-  margin-block-start: 2rem;
-}
-</style>
+<style lang="scss" scoped></style>
