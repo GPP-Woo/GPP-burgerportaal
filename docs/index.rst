@@ -3,8 +3,9 @@
 
 **<<Under construction!>>**
 
+
 GPP Burgerportaal
-================
+=================
 
 The Dutch government wishes to be open and transparent to its citizens. To achieve this, the law `Wet open overheid (Woo)`_ was established, 
 requiring government organisations to actively and digitally publish their documents and thus create *public records*.
@@ -15,6 +16,28 @@ This platform is an aggregation of four components, including the 'GPP Burgerpor
 For a full publication platform, two additional components are required:
 
 * `GPP Publications <https://github.com/GPP-Woo/GPP-publicatiebank>`_, a storage repository and JSON API to manage and expose public records including their metadata.
-* `GPP Servants Portal <https://github.com/GPP-Woo/GPP-app>`_, a component which provides public servants with a web-based user interface to manulaly upload and publish public records.
+* `GPP App <https://github.com/GPP-Woo/GPP-app>`_, a component which provides public servants with a web-based user interface to manulaly upload and publish public records.
 
 All components are designed in line with the `Common Ground`_ model.
+
+
+Getting started
+---------------
+
+To get you started, you might find some of these links relevant:
+
+* New to this project? Have a look at the :ref:`introduction_index`.
+* Want to get started now? See the :ref:`installation reference <installation_index>`.
+* Want to know how the admin interface works? Go to the :ref:`admin_index`.
+
+
+.. toctree::
+   :maxdepth: 2
+   :hidden:
+
+   introduction/index
+   admin/index
+   installation/index
+   developers/index
+   versions
+   changelog
