@@ -38,6 +38,15 @@ const router = createRouter({
       meta: {
         title: "Document"
       }
+    },
+    {
+      path: "/onderwerpen/:uuid",
+      name: "onderwerp",
+      component: () => import("../views/OnderwerpView.vue"),
+      props: true,
+      meta: {
+        title: "Onderwerp"
+      }
     }
   ]
 });

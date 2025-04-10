@@ -1,5 +1,5 @@
 <template>
-  <utrecht-heading :level="2">
+  <utrecht-heading :level="2" class="gpp-woo-search-subheading">
     <utrecht-button
       v-if="!isLargeViewportWidth"
       type="button"
@@ -123,7 +123,7 @@ const isLargeViewportWidth = useMediaQuery(`(min-width: ${breakpoint})`);
 const isExpanded = ref(isLargeViewportWidth.value);
 
 // expand panel when screen widens and moves beyond breakpoint
-watch(isLargeViewportWidth, (value) => value && (isExpanded.value = true));
+watch(isLargeViewportWidth, (bool) => bool && (isExpanded.value = true));
 </script>
 
 <style lang="scss" scoped>

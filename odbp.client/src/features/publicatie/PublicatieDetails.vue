@@ -9,77 +9,81 @@
     <utrecht-heading :level="1">{{ publicatieData?.officieleTitel }}</utrecht-heading>
 
     <section>
-      <utrecht-table>
-        <utrecht-table-caption>Over deze publicatie</utrecht-table-caption>
+      <gpp-woo-responsive-table>
+        <utrecht-table>
+          <utrecht-table-caption>Over deze publicatie</utrecht-table-caption>
 
-        <utrecht-table-header class="utrecht-table__header--hidden">
-          <utrecht-table-row>
-            <utrecht-table-header-cell scope="col">Publicatiekenmerk</utrecht-table-header-cell>
-            <utrecht-table-header-cell scope="col"
-              >Publicatiekenmerkwaarde</utrecht-table-header-cell
+          <utrecht-table-header class="utrecht-table__header--hidden">
+            <utrecht-table-row>
+              <utrecht-table-header-cell scope="col">Publicatiekenmerk</utrecht-table-header-cell>
+              <utrecht-table-header-cell scope="col"
+                >Publicatiekenmerkwaarde</utrecht-table-header-cell
+              >
+            </utrecht-table-row>
+          </utrecht-table-header>
+
+          <utrecht-table-body>
+            <utrecht-table-row v-for="[key, value] in publicatieRows" :key="key">
+              <template v-if="value?.length">
+                <utrecht-table-header-cell scope="row">{{ key }}</utrecht-table-header-cell>
+                <utrecht-table-cell>
+                  <utrecht-badge-list v-if="Array.isArray(value)" :badges="value" />
+
+                  <template v-else>{{ value }}</template>
+                </utrecht-table-cell>
+              </template>
+            </utrecht-table-row>
+          </utrecht-table-body>
+        </utrecht-table>
+      </gpp-woo-responsive-table>
+
+      <gpp-woo-responsive-table>
+        <utrecht-heading :level="2" :id="headingId">Documenten bij deze publicatie</utrecht-heading>
+
+        <utrecht-table :aria-labelledby="headingId" class="utrecht-table--alternate-row-color">
+          <utrecht-table-header>
+            <utrecht-table-row>
+              <utrecht-table-header-cell scope="col">Officiële titel</utrecht-table-header-cell>
+              <utrecht-table-header-cell scope="col">Laatst gewijzigd op</utrecht-table-header-cell>
+              <utrecht-table-header-cell scope="col">Bestand</utrecht-table-header-cell>
+            </utrecht-table-row>
+          </utrecht-table-header>
+
+          <utrecht-table-body>
+            <utrecht-table-row
+              v-for="{
+                uuid,
+                officieleTitel,
+                laatstGewijzigdDatum,
+                bestandsnaam,
+                bestandsomvang
+              } in documenten"
+              :key="uuid"
             >
-          </utrecht-table-row>
-        </utrecht-table-header>
-
-        <utrecht-table-body>
-          <utrecht-table-row v-for="[key, value] in publicatieRows" :key="key">
-            <template v-if="value?.length">
-              <utrecht-table-header-cell scope="row">{{ key }}</utrecht-table-header-cell>
               <utrecht-table-cell>
-                <utrecht-badge-list v-if="Array.isArray(value)" :badges="value" />
-
-                <template v-else>{{ value }}</template>
+                <router-link
+                  :to="{ name: 'document', params: { uuid } }"
+                  class="utrecht-link utrecht-link--html-a"
+                  >{{ officieleTitel }}</router-link
+                >
               </utrecht-table-cell>
-            </template>
-          </utrecht-table-row>
-        </utrecht-table-body>
-      </utrecht-table>
+              <utrecht-table-cell>{{ formatDate(laatstGewijzigdDatum) }}</utrecht-table-cell>
+              <utrecht-table-cell>
+                <utrecht-link
+                  :href="`${API_URL}/documenten/${uuid}/download`"
+                  :download="bestandsnaam"
+                  class="gpp-woo-link--icon"
+                >
+                  <utrecht-icon icon="download" />
 
-      <utrecht-heading :level="2" :id="headingId">Documenten bij deze publicatie</utrecht-heading>
-
-      <utrecht-table :aria-labelledby="headingId" class="utrecht-table--alternate-row-color">
-        <utrecht-table-header>
-          <utrecht-table-row>
-            <utrecht-table-header-cell scope="col">Officiële titel</utrecht-table-header-cell>
-            <utrecht-table-header-cell scope="col">Laatst gewijzigd op</utrecht-table-header-cell>
-            <utrecht-table-header-cell scope="col">Bestand</utrecht-table-header-cell>
-          </utrecht-table-row>
-        </utrecht-table-header>
-
-        <utrecht-table-body>
-          <utrecht-table-row
-            v-for="{
-              uuid,
-              officieleTitel,
-              laatstGewijzigdDatum,
-              bestandsnaam,
-              bestandsomvang
-            } in documenten"
-            :key="uuid"
-          >
-            <utrecht-table-cell>
-              <router-link
-                :to="{ name: 'document', params: { uuid } }"
-                class="utrecht-link utrecht-link--html-a"
-                >{{ officieleTitel }}</router-link
-              >
-            </utrecht-table-cell>
-            <utrecht-table-cell>{{ formatDate(laatstGewijzigdDatum) }}</utrecht-table-cell>
-            <utrecht-table-cell>
-              <utrecht-link
-                :href="`${API_URL}/documenten/${uuid}/download`"
-                :download="bestandsnaam"
-                class="gpp-woo-link--icon"
-              >
-                <utrecht-icon icon="download" />
-
-                Download ({{ bestandsnaam.split(".").pop()
-                }}{{ bestandsomvang ? `, ${Math.floor(bestandsomvang / 1024)}kb` : null }})
-              </utrecht-link>
-            </utrecht-table-cell>
-          </utrecht-table-row>
-        </utrecht-table-body>
-      </utrecht-table>
+                  Download ({{ bestandsnaam.split(".").pop()
+                  }}{{ bestandsomvang ? `, ${Math.floor(bestandsomvang / 1024)}kb` : null }})
+                </utrecht-link>
+              </utrecht-table-cell>
+            </utrecht-table-row>
+          </utrecht-table-body>
+        </utrecht-table>
+      </gpp-woo-responsive-table>
     </section>
   </template>
 </template>
@@ -92,6 +96,7 @@ import SimpleSpinner from "@/components/SimpleSpinner.vue";
 import UtrechtAlert from "@/components/UtrechtAlert.vue";
 import UtrechtBadgeList from "@/components/UtrechtBadgeList.vue";
 import UtrechtIcon from "@/components/UtrechtIcon.vue";
+import GppWooResponsiveTable from "@/components/GppWooResponsiveTable.vue";
 import { formatDate } from "@/helpers";
 import type { Publicatie, PublicatieDocument } from "./types";
 import { waardelijsten } from "@/stores/waardelijsten";
@@ -141,9 +146,3 @@ const publicatieRows = computed(
     ])
 );
 </script>
-
-<style lang="scss" scoped>
-th[scope="row"] {
-  inline-size: 20ch;
-}
-</style>
