@@ -19,7 +19,7 @@ const fetcher = async (url: string) =>
     }))
   );
 
-export const loadWaardelijsten = async () => {
+export const loadLijsten = async () => {
   try {
     const promises = Object.fromEntries(
       Object.entries(urls).map(([key, url]) => [key, fetcher(url)])

@@ -94,7 +94,7 @@ import { useFetchApi } from "@/api/use-fetch-api";
 import { useAllPages } from "@/composables/use-all-pages";
 import SimpleSpinner from "@/components/SimpleSpinner.vue";
 import UtrechtAlert from "@/components/UtrechtAlert.vue";
-import UtrechtBadgeList from "@/components/UtrechtBadgeList.vue";
+import UtrechtBadgeList, { type BadgeListItem } from "@/components/UtrechtBadgeList.vue";
 import UtrechtIcon from "@/components/UtrechtIcon.vue";
 import GppWooResponsiveTable from "@/components/GppWooResponsiveTable.vue";
 import { formatDate } from "@/helpers";
@@ -124,30 +124,28 @@ const {
 
 const publicatieRows = computed(
   () =>
-    new Map<string, string | string[] | undefined>([
+    new Map<string, string | BadgeListItem[] | undefined>([
       ["Officiële titel", publicatieData.value?.officieleTitel],
       ["Verkorte titel", publicatieData.value?.verkorteTitel],
       ["Omschrijving", publicatieData.value?.omschrijving],
       [
         "Organisatie",
-        lijsten.value?.organisaties.find((o) => o.uuid === publicatieData.value?.publisher)
-          ?.naam || "onbekend"
+        lijsten.value?.organisaties.find((o) => o.uuid === publicatieData.value?.publisher)?.naam ||
+          "onbekend"
       ],
       [
         "Onderwerpen",
-        publicatieData.value?.onderwerpen.map(
-          (uuid) =>
-            lijsten.value?.onderwerpen.find((c) => c.uuid === uuid)?.naam ||
-            "onbekend"
-        )
+        publicatieData.value?.onderwerpen.map((uuid) => ({
+          naam: lijsten.value?.onderwerpen.find((o) => o.uuid === uuid)?.naam || "onbekend",
+          url: `/onderwerpen/${uuid}`
+        }))
       ],
       [
         "Informatiecategorieën",
-        publicatieData.value?.informatieCategorieen.map(
-          (uuid) =>
-            lijsten.value?.informatiecategorieen.find((c) => c.uuid === uuid)?.naam ||
-            "onbekend"
-        )
+        publicatieData.value?.informatieCategorieen.map((uuid) => ({
+          naam:
+            lijsten.value?.informatiecategorieen.find((c) => c.uuid === uuid)?.naam || "onbekend"
+        }))
       ],
       ["Geregistreerd op", formatDate(publicatieData.value?.registratiedatum)],
       ["Laatst gewijzigd op", formatDate(publicatieData.value?.laatstGewijzigdDatum)]
