@@ -13,5 +13,6 @@
         public string[]? ResultTypes { get; init; }
         public string[]? Publishers { get; init; }
         public string[]? InformatieCategorieen { get; init; }
+        public string[]? Onderwerpen { get; init; }
     }
 }

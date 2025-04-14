@@ -10,7 +10,12 @@
       <search-bar v-model="formFields" @submit="trySubmit" class="gpp-woo-search-bar" />
 
       <section>
-        <search-filters v-model="formFields" :facets="data?.facets" @submit="trySubmit" />
+        <search-filters
+          v-model="formFields"
+          :facets="data?.facets"
+          :filter-config="filterConfig"
+          @submit="trySubmit"
+        />
       </section>
     </form>
 
@@ -48,7 +53,13 @@ import SearchFilters from "@/features/search/components/SearchFilters.vue";
 import SearchResultList from "@/features/search/components/SearchResultList.vue";
 import { useLoader } from "@/composables/use-loader";
 import { useSpinner } from "@/composables/use-spinner";
-import { sortOptions, search, type SearchFormFields } from "@/features/search/service";
+import {
+  sortOptions,
+  search,
+  type SearchFormFields,
+  resultOptions,
+  type FilterConfig
+} from "@/features/search/service";
 import { mapPaginatedResultsToUtrechtPagination } from "@/helpers";
 
 const props = defineProps<{ onderwerp?: string }>();
@@ -109,14 +120,23 @@ onMounted(() => {
 
 const router = useRouter();
 
+// force onderwerp and resultTypes=publication in query when onderwerp details
+const queryModifier = (baseValue: typeof formFields.value | typeof parsedQuery.value) => ({
+  onderwerpen: props.onderwerp ? [props.onderwerp] : baseValue.onderwerpen,
+  resultTypes: props.onderwerp ? [resultOptions.publication.value] : baseValue.resultTypes
+});
+
+const filterConfig = computed<FilterConfig>(() => ({
+  showResultTypesFilter: !props.onderwerp
+}));
+
 const submit = () =>
   router.push({
     path: route.path,
     query: {
       ...route.query,
       ...formFields.value,
-      // force onderwerp in route query when onderwerp details
-      ...{ onderwerpen: props.onderwerp ? [props.onderwerp] : formFields.value.onderwerpen },
+      ...queryModifier(formFields.value),
       page: 1
     }
   });
@@ -139,8 +159,8 @@ const trySubmit = () => {
     ...formFields.value,
     publishers: filterFacets(`publishers`),
     informatieCategorieen: filterFacets(`informatieCategorieen`),
-    resultTypes: filterFacets(`resultTypes`)
-    // onderwerpen: filterFacets(`onderwerpen`)
+    resultTypes: filterFacets(`resultTypes`),
+    onderwerpen: filterFacets(`onderwerpen`)
   };
 
   if (!formElement.value?.checkValidity()) return;
@@ -156,8 +176,7 @@ const trySubmit = () => {
 const { error, loading, data } = useLoader((signal) =>
   search({
     ...parsedQuery.value,
-    // force onderwerp in search query when onderwerp details
-    ...{ onderwerpen: props.onderwerp ? [props.onderwerp] : parsedQuery.value.onderwerpen },
+    ...queryModifier(parsedQuery.value),
     signal
   })
 );

@@ -82,6 +82,7 @@
     </utrecht-fieldset>
 
     <search-buckets
+      v-if="filterConfig?.showResultTypesFilter"
       legend="Type informatie"
       :buckets="facets?.resultTypes"
       v-model="model.resultTypes"
@@ -109,9 +110,13 @@ import { ref, useId, useModel, watch } from "vue";
 import { useMediaQuery } from "@vueuse/core";
 import UtrechtIcon from "@/components/UtrechtIcon.vue";
 import SearchBuckets from "@/features/search/components/SearchBuckets.vue";
-import type { SearchFormFields, Facets } from "../service";
+import type { SearchFormFields, Facets, FilterConfig } from "../service";
 
-const props = defineProps<{ modelValue: SearchFormFields; facets?: Facets }>();
+const props = defineProps<{
+  modelValue: SearchFormFields;
+  facets?: Facets;
+  filterConfig?: FilterConfig;
+}>();
 const model = useModel(props, "modelValue");
 
 const panelId = useId();
