@@ -13,6 +13,7 @@
         public DateTime Registratiedatum { get; set; }
         public DateTime LaatstGewijzigdDatum { get; set; }
         public List<string>? InformatieCategorieen { get; set; }
+        public List<string>? Onderwerpen { get; set; }
     }
 
     public class Eigenaar

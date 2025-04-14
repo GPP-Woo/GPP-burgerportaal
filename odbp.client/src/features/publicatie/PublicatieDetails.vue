@@ -134,6 +134,14 @@ const publicatieRows = computed(
           ?.naam || "onbekend"
       ],
       [
+        "Onderwerpen",
+        publicatieData.value?.onderwerpen.map(
+          (uuid) =>
+            lijsten.value?.onderwerpen.find((c) => c.uuid === uuid)?.naam ||
+            "onbekend"
+        )
+      ],
+      [
         "Informatiecategorieën",
         publicatieData.value?.informatieCategorieen.map(
           (uuid) =>

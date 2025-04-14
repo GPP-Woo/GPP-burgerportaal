@@ -16,6 +16,7 @@ export type Publicatie = {
   registratiedatum?: string;
   laatstGewijzigdDatum?: string;
   informatieCategorieen: string[];
+  onderwerpen: string[];
 };
 
 export type PublicatieDocument = {
