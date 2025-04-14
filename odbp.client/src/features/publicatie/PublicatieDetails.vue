@@ -99,7 +99,7 @@ import UtrechtIcon from "@/components/UtrechtIcon.vue";
 import GppWooResponsiveTable from "@/components/GppWooResponsiveTable.vue";
 import { formatDate } from "@/helpers";
 import type { Publicatie, PublicatieDocument } from "./types";
-import { waardelijsten } from "@/stores/waardelijsten";
+import { lijsten } from "@/stores/lijsten";
 
 const API_URL = `/api/v1`;
 
@@ -130,14 +130,14 @@ const publicatieRows = computed(
       ["Omschrijving", publicatieData.value?.omschrijving],
       [
         "Organisatie",
-        waardelijsten.value.organisaties.find((o) => o.uuid === publicatieData.value?.publisher)
+        lijsten.value?.organisaties.find((o) => o.uuid === publicatieData.value?.publisher)
           ?.naam || "onbekend"
       ],
       [
         "Informatiecategorieën",
         publicatieData.value?.informatieCategorieen.map(
           (uuid) =>
-            waardelijsten.value.informatiecategorieen.find((c) => c.uuid === uuid)?.naam ||
+            lijsten.value?.informatiecategorieen.find((c) => c.uuid === uuid)?.naam ||
             "onbekend"
         )
       ],

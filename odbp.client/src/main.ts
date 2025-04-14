@@ -4,7 +4,7 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import { registerComponents } from "@/components/register";
 import { loadThemeResources } from "./resources";
-import { loadWaardelijsten } from "./stores/waardelijsten";
+import { loadWaardelijsten } from "./stores/lijsten";
 
 const app = createApp(App);
 
