@@ -2,20 +2,23 @@
   <nav class="utrecht-nav-bar" aria-label="Hoofdmenu">
     <div class="utrecht-nav-bar__content">
       <ul role="list" class="utrecht-nav-list" id="menu">
-        <li class="utrecht-nav-list__item">
-          <router-link
-            :to="{ name: 'home' }"
-            class="utrecht-link utrecht-link--html-a utrecht-nav-list__link"
-            >Home</router-link
+        <li
+          v-for="[name, label] in Object.entries(links)"
+          :key="name"
+          class="utrecht-nav-list__item"
+        >
+          <component
+            :is="$route.name !== name ? 'router-link' : 'span'"
+            :to="$route.name !== name ? { name } : undefined"
+            class="utrecht-nav-list__link"
+            :class="{
+              'utrecht-link utrecht-link--html-a': $route.name !== name
+            }"
           >
-        </li>
+            {{ label }}
 
-        <li class="utrecht-nav-list__item">
-          <router-link
-            :to="{ name: 'zoeken' }"
-            class="utrecht-link utrecht-link--html-a utrecht-nav-list__link"
-            >Zoeken</router-link
-          >
+            <span v-if="$route.name === name" class="visually-hidden">(active link)</span>
+          </component>
         </li>
 
         <li v-if="resources?.websiteUrl" class="utrecht-nav-list__item">
@@ -41,6 +44,11 @@ import { injectResources } from "@/resources";
 import UtrechtIcon from "@/components/UtrechtIcon.vue";
 
 const resources = injectResources();
+
+const links = {
+  home: "Home",
+  zoeken: "Zoeken"
+} as const;
 </script>
 
 <style lang="scss" scoped>
