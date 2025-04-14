@@ -12,7 +12,7 @@ namespace ODBP.Features.Onderwerpen
         public async Task<IActionResult> Get(string version, CancellationToken token, [FromQuery] string? page = "1")
         {
             using var client = clientFactory.Create("Onderwerpen ophalen");
-            var url = $"/api/{version}/onderwerpen?page={page}";
+            var url = $"/api/{version}/onderwerpen?page={page}&publicatiestatus=gepubliceerd";
 
             using var response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead, token);
 
