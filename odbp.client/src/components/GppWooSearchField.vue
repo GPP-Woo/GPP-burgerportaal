@@ -5,7 +5,6 @@
     <div class="gpp-woo-search-field">
       <utrecht-textbox
         id="search-field"
-        aria-placeholder="Hier zoeken"
         placeholder="Hier zoeken"
         v-model="query"
         type="search"
