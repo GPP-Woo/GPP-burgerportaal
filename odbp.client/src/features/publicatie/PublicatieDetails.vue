@@ -9,7 +9,7 @@
     <utrecht-heading :level="1">{{ publicatieData?.officieleTitel }}</utrecht-heading>
 
     <section>
-      <gpp-woo-responsive-table>
+      <utrecht-table-container>
         <utrecht-table>
           <utrecht-table-caption>Over deze publicatie</utrecht-table-caption>
 
@@ -35,17 +35,21 @@
             </utrecht-table-row>
           </utrecht-table-body>
         </utrecht-table>
-      </gpp-woo-responsive-table>
+      </utrecht-table-container>
 
-      <gpp-woo-responsive-table>
+      <utrecht-table-container>
         <utrecht-heading :level="2" :id="headingId">Documenten bij deze publicatie</utrecht-heading>
 
         <utrecht-table :aria-labelledby="headingId" class="utrecht-table--alternate-row-color">
           <utrecht-table-header>
             <utrecht-table-row>
               <utrecht-table-header-cell scope="col">Officiële titel</utrecht-table-header-cell>
-              <utrecht-table-header-cell scope="col">Laatst gewijzigd op</utrecht-table-header-cell>
-              <utrecht-table-header-cell scope="col">Bestand</utrecht-table-header-cell>
+              <utrecht-table-header-cell scope="col" class="gpp-woo-table-fixed-header"
+                >Laatst gewijzigd op</utrecht-table-header-cell
+              >
+              <utrecht-table-header-cell scope="col" class="gpp-woo-table-fixed-header"
+                >Bestand</utrecht-table-header-cell
+              >
             </utrecht-table-row>
           </utrecht-table-header>
 
@@ -83,7 +87,7 @@
             </utrecht-table-row>
           </utrecht-table-body>
         </utrecht-table>
-      </gpp-woo-responsive-table>
+      </utrecht-table-container>
     </section>
   </template>
 </template>
@@ -94,12 +98,12 @@ import { useFetchApi } from "@/api/use-fetch-api";
 import { useAllPages } from "@/composables/use-all-pages";
 import SimpleSpinner from "@/components/SimpleSpinner.vue";
 import UtrechtAlert from "@/components/UtrechtAlert.vue";
-import UtrechtBadgeList from "@/components/UtrechtBadgeList.vue";
+import UtrechtBadgeList, { type BadgeListItem } from "@/components/UtrechtBadgeList.vue";
 import UtrechtIcon from "@/components/UtrechtIcon.vue";
-import GppWooResponsiveTable from "@/components/GppWooResponsiveTable.vue";
+import UtrechtTableContainer from "@/components/UtrechtTableContainer.vue";
 import { formatDate } from "@/helpers";
 import type { Publicatie, PublicatieDocument } from "./types";
-import { waardelijsten } from "@/stores/waardelijsten";
+import { lijsten } from "@/stores/lijsten";
 
 const API_URL = `/api/v1`;
 
@@ -124,22 +128,28 @@ const {
 
 const publicatieRows = computed(
   () =>
-    new Map<string, string | string[] | undefined>([
+    new Map<string, string | BadgeListItem[] | undefined>([
       ["Officiële titel", publicatieData.value?.officieleTitel],
       ["Verkorte titel", publicatieData.value?.verkorteTitel],
       ["Omschrijving", publicatieData.value?.omschrijving],
       [
         "Organisatie",
-        waardelijsten.value.organisaties.find((o) => o.uuid === publicatieData.value?.publisher)
-          ?.naam || "onbekend"
+        lijsten.value?.organisaties.find((o) => o.uuid === publicatieData.value?.publisher)?.naam ||
+          "onbekend"
+      ],
+      [
+        "Onderwerpen",
+        publicatieData.value?.onderwerpen.map((uuid) => ({
+          naam: lijsten.value?.onderwerpen.find((o) => o.uuid === uuid)?.naam || "onbekend",
+          url: `/onderwerpen/${uuid}`
+        }))
       ],
       [
         "Informatiecategorieën",
-        publicatieData.value?.informatieCategorieen.map(
-          (uuid) =>
-            waardelijsten.value.informatiecategorieen.find((c) => c.uuid === uuid)?.naam ||
-            "onbekend"
-        )
+        publicatieData.value?.informatieCategorieen.map((uuid) => ({
+          naam:
+            lijsten.value?.informatiecategorieen.find((c) => c.uuid === uuid)?.naam || "onbekend"
+        }))
       ],
       ["Geregistreerd op", formatDate(publicatieData.value?.registratiedatum)],
       ["Laatst gewijzigd op", formatDate(publicatieData.value?.laatstGewijzigdDatum)]

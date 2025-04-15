@@ -5,7 +5,7 @@
     >Er is iets misgegaan bij het ophalen van de publicatie...</utrecht-alert
   >
 
-  <gpp-woo-responsive-table>
+  <utrecht-table-container>
     <utrecht-heading :level="1" :id="headingId">{{ data?.officieleTitel }}</utrecht-heading>
 
     <utrecht-table :aria-labelledby="headingId">
@@ -25,7 +25,7 @@
         </utrecht-table-row>
       </utrecht-table-body>
     </utrecht-table>
-  </gpp-woo-responsive-table>
+  </utrecht-table-container>
 </template>
 
 <script setup lang="ts">
@@ -33,7 +33,7 @@ import { computed, useId } from "vue";
 import { useFetchApi } from "@/api";
 import SimpleSpinner from "@/components/SimpleSpinner.vue";
 import UtrechtAlert from "@/components/UtrechtAlert.vue";
-import GppWooResponsiveTable from "@/components/GppWooResponsiveTable.vue";
+import UtrechtTableContainer from "@/components/UtrechtTableContainer.vue";
 import { formatDate } from "@/helpers";
 import type { Onderwerp } from "./types";
 

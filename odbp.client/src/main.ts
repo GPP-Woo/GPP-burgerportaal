@@ -4,7 +4,7 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import { registerComponents } from "@/components/register";
 import { loadThemeResources } from "./resources";
-import { loadWaardelijsten } from "./stores/waardelijsten";
+import { loadLijsten } from "./stores/lijsten";
 
 const app = createApp(App);
 
@@ -15,7 +15,7 @@ registerComponents(app);
   await loadThemeResources(app);
 
   // Preload waardelijsten to be used in different app components
-  await loadWaardelijsten();
+  await loadLijsten();
 
   // Load router after theme, to be able to use theme settings
   const { default: router } = await import("./router");
