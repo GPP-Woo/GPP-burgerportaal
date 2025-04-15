@@ -27,6 +27,7 @@ export type Facets = {
   resultTypes: Readonly<ResultTypeBucket[]>;
   publishers: Readonly<Bucket[]>;
   informatieCategorieen: Readonly<Bucket[]>;
+  onderwerpen: Readonly<Bucket[]>;
 };
 
 export type Bucket = {
@@ -36,6 +37,10 @@ export type Bucket = {
 };
 
 export type ResultTypeBucket = Omit<Bucket, "uuid">;
+
+export type FilterConfig = {
+  showResultTypesFilter: boolean;
+};
 
 type WaardelijstItem = {
   uuid: string;
@@ -52,6 +57,7 @@ export type SearchFormFields = {
   resultTypes: string[];
   publishers: string[];
   informatieCategorieen: string[];
+  onderwerpen: string[];
 };
 
 export const sortOptions = {

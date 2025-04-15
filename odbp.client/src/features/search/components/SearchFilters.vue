@@ -1,5 +1,5 @@
 <template>
-  <utrecht-heading :level="2">
+  <utrecht-heading :level="2" class="gpp-woo-search-subheading">
     <utrecht-button
       v-if="!isLargeViewportWidth"
       type="button"
@@ -82,6 +82,7 @@
     </utrecht-fieldset>
 
     <search-buckets
+      v-if="filterConfig?.showResultTypesFilter"
       legend="Type informatie"
       :buckets="facets?.resultTypes"
       v-model="model.resultTypes"
@@ -109,9 +110,13 @@ import { ref, useId, useModel, watch } from "vue";
 import { useMediaQuery } from "@vueuse/core";
 import UtrechtIcon from "@/components/UtrechtIcon.vue";
 import SearchBuckets from "@/features/search/components/SearchBuckets.vue";
-import type { SearchFormFields, Facets } from "../service";
+import type { SearchFormFields, Facets, FilterConfig } from "../service";
 
-const props = defineProps<{ modelValue: SearchFormFields; facets?: Facets }>();
+const props = defineProps<{
+  modelValue: SearchFormFields;
+  facets?: Facets;
+  filterConfig?: FilterConfig;
+}>();
 const model = useModel(props, "modelValue");
 
 const panelId = useId();
@@ -123,7 +128,7 @@ const isLargeViewportWidth = useMediaQuery(`(min-width: ${breakpoint})`);
 const isExpanded = ref(isLargeViewportWidth.value);
 
 // expand panel when screen widens and moves beyond breakpoint
-watch(isLargeViewportWidth, (value) => value && (isExpanded.value = true));
+watch(isLargeViewportWidth, (bool) => bool && (isExpanded.value = true));
 </script>
 
 <style lang="scss" scoped>
