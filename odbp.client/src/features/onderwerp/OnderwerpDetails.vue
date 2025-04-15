@@ -5,7 +5,7 @@
     >Er is iets misgegaan bij het ophalen van de publicatie...</utrecht-alert
   >
 
-  <article class="utrecht-article">
+  <article v-else class="utrecht-article">
     <utrecht-heading :level="1" :id="headingId">{{ data?.officieleTitel }}</utrecht-heading>
 
     <utrecht-paragraph
