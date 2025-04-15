@@ -9,7 +9,7 @@
     <utrecht-heading :level="1">{{ documentData?.officieleTitel }}</utrecht-heading>
 
     <section>
-      <gpp-woo-responsive-table>
+      <utrecht-table-container>
         <utrecht-table>
           <utrecht-table-caption>Over dit document</utrecht-table-caption>
 
@@ -31,7 +31,7 @@
             </utrecht-table-row>
           </utrecht-table-body>
         </utrecht-table>
-      </gpp-woo-responsive-table>
+      </utrecht-table-container>
 
       <utrecht-paragraph>
         <a
@@ -50,7 +50,7 @@
         </a>
       </utrecht-paragraph>
 
-      <gpp-woo-responsive-table>
+      <utrecht-table-container>
         <utrecht-heading :level="2" :id="headingId">Gekoppelde publicatie</utrecht-heading>
 
         <utrecht-table :aria-labelledby="headingId">
@@ -83,7 +83,7 @@
             </utrecht-table-row>
           </utrecht-table-body>
         </utrecht-table>
-      </gpp-woo-responsive-table>
+      </utrecht-table-container>
     </section>
   </template>
 </template>
@@ -94,7 +94,7 @@ import { useFetchApi } from "@/api/use-fetch-api";
 import SimpleSpinner from "@/components/SimpleSpinner.vue";
 import UtrechtAlert from "@/components/UtrechtAlert.vue";
 import UtrechtIcon from "@/components/UtrechtIcon.vue";
-import GppWooResponsiveTable from "@/components/GppWooResponsiveTable.vue";
+import UtrechtTableContainer from "@/components/UtrechtTableContainer.vue";
 import { formatDate } from "@/helpers";
 import type { Publicatie, PublicatieDocument } from "./types";
 import { lijsten } from "@/stores/lijsten";
@@ -134,8 +134,8 @@ const documentRows = computed(
       ["Identificatie", documentData.value?.identifier],
       [
         "Eigenaar",
-        lijsten.value?.organisaties.find((o) => o.uuid === publicatieData.value?.publisher)
-          ?.naam || "onbekend"
+        lijsten.value?.organisaties.find((o) => o.uuid === publicatieData.value?.publisher)?.naam ||
+          "onbekend"
       ],
       ["Officiële titel", documentData.value?.officieleTitel],
       ["Verkorte titel", documentData.value?.verkorteTitel],

@@ -32,9 +32,7 @@ defineProps<{ badges: BadgeListItem[] }>();
   .gpp-woo-data-badge-link {
     --utrecht-data-badge-background-color: var(--gpp-woo-data-badge-link-background-color);
 
-    &:hover {
-      text-decoration: underline;
-    }
+    text-decoration: underline;
 
     &:focus-visible {
       outline-color: var(--utrecht-focus-outline-color);
