@@ -1,5 +1,5 @@
 <template>
-  <div class="gpp-woo-search">
+  <div class="gpp-woo-search" :class="{ 'gpp-woo-search--onderwerp': !!props.onderwerp }">
     <utrecht-heading v-if="onderwerp" :level="2" class="gpp-woo-search-heading"
       >Alle publicaties over dit onderwerp</utrecht-heading
     >
@@ -11,9 +11,9 @@
 
       <section>
         <search-filters
+          v-if="!props.onderwerp"
           v-model="formFields"
           :facets="data?.facets"
-          :filter-config="filterConfig"
           @submit="trySubmit"
         />
       </section>
@@ -54,11 +54,11 @@ import SearchResultList from "@/features/search/components/SearchResultList.vue"
 import { useLoader } from "@/composables/use-loader";
 import { useSpinner } from "@/composables/use-spinner";
 import {
+  resultOptions,
   sortOptions,
   search,
   type SearchFormFields,
-  resultOptions,
-  type FilterConfig
+  type Sort
 } from "@/features/search/service";
 import { mapPaginatedResultsToUtrechtPagination } from "@/helpers";
 
@@ -77,13 +77,20 @@ const array = <T,>(v: T | Array<T> | null | undefined) => {
     : [v];
 };
 
+const sortValues = Object.values(sortOptions).map((o) => o.value);
+
+const sortValue = computed(() => {
+  const sort = first(route.query.sort) as Sort | null;
+
+  if (sort && sortValues.includes(sort)) return sort;
+
+  return props.onderwerp ? sortOptions.chronological.value : sortOptions.relevance.value;
+});
+
 const parsedQuery = computed(() => ({
   query: first(route.query.query) || "",
   page: +(first(route.query.page) || "1"),
-  sort:
-    first(route.query.sort) === sortOptions.chronological.value
-      ? sortOptions.chronological.value
-      : sortOptions.relevance.value,
+  sort: sortValue.value,
   registratiedatumVanaf: first(route.query.registratiedatumVanaf) || "",
   registratiedatumTot: first(route.query.registratiedatumTot) || "",
   laatstGewijzigdDatumVanaf: first(route.query.laatstGewijzigdDatumVanaf) || "",
@@ -125,10 +132,6 @@ const queryModifier = (baseValue: typeof formFields.value | typeof parsedQuery.v
   onderwerpen: props.onderwerp ? [props.onderwerp] : baseValue.onderwerpen,
   resultTypes: props.onderwerp ? [resultOptions.publication.value] : baseValue.resultTypes
 });
-
-const filterConfig = computed<FilterConfig>(() => ({
-  showResultTypesFilter: !props.onderwerp
-}));
 
 const submit = () =>
   router.push({
@@ -211,6 +214,7 @@ const pagination = computed(
   --utrecht-heading-2-margin-block-end: var(--gpp-woo-search-heading-2-margin-block-end);
   --utrecht-heading-2-margin-block-start: var(--gpp-woo-search-heading-2-margin-block-start);
   --utrecht-paragraph-margin-block-start: var(--gpp-woo-search-paragraph-margin-block-start);
+  --_search-filters-column-width: minmax(auto, 18rem);
 
   display: grid;
   grid-template-areas:
@@ -221,13 +225,21 @@ const pagination = computed(
     "results";
 
   @media screen and (min-width: #{variables.$breakpoint-md}) {
-    grid-template-columns: minmax(auto, 18rem) 1fr;
+    grid-template-columns: var(--_search-filters-column-width) 1fr;
     grid-template-rows: auto auto 1fr;
     grid-template-areas:
       "subheading heading"
       "filters bar"
       "filters results";
     column-gap: var(--gpp-woo-search-grid-column-gap);
+
+    &--onderwerp {
+      grid-template-columns: 1fr var(--_search-filters-column-width);
+      grid-template-areas:
+        "heading ."
+        "bar ."
+        "results results";
+    }
   }
 
   .gpp-woo-search-heading {

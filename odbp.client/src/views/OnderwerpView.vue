@@ -13,6 +13,6 @@ defineProps<{ uuid: string }>();
 
 <style lang="scss" scoped>
 .gpp-woo-search {
-  margin-block-start: 2rem;
+  margin-block: 2rem;
 }
 </style>
