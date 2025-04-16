@@ -30,7 +30,7 @@ const fetcher = <K extends EndpointKey>(key: K) =>
 export const loadLijsten = async () => {
   try {
     const promises = Object.fromEntries(
-      (Object.keys(endpoints) as Array<EndpointKey>).map((key) => [key, fetcher(key)])
+      (Object.keys(endpoints) as EndpointKey[]).map((key) => [key, fetcher(key)])
     ) as { [K in EndpointKey]: Promise<ListTypes[K]> };
 
     lijsten.value = await promiseAll(promises);
