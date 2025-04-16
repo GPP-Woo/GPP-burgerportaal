@@ -1,4 +1,4 @@
-export type ListItem = {
+export type WaardelijstItem = {
   uuid: string;
   naam: string;
 };

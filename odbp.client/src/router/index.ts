@@ -40,6 +40,15 @@ const router = createRouter({
       }
     },
     {
+      path: "/onderwerpen",
+      name: "onderwerpen",
+      component: () => import("../views/OnderwerpenView.vue"),
+      props: true,
+      meta: {
+        title: "Onderwerpen"
+      }
+    },
+    {
       path: "/onderwerpen/:uuid",
       name: "onderwerp",
       component: () => import("../views/OnderwerpView.vue"),

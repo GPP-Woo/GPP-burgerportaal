@@ -1,29 +1,37 @@
 import { ref } from "vue";
-import { fetchAllPages } from "@/composables/use-all-pages";
 import { promiseAll } from "@/utils";
-import type { ListItem } from "./types";
+import { fetchAllPages } from "@/composables/use-all-pages";
+import type { WaardelijstItem } from "./types";
+import type { Onderwerp } from "@/features/onderwerp/types";
 
-const urls = {
-  organisaties: "/api/v1/organisaties",
-  informatiecategorieen: "/api/v1/informatiecategorieen",
-  onderwerpen: "/api/v1/onderwerpen"
+const endpoints = {
+  organisaties: { url: "/api/v1/organisaties", type: [] as WaardelijstItem[] },
+  informatiecategorieen: { url: "/api/v1/informatiecategorieen", type: [] as WaardelijstItem[] },
+  onderwerpen: { url: "/api/v1/onderwerpen", type: [] as (Onderwerp & { naam: string })[] }
 } as const;
 
-export const lijsten = ref<Record<keyof typeof urls, ListItem[]>>();
+type EndpointKey = keyof typeof endpoints;
 
-const fetcher = async (url: string) =>
-  fetchAllPages<ListItem | { uuid: string; officieleTitel: string }>(url).then((r) =>
-    r.map(({ uuid, ...rest }) => ({
-      uuid,
-      naam: "naam" in rest ? rest.naam : rest.officieleTitel
-    }))
+type ListTypes = {
+  [K in EndpointKey]: (typeof endpoints)[K]["type"];
+};
+
+export const lijsten = ref<ListTypes>();
+
+const fetcher = <K extends EndpointKey>(key: K) =>
+  fetchAllPages<WaardelijstItem | Onderwerp>(endpoints[key].url).then(
+    (r) =>
+      r.map((item) => ({
+        ...item,
+        naam: "officieleTitel" in item ? item.officieleTitel : item.naam
+      })) as ListTypes[K]
   );
 
 export const loadLijsten = async () => {
   try {
     const promises = Object.fromEntries(
-      Object.entries(urls).map(([key, url]) => [key, fetcher(url)])
-    ) as Record<keyof typeof urls, Promise<ListItem[]>>;
+      (Object.keys(endpoints) as Array<EndpointKey>).map((key) => [key, fetcher(key)])
+    ) as { [K in EndpointKey]: Promise<ListTypes[K]> };
 
     lijsten.value = await promiseAll(promises);
   } catch {
