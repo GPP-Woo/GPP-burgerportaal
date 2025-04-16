@@ -1,5 +1,5 @@
 <template>
-  <nav class="utrecht-pagination">
+  <nav v-if="prev || next" class="utrecht-pagination">
     <span class="utrecht-pagination__before vorige">
       <router-link
         v-if="prev"

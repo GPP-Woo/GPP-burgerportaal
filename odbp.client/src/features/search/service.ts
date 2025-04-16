@@ -38,10 +38,6 @@ export type Bucket = {
 
 export type ResultTypeBucket = Omit<Bucket, "uuid">;
 
-export type FilterConfig = {
-  showResultTypesFilter: boolean;
-};
-
 type WaardelijstItem = {
   uuid: string;
   naam: string;

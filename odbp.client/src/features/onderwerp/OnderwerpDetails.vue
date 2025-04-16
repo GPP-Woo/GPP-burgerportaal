@@ -5,27 +5,34 @@
     >Er is iets misgegaan bij het ophalen van de publicatie...</utrecht-alert
   >
 
-  <utrecht-table-container>
+  <article v-else class="utrecht-article">
     <utrecht-heading :level="1" :id="headingId">{{ data?.officieleTitel }}</utrecht-heading>
 
-    <utrecht-table :aria-labelledby="headingId">
-      <utrecht-table-header class="utrecht-table__header--hidden">
-        <utrecht-table-row>
-          <utrecht-table-header-cell scope="col">Onderwerpkenmerk</utrecht-table-header-cell>
-          <utrecht-table-header-cell scope="col">Onderwerpkenmerkwaarde</utrecht-table-header-cell>
-        </utrecht-table-row>
-      </utrecht-table-header>
+    <utrecht-paragraph
+      class="utrecht-paragraph--lead utrecht-spotlight-section utrecht-spotlight-section--info"
+      ><b class="utrecht-paragraph__b">{{ data?.omschrijving }}</b></utrecht-paragraph
+    >
 
-      <utrecht-table-body>
-        <utrecht-table-row v-for="[key, value] in rows" :key="key">
-          <template v-if="value?.length">
-            <utrecht-table-header-cell scope="row">{{ key }}</utrecht-table-header-cell>
-            <utrecht-table-cell>{{ value }}</utrecht-table-cell>
-          </template>
-        </utrecht-table-row>
-      </utrecht-table-body>
-    </utrecht-table>
-  </utrecht-table-container>
+    <utrecht-table-container>
+      <utrecht-table :aria-labelledby="headingId">
+        <utrecht-table-header class="utrecht-table__header--hidden">
+          <utrecht-table-row>
+            <utrecht-table-header-cell scope="col">Kenmerk</utrecht-table-header-cell>
+            <utrecht-table-header-cell scope="col">Kenmerkwaarde</utrecht-table-header-cell>
+          </utrecht-table-row>
+        </utrecht-table-header>
+
+        <utrecht-table-body>
+          <utrecht-table-row v-for="[key, value] in rows" :key="key">
+            <template v-if="value?.length">
+              <utrecht-table-header-cell scope="row">{{ key }}</utrecht-table-header-cell>
+              <utrecht-table-cell>{{ value }}</utrecht-table-cell>
+            </template>
+          </utrecht-table-row>
+        </utrecht-table-body>
+      </utrecht-table>
+    </utrecht-table-container>
+  </article>
 </template>
 
 <script setup lang="ts">
@@ -50,7 +57,6 @@ const { data, isFetching, error } = useFetchApi(
 const rows = computed(
   () =>
     new Map<string, string | undefined>([
-      ["Omschrijving", data.value?.omschrijving],
       ["Geregistreerd op", formatDate(data.value?.registratiedatum)],
       ["Laatst gewijzigd op", formatDate(data.value?.laatstGewijzigdDatum)]
     ])
