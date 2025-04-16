@@ -1,5 +1,5 @@
 <template>
-  <utrecht-heading :level="3">
+  <utrecht-heading :level="level ?? 3">
     <router-link :to="link" :title="title" class="utrecht-link utrecht-link--html-a">
       {{ title }}
     </router-link>
@@ -9,17 +9,14 @@
 </template>
 
 <script setup lang="ts">
-withDefaults(
-  defineProps<{
-    link: string;
-    title: string;
-    level?: 2 | 3 | 4;
-    description?: string;
-  }>(),
-  {
-    level: 3
-  }
-);
+export type Tile = {
+  link: string;
+  title: string;
+  description?: string;
+  level?: 2 | 3 | 4;
+};
+
+defineProps<Tile>();
 </script>
 
 <style lang="scss" scoped>

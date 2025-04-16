@@ -1,53 +1,73 @@
 <template>
   <utrecht-heading :level="1">Onderwerpen</utrecht-heading>
 
-  <utrecht-heading :level="2">Gepromoot</utrecht-heading>
+  <section v-if="promoted?.length">
+    <utrecht-heading :level="2">Gepromoot</utrecht-heading>
 
-  <ul>
-    <li v-for="{ uuid, officieleTitel, omschrijving } in promoted" :key="uuid">
-      <gpp-woo-tile
-        :link="`/onderwerpen/${uuid}`"
-        :title="officieleTitel"
-        :description="omschrijving"
-      />
-    </li>
-  </ul>
+    <gpp-woo-tile-grid :tiles="promoted" />
+  </section>
 
-  <utrecht-heading :level="2">Alle onderwerpen</utrecht-heading>
+  <section v-if="onderwerpen?.length" aria-live="polite">
+    <utrecht-heading :level="2"
+      >Alle onderwerpen ({{ lijsten?.onderwerpen.length }})</utrecht-heading
+    >
 
-  <ul>
-    <li v-for="{ uuid, officieleTitel, omschrijving } in lijsten?.onderwerpen" :key="uuid">
-      <gpp-woo-tile
-        :link="`/onderwerpen/${uuid}`"
-        :title="officieleTitel"
-        :description="omschrijving"
-      />
-    </li>
-  </ul>
+    <gpp-woo-tile-grid :tiles="onderwerpen" />
+
+    <utrecht-paragraph>
+      <span>{{ onderwerpen.length }} van {{ lijsten?.onderwerpen.length }} onderwerpen</span>
+
+      <utrecht-button
+        v-if="showButton"
+        @click="showMore"
+        type="submit"
+        :appearance="'primary-action-button'"
+        >Toon meer onderwerpen</utrecht-button
+      >
+    </utrecht-paragraph>
+  </section>
+
+  <utrecht-paragraph v-else>Er zijn geen onderwerpen gevonden...</utrecht-paragraph>
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, ref } from "vue";
+import GppWooTileGrid from "@/components/GppWooTileGrid.vue";
+import type { Tile } from "@/components/GppWooTile.vue";
 import { lijsten } from "@/stores/lijsten";
-import GppWooTile from "@/components/GppWooTile.vue";
+import type { Onderwerp } from "./types";
 
-const promoted = computed(() => lijsten.value?.onderwerpen.filter((o) => o.promoot));
+const mapOnderwerpToTile = (o: Onderwerp): Tile => ({
+  link: `/onderwerpen/${o.uuid}`,
+  title: o.officieleTitel,
+  description: o.omschrijving,
+  level: 3
+});
+
+const promoted = computed(() =>
+  lijsten.value?.onderwerpen.filter((o) => o.promoot).map(mapOnderwerpToTile)
+);
+
+const currentPage = ref(1);
+const onderwerpenPerPage = 9;
+
+const onderwerpen = computed(() =>
+  lijsten.value?.onderwerpen
+    .slice(0, currentPage.value * onderwerpenPerPage)
+    .map(mapOnderwerpToTile)
+);
+
+const showMore = () => currentPage.value++;
+
+const showButton = computed(() => onderwerpen.value?.length !== lijsten.value?.onderwerpen.length);
 </script>
 
 <style lang="scss" scoped>
-ul {
-  --_max-columns: 3;
-  --_grid-gap: 2rem;
-  --_grid-column-width: calc(
-    (var(--utrecht-page-max-inline-size-calc) - (var(--_max-columns) - 1) * var(--_grid-gap)) /
-      var(--_max-columns)
-  );
+.utrecht-paragraph {
+  --utrecht-space-around: 2;
 
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(var(--_grid-column-width), 1fr));
-  grid-gap: var(--_grid-gap);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>
