@@ -1,31 +1,26 @@
 import { ref } from "vue";
-import { fetchAllPages } from "@/composables/use-all-pages";
 import { promiseAll } from "@/utils";
-import type { ListItem } from "./types";
+import { fetchAllPages } from "@/composables/use-all-pages";
+import type { WaardelijstItem } from "./types";
+import type { Onderwerp } from "@/features/onderwerp/types";
 
-const urls = {
-  organisaties: "/api/v1/organisaties",
-  informatiecategorieen: "/api/v1/informatiecategorieen",
-  onderwerpen: "/api/v1/onderwerpen"
-} as const;
+const fetchLijsten = () =>
+  promiseAll({
+    organisaties: fetchAllPages<WaardelijstItem>("/api/v1/organisaties"),
+    informatiecategorieen: fetchAllPages<WaardelijstItem>("/api/v1/informatiecategorieen"),
+    onderwerpen: fetchAllPages<Onderwerp>("/api/v1/onderwerpen").then((r) =>
+      r.map((item) => ({
+        ...item,
+        naam: item.officieleTitel
+      }))
+    ) as Promise<(Onderwerp & { naam: string })[]>
+  });
 
-export const lijsten = ref<Record<keyof typeof urls, ListItem[]>>();
-
-const fetcher = async (url: string) =>
-  fetchAllPages<ListItem | { uuid: string; officieleTitel: string }>(url).then((r) =>
-    r.map(({ uuid, ...rest }) => ({
-      uuid,
-      naam: "naam" in rest ? rest.naam : rest.officieleTitel
-    }))
-  );
+export const lijsten = ref<Awaited<ReturnType<typeof fetchLijsten>>>();
 
 export const loadLijsten = async () => {
   try {
-    const promises = Object.fromEntries(
-      Object.entries(urls).map(([key, url]) => [key, fetcher(url)])
-    ) as Record<keyof typeof urls, Promise<ListItem[]>>;
-
-    lijsten.value = await promiseAll(promises);
+    lijsten.value = await fetchLijsten();
   } catch {
     return;
   }

@@ -47,7 +47,8 @@ const resources = injectResources();
 
 const links = {
   home: "Home",
-  zoeken: "Zoeken"
+  zoeken: "Zoeken",
+  onderwerpen: "Onderwerpen"
 } as const;
 </script>
 
