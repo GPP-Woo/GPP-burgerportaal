@@ -34,13 +34,14 @@
 import { computed, ref } from "vue";
 import GppWooTileGrid from "@/components/GppWooTileGrid.vue";
 import type { Tile } from "@/components/GppWooTile.vue";
+import { truncate } from "@/helpers";
 import { lijsten } from "@/stores/lijsten";
 import type { Onderwerp } from "./types";
 
 const mapOnderwerpToTile = (o: Onderwerp): Tile => ({
   link: `/onderwerpen/${o.uuid}`,
   title: o.officieleTitel,
-  description: o.omschrijving,
+  description: truncate(o.omschrijving, 300),
   level: 3
 });
 
