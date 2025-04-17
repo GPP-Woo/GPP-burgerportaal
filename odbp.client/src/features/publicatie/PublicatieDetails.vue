@@ -26,7 +26,7 @@
             <utrecht-table-row v-for="[key, value] in publicatieRows" :key="key">
               <template v-if="value?.length">
                 <utrecht-table-header-cell scope="row">{{ key }}</utrecht-table-header-cell>
-                <utrecht-table-cell>
+                <utrecht-table-cell class="gpp-woo-pre-wrap">
                   <utrecht-badge-list v-if="Array.isArray(value)" :badges="value" />
 
                   <template v-else>{{ value }}</template>

@@ -1,7 +1,15 @@
 <template>
   <utrecht-heading :level="1">Onderwerpen</utrecht-heading>
 
-  <section v-if="promoted?.length">
+  <utrecht-paragraph
+    >Bekijk alle gepubliceerde documenten die horen bij een belangrijk onderwerp dat speelt in
+    {{ resources?.name }}.</utrecht-paragraph
+  >
+
+  <section
+    v-if="promoted?.length"
+    class="utrecht-spotlight-section utrecht-spotlight-section--info"
+  >
     <utrecht-heading :level="2">Gepromoot</utrecht-heading>
 
     <gpp-woo-tile-grid :tiles="promoted" />
@@ -32,11 +40,14 @@
 
 <script setup lang="ts">
 import { computed, ref } from "vue";
+import { injectResources } from "@/resources";
 import GppWooTileGrid from "@/components/GppWooTileGrid.vue";
 import type { Tile } from "@/components/GppWooTile.vue";
 import { truncate } from "@/helpers";
 import { lijsten } from "@/stores/lijsten";
 import type { Onderwerp } from "./types";
+
+const resources = injectResources();
 
 const mapOnderwerpToTile = (o: Onderwerp): Tile => ({
   link: `/onderwerpen/${o.uuid}`,
@@ -64,9 +75,23 @@ const showButton = computed(() => onderwerpen.value?.length !== lijsten.value?.o
 </script>
 
 <style lang="scss" scoped>
-.utrecht-paragraph {
-  --utrecht-space-around: 2;
+.utrecht-spotlight-section {
+  --utrecht-spotlight-section-padding-inline-start: var(--utrecht-page-margin-inline-start);
+  --utrecht-spotlight-section-padding-inline-end: var(--utrecht-page-margin-inline-end);
+  --utrecht-spotlight-section-padding-block-start: var(--utrecht-page-padding-block-start);
+  --utrecht-spotlight-section-padding-block-end: var(
+    --utrecht-spotlight-section-padding-block-start
+  );
 
+  margin-inline-end: calc(-1 * var(--utrecht-page-margin-inline-end));
+  margin-inline-start: calc(-1 * var(--utrecht-page-margin-inline-start));
+
+  .utrecht-heading-2 {
+    --utrecht-heading-2-margin-block-start: 0;
+  }
+}
+
+.utrecht-paragraph {
   display: flex;
   justify-content: space-between;
   align-items: center;

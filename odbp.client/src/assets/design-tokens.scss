@@ -39,6 +39,13 @@
   --utrecht-badge-padding-inline: 1ch;
   --utrecht-badge-font-size: var(--utrecht-typography-scale-xs-font-size);
 
+  --utrecht-spotlight-section-padding-block-end: var(
+    --utrecht-spotlight-section-padding-block-start
+  );
+  --utrecht-spotlight-section-margin-block-start: calc(
+    var(--utrecht-space-around, 0) * var(--utrecht-paragraph-margin-block-start, 0)
+  );
+
   // custom utrecht var
   --utrecht-page-max-inline-size-calc: calc(
     var(--utrecht-page-max-inline-size) - var(--utrecht-page-margin-inline-start, 0) - var(

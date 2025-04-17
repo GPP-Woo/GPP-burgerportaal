@@ -9,9 +9,10 @@
     <utrecht-heading :level="1" :id="headingId">{{ data?.officieleTitel }}</utrecht-heading>
 
     <utrecht-paragraph
-      class="utrecht-paragraph--lead utrecht-spotlight-section utrecht-spotlight-section--info"
-      ><b class="utrecht-paragraph__b">{{ data?.omschrijving }}</b></utrecht-paragraph
+      class="utrecht-paragraph--lead utrecht-spotlight-section utrecht-spotlight-section--info gpp-woo-pre-wrap"
     >
+      {{ data?.omschrijving }}
+    </utrecht-paragraph>
 
     <utrecht-table-container>
       <utrecht-table :aria-labelledby="headingId">
@@ -62,5 +63,3 @@ const rows = computed(
     ])
 );
 </script>
-
-<style lang="scss" scoped></style>
