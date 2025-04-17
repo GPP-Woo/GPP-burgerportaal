@@ -26,7 +26,7 @@
             <utrecht-table-row v-for="[key, value] in documentRows" :key="key">
               <template v-if="value?.length">
                 <utrecht-table-header-cell scope="row">{{ key }}</utrecht-table-header-cell>
-                <utrecht-table-cell>{{ value }}</utrecht-table-cell>
+                <utrecht-table-cell class="gpp-woo-pre-wrap">{{ value }}</utrecht-table-cell>
               </template>
             </utrecht-table-row>
           </utrecht-table-body>

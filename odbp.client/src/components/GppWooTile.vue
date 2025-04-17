@@ -5,7 +5,9 @@
     </router-link>
   </utrecht-heading>
 
-  <utrecht-paragraph v-if="description">{{ description }}</utrecht-paragraph>
+  <utrecht-paragraph v-if="description" class="gpp-woo-pre-wrap">{{
+    description
+  }}</utrecht-paragraph>
 </template>
 
 <script setup lang="ts">
