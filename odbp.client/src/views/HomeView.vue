@@ -27,7 +27,7 @@ const promoted = computed(() =>
       (o): Tile => ({
         link: `/onderwerpen/${o.uuid}`,
         title: o.officieleTitel,
-        description: truncate(o.omschrijving, 150),
+        description: truncate(o.omschrijving, 300),
         level: 3
       })
     )
