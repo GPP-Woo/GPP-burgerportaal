@@ -31,7 +31,7 @@
             <strong>{{ resultOptions[type].label }}</strong>
           </li>
 
-          <li class="gpp-woo-meta-data-list__item">
+          <li v-if="publisher"  class="gpp-woo-meta-data-list__item">
             {{ publisher.naam }}
           </li>
 
