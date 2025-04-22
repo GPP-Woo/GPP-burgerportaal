@@ -1,7 +1,7 @@
 <template>
   <section>
     <figure>
-      <img v-if="image" :src="image" :alt="`Afbeelding ${title}`" />
+      <img v-if="image" :src="image" :alt="`Afbeelding ${title}`" crossorigin="anonymous" />
 
       <span v-else>Geen afbeelding</span>
     </figure>

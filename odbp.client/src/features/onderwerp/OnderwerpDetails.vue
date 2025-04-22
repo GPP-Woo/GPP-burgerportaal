@@ -12,6 +12,7 @@
       v-if="data?.afbeelding"
       :src="data.afbeelding"
       :alt="`Afbeelding ${data.officieleTitel}`"
+      crossorigin="anonymous"
     />
 
     <utrecht-paragraph class="utrecht-paragraph--lead gpp-woo-pre-wrap">
