@@ -20,7 +20,7 @@
     </utrecht-paragraph>
   </utrecht-spotlight-section>
 
-  <utrecht-table-container>
+  <gpp-woo-table-container>
     <utrecht-table :aria-labelledby="headingId">
       <utrecht-table-header class="utrecht-table__header--hidden">
         <utrecht-table-row>
@@ -38,7 +38,7 @@
         </utrecht-table-row>
       </utrecht-table-body>
     </utrecht-table>
-  </utrecht-table-container>
+  </gpp-woo-table-container>
 </template>
 
 <script setup lang="ts">
@@ -47,7 +47,7 @@ import { useFetchApi } from "@/api";
 import SimpleSpinner from "@/components/SimpleSpinner.vue";
 import UtrechtAlert from "@/components/UtrechtAlert.vue";
 import UtrechtSpotlightSection from "@/components/UtrechtSpotlightSection.vue";
-import UtrechtTableContainer from "@/components/UtrechtTableContainer.vue";
+import GppWooTableContainer from "@/components/GppWooTableContainer.vue";
 import { formatDate } from "@/helpers";
 import type { Onderwerp } from "./types";
 
