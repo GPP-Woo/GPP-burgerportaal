@@ -6,7 +6,7 @@
 
 <style lang="scss" scoped>
 .gpp-woo-table__container {
-  overflow-inline: auto;
+  overflow-x: auto;
 
   &:focus-visible {
     outline-color: var(--utrecht-focus-outline-color);

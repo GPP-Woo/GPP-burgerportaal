@@ -15,7 +15,7 @@
 
   // gpp-woo-tile-grid
   --gpp-woo-tile-grid-max-columns: 3;
-  --gpp-woo-tile-grid-grid-gap: 2rem;
+  --gpp-woo-tile-grid-grid-gap: 4rem;
 
   // gpp-woo-search
   --gpp-woo-search-grid-column-gap: 3vw;
@@ -49,4 +49,7 @@
   --gpp-woo-meta-data-list-item-category-border-bottom: 1px dotted rgb(170, 170, 170);
 
   --gpp-woo-data-badge-link-background-color: var(--utrecht-color-blue-35);
+
+  // gpp-woo-topic-detail
+  --gpp-woo-topic-detail-max-image-size: 25rem;
 }

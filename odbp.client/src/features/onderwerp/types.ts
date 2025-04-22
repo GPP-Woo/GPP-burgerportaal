@@ -9,6 +9,7 @@ export type Onderwerp = {
   publicaties: string[];
   officieleTitel: string;
   omschrijving: string;
+  afbeelding: string;
   publicatiestatus: keyof typeof PublicatieStatus;
   promoot: boolean;
   registratiedatum: string;

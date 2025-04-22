@@ -20,7 +20,8 @@ namespace Microsoft.AspNetCore.Builder
             var imgSources = new List<string?> {
                 "'self'",
                 resourcesConfig.FaviconUrl,
-                resourcesConfig.ImageUrl
+                resourcesConfig.ImageUrl,
+                resourcesConfig.MediaUrl
             };
 
             var fontSources = new List<string?> {
