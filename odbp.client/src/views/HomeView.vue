@@ -1,18 +1,19 @@
 <template>
   <article v-html="html" class="utrecht-article"></article>
 
-  <section v-if="promoted?.length">
+  <utrecht-spotlight-section v-if="promoted?.length">
     <utrecht-heading :level="2">Onderwerpen</utrecht-heading>
 
-    <gpp-woo-tile-carousel :tiles="promoted" />
-  </section>
+    <gpp-woo-tile-grid :tiles="promoted" :max-description-length="100" />
+  </utrecht-spotlight-section>
 </template>
 
 <script lang="ts" setup>
 import { computed } from "vue";
 import { injectResources } from "@/resources";
-import { sanitizeHtml, truncate } from "@/helpers";
-import GppWooTileCarousel from "@/components/GppWooTileCarousel.vue";
+import { sanitizeHtml } from "@/helpers";
+import UtrechtSpotlightSection from "@/components/UtrechtSpotlightSection.vue";
+import GppWooTileGrid from "@/components/GppWooTileGrid.vue";
 import type { Tile } from "@/components/GppWooTile.vue";
 import { lijsten } from "@/stores/lijsten";
 
@@ -27,9 +28,17 @@ const promoted = computed(() =>
       (o): Tile => ({
         link: `/onderwerpen/${o.uuid}`,
         title: o.officieleTitel,
-        description: truncate(o.omschrijving, 300),
+        description: o.omschrijving,
+        image: o.afbeelding,
         level: 3
       })
     )
 );
 </script>
+
+<style lang="scss" scoped>
+.utrecht-spotlight-section {
+  --utrecht-heading-2-margin-block-start: 0;
+  --utrecht-heading-2-margin-block-end: calc(var(--gpp-woo-tile-grid-grid-gap) / 4);
+}
+</style>

@@ -9,7 +9,7 @@
   <utrecht-spotlight-section v-if="promoted?.length">
     <utrecht-heading :level="2">Gepromoot</utrecht-heading>
 
-    <gpp-woo-tile-grid :tiles="promoted" />
+    <gpp-woo-tile-grid :tiles="promoted" :max-description-length="300" />
   </utrecht-spotlight-section>
 
   <section v-if="onderwerpen?.length" aria-live="polite">
@@ -17,7 +17,7 @@
       >Alle onderwerpen ({{ lijsten?.onderwerpen.length }})</utrecht-heading
     >
 
-    <gpp-woo-tile-grid :tiles="onderwerpen" />
+    <gpp-woo-tile-grid :tiles="onderwerpen" :max-description-length="300" />
 
     <utrecht-paragraph>
       <span>{{ onderwerpen.length }} van {{ lijsten?.onderwerpen.length }} onderwerpen</span>
@@ -41,7 +41,6 @@ import { injectResources } from "@/resources";
 import UtrechtSpotlightSection from "@/components/UtrechtSpotlightSection.vue";
 import GppWooTileGrid from "@/components/GppWooTileGrid.vue";
 import type { Tile } from "@/components/GppWooTile.vue";
-import { truncate } from "@/helpers";
 import { lijsten } from "@/stores/lijsten";
 import type { Onderwerp } from "./types";
 
@@ -50,7 +49,7 @@ const resources = injectResources();
 const mapOnderwerpToTile = (o: Onderwerp): Tile => ({
   link: `/onderwerpen/${o.uuid}`,
   title: o.officieleTitel,
-  description: truncate(o.omschrijving, 300),
+  description: o.omschrijving,
   image: o.afbeelding,
   level: 3
 });
@@ -75,12 +74,7 @@ const showButton = computed(() => onderwerpen.value?.length !== lijsten.value?.o
 
 <style lang="scss" scoped>
 .utrecht-spotlight-section {
-  .utrecht-heading-2 {
-    --utrecht-heading-2-margin-block-start: 0;
-  }
-}
-
-.utrecht-heading-2 {
+  --utrecht-heading-2-margin-block-start: 0;
   --utrecht-heading-2-margin-block-end: calc(var(--gpp-woo-tile-grid-grid-gap) / 4);
 }
 

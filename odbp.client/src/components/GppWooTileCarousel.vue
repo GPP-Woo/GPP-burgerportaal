@@ -113,7 +113,7 @@ const manageAutoPlay = () => {
 
 const goToSlide = (index: number) => {
   clearInterval(autoPlayInterval);
-  
+
   manageAutoPlay();
 
   currentIndex.value = index;
