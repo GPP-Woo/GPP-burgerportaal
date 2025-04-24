@@ -18,6 +18,7 @@
       <router-link
         v-if="isTruncated"
         :to="link"
+        :title="title"
         class="utrecht-link utrecht-link--html-a gpp-woo-link--icon"
         >Lees meer<utrecht-icon icon="chevron-right" />
       </router-link>
