@@ -14,7 +14,7 @@ export type SearchResponseItem = {
     uuid: string;
     officieleTitel: string;
     informatieCategorieen: Readonly<WaardelijstItem[]>;
-    publisher?: WaardelijstItem;
+    publisher: WaardelijstItem | null;
     publicatie: string;
     creatiedatum: string;
     registratiedatum: string;
@@ -62,9 +62,9 @@ export const sortOptions = {
 } as const;
 
 export const resultOptions = {
-  publication: { label: "Publicatie", value: "publication" },
-  document: { label: "Document", value: "document" },
-  topic: { label: "Onderwerp", value: "topic" }
+  publication: { label: "Publicatie", value: "publication", name: "publicatie" },
+  document: { label: "Document", value: "document", name: "document" },
+  topic: { label: "Onderwerp", value: "topic", name: "onderwerp" }
 } as const;
 
 type ValueOf<T> = T[keyof T];

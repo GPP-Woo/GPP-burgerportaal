@@ -19,7 +19,7 @@
       <utrecht-article>
         <utrecht-heading :level="3">
           <router-link
-            :to="`/${type === resultOptions.document.value ? 'documenten' : 'publicaties'}/${uuid}`"
+            :to="{ name: resultOptions[type].name, params: { uuid } }"
             class="utrecht-link utrecht-link--html-a"
           >
             {{ officieleTitel }}
