@@ -1,12 +1,13 @@
 <template>
-  <div role="region" class="utrecht-table__container gpp-woo-table__container">
+  <div role="region" class="gpp-woo-table__container">
     <slot></slot>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .gpp-woo-table__container {
-  overflow-inline: auto;
+  max-width: 100%;
+  overflow-x: auto;
 
   &:focus-visible {
     outline-color: var(--utrecht-focus-outline-color);
