@@ -3,6 +3,6 @@
     public class ApiRoutes
     {
         public const string Sitemap = "/api/sitemap.xml";
-        public const string SitemapIndex = "/api/sitemapindex.xml";
+        public const string SitemapIndex = "/api/sitemapindex-diwoo.xml";
     }
 }
