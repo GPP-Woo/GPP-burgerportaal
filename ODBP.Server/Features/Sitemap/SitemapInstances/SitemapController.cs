@@ -91,7 +91,13 @@ namespace ODBP.Features.Sitemap.SitemapInstances
                             Documenthandelingen = document.Documenthandelingen.Select(x => new Documenthandeling
                             {
                                 AtTime = x.AtTime,
-                                SoortHandeling = new() { Resource = x.SoortHandeling, Value = x.SoortHandeling }
+                                SoortHandeling = new() 
+                                {
+                                    Value = x.SoortHandeling,
+                                    Resource = !string.IsNullOrWhiteSpace(x.Identifier) 
+                                        ? x.Identifier 
+                                        : x.SoortHandeling 
+                                }
                             }).ToArray()
                         }
                     }
@@ -235,5 +241,6 @@ namespace ODBP.Features.Sitemap.SitemapInstances
     {
         public required string SoortHandeling { get; set; }
         public required string AtTime { get; set; }
+        public string? Identifier { get; set; }
     }
 }
