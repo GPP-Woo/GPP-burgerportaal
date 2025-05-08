@@ -51,35 +51,37 @@
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import { useElementSize, useScroll, useEventListener } from "@vueuse/core";
+import { useElementSize, useScroll, useEventListener, useResizeObserver } from "@vueuse/core";
 import GppWooTile, { type Tile } from "@/components/GppWooTile.vue";
 
 const { tiles } = defineProps<{ tiles: Tile[] }>();
-
-const slidesToScroll = 1;
-const currentIndex = ref(0);
 
 const scrollContainer = ref<HTMLElement | null>(null);
 const { width: containerWidth } = useElementSize(scrollContainer);
 const { x: scrollLeft } = useScroll(scrollContainer);
 
-const slidesPerView = computed(() => {
-  if (!scrollContainer.value) return 1;
+const currentIndex = ref(0);
+
+const slidesToScroll = 1;
+const slidesPerView = ref(1);
+
+const slideWidth = computed(() => containerWidth.value / slidesPerView.value);
+
+const updateSlidesPerView = () => {
+  if (!scrollContainer.value) return;
 
   const firstSlide = scrollContainer.value.querySelector("li");
 
-  if (!firstSlide) return 1;
+  if (!firstSlide) return;
 
   scrollContainer.value.classList.add("gpp-woo-slides--grid");
 
-  const slideWidth = firstSlide.getBoundingClientRect().width;
+  slidesPerView.value = Math.floor(containerWidth.value / firstSlide.getBoundingClientRect().width);
 
   scrollContainer.value.classList.remove("gpp-woo-slides--grid");
+};
 
-  return Math.floor(containerWidth.value / slideWidth);
-});
-
-const slideWidth = computed(() => containerWidth.value / slidesPerView.value);
+useResizeObserver(scrollContainer, () => updateSlidesPerView());
 
 const totalVisibleSets = computed(() => {
   if (tiles.length <= slidesPerView.value) return 1;
