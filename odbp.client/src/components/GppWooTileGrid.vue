@@ -1,7 +1,7 @@
 <template>
   <ul>
     <li v-for="(tile, index) in tiles" :key="index">
-      <gpp-woo-tile v-bind="tile" />
+      <gpp-woo-tile v-bind="{ ...tile, maxDescriptionLength }" />
     </li>
   </ul>
 </template>
@@ -9,7 +9,7 @@
 <script setup lang="ts">
 import GppWooTile, { type Tile } from "@/components/GppWooTile.vue";
 
-defineProps<{ tiles: Tile[] }>();
+defineProps<{ tiles: Tile[]; maxDescriptionLength?: number }>();
 </script>
 
 <style lang="scss" scoped>
