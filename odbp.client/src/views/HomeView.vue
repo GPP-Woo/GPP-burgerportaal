@@ -4,7 +4,13 @@
   <utrecht-spotlight-section v-if="promoted?.length">
     <utrecht-heading :level="2">Onderwerpen</utrecht-heading>
 
-    <gpp-woo-tile-grid :tiles="promoted" :max-description-length="100" />
+    <gpp-woo-tile-grid :tiles="promoted" :max-description-length="TILE_DESCRIPTION_LENGTH" />
+  </utrecht-spotlight-section>
+
+  <utrecht-spotlight-section v-if="promoted?.length">
+    <utrecht-heading :level="2">Onderwerpen</utrecht-heading>
+
+    <gpp-woo-tile-carousel :tiles="promoted"> </gpp-woo-tile-carousel>
   </utrecht-spotlight-section>
 </template>
 
@@ -14,8 +20,11 @@ import { injectResources } from "@/resources";
 import { sanitizeHtml } from "@/helpers";
 import UtrechtSpotlightSection from "@/components/UtrechtSpotlightSection.vue";
 import GppWooTileGrid from "@/components/GppWooTileGrid.vue";
+import GppWooTileCarousel from "@/components/GppWooTileCarousel.vue";
 import type { Tile } from "@/components/GppWooTile.vue";
 import { lijsten } from "@/stores/lijsten";
+
+const TILE_DESCRIPTION_LENGTH = 200;
 
 const resources = injectResources();
 
