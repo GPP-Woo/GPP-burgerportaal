@@ -52,6 +52,7 @@ try
         httpClient.BaseAddress = new(GetRequiredConfig("SEARCH_BASE_URL"));
         httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token", GetRequiredConfig("SEARCH_API_KEY"));
     });
+    builder.Services.AddMemoryCache();
 
     var app = builder.Build();
 
