@@ -2,7 +2,7 @@
 
 namespace ODBP.Features.Sitemap.SitemapInstances;
 
-[XmlRoot(ElementName = "urlset", Namespace = "http://www.sitemaps.org/schemas/sitemap/0.9")]
+[XmlRoot(ElementName = "urlset", Namespace = DiwooConstants.SitemapNamespace)]
 public class SitemapModel
 {
     [XmlElement("url")]
@@ -20,7 +20,7 @@ public class Publicatie
     [XmlElement("lastmod")]
     public required string Lastmod { get; init; }
 
-    [XmlElement(ElementName = "Document", Namespace = DiwooConstants.Namespace)]
+    [XmlElement(ElementName = "Document", Namespace = DiwooConstants.DiwooNamespace)]
     public required Document Document { get; init; }
 }
 
