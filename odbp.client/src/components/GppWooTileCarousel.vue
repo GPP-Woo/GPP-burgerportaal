@@ -1,10 +1,6 @@
 <template>
   <div class="gpp-woo-tile-carousel">
-    <ul
-      ref="scrollContainer"
-      class="gpp-woo-slides"
-      :style="`--_slides-per-view: ${slidesPerView}`"
-    >
+    <ul ref="scrollContainer" class="gpp-woo-slides">
       <li v-for="(tile, index) in tiles" :key="`slide-${index}`" class="gpp-woo-slides__slide">
         <gpp-woo-tile v-bind="{ ...tile, maxDescriptionLength: 200 }" />
       </li>
@@ -23,16 +19,16 @@
 
       <li class="gpp-woo-indicators" role="tablist">
         <button
-          v-for="index in totalVisibleSets"
+          v-for="index in totalSets"
           :key="`indicator-${index}`"
           role="tab"
           class="gpp-woo-indicators__indicator"
           :class="{ 'gpp-woo-indicators__indicator--active': currentSet === index - 1 }"
           :aria-selected="currentSet === index - 1"
           :aria-controls="`slide-${index}`"
-          @click="scrollToSet(index - 1)"
+          @click="scrollToIndex(index - 1)"
         >
-          <span class="visually-hidden">Ga naar item {{ index + 1 }}</span>
+          <span class="visually-hidden">Ga naar item {{ index }}</span>
         </button>
       </li>
 
@@ -60,80 +56,51 @@ const scrollContainer = ref<HTMLElement | null>(null);
 const { width: containerWidth } = useElementSize(scrollContainer);
 const { x: scrollLeft } = useScroll(scrollContainer);
 
-const currentIndex = ref(0);
-
-const slidesToScroll = 1;
 const slidesPerView = ref(1);
-
 const slideWidth = computed(() => containerWidth.value / slidesPerView.value);
+
+const currentIndex = ref(0);
 
 const updateSlidesPerView = () => {
   if (!scrollContainer.value) return;
 
-  const firstSlide = scrollContainer.value.querySelector("li");
-
-  if (!firstSlide) return;
-
-  scrollContainer.value.classList.add("gpp-woo-slides--grid");
-
-  slidesPerView.value = Math.floor(containerWidth.value / firstSlide.getBoundingClientRect().width);
-
-  scrollContainer.value.classList.remove("gpp-woo-slides--grid");
+  slidesPerView.value = +getComputedStyle(scrollContainer.value).getPropertyValue(
+    "--_slides-per-view"
+  );
 };
 
 useResizeObserver(scrollContainer, () => updateSlidesPerView());
 
-const totalVisibleSets = computed(() => {
-  if (tiles.length <= slidesPerView.value) return 1;
+const updateCurrentIndex = () => {
+  currentIndex.value = Math.round(scrollLeft.value / slideWidth.value);
+};
 
-  return Math.ceil((tiles.length - slidesPerView.value) / slidesToScroll) + 1;
-});
+useEventListener(scrollContainer, "scroll", updateCurrentIndex, { passive: true });
 
-const currentSet = computed(() =>
-  Math.round(scrollLeft.value / (slideWidth.value * slidesToScroll))
+const totalSets = computed(() =>
+  tiles.length > slidesPerView.value ? tiles.length - slidesPerView.value + 1 : 1
 );
+
+const currentSet = computed(() => Math.round(scrollLeft.value / slideWidth.value));
 
 const isStart = computed(() => currentIndex.value <= 0);
 
 const isEnd = computed(() => currentIndex.value >= tiles.length - slidesPerView.value);
 
-const updateCurrentIndex = () => {
-  const index = Math.round(scrollLeft.value / slideWidth.value);
-
-  if (index >= 0 && index <= tiles.length - slidesPerView.value) {
-    currentIndex.value = index;
-  }
-};
-
-useEventListener(scrollContainer, "scroll", updateCurrentIndex, { passive: true });
-
 const scrollToIndex = (index: number) => {
-  if (!scrollContainer.value) return;
-
-  const safeIndex = Math.max(0, Math.min(index, tiles.length - slidesPerView.value));
-
-  const targetPosition = safeIndex * slideWidth.value;
-
-  scrollContainer.value.scrollTo({
-    left: targetPosition,
+  scrollContainer.value?.scrollTo({
+    left: index * slideWidth.value,
     behavior: "smooth"
   });
-
-  currentIndex.value = safeIndex;
 };
 
-const scrollToSet = (setIndex: number) => {
-  const targetIndex = setIndex * slidesToScroll;
+const scrollPrev = () => scrollToIndex(currentIndex.value - 1);
 
-  scrollToIndex(targetIndex);
-};
-
-const scrollPrev = () => scrollToIndex(currentIndex.value - slidesToScroll);
-
-const scrollNext = () => scrollToIndex(currentIndex.value + slidesToScroll);
+const scrollNext = () => scrollToIndex(currentIndex.value + 1);
 </script>
 
 <style lang="scss" scoped>
+@use "@/assets/variables";
 ul,
 menu {
   list-style: none;
@@ -146,25 +113,20 @@ menu {
 }
 
 .gpp-woo-slides {
-  --_slides-per-view: 1;
-  --_grid-column-width: calc(
-    (
-        var(--utrecht-page-max-inline-size-calc) - (var(--gpp-woo-tile-grid-max-columns) - 1) *
-          var(--gpp-woo-tile-grid-grid-gap)
-      ) /
-      var(--gpp-woo-tile-grid-max-columns)
-  );
-
   display: flex;
   column-gap: var(--gpp-woo-tile-grid-grid-gap);
   overflow-x: scroll;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
 
-  &--grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(var(--_grid-column-width), 1fr));
-    grid-gap: var(--gpp-woo-tile-grid-grid-gap);
+  --_slides-per-view: 1;
+
+  @media screen and (min-width: #{variables.$breakpoint-md}) {
+    --_slides-per-view: 2;
+  }
+
+  @media screen and (min-width: #{variables.$breakpoint-lg}) {
+    --_slides-per-view: 3;
   }
 
   &__slide {
