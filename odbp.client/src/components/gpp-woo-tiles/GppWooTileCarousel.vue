@@ -15,7 +15,7 @@
       </li>
     </ul>
 
-    <menu>
+    <menu class="gpp-woo-slide-menu">
       <li>
         <utrecht-button
           @click="scrollPrev"
@@ -29,8 +29,8 @@
         <utrecht-button
           @click="toggleAutoplay"
           :aria-label="autoplayEnabled ? `Pause` : `Start`"
-          appearance="primary-action-button"
           :aria-pressed="autoplayEnabled"
+          appearance="primary-action-button"
         >
           {{ autoplayEnabled ? "⏸ Pause" : "▶ Start" }}
         </utrecht-button>
@@ -46,18 +46,18 @@
       </li>
     </menu>
 
-    <div class="gpp-woo-indicators" role="tablist">
+    <div class="gpp-woo-slide-indicators" role="tablist">
       <button
         v-for="index in tiles.length"
         :key="`indicator-${index}`"
         role="tab"
-        class="gpp-woo-indicators__indicator"
-        :class="{ 'gpp-woo-indicators__indicator--active': normalizedIndex === index - 1 }"
+        class="gpp-woo-slide-indicators__indicator"
+        :class="{ 'gpp-woo-slide-indicators__indicator--active': normalizedIndex === index - 1 }"
         :aria-selected="normalizedIndex === index - 1"
-        :aria-controls="`slide-${index}`"
+        :aria-controls="`slide-${tiles.length + index - 1}`"
         @click="scrollToIndex(index - 1, false)"
       >
-        <span class="visually-hidden">Ga naar item {{ index }}</span>
+        <span class="visually-hidden">Ga naar slide {{ index }}</span>
       </button>
     </div>
   </div>
@@ -87,54 +87,41 @@ const {
 </script>
 
 <style lang="scss" scoped>
-@use "@/assets/variables";
-
-ul,
-menu {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
+@use "./tile-config";
 
 .gpp-woo-tile-carousel {
   overflow: hidden;
 }
 
 .gpp-woo-slides {
+  @include tile-config.reset-list();
   display: flex;
   column-gap: var(--gpp-woo-tile-grid-grid-gap);
   overflow-x: scroll;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
 
-  --_slides-per-view: 1;
-
-  @media screen and (min-width: #{variables.$breakpoint-md}) {
-    --_slides-per-view: 2;
-  }
-
-  @media screen and (min-width: #{variables.$breakpoint-lg}) {
-    --_slides-per-view: 3;
-  }
+  @include tile-config.tiles-per-row();
 
   &__slide {
     flex: 0 0
       calc(
-        (100% - (var(--_slides-per-view) - 1) * var(--gpp-woo-tile-grid-grid-gap)) /
-          var(--_slides-per-view)
+        (100% - (var(--tiles-per-row, 1) - 1) * var(--gpp-woo-tile-grid-grid-gap)) /
+          var(--tiles-per-row, 1)
       );
     scroll-snap-align: start;
   }
 }
 
-menu {
+.gpp-woo-slide-menu {
+  @include tile-config.reset-list();
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-block-start: 1rem;
 }
 
-.gpp-woo-indicators {
+.gpp-woo-slide-indicators {
   display: flex;
   justify-content: center;
   column-gap: 1rem;

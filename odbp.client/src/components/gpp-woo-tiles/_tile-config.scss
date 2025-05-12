@@ -1,0 +1,19 @@
+@use "@/assets/variables";
+
+@mixin tiles-per-row {
+  --tiles-per-row: 1;
+
+  @media screen and (min-width: #{variables.$breakpoint-md}) {
+    --tiles-per-row: 2;
+  }
+
+  @media screen and (min-width: #{variables.$breakpoint-lg}) {
+    --tiles-per-row: 3;
+  }
+}
+
+@mixin reset-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}

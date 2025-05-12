@@ -1,5 +1,5 @@
 <template>
-  <ul>
+  <ul class="gpp-woo-tile-grid">
     <li v-for="(tile, index) in tiles" :key="index">
       <gpp-woo-tile v-bind="{ ...tile, maxDescriptionLength }" />
     </li>
@@ -13,19 +13,14 @@ defineProps<{ tiles: Tile[]; maxDescriptionLength?: number }>();
 </script>
 
 <style lang="scss" scoped>
-ul {
-  --_max-columns: var(--gpp-woo-tile-grid-max-columns);
-  --_grid-gap: var(--gpp-woo-tile-grid-grid-gap);
-  --_grid-column-width: calc(
-    (var(--utrecht-page-max-inline-size-calc) - (var(--_max-columns) - 1) * var(--_grid-gap)) /
-      var(--_max-columns)
-  );
+@use "./tile-config";
 
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.gpp-woo-tile-grid {
+  @include tile-config.reset-list();
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(var(--_grid-column-width), 1fr));
-  grid-gap: var(--_grid-gap);
+  grid-template-columns: repeat(var(--tiles-per-row, 1), 1fr);
+  grid-gap: var(--gpp-woo-tile-grid-grid-gap);
+
+  @include tile-config.tiles-per-row();
 }
 </style>
