@@ -1,7 +1,12 @@
 <template>
   <div class="gpp-woo-tile-carousel">
     <ul ref="scrollContainer" class="gpp-woo-slides">
-      <li v-for="(tile, index) in tiles" :key="`slide-${index}`" class="gpp-woo-slides__slide">
+      <li
+        v-for="(tile, index) in infiniteTiles"
+        :ref="!index ? `firstTile` : undefined"
+        :key="`slide-${index}`"
+        class="gpp-woo-slides__slide"
+      >
         <gpp-woo-tile v-bind="{ ...tile, maxDescriptionLength: 200 }" />
       </li>
     </ul>
@@ -12,21 +17,20 @@
           @click="scrollPrev"
           aria-label="Volgend item"
           appearance="primary-action-button"
-          :disabled="isStart"
           >⟨</utrecht-button
         >
       </li>
 
       <li class="gpp-woo-indicators" role="tablist">
         <button
-          v-for="index in totalSets"
+          v-for="index in tiles.length"
           :key="`indicator-${index}`"
           role="tab"
           class="gpp-woo-indicators__indicator"
-          :class="{ 'gpp-woo-indicators__indicator--active': currentSet === index - 1 }"
-          :aria-selected="currentSet === index - 1"
+          :class="{ 'gpp-woo-indicators__indicator--active': normalizedIndex === index - 1 }"
+          :aria-selected="normalizedIndex === index - 1"
           :aria-controls="`slide-${index}`"
-          @click="scrollToIndex(index - 1)"
+          @click="scrollToIndex(index - 1, false)"
         >
           <span class="visually-hidden">Ga naar item {{ index }}</span>
         </button>
@@ -37,7 +41,6 @@
           @click="scrollNext"
           aria-label="Vorig item"
           appearance="primary-action-button"
-          :disabled="isEnd"
           >⟩</utrecht-button
         >
       </li>
@@ -47,50 +50,53 @@
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import { useElementSize, useScroll, useEventListener, useResizeObserver } from "@vueuse/core";
+import { useScroll, useElementSize, useResizeObserver, useEventListener } from "@vueuse/core";
 import GppWooTile, { type Tile } from "@/components/GppWooTile.vue";
 
 const { tiles } = defineProps<{ tiles: Tile[] }>();
 
+const infiniteTiles = computed(() => [...tiles, ...tiles, ...tiles]);
+
 const scrollContainer = ref<HTMLElement | null>(null);
-const { width: containerWidth } = useElementSize(scrollContainer);
 const { x: scrollLeft } = useScroll(scrollContainer);
 
-const slidesPerView = ref(1);
-const slideWidth = computed(() => containerWidth.value / slidesPerView.value);
+const firstTile = ref<HTMLElement | null>(null);
+const { width: tileWidth } = useElementSize(firstTile);
 
-const currentIndex = ref(0);
+const slideWidth = computed(() => {
+  if (!scrollContainer.value) return 1;
 
-const updateSlidesPerView = () => {
+  return tileWidth.value + parseInt(getComputedStyle(scrollContainer.value).columnGap);
+});
+
+const currentIndex = computed(() => Math.round(scrollLeft.value / slideWidth.value));
+const normalizedIndex = computed(() => currentIndex.value % tiles.length);
+
+const handleInfiniteScroll = () => {
   if (!scrollContainer.value) return;
 
-  slidesPerView.value = +getComputedStyle(scrollContainer.value).getPropertyValue(
-    "--_slides-per-view"
-  );
+  let index = null;
+
+  if (currentIndex.value <= 0) {
+    index = currentIndex.value + tiles.length;
+  } else if (currentIndex.value >= infiniteTiles.value.length - tiles.length) {
+    index = currentIndex.value - tiles.length;
+  }
+
+  if (index !== null) {
+    scrollContainer.value.style.scrollBehavior = "auto";
+    scrollContainer.value.scrollLeft = index * slideWidth.value;
+  }
 };
 
-useResizeObserver(scrollContainer, () => updateSlidesPerView());
+useResizeObserver(scrollContainer, () => handleInfiniteScroll());
 
-const updateCurrentIndex = () => {
-  currentIndex.value = Math.round(scrollLeft.value / slideWidth.value);
-};
+useEventListener(scrollContainer, "scrollend", handleInfiniteScroll, { passive: true });
 
-useEventListener(scrollContainer, "scroll", updateCurrentIndex, { passive: true });
-
-const totalSets = computed(() =>
-  tiles.length > slidesPerView.value ? tiles.length - slidesPerView.value + 1 : 1
-);
-
-const currentSet = computed(() => Math.round(scrollLeft.value / slideWidth.value));
-
-const isStart = computed(() => currentIndex.value <= 0);
-
-const isEnd = computed(() => currentIndex.value >= tiles.length - slidesPerView.value);
-
-const scrollToIndex = (index: number) => {
+const scrollToIndex = (index: number, smooth = true) => {
   scrollContainer.value?.scrollTo({
     left: index * slideWidth.value,
-    behavior: "smooth"
+    behavior: smooth ? "smooth" : "auto"
   });
 };
 
