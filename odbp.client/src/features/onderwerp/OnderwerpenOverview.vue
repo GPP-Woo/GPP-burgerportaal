@@ -17,7 +17,7 @@
       >Alle onderwerpen ({{ lijsten?.onderwerpen.length }})</utrecht-heading
     >
 
-    <gpp-woo-tile-grid :tiles="onderwerpen" :max-description-length="TILE_DESCRIPTION_LENGTH" />
+    <gpp-woo-tile-grid :tiles="onderwerpen" :max-description-length="tileDescriptionLength" />
 
     <utrecht-paragraph>
       <span>{{ onderwerpen.length }} van {{ lijsten?.onderwerpen.length }} onderwerpen</span>
@@ -44,7 +44,7 @@ import type { Tile } from "@/components/GppWooTile.vue";
 import { lijsten } from "@/stores/lijsten";
 import type { Onderwerp } from "./types";
 
-const TILE_DESCRIPTION_LENGTH = 300;
+const tileDescriptionLength = 300;
 
 const resources = injectResources();
 

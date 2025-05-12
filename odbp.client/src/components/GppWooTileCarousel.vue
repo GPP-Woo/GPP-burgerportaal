@@ -1,13 +1,17 @@
 <template>
   <div class="gpp-woo-tile-carousel">
+    <p class="visually-hidden" aria-live="polite">
+      {{ `Slide ${normalizedIndex + 1} van ${tiles.length}` }}
+    </p>
+
     <ul ref="scrollContainer" class="gpp-woo-slides">
       <li
         v-for="(tile, index) in infiniteTiles"
-        :ref="!index ? `firstTile` : undefined"
         :key="`slide-${index}`"
+        :ref="!index ? `firstTile` : undefined"
         class="gpp-woo-slides__slide"
       >
-        <gpp-woo-tile v-bind="{ ...tile, maxDescriptionLength: 200 }" />
+        <gpp-woo-tile v-bind="{ ...tile, maxDescriptionLength: tileDescriptionLength }" />
       </li>
     </ul>
 
@@ -15,45 +19,72 @@
       <li>
         <utrecht-button
           @click="scrollPrev"
-          aria-label="Volgend item"
+          aria-label="Vorig item"
           appearance="primary-action-button"
           >⟨</utrecht-button
         >
       </li>
 
-      <li class="gpp-woo-indicators" role="tablist">
-        <button
-          v-for="index in tiles.length"
-          :key="`indicator-${index}`"
-          role="tab"
-          class="gpp-woo-indicators__indicator"
-          :class="{ 'gpp-woo-indicators__indicator--active': normalizedIndex === index - 1 }"
-          :aria-selected="normalizedIndex === index - 1"
-          :aria-controls="`slide-${index}`"
-          @click="scrollToIndex(index - 1, false)"
+      <li>
+        <utrecht-button
+          @click="toggleAutoplay"
+          :aria-label="autoplayEnabled ? `Pause` : `Start`"
+          appearance="primary-action-button"
+          :aria-pressed="autoplayEnabled"
         >
-          <span class="visually-hidden">Ga naar item {{ index }}</span>
-        </button>
+          {{ autoplayEnabled ? "⏸ Pause" : "▶ Start" }}
+        </utrecht-button>
       </li>
 
       <li>
         <utrecht-button
           @click="scrollNext"
-          aria-label="Vorig item"
+          aria-label="Volgend item"
           appearance="primary-action-button"
           >⟩</utrecht-button
         >
       </li>
     </menu>
+
+    <div class="gpp-woo-indicators" role="tablist">
+      <button
+        v-for="index in tiles.length"
+        :key="`indicator-${index}`"
+        role="tab"
+        class="gpp-woo-indicators__indicator"
+        :class="{ 'gpp-woo-indicators__indicator--active': normalizedIndex === index - 1 }"
+        :aria-selected="normalizedIndex === index - 1"
+        :aria-controls="`slide-${index}`"
+        @click="scrollToIndex(index - 1, false)"
+      >
+        <span class="visually-hidden">Ga naar item {{ index }}</span>
+      </button>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
-import { useScroll, useElementSize, useResizeObserver, useEventListener } from "@vueuse/core";
+import { ref, computed, onMounted } from "vue";
+import {
+  useScroll,
+  useElementSize,
+  useResizeObserver,
+  useEventListener,
+  useTimeoutFn
+} from "@vueuse/core";
 import GppWooTile, { type Tile } from "@/components/GppWooTile.vue";
 
-const { tiles } = defineProps<{ tiles: Tile[] }>();
+const {
+  tiles,
+  tileDescriptionLength = 150,
+  autoplayInterval = 3000,
+  autoplayInitialState = true
+} = defineProps<{
+  tiles: Tile[];
+  tileDescriptionLength?: number;
+  autoplayInterval?: number;
+  autoplayInitialState?: boolean;
+}>();
 
 const infiniteTiles = computed(() => [...tiles, ...tiles, ...tiles]);
 
@@ -93,16 +124,44 @@ useResizeObserver(scrollContainer, () => handleInfiniteScroll());
 
 useEventListener(scrollContainer, "scrollend", handleInfiniteScroll, { passive: true });
 
+const scrollPrev = () => scrollToIndex(currentIndex.value - 1);
+
+const scrollNext = () => scrollToIndex(currentIndex.value + 1);
+
 const scrollToIndex = (index: number, smooth = true) => {
   scrollContainer.value?.scrollTo({
     left: index * slideWidth.value,
     behavior: smooth ? "smooth" : "auto"
   });
+
+  if (autoplayEnabled.value) {
+    stopAutoplay();
+    startAutoplay();
+  }
+};
+const autoplayEnabled = ref(autoplayInitialState);
+
+const { start: startAutoplay, stop: stopAutoplay } = useTimeoutFn(() => {
+  if (!autoplayEnabled.value) return;
+
+  scrollNext();
+  startAutoplay();
+}, autoplayInterval);
+
+const toggleAutoplay = () => {
+  autoplayEnabled.value = !autoplayEnabled.value;
+
+  if (autoplayEnabled.value) {
+    startAutoplay();
+  } else {
+    stopAutoplay();
+  }
 };
 
-const scrollPrev = () => scrollToIndex(currentIndex.value - 1);
+onMounted(() => startAutoplay());
 
-const scrollNext = () => scrollToIndex(currentIndex.value + 1);
+useEventListener(scrollContainer, "mouseenter", stopAutoplay);
+useEventListener(scrollContainer, "mouseleave", () => autoplayEnabled.value && startAutoplay());
 </script>
 
 <style lang="scss" scoped>
@@ -156,16 +215,25 @@ menu {
   display: flex;
   justify-content: center;
   column-gap: 1rem;
+  margin-block-start: 2rem;
 
   &__indicator {
     block-size: 1rem;
     inline-size: 1rem;
     background-color: #ccc;
     border: none;
+    border-radius: 50%;
     cursor: pointer;
 
     &--active {
       background-color: #000;
+    }
+
+    &:focus-visible {
+      outline-color: var(--utrecht-focus-outline-color);
+      outline-offset: var(--utrecht-focus-outline-offset);
+      outline-style: var(--utrecht-focus-outline-style);
+      outline-width: var(--utrecht-focus-outline-width);
     }
   }
 }

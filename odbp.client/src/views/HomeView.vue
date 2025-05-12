@@ -4,7 +4,7 @@
   <utrecht-spotlight-section v-if="promoted?.length">
     <utrecht-heading :level="2">Onderwerpen</utrecht-heading>
 
-    <gpp-woo-tile-grid :tiles="promoted" :max-description-length="TILE_DESCRIPTION_LENGTH" />
+    <gpp-woo-tile-grid :tiles="promoted" :max-description-length="tileDescriptionLength" />
   </utrecht-spotlight-section>
 
   <utrecht-spotlight-section v-if="promoted?.length">
@@ -24,7 +24,7 @@ import GppWooTileCarousel from "@/components/GppWooTileCarousel.vue";
 import type { Tile } from "@/components/GppWooTile.vue";
 import { lijsten } from "@/stores/lijsten";
 
-const TILE_DESCRIPTION_LENGTH = 200;
+const tileDescriptionLength = 200;
 
 const resources = injectResources();
 
