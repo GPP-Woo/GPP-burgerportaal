@@ -39,8 +39,8 @@
 import { computed, ref } from "vue";
 import { injectResources } from "@/resources";
 import UtrechtSpotlightSection from "@/components/UtrechtSpotlightSection.vue";
-import GppWooTileGrid from "@/components/GppWooTileGrid.vue";
-import type { Tile } from "@/components/GppWooTile.vue";
+import GppWooTileGrid from "@/components/gpp-woo-tiles/GppWooTileGrid.vue";
+import type { Tile } from "@/components/gpp-woo-tiles/GppWooTile.vue";
 import { lijsten } from "@/stores/lijsten";
 import type { Onderwerp } from "./types";
 

@@ -6,9 +6,9 @@
 
     <ul ref="scrollContainer" class="gpp-woo-slides">
       <li
-        v-for="(tile, index) in infiniteTiles"
+        v-for="(tile, index) in infiniteItems"
         :key="`slide-${index}`"
-        :ref="!index ? `firstTile` : undefined"
+        :ref="index === 0 ? `firstItem` : undefined"
         class="gpp-woo-slides__slide"
       >
         <gpp-woo-tile v-bind="{ ...tile, maxDescriptionLength: tileDescriptionLength }" />
@@ -64,108 +64,31 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from "vue";
-import {
-  useScroll,
-  useElementSize,
-  useResizeObserver,
-  useEventListener,
-  useTimeoutFn
-} from "@vueuse/core";
-import GppWooTile, { type Tile } from "@/components/GppWooTile.vue";
+import GppWooTile, { type Tile } from "@/components/gpp-woo-tiles/GppWooTile.vue";
+import { useCarousel } from "@/components/gpp-woo-tiles/use-carousel";
 
-const {
-  tiles,
-  tileDescriptionLength = 150,
-  autoplayInterval = 3000,
-  autoplayInitialState = true
-} = defineProps<{
+const { tiles, tileDescriptionLength = 150 } = defineProps<{
   tiles: Tile[];
   tileDescriptionLength?: number;
-  autoplayInterval?: number;
-  autoplayInitialState?: boolean;
 }>();
 
-const infiniteTiles = computed(() => [...tiles, ...tiles, ...tiles]);
-
-const scrollContainer = ref<HTMLElement | null>(null);
-const { x: scrollLeft } = useScroll(scrollContainer);
-
-const firstTile = ref<HTMLElement | null>(null);
-const { width: tileWidth } = useElementSize(firstTile);
-
-const slideWidth = computed(() => {
-  if (!scrollContainer.value) return 1;
-
-  return tileWidth.value + parseInt(getComputedStyle(scrollContainer.value).columnGap);
-});
-
-const currentIndex = computed(() => Math.round(scrollLeft.value / slideWidth.value));
-const normalizedIndex = computed(() => currentIndex.value % tiles.length);
-
-const handleInfiniteScroll = () => {
-  if (!scrollContainer.value) return;
-
-  let index = null;
-
-  if (currentIndex.value <= 0) {
-    index = currentIndex.value + tiles.length;
-  } else if (currentIndex.value >= infiniteTiles.value.length - tiles.length) {
-    index = currentIndex.value - tiles.length;
-  }
-
-  if (index !== null) {
-    scrollContainer.value.style.scrollBehavior = "auto";
-    scrollContainer.value.scrollLeft = index * slideWidth.value;
-  }
-};
-
-useResizeObserver(scrollContainer, () => handleInfiniteScroll());
-
-useEventListener(scrollContainer, "scrollend", handleInfiniteScroll, { passive: true });
-
-const scrollPrev = () => scrollToIndex(currentIndex.value - 1);
-
-const scrollNext = () => scrollToIndex(currentIndex.value + 1);
-
-const scrollToIndex = (index: number, smooth = true) => {
-  scrollContainer.value?.scrollTo({
-    left: index * slideWidth.value,
-    behavior: smooth ? "smooth" : "auto"
-  });
-
-  if (autoplayEnabled.value) {
-    stopAutoplay();
-    startAutoplay();
-  }
-};
-const autoplayEnabled = ref(autoplayInitialState);
-
-const { start: startAutoplay, stop: stopAutoplay } = useTimeoutFn(() => {
-  if (!autoplayEnabled.value) return;
-
-  scrollNext();
-  startAutoplay();
-}, autoplayInterval);
-
-const toggleAutoplay = () => {
-  autoplayEnabled.value = !autoplayEnabled.value;
-
-  if (autoplayEnabled.value) {
-    startAutoplay();
-  } else {
-    stopAutoplay();
-  }
-};
-
-onMounted(() => startAutoplay());
-
-useEventListener(scrollContainer, "mouseenter", stopAutoplay);
-useEventListener(scrollContainer, "mouseleave", () => autoplayEnabled.value && startAutoplay());
+const {
+  scrollContainer,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  firstItem,
+  infiniteItems,
+  normalizedIndex,
+  autoplayEnabled,
+  scrollToIndex,
+  scrollPrev,
+  scrollNext,
+  toggleAutoplay
+} = useCarousel(tiles);
 </script>
 
 <style lang="scss" scoped>
 @use "@/assets/variables";
+
 ul,
 menu {
   list-style: none;

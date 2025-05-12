@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import GppWooTile, { type Tile } from "@/components/GppWooTile.vue";
+import GppWooTile, { type Tile } from "@/components/gpp-woo-tiles/GppWooTile.vue";
 
 defineProps<{ tiles: Tile[]; maxDescriptionLength?: number }>();
 </script>

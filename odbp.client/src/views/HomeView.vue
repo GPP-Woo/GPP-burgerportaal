@@ -19,9 +19,9 @@ import { computed } from "vue";
 import { injectResources } from "@/resources";
 import { sanitizeHtml } from "@/helpers";
 import UtrechtSpotlightSection from "@/components/UtrechtSpotlightSection.vue";
-import GppWooTileGrid from "@/components/GppWooTileGrid.vue";
-import GppWooTileCarousel from "@/components/GppWooTileCarousel.vue";
-import type { Tile } from "@/components/GppWooTile.vue";
+import GppWooTileGrid from "@/components/gpp-woo-tiles/GppWooTileGrid.vue";
+import GppWooTileCarousel from "@/components/gpp-woo-tiles/GppWooTileCarousel.vue";
+import type { Tile } from "@/components/gpp-woo-tiles/GppWooTile.vue";
 import { lijsten } from "@/stores/lijsten";
 
 const tileDescriptionLength = 200;
