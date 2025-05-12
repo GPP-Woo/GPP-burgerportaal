@@ -18,7 +18,11 @@ export const useCarousel = <T>(items: MaybeRefOrGetter<T[]>, options: UseCarouse
   const itemsRef = toRef(items);
 
   // Create infinite items array
-  const infiniteItems = computed(() => [...itemsRef.value, ...itemsRef.value, ...itemsRef.value]);
+  const infiniteItems = computed(() =>
+    itemsRef.value.length > visibleItemsCount.value
+      ? [...itemsRef.value, ...itemsRef.value, ...itemsRef.value]
+      : itemsRef.value
+  );
 
   // DOM refs
   const scrollContainer = ref<HTMLElement | null>(null);
@@ -26,6 +30,7 @@ export const useCarousel = <T>(items: MaybeRefOrGetter<T[]>, options: UseCarouse
 
   // Scroll position and dimensions
   const { x: scrollLeft } = useScroll(scrollContainer);
+  const { width: containerWidth } = useElementSize(scrollContainer);
   const { width: itemWidth } = useElementSize(firstItem);
 
   // Calculate width of each slide (item width + gap)
@@ -38,6 +43,7 @@ export const useCarousel = <T>(items: MaybeRefOrGetter<T[]>, options: UseCarouse
   // Current index tracking
   const currentIndex = computed(() => Math.round(scrollLeft.value / slideWidth.value));
   const normalizedIndex = computed(() => currentIndex.value % itemsRef.value.length);
+  const visibleItemsCount = computed(() => Math.round(containerWidth.value / slideWidth.value));
 
   // Handle infinite scroll behavior
   const handleInfiniteScroll = () => {
@@ -63,11 +69,12 @@ export const useCarousel = <T>(items: MaybeRefOrGetter<T[]>, options: UseCarouse
 
   // Item visibility
   const isItemVisible = (index: number) => {
-    if (!scrollContainer.value) return false;
+    const visibleIndices = Array.from(
+      { length: visibleItemsCount.value },
+      (_, i) => currentIndex.value + i
+    );
 
-    const visibleCount = Math.round(scrollContainer.value.clientWidth / slideWidth.value);
-
-    return Array.from({ length: visibleCount }, (_, i) => currentIndex.value + i).includes(index);
+    return visibleIndices.includes(index);
   };
 
   // Navigation
@@ -129,6 +136,7 @@ export const useCarousel = <T>(items: MaybeRefOrGetter<T[]>, options: UseCarouse
     infiniteItems,
     currentIndex,
     normalizedIndex,
+    visibleItemsCount,
     autoplayEnabled,
 
     // Methods

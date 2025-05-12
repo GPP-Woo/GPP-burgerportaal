@@ -16,7 +16,7 @@
       </li>
     </ul>
 
-    <menu class="gpp-woo-slide-menu">
+    <menu v-if="tiles.length > visibleItemsCount" class="gpp-woo-slide-menu">
       <li>
         <utrecht-button
           @click="scrollPrev"
@@ -47,7 +47,7 @@
       </li>
     </menu>
 
-    <div class="gpp-woo-slide-indicators" role="tablist">
+    <div v-if="tiles.length > visibleItemsCount" class="gpp-woo-slide-indicators" role="tablist">
       <button
         v-for="index in tiles.length"
         :key="`indicator-${index}`"
@@ -79,6 +79,7 @@ const {
   firstItem,
   infiniteItems,
   normalizedIndex,
+  visibleItemsCount,
   autoplayEnabled,
   isItemVisible,
   scrollToIndex,
