@@ -6,12 +6,13 @@
 
     <ul ref="scrollContainer" class="gpp-woo-slides">
       <li
-        v-for="(tile, index) in infiniteItems"
+        v-for="(item, index) in infiniteItems"
         :key="`slide-${index}`"
         :ref="index === 0 ? `firstItem` : undefined"
         class="gpp-woo-slides__slide"
+        :aria-hidden="!isItemVisible(index)"
       >
-        <gpp-woo-tile v-bind="{ ...tile, maxDescriptionLength: tileDescriptionLength }" />
+        <gpp-woo-tile v-bind="{ ...item, maxDescriptionLength: tileDescriptionLength }" />
       </li>
     </ul>
 
@@ -64,8 +65,8 @@
 </template>
 
 <script setup lang="ts">
+import { useCarousel } from "@/composables/use-carousel";
 import GppWooTile, { type Tile } from "@/components/gpp-woo-tiles/GppWooTile.vue";
-import { useCarousel } from "@/components/gpp-woo-tiles/use-carousel";
 
 const { tiles, tileDescriptionLength = 150 } = defineProps<{
   tiles: Tile[];
@@ -79,6 +80,7 @@ const {
   infiniteItems,
   normalizedIndex,
   autoplayEnabled,
+  isItemVisible,
   scrollToIndex,
   scrollPrev,
   scrollNext,

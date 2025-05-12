@@ -13,7 +13,7 @@ export type UseCarouselOptions = {
 };
 
 export const useCarousel = <T>(items: MaybeRefOrGetter<T[]>, options: UseCarouselOptions = {}) => {
-  const { autoplayInterval = 3000, autoplayInitialState = true } = options;
+  const { autoplayInterval = 5000, autoplayInitialState = true } = options;
 
   const itemsRef = toRef(items);
 
@@ -61,6 +61,15 @@ export const useCarousel = <T>(items: MaybeRefOrGetter<T[]>, options: UseCarouse
   useResizeObserver(scrollContainer, () => handleInfiniteScroll());
   useEventListener(scrollContainer, "scrollend", handleInfiniteScroll, { passive: true });
 
+  // Item visibility
+  const isItemVisible = (index: number) => {
+    if (!scrollContainer.value) return false;
+
+    const visibleCount = Math.round(scrollContainer.value.clientWidth / slideWidth.value);
+
+    return Array.from({ length: visibleCount }, (_, i) => currentIndex.value + i).includes(index);
+  };
+
   // Navigation
   const scrollToIndex = (index: number, smooth = true) => {
     scrollContainer.value?.scrollTo({
@@ -100,9 +109,16 @@ export const useCarousel = <T>(items: MaybeRefOrGetter<T[]>, options: UseCarouse
   // Initialize autoplay
   onMounted(() => autoplayEnabled.value && startAutoplay());
 
-  // Hover pause autoplay behavior
-  useEventListener(scrollContainer, "mouseenter", stopAutoplay);
-  useEventListener(scrollContainer, "mouseleave", () => autoplayEnabled.value && startAutoplay());
+  // Hover/touch pause autoplay behavior
+  useEventListener(scrollContainer, ["mouseenter", "touchstart"], stopAutoplay, { passive: true });
+  useEventListener(
+    scrollContainer,
+    ["mouseleave", "touchend", "touchcancel"],
+    () => autoplayEnabled.value && startAutoplay(),
+    {
+      passive: true
+    }
+  );
 
   return {
     // DOM refs for template binding
@@ -116,6 +132,7 @@ export const useCarousel = <T>(items: MaybeRefOrGetter<T[]>, options: UseCarouse
     autoplayEnabled,
 
     // Methods
+    isItemVisible,
     scrollToIndex,
     scrollPrev,
     scrollNext,
