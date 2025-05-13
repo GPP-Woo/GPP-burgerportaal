@@ -53,6 +53,7 @@ try
         httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token", GetRequiredConfig("SEARCH_API_KEY"));
     });
     builder.Services.AddMemoryCache();
+    builder.Services.AddSingleton<ISimpleCache, SimpleCache>();
 
     var app = builder.Build();
 

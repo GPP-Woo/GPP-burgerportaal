@@ -1,10 +1,8 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
-using Microsoft.Extensions.Caching.Memory;
 using ODBP.Apis.Odrc;
 using ODBP.Config;
 
@@ -12,18 +10,16 @@ namespace ODBP.Features.Sitemap.SitemapInstances
 {
     [ApiController]
     [OutputCache(PolicyName = OutputCachePolicies.Sitemap)]
-    public class SitemapController(IOdrcClientFactory odrcClientFactory, BaseUri baseUri, IMemoryCache cache)
+    public class SitemapController(IOdrcClientFactory odrcClientFactory, BaseUri baseUri, ISimpleCache cache)
     {
         const string ApiVersion = "v1";
         const string ApiRoot = $"/api/{ApiVersion}";
-        const string OrganisatiesPath = $"{ApiRoot}/organisaties?isActief=alle";
-        const string InformatieCategorieenPath = $"{ApiRoot}/informatiecategorieen";
+        const string OrganisatiesPath = $"{ApiRoot}/organisaties?pageSize=100&isActief=alle";
+        const string InformatieCategorieenPath = $"{ApiRoot}/informatiecategorieen?pageSize=100";
         const string PublicatiesRoot = $"{ApiRoot}/publicaties";
-        const string PublicatiesQueryPath = $"{PublicatiesRoot}?&sorteer=registratiedatum";
+        const string PublicatiesQueryPath = $"{PublicatiesRoot}?pageSize=100&sorteer=registratiedatum";
         const string DocumentenRoot = $"{ApiRoot}/documenten";
-        const string DocumentenQueryPath = $"{DocumentenRoot}?publicatiestatus=gepubliceerd&sorteer=creatiedatum";
-
-        private static readonly SemaphoreSlim s_asyncLock = new SemaphoreSlim(1, 1);
+        const string DocumentenQueryPath = $"{DocumentenRoot}?pageSize=100&publicatiestatus=gepubliceerd&sorteer=creatiedatum";
 
         [HttpGet("/api/sitemap/{year:int}/{month:int}.xml")]
         public async Task<IActionResult> Get(int year, int month, CancellationToken token)
@@ -37,6 +33,7 @@ namespace ODBP.Features.Sitemap.SitemapInstances
             // de publicaties bevatten alleen de uuid van de organisatie / informatiecategorieen die erbij horen
             // voor de sitemap hebben we de naam en identifier nodig van organisaties / informatiecategorieen
             // daarom halen we die los op, zodat we ze per document kunnen opzoeken
+            // omdat we per jaar/maand een sitemap opbouwen, cachen we de waardelijsten zodat we die niet steeds opnieuw hoeven op te halen
             var organisatiesTask = GetCachedWaardelijstDictionary(odrcClient, OrganisatiesPath, token);
             var informatiecategorieenTask = GetCachedWaardelijstDictionary(odrcClient, InformatieCategorieenPath, token);
 
@@ -56,6 +53,9 @@ namespace ODBP.Features.Sitemap.SitemapInstances
                     continue;
                 }
 
+                // we halen in eerste instantie alleen de publicaties op die aangemaakt zijn in dezelfde maand als de documenten
+                // theoretisch kan een publicatie net in de maand ervoor zijn aangemaakt.
+                // in dat geval halen we de publciatie alsnog op, obv de id
                 if (!gepubliceerdePublicaties.TryGetValue(document.Publicatie, out var publicatie))
                 {
                     publicatie = await GetPublishedPublicatie(odrcClient, document.Publicatie, token);
@@ -65,6 +65,7 @@ namespace ODBP.Features.Sitemap.SitemapInstances
                     }
                     else
                     {
+                        // een document zonder publicatie. dit zou niet moeten kunnen
                         continue;
                     }
                 }
@@ -139,29 +140,9 @@ namespace ODBP.Features.Sitemap.SitemapInstances
             return new DiwooXmlResult(model);
         }
 
-        private ValueTask<IReadOnlyDictionary<string, ResourceWithValue>> GetCachedWaardelijstDictionary(HttpClient client, string path, CancellationToken token)
-        {
-            return TryGetCached(out var result)
-                ? new(result)
-                : GetAsync();
+        private ValueTask<IReadOnlyDictionary<string, ResourceWithValue>> GetCachedWaardelijstDictionary(HttpClient client, string path, CancellationToken token) =>
+            cache.GetOrSetAsync(path, TimeSpan.FromMinutes(1), () => GetWaardelijstDictionary(client, path, token)!)!;
 
-            bool TryGetCached([NotNullWhen(true)] out IReadOnlyDictionary<string, ResourceWithValue>? result) => cache.TryGetValue(path, out result) && result != null;
-            async ValueTask<IReadOnlyDictionary<string, ResourceWithValue>> GetAsync()
-            {
-                await s_asyncLock.WaitAsync(token);
-                try
-                {
-                    if (TryGetCached(out var result)) return result;
-                    var fresh = await GetWaardelijstDictionary(client, path, token);
-                    cache.Set(path, fresh, DateTimeOffset.Now.AddMinutes(1));
-                    return fresh;
-                }
-                finally
-                {
-                    s_asyncLock.Release();
-                }
-            }
-        }
 
         /// <summary>
         /// Haalt een waardelijst op zodat we de waardes op basis van de id kunnen opzoeken.
@@ -171,16 +152,16 @@ namespace ODBP.Features.Sitemap.SitemapInstances
             var result = new Dictionary<string, ResourceWithValue>();
             await foreach (var item in GetAllPages(client, path, token))
             {
-            if (item.TryGetProperty("uuid"u8, out var uuidProp)
-                && item.TryGetProperty("identifier"u8, out var identifierProp)
-                && item.TryGetProperty("naam"u8, out var naamprop)
-                && item.TryGetProperty("oorsprong"u8, out var oorsprong)
-                && !oorsprong.ValueEquals("zelf_toegevoegd"u8) // zelf toegevoegde organisaties & informatiecategorieen uitfilteren
-                && uuidProp.ValueKind == JsonValueKind.String
-                && identifierProp.ValueKind == JsonValueKind.String
-                && naamprop.ValueKind == JsonValueKind.String
-                )
-            {
+                if (item.TryGetProperty("uuid"u8, out var uuidProp)
+                    && item.TryGetProperty("identifier"u8, out var identifierProp)
+                    && item.TryGetProperty("naam"u8, out var naamprop)
+                    && item.TryGetProperty("oorsprong"u8, out var oorsprong)
+                    && !oorsprong.ValueEquals("zelf_toegevoegd"u8) // zelf toegevoegde organisaties & informatiecategorieen uitfilteren
+                    && uuidProp.ValueKind == JsonValueKind.String
+                    && identifierProp.ValueKind == JsonValueKind.String
+                    && naamprop.ValueKind == JsonValueKind.String
+                    )
+                {
                     result[uuidProp.GetString()!] = new() { Resource = identifierProp.GetString()!, Value = naamprop.GetString()! };
                 }
             }

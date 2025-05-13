@@ -5,13 +5,13 @@ using ODBP.Apis.Odrc;
 namespace ODBP.Features.Sitemap.SitemapIndex
 {
     [ApiController]
-    public class SitemapIndexController(BaseUri baseUri, IOdrcClientFactory odrcClientFactory)
+    public class SitemapIndexController(BaseUri baseUri, IOdrcClientFactory odrcClientFactory, ISimpleCache cache)
     {
         [HttpGet(ApiRoutes.SitemapIndex)]
         public async Task<IActionResult> Get(CancellationToken token)
         {
             var result = new SitemapIndexModel { Sitemaps = [] };
-            var startDate = await GetEarliestDocumentCreationDate(token);
+            var startDate = await GetCachedEarliestDocumentCreationDate(token);
             if (startDate == null) return new XmlResult<SitemapIndexModel>(result);
             var now = DateTimeOffset.UtcNow;
             var sitemaps = GetAllMonthsBetweenInclusive(DateOnly.FromDateTime(startDate.Value.Date), DateOnly.FromDateTime(now.Date))
@@ -22,6 +22,9 @@ namespace ODBP.Features.Sitemap.SitemapIndex
             result.Sitemaps.AddRange(sitemaps);
             return new XmlResult<SitemapIndexModel>(result);
         }
+
+        private ValueTask<DateTimeOffset?> GetCachedEarliestDocumentCreationDate(CancellationToken token) =>
+            cache.GetOrSetAsync(nameof(GetEarliestDocumentCreationDate), TimeSpan.MaxValue, () => GetEarliestDocumentCreationDate(token));
 
         private async Task<DateTimeOffset?> GetEarliestDocumentCreationDate(CancellationToken token)
         {
