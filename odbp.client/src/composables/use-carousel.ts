@@ -11,7 +11,7 @@ export const useCarousel = <T>(items: MaybeRefOrGetter<T[]>, options: UseCarouse
 
   const itemsRef = toRef(items);
 
-  // Create infinite items array
+  // Duplicate the items array on both sides to facilitate the infinite scrolling effect
   const infiniteItems = computed(() => [...itemsRef.value, ...itemsRef.value, ...itemsRef.value]);
 
   // DOM refs
@@ -72,7 +72,7 @@ export const useCarousel = <T>(items: MaybeRefOrGetter<T[]>, options: UseCarouse
 
   // Initialize when dimensions are available
   watch(
-    computed(() => containerWidth.value > 0 && itemWidth.value > 0),
+    () => containerWidth.value > 0 && itemWidth.value > 0,
     () => {
       handleInfiniteScroll();
       handleFocusables();
