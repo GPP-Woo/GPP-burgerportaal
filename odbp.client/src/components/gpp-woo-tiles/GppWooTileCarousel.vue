@@ -1,10 +1,14 @@
 <template>
   <div class="gpp-woo-tile-carousel">
+    <!-- This announces the current slide position to screen readers when it changes -->
     <p class="visually-hidden" aria-live="polite">
       {{ `Tegel ${normalizedIndex + 1} van ${tiles.length}` }}
     </p>
 
+    <!-- Main carousel element, uses horizontal scroll with CSS scroll-snap for smooth navigation -->
     <ul ref="scrollContainer" class="gpp-woo-tiles">
+      <!-- Conditionally render infinite tiles only when needed for scrolling -->
+      <!-- When fewer tiles than visible count, render regular tiles to avoid unnecessary DOM elements -->
       <li
         v-for="(tile, index) in tiles.length <= visibleItemsCount ? tiles : infiniteItems"
         :key="`tile-${index}`"
@@ -17,9 +21,12 @@
       </li>
     </ul>
 
+    <!-- No tiles available: clear feedback rather than showing an empty carousel -->
     <utrecht-paragraph v-if="tiles.length === 0">Geen onderwerpen gevonden.</utrecht-paragraph>
 
+    <!-- This prevents showing navigation for carousels that don't need it -->
     <template v-if="tiles.length > visibleItemsCount">
+      <!-- Indicator dots for direct navigation between tiles -->
       <div class="gpp-woo-indicators" role="tablist">
         <button
           v-for="index in tiles.length"
@@ -35,6 +42,7 @@
         </button>
       </div>
 
+      <!-- Main carousel navigation controls -->
       <menu class="gpp-woo-menu">
         <li>
           <utrecht-button

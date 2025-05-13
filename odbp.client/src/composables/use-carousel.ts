@@ -1,11 +1,5 @@
 import { ref, computed, watch, onMounted, type MaybeRefOrGetter, toRef } from "vue";
-import {
-  useScroll,
-  useElementSize,
-  useResizeObserver,
-  useEventListener,
-  useTimeoutFn
-} from "@vueuse/core";
+import { useScroll, useElementSize, useEventListener, useTimeoutFn } from "@vueuse/core";
 
 export type UseCarouselOptions = {
   autoplayInterval?: number;
@@ -43,8 +37,6 @@ export const useCarousel = <T>(items: MaybeRefOrGetter<T[]>, options: UseCarouse
 
   // Handle infinite scroll behavior
   const handleInfiniteScroll = () => {
-    if (!scrollContainer.value) return;
-
     let index = null;
 
     if (currentIndex.value <= 0) {
@@ -78,12 +70,17 @@ export const useCarousel = <T>(items: MaybeRefOrGetter<T[]>, options: UseCarouse
     });
   };
 
-  // Resize and scroll listeners
-  useResizeObserver(scrollContainer, () => {
-    handleInfiniteScroll();
-    handleFocusables();
-  });
+  // Initialize when dimensions are available
+  watch(
+    computed(() => containerWidth.value > 0 && itemWidth.value > 0),
+    () => {
+      handleInfiniteScroll();
+      handleFocusables();
+    },
+    { once: true }
+  );
 
+  // Scroll listener
   watch(isScrolling, (scrolling) => {
     if (!scrolling) {
       handleInfiniteScroll();
@@ -109,7 +106,9 @@ export const useCarousel = <T>(items: MaybeRefOrGetter<T[]>, options: UseCarouse
 
   // Navigation
   const scrollToIndex = (index: number, smooth = true) => {
-    scrollContainer.value?.scrollTo({
+    if (!scrollContainer.value) return;
+
+    scrollContainer.value.scrollTo({
       left: index * slideWidth.value,
       behavior: smooth ? "smooth" : "auto"
     });
