@@ -4,11 +4,11 @@
   --tiles-per-row: 1;
 
   @media screen and (min-width: #{variables.$breakpoint-md}) {
-    --tiles-per-row: 2;
+    --tiles-per-row: calc(var(--gpp-woo-tile-grid-max-columns, 3) - 1);
   }
 
   @media screen and (min-width: #{variables.$breakpoint-lg}) {
-    --tiles-per-row: 3;
+    --tiles-per-row: var(--gpp-woo-tile-grid-max-columns, 3);
   }
 }
 

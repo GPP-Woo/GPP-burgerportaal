@@ -18,11 +18,7 @@ export const useCarousel = <T>(items: MaybeRefOrGetter<T[]>, options: UseCarouse
   const itemsRef = toRef(items);
 
   // Create infinite items array
-  const infiniteItems = computed(() =>
-    itemsRef.value.length > visibleItemsCount.value
-      ? [...itemsRef.value, ...itemsRef.value, ...itemsRef.value]
-      : itemsRef.value
-  );
+  const infiniteItems = computed(() => [...itemsRef.value, ...itemsRef.value, ...itemsRef.value]);
 
   // DOM refs
   const scrollContainer = ref<HTMLElement | null>(null);
@@ -58,8 +54,7 @@ export const useCarousel = <T>(items: MaybeRefOrGetter<T[]>, options: UseCarouse
     }
 
     if (index !== null) {
-      scrollContainer.value.style.scrollBehavior = "auto";
-      scrollContainer.value.scrollLeft = index * slideWidth.value;
+      scrollToIndex(index, false);
     }
   };
 
@@ -128,11 +123,11 @@ export const useCarousel = <T>(items: MaybeRefOrGetter<T[]>, options: UseCarouse
   );
 
   return {
-    // DOM refs for template binding
+    // DOM refs
     scrollContainer,
     firstItem,
 
-    // Computed and reactive properties
+    // Computed/reactive properties
     infiniteItems,
     currentIndex,
     normalizedIndex,

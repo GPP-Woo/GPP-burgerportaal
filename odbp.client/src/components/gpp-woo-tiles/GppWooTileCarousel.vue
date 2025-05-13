@@ -1,66 +1,71 @@
 <template>
   <div class="gpp-woo-tile-carousel">
     <p class="visually-hidden" aria-live="polite">
-      {{ `Slide ${normalizedIndex + 1} van ${tiles.length}` }}
+      {{ `Tegel ${normalizedIndex + 1} van ${tiles.length}` }}
     </p>
 
-    <ul ref="scrollContainer" class="gpp-woo-slides">
+    <ul ref="scrollContainer" class="gpp-woo-tiles">
       <li
-        v-for="(item, index) in infiniteItems"
-        :key="`slide-${index}`"
+        v-for="(tile, index) in tiles.length <= visibleItemsCount ? tiles : infiniteItems"
+        :key="`tile-${index}`"
+        :id="`tile-${index}`"
         :ref="index === 0 ? `firstItem` : undefined"
-        class="gpp-woo-slides__slide"
+        class="gpp-woo-tiles__tile"
         :aria-hidden="!isItemVisible(index)"
       >
-        <gpp-woo-tile v-bind="{ ...item, maxDescriptionLength: tileDescriptionLength }" />
+        <gpp-woo-tile v-bind="{ ...tile, maxDescriptionLength: tileDescriptionLength }" />
       </li>
     </ul>
 
-    <menu v-if="tiles.length > visibleItemsCount" class="gpp-woo-slide-menu">
-      <li>
-        <utrecht-button
-          @click="scrollPrev"
-          aria-label="Vorig item"
-          appearance="primary-action-button"
-          >⟨</utrecht-button
-        >
-      </li>
+    <utrecht-paragraph v-if="tiles.length === 0">Geen onderwerpen gevonden.</utrecht-paragraph>
 
-      <li>
-        <utrecht-button
-          @click="toggleAutoplay"
-          :aria-label="autoplayEnabled ? `Pause` : `Start`"
-          :aria-pressed="autoplayEnabled"
-          appearance="primary-action-button"
+    <template v-if="tiles.length > visibleItemsCount">
+      <div class="gpp-woo-indicators" role="tablist">
+        <button
+          v-for="index in tiles.length"
+          :key="`indicator-${index}`"
+          role="tab"
+          class="gpp-woo-indicators__indicator"
+          :class="{ 'gpp-woo-indicators__indicator--active': normalizedIndex === index - 1 }"
+          :aria-selected="normalizedIndex === index - 1"
+          :aria-controls="`tile-${tiles.length + index - 1}`"
+          @click="scrollToIndex(index - 1, false)"
         >
-          {{ autoplayEnabled ? "⏸ Pause" : "▶ Start" }}
-        </utrecht-button>
-      </li>
+          <span class="visually-hidden">Ga naar tegel {{ index }}</span>
+        </button>
+      </div>
 
-      <li>
-        <utrecht-button
-          @click="scrollNext"
-          aria-label="Volgend item"
-          appearance="primary-action-button"
-          >⟩</utrecht-button
-        >
-      </li>
-    </menu>
+      <menu class="gpp-woo-menu">
+        <li>
+          <utrecht-button
+            @click="scrollPrev"
+            aria-label="Vorig item"
+            appearance="primary-action-button"
+            >⟨</utrecht-button
+          >
+        </li>
 
-    <div v-if="tiles.length > visibleItemsCount" class="gpp-woo-slide-indicators" role="tablist">
-      <button
-        v-for="index in tiles.length"
-        :key="`indicator-${index}`"
-        role="tab"
-        class="gpp-woo-slide-indicators__indicator"
-        :class="{ 'gpp-woo-slide-indicators__indicator--active': normalizedIndex === index - 1 }"
-        :aria-selected="normalizedIndex === index - 1"
-        :aria-controls="`slide-${tiles.length + index - 1}`"
-        @click="scrollToIndex(index - 1, false)"
-      >
-        <span class="visually-hidden">Ga naar slide {{ index }}</span>
-      </button>
-    </div>
+        <li>
+          <utrecht-button
+            @click="toggleAutoplay"
+            :aria-label="autoplayEnabled ? `Pause` : `Start`"
+            :aria-pressed="autoplayEnabled"
+            appearance="primary-action-button"
+          >
+            {{ autoplayEnabled ? "⏸ Pause" : "▶ Start" }}
+          </utrecht-button>
+        </li>
+
+        <li>
+          <utrecht-button
+            @click="scrollNext"
+            aria-label="Volgend item"
+            appearance="primary-action-button"
+            >⟩</utrecht-button
+          >
+        </li>
+      </menu>
+    </template>
   </div>
 </template>
 
@@ -96,50 +101,42 @@ const {
   overflow: hidden;
 }
 
-.gpp-woo-slides {
+.gpp-woo-tiles {
+  --_column-gap: var(--gpp-woo-tile-grid-grid-gap, 0rem);
+
   @include tile-config.reset-list();
   display: flex;
-  column-gap: var(--gpp-woo-tile-grid-grid-gap);
+  column-gap: var(--_column-gap);
   overflow-x: scroll;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
 
   @include tile-config.tiles-per-row();
 
-  &__slide {
+  &__tile {
     flex: 0 0
-      calc(
-        (100% - (var(--tiles-per-row, 1) - 1) * var(--gpp-woo-tile-grid-grid-gap)) /
-          var(--tiles-per-row, 1)
-      );
+      calc((100% - (var(--tiles-per-row, 1) - 1) * var(--_column-gap)) / var(--tiles-per-row, 1));
     scroll-snap-align: start;
   }
 }
 
-.gpp-woo-slide-menu {
-  @include tile-config.reset-list();
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-block-start: 1rem;
-}
-
-.gpp-woo-slide-indicators {
+.gpp-woo-indicators {
   display: flex;
   justify-content: center;
-  column-gap: 1rem;
-  margin-block-start: 2rem;
+  column-gap: var(--gpp-woo-indicators-column-gap);
+  margin-block-start: var(--gpp-woo-indicators-margin-block-start);
+  margin-block-end: var(--gpp-woo-indicators-margin-block-end);
 
   &__indicator {
-    block-size: 1rem;
-    inline-size: 1rem;
-    background-color: #ccc;
+    block-size: var(--gpp-woo-indicator-block-size);
+    inline-size: var(--gpp-woo-indicator-inline-size);
+    background-color: var(--gpp-woo-indicator-background-color);
+    border-radius: var(--gpp-woo-indicator-border-radius);
     border: none;
-    border-radius: 50%;
     cursor: pointer;
 
     &--active {
-      background-color: #000;
+      background-color: var(--gpp-woo-indicator-background-color-active);
     }
 
     &:focus-visible {
@@ -149,5 +146,12 @@ const {
       outline-width: var(--utrecht-focus-outline-width);
     }
   }
+}
+
+.gpp-woo-menu {
+  @include tile-config.reset-list();
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>
