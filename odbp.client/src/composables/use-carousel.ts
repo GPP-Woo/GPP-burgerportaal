@@ -1,4 +1,4 @@
-import { ref, computed, onMounted, type MaybeRefOrGetter, toRef } from "vue";
+import { ref, computed, watch, onMounted, type MaybeRefOrGetter, toRef } from "vue";
 import {
   useScroll,
   useElementSize,
@@ -25,7 +25,7 @@ export const useCarousel = <T>(items: MaybeRefOrGetter<T[]>, options: UseCarouse
   const firstItem = ref<HTMLElement | null>(null);
 
   // Scroll position and dimensions
-  const { x: scrollLeft } = useScroll(scrollContainer);
+  const { isScrolling, x: scrollLeft } = useScroll(scrollContainer);
   const { width: containerWidth } = useElementSize(scrollContainer);
   const { width: itemWidth } = useElementSize(firstItem);
 
@@ -58,9 +58,44 @@ export const useCarousel = <T>(items: MaybeRefOrGetter<T[]>, options: UseCarouse
     }
   };
 
+  const handleFocusables = () => {
+    if (!scrollContainer.value) return;
+
+    const slides = Array.from(scrollContainer.value.querySelectorAll("li"));
+
+    slides.forEach((slide) => {
+      const focusables = slide.querySelectorAll(
+        `a, button, input, select, textarea, [tabindex]:not([tabindex="-1"])`
+      );
+
+      focusables.forEach((el) => {
+        if (slide.getAttribute("aria-hidden") === "true") {
+          el.setAttribute("tabindex", "-1");
+        } else {
+          el.removeAttribute("tabindex");
+        }
+      });
+    });
+  };
+
   // Resize and scroll listeners
-  useResizeObserver(scrollContainer, () => handleInfiniteScroll());
-  useEventListener(scrollContainer, "scrollend", handleInfiniteScroll, { passive: true });
+  useResizeObserver(scrollContainer, () => {
+    handleInfiniteScroll();
+    handleFocusables();
+  });
+
+  watch(isScrolling, (scrolling) => {
+    if (!scrolling) {
+      handleInfiniteScroll();
+      handleFocusables();
+    } else if (
+      document.activeElement instanceof HTMLElement &&
+      scrollContainer.value?.contains(document.activeElement)
+    ) {
+      // Remove focus before aria-hidden is applied
+      document.activeElement.blur();
+    }
+  });
 
   // Item visibility
   const isItemVisible = (index: number) => {
@@ -111,8 +146,12 @@ export const useCarousel = <T>(items: MaybeRefOrGetter<T[]>, options: UseCarouse
   // Initialize autoplay
   onMounted(() => autoplayEnabled.value && startAutoplay());
 
-  // Hover/touch pause autoplay behavior
-  useEventListener(scrollContainer, ["mouseenter", "touchstart"], stopAutoplay, { passive: true });
+  // Pause autoplay
+  useEventListener(scrollContainer, ["mouseenter", "touchstart", "focusin"], stopAutoplay, {
+    passive: true
+  });
+
+  // Resume autoplay
   useEventListener(
     scrollContainer,
     ["mouseleave", "touchend", "touchcancel"],
@@ -120,6 +159,15 @@ export const useCarousel = <T>(items: MaybeRefOrGetter<T[]>, options: UseCarouse
     {
       passive: true
     }
+  );
+
+  useEventListener(
+    scrollContainer,
+    "focusout",
+    (e: FocusEvent) =>
+      !scrollContainer.value?.contains(e.relatedTarget as Node) &&
+      autoplayEnabled.value &&
+      startAutoplay()
   );
 
   return {
