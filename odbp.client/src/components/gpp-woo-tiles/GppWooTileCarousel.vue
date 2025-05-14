@@ -60,7 +60,7 @@
             :aria-pressed="autoplayEnabled"
             appearance="primary-action-button"
           >
-            {{ autoplayEnabled ? "⏸ Pause" : "▶ Start" }}
+            {{ autoplayEnabled ? "⏸ Pauzeren" : "▶ Starten" }}
           </utrecht-button>
         </li>
 
