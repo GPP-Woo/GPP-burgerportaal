@@ -56,11 +56,11 @@
         <li>
           <utrecht-button
             @click="toggleAutoplay"
-            :aria-label="autoplayEnabled ? `Pause` : `Start`"
+            :aria-label="autoplayEnabled ? `Pauzeren` : `Starten`"
             :aria-pressed="autoplayEnabled"
             appearance="primary-action-button"
           >
-            {{ autoplayEnabled ? "⏸ Pause" : "▶ Start" }}
+            {{ autoplayEnabled ? "⏸ Pauzeren" : "▶ Starten" }}
           </utrecht-button>
         </li>
 
