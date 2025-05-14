@@ -1,5 +1,5 @@
 import { ref, computed, watch, onMounted, type MaybeRefOrGetter, toRef } from "vue";
-import { useScroll, useElementSize, useEventListener, useTimeoutFn } from "@vueuse/core";
+import { useScroll, useEventListener, useTimeoutFn } from "@vueuse/core";
 
 export type UseCarouselOptions = {
   autoplayInterval?: number;
@@ -14,26 +14,28 @@ export const useCarousel = <T>(items: MaybeRefOrGetter<T[]>, options: UseCarouse
   // Duplicate the items array on both sides to facilitate the infinite scrolling effect
   const infiniteItems = computed(() => [...itemsRef.value, ...itemsRef.value, ...itemsRef.value]);
 
-  // DOM refs
+  // DOM ref to scrollContainer
   const scrollContainer = ref<HTMLElement | null>(null);
-  const firstItem = ref<HTMLElement | null>(null);
 
   // Scroll position and dimensions
   const { isScrolling, x: scrollLeft } = useScroll(scrollContainer);
-  const { width: containerWidth } = useElementSize(scrollContainer);
-  const { width: itemWidth } = useElementSize(firstItem);
 
   // Calculate width of each slide (item width + gap)
   const slideWidth = computed(() => {
     if (!scrollContainer.value) return 1;
 
-    return itemWidth.value + parseInt(getComputedStyle(scrollContainer.value).columnGap);
+    const itemWidth = scrollContainer.value.querySelector("li")?.offsetWidth || 0;
+    const columnGap = parseInt(getComputedStyle(scrollContainer.value).columnGap);
+
+    return itemWidth + columnGap;
   });
 
   // Current index tracking
   const currentIndex = computed(() => Math.round(scrollLeft.value / slideWidth.value));
   const normalizedIndex = computed(() => currentIndex.value % itemsRef.value.length);
-  const visibleItemsCount = computed(() => Math.round(containerWidth.value / slideWidth.value));
+  const visibleItemsCount = computed(() =>
+    Math.round((scrollContainer.value?.offsetWidth || 0) / slideWidth.value)
+  );
 
   // Handle infinite scroll behavior
   const handleInfiniteScroll = () => {
@@ -69,16 +71,6 @@ export const useCarousel = <T>(items: MaybeRefOrGetter<T[]>, options: UseCarouse
       });
     });
   };
-
-  // Initialize when dimensions are available
-  watch(
-    () => containerWidth.value > 0 && itemWidth.value > 0,
-    () => {
-      handleInfiniteScroll();
-      handleFocusables();
-    },
-    { once: true }
-  );
 
   // Scroll listener
   const shouldResetFocus = ref(false);
@@ -155,9 +147,6 @@ export const useCarousel = <T>(items: MaybeRefOrGetter<T[]>, options: UseCarouse
     }
   };
 
-  // Initialize autoplay
-  onMounted(() => autoplayEnabled.value && startAutoplay());
-
   // Pause autoplay
   useEventListener(scrollContainer, ["mouseenter", "touchstart", "focusin"], stopAutoplay, {
     passive: true
@@ -182,10 +171,17 @@ export const useCarousel = <T>(items: MaybeRefOrGetter<T[]>, options: UseCarouse
       startAutoplay()
   );
 
+  // Initialize
+  onMounted(() => {
+    handleInfiniteScroll();
+    handleFocusables();
+    
+    if (autoplayEnabled.value) startAutoplay();
+  });
+
   return {
-    // DOM refs
+    // DOM ref
     scrollContainer,
-    firstItem,
 
     // Computed/reactive properties
     infiniteItems,
