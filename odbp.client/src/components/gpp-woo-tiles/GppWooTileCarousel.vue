@@ -13,7 +13,6 @@
         v-for="(tile, index) in tiles.length <= visibleItemsCount ? tiles : infiniteItems"
         :key="`tile-${index}`"
         :id="`tile-${index}`"
-        :ref="index === 0 ? `firstItem` : undefined"
         class="gpp-woo-tiles__tile"
         :aria-hidden="!isItemVisible(index)"
       >
@@ -88,8 +87,6 @@ const { tiles, tileDescriptionLength = 150 } = defineProps<{
 
 const {
   scrollContainer,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  firstItem,
   infiniteItems,
   normalizedIndex,
   visibleItemsCount,
