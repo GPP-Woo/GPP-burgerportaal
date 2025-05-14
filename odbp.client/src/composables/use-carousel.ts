@@ -90,7 +90,7 @@ export const useCarousel = <T>(items: MaybeRefOrGetter<T[]>, options: UseCarouse
       handleFocusables();
 
       if (shouldResetFocus.value) {
-        // Set focus to scrollContainer to resume keyboard navigation
+        // Set focus to scrollContainer only after scrolling to keep proper keyboard navigation
         scrollContainer.value?.focus();
         shouldResetFocus.value = false;
       }
@@ -100,7 +100,7 @@ export const useCarousel = <T>(items: MaybeRefOrGetter<T[]>, options: UseCarouse
         document.activeElement instanceof HTMLElement &&
         scrollContainer.value?.contains(document.activeElement)
       ) {
-        // Remove focus from before aria-hidden is applied
+        // Remove focus from carousel item before aria-hidden is applied
         document.activeElement.blur();
         shouldResetFocus.value = true;
       }
