@@ -6,7 +6,7 @@
     </p>
 
     <!-- Main carousel element, uses horizontal scroll with CSS scroll-snap for smooth navigation -->
-    <ul ref="scrollContainer" class="gpp-woo-tiles">
+    <ul ref="scrollContainer" class="gpp-woo-tiles" aria-label="Tegel carrousel">
       <!-- Conditionally render infinite tiles only when needed for scrolling -->
       <!-- When fewer tiles than visible count, render regular tiles to avoid unnecessary DOM elements -->
       <li
@@ -118,6 +118,10 @@ const {
   overflow-x: scroll;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
+
+  &:focus-visible {
+    outline: none;
+  }
 
   @include tile-config.tiles-per-row();
 

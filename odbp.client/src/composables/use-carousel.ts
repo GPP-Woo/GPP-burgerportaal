@@ -53,14 +53,14 @@ export const useCarousel = <T>(items: MaybeRefOrGetter<T[]>, options: UseCarouse
   const handleFocusables = () => {
     if (!scrollContainer.value) return;
 
-    const slides = Array.from(scrollContainer.value.querySelectorAll("li"));
+    const slides = scrollContainer.value.querySelectorAll("li");
 
     slides.forEach((slide) => {
-      const focusables = slide.querySelectorAll(
+      const focusableElements = slide.querySelectorAll(
         `a, button, input, select, textarea, [tabindex]:not([tabindex="-1"])`
       );
 
-      focusables.forEach((el) => {
+      focusableElements.forEach((el) => {
         if (slide.getAttribute("aria-hidden") === "true") {
           el.setAttribute("tabindex", "-1");
         } else {
@@ -81,16 +81,29 @@ export const useCarousel = <T>(items: MaybeRefOrGetter<T[]>, options: UseCarouse
   );
 
   // Scroll listener
+  const shouldResetFocus = ref(false);
+
   watch(isScrolling, (scrolling) => {
     if (!scrolling) {
+      // Scrolling stopped
       handleInfiniteScroll();
       handleFocusables();
-    } else if (
-      document.activeElement instanceof HTMLElement &&
-      scrollContainer.value?.contains(document.activeElement)
-    ) {
-      // Remove focus before aria-hidden is applied
-      document.activeElement.blur();
+
+      if (shouldResetFocus.value) {
+        // Set focus to scrollContainer to resume keyboard navigation
+        scrollContainer.value?.focus();
+        shouldResetFocus.value = false;
+      }
+    } else {
+      // Scrolling started
+      if (
+        document.activeElement instanceof HTMLElement &&
+        scrollContainer.value?.contains(document.activeElement)
+      ) {
+        // Remove focus from before aria-hidden is applied
+        document.activeElement.blur();
+        shouldResetFocus.value = true;
+      }
     }
   });
 
