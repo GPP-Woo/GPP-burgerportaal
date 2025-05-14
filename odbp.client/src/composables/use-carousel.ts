@@ -1,5 +1,5 @@
 import { ref, computed, watch, onMounted, type MaybeRefOrGetter, toRef } from "vue";
-import { useScroll, useEventListener, useTimeoutFn } from "@vueuse/core";
+import { useScroll, useElementSize, useEventListener, useTimeoutFn } from "@vueuse/core";
 
 export type UseCarouselOptions = {
   autoplayInterval?: number;
@@ -19,23 +19,24 @@ export const useCarousel = <T>(items: MaybeRefOrGetter<T[]>, options: UseCarouse
 
   // Scroll position and dimensions
   const { isScrolling, x: scrollLeft } = useScroll(scrollContainer);
+  const { width: containerWidth } = useElementSize(scrollContainer);
 
-  // Calculate width of each slide (item width + gap)
-  const slideWidth = computed(() => {
-    if (!scrollContainer.value) return 1;
+  // Recalculate the slideWidth (item width + gap) as the containerWidth changes
+  const slideWidth = ref(0);
+  
+  watch(containerWidth, () => {
+    if (!scrollContainer.value) return;
 
     const itemWidth = scrollContainer.value.querySelector("li")?.offsetWidth || 0;
     const columnGap = parseInt(getComputedStyle(scrollContainer.value).columnGap);
 
-    return itemWidth + columnGap;
+    slideWidth.value = itemWidth + columnGap;
   });
 
   // Current index tracking
   const currentIndex = computed(() => Math.round(scrollLeft.value / slideWidth.value));
   const normalizedIndex = computed(() => currentIndex.value % itemsRef.value.length);
-  const visibleItemsCount = computed(() =>
-    Math.round((scrollContainer.value?.offsetWidth || 0) / slideWidth.value)
-  );
+  const visibleItemsCount = computed(() => Math.round(containerWidth.value / slideWidth.value));
 
   // Handle infinite scroll behavior
   const handleInfiniteScroll = () => {
@@ -52,6 +53,7 @@ export const useCarousel = <T>(items: MaybeRefOrGetter<T[]>, options: UseCarouse
     }
   };
 
+  // Handle focusable elements inside slides
   const handleFocusables = () => {
     if (!scrollContainer.value) return;
 
@@ -71,6 +73,16 @@ export const useCarousel = <T>(items: MaybeRefOrGetter<T[]>, options: UseCarouse
       });
     });
   };
+
+  // Initialize carousel when dimensions are available
+  watch(
+    () => containerWidth.value > 0,
+    () => {
+      handleInfiniteScroll();
+      handleFocusables();
+    },
+    { once: true }
+  );
 
   // Scroll listener
   const shouldResetFocus = ref(false);
@@ -147,6 +159,9 @@ export const useCarousel = <T>(items: MaybeRefOrGetter<T[]>, options: UseCarouse
     }
   };
 
+  // Initialize autoplay
+  onMounted(() => autoplayEnabled.value && startAutoplay());
+
   // Pause autoplay
   useEventListener(scrollContainer, ["mouseenter", "touchstart", "focusin"], stopAutoplay, {
     passive: true
@@ -170,14 +185,6 @@ export const useCarousel = <T>(items: MaybeRefOrGetter<T[]>, options: UseCarouse
       autoplayEnabled.value &&
       startAutoplay()
   );
-
-  // Initialize
-  onMounted(() => {
-    handleInfiniteScroll();
-    handleFocusables();
-    
-    if (autoplayEnabled.value) startAutoplay();
-  });
 
   return {
     // DOM ref
