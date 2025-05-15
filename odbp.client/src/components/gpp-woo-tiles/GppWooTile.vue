@@ -77,12 +77,12 @@ section {
 
 figure {
   display: flex;
-  aspect-ratio: 16/9;
   border: 1px solid var(--utrecht-color-grey-80);
   margin: 0;
 
   img {
     inline-size: 100%;
+    aspect-ratio: 16/9;
     object-fit: cover;
   }
 
