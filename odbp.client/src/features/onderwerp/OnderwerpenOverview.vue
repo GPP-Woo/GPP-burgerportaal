@@ -75,9 +75,12 @@ const showButton = computed(() => onderwerpen.value?.length !== lijsten.value?.o
 </script>
 
 <style lang="scss" scoped>
+.utrecht-heading-2 {
+  --utrecht-heading-2-margin-block-end: calc(var(--gpp-woo-tile-grid-grid-gap) / 4);
+}
+
 .utrecht-spotlight-section {
   --utrecht-heading-2-margin-block-start: 0;
-  --utrecht-heading-2-margin-block-end: calc(var(--gpp-woo-tile-grid-grid-gap) / 4);
 }
 
 .utrecht-paragraph {
