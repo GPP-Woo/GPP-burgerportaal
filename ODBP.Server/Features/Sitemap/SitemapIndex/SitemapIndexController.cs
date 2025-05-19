@@ -15,7 +15,7 @@ namespace ODBP.Features.Sitemap.SitemapIndex
         [HttpGet(ApiRoutes.SitemapIndex)]
         public async Task<IActionResult> Get(CancellationToken token)
         {
-            var result = new SitemapIndexModel { Sitemaps = [] };
+            var result = new SitemapIndexModel();
             var startDate = await GetCachedEarliestDocumentCreationDate(token);
             if (startDate == null) return new XmlResult<SitemapIndexModel>(result);
             var now = DateTimeOffset.UtcNow;
@@ -50,6 +50,7 @@ namespace ODBP.Features.Sitemap.SitemapIndex
                 .FirstOrDefault();
         }
 
+        private readonly record struct YearMonth(int Year, int Month);
         private static IEnumerable<YearMonth> GetAllMonthsBetweenInclusive(DateOnly left, DateOnly right)
         {
             var (min, max) = left > right

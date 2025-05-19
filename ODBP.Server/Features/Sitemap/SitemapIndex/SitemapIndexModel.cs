@@ -7,7 +7,7 @@ namespace ODBP.Features.Sitemap.SitemapIndex;
 public class SitemapIndexModel
 {
     [XmlElement("sitemap")]
-    public required List<SitemapLink> Sitemaps { get; set; }
+    public List<SitemapLink> Sitemaps { get; } = [];
 }
 
 public class SitemapLink
