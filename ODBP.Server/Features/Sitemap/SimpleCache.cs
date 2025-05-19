@@ -28,18 +28,19 @@ namespace ODBP.Features.Sitemap
         public ValueTask<TItem> GetOrSetAsync<TItem>(string key, TimeSpan absoluteExpirationRelativeToNow, Func<Task<TItem>> factory) =>
             TryGetCached<TItem>(key, out var value)
                 ? new ValueTask<TItem>(value)
-                : GetAsync(key, absoluteExpirationRelativeToNow, factory);
+                : SetAsyncWithLock(key, absoluteExpirationRelativeToNow, factory);
 
         private bool TryGetCached<T>(string key, [NotNullWhen(true)] out T? value) => cache.TryGetValue(key, out value) && value != null;
 
-        private async ValueTask<T> GetAsync<T>(string cacheKey, TimeSpan cacheDuration, Func<Task<T>> handler)
+        private async ValueTask<T> SetAsyncWithLock<T>(string cacheKey, TimeSpan cacheDuration, Func<Task<T>> factory)
         {
             var asyncLock = s_locks.GetOrAdd(cacheKey, _ => new(1, 1));
             await asyncLock.WaitAsync();
             try
             {
+                // the value might have been set while we were aquiring the lock, check again to be safe
                 if (TryGetCached<T>(cacheKey, out var cached)) return cached;
-                var fresh = await handler();
+                var fresh = await factory();
                 if (fresh != null)
                 {
                     cache.Set(cacheKey, fresh, cacheDuration);
