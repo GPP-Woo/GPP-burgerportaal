@@ -1,5 +1,9 @@
 <template>
-  <article v-html="html" class="utrecht-article"></article>
+  <article class="utrecht-article">
+    <video-embed url="https://player.vimeo.com/video/917554267" title="Instructie video" />
+
+    <div v-html="html"></div>
+  </article>
 
   <utrecht-spotlight-section v-if="promoted?.length">
     <utrecht-heading :level="2">Onderwerpen</utrecht-heading>
@@ -12,6 +16,7 @@
 import { computed } from "vue";
 import { injectResources } from "@/resources";
 import { sanitizeHtml } from "@/helpers";
+import VideoEmbed from "@/components/VideoEmbed.vue";
 import UtrechtSpotlightSection from "@/components/UtrechtSpotlightSection.vue";
 import GppWooTileCarousel from "@/components/gpp-woo-tiles/GppWooTileCarousel.vue";
 import type { Tile } from "@/components/gpp-woo-tiles/GppWooTile.vue";
@@ -37,8 +42,20 @@ const promoted = computed(() =>
 </script>
 
 <style lang="scss" scoped>
+@use "@/assets/variables";
+
 .utrecht-spotlight-section {
   --utrecht-heading-2-margin-block-start: 0;
   --utrecht-heading-2-margin-block-end: calc(var(--gpp-woo-tile-grid-grid-gap) / 4);
+}
+
+iframe {
+  float: right;
+  margin-block: 0.5rem;
+  margin-inline-start: 2rem;
+
+  @media screen and (min-width: #{variables.$breakpoint-md}) {
+    max-inline-size: 20rem;
+  }
 }
 </style>

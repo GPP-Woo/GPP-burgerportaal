@@ -67,6 +67,7 @@ namespace Microsoft.AspNetCore.Builder
                     csp.AddStyleSrc().From(string.Join(" ", styleSources.Where(src => !string.IsNullOrWhiteSpace(src))));
                     csp.AddImgSrc().From(string.Join(" ", imgSources.Where(src => !string.IsNullOrWhiteSpace(src))));
                     csp.AddFontSrc().From(string.Join(" ", fontSources.Where(src => !string.IsNullOrWhiteSpace(src))));
+                    csp.AddFrameSrc().None();
                     csp.AddFrameAncestors().None();
                     csp.AddFormAction().Self();
                     csp.AddBaseUri().None();
