@@ -10,44 +10,74 @@ namespace ODBP.Features.Sitemap.SitemapInstances
 {
     [ApiController]
     [OutputCache(PolicyName = OutputCachePolicies.Sitemap)]
-    public class SitemapController(IOdrcClientFactory odrcClientFactory, BaseUri baseUri)
+    public class SitemapController(IOdrcClientFactory odrcClientFactory, BaseUri baseUri, ISimpleCache cache)
     {
         const string ApiVersion = "v1";
         const string ApiRoot = $"/api/{ApiVersion}";
-        const string OrganisatiesPath = $"{ApiRoot}/organisaties?isActief=alle";
-        const string InformatieCategorieenPath = $"{ApiRoot}/informatiecategorieen";
-        const string PublicatiesPath = $"{ApiRoot}/publicaties?publicatiestatus=gepubliceerd&sorteer=registratiedatum";
+        const string OrganisatiesPath = $"{ApiRoot}/organisaties?pageSize=100&isActief=alle";
+        const string InformatieCategorieenPath = $"{ApiRoot}/informatiecategorieen?pageSize=100";
+        const string PublicatiesRoot = $"{ApiRoot}/publicaties";
+        const string PublicatiesQueryPath = $"{PublicatiesRoot}?pageSize=100&sorteer=registratiedatum";
         const string DocumentenRoot = $"{ApiRoot}/documenten";
-        const string DocumentenQueryPath = $"{DocumentenRoot}?publicatiestatus=gepubliceerd&sorteer=creatiedatum";
+        const string DocumentenQueryPath = $"{DocumentenRoot}?pageSize=100&publicatiestatus=gepubliceerd&sorteer=creatiedatum";
 
-        [HttpGet(ApiRoutes.Sitemap)]
-        public async Task<IActionResult> Get(CancellationToken token)
+        [HttpGet("/api/sitemap/{year:int}/{month:int}.xml")]
+        public async Task<IActionResult> Get(int year, int month, CancellationToken token)
         {
+            var vanaf = new DateOnly(year, month, 1);
+            var tot = vanaf.AddMonths(1);
+
             using var odrcClient = odrcClientFactory.Create(handeling: "sitemap opbouwen");
 
             // de documenten bevatten alleen de uuid van de publicatie die erbij hoort
             // de publicaties bevatten alleen de uuid van de organisatie / informatiecategorieen die erbij horen
             // voor de sitemap hebben we de naam en identifier nodig van organisaties / informatiecategorieen
             // daarom halen we die los op, zodat we ze per document kunnen opzoeken
-            var organisatiesTask = GetWaardelijstDictionary(odrcClient, OrganisatiesPath, token);
-            var informatiecategorieenTask = GetWaardelijstDictionary(odrcClient, InformatieCategorieenPath, token);
+            // omdat we per jaar/maand een sitemap opbouwen, cachen we de waardelijsten zodat we die niet steeds opnieuw hoeven op te halen
+            var organisatiesTask = GetCachedWaardelijstDictionary(odrcClient, OrganisatiesPath, token);
+            var informatiecategorieenTask = GetCachedWaardelijstDictionary(odrcClient, InformatieCategorieenPath, token);
 
-            var gepubliceerdePublicaties = await GetGepubliceerdePublicatieDictionary(odrcClient, token);
+            var gepubliceerdePublicaties = await GetPublicatieDictionary(odrcClient, vanaf, tot, token);
             var organisaties = await organisatiesTask;
             var informatiecategorieen = await informatiecategorieenTask;
 
             var publicaties = new List<Publicatie>();
 
             // doorloop alle documenten
-            await foreach (var item in GetAllPages(odrcClient, DocumentenQueryPath, token))
+            await foreach (var item in GetAllPages(odrcClient, $"{DocumentenQueryPath}&registratiedatumVanaf={vanaf:o}&registratiedatumTot={tot:o}", token))
             {
                 var document = item.Deserialize(SitemapPublicatieContext.Default.OdrcDocument);
-                // als we de publicatie niet bij het document kunnen vinden, is de publicatie niet bekend of heeft deze niet de status gepubliceerd
+
+                if (document == null)
+                {
+                    continue;
+                }
+
+                // we halen in eerste instantie alleen de publicaties op die aangemaakt zijn in dezelfde maand als de documenten
+                // theoretisch kan een publicatie net in de maand ervoor zijn aangemaakt.
+                // in dat geval halen we de publciatie alsnog op, obv de id
+                if (!gepubliceerdePublicaties.TryGetValue(document.Publicatie, out var publicatie))
+                {
+                    publicatie = await GetPublishedPublicatie(odrcClient, document.Publicatie, token);
+                    if (publicatie != null)
+                    {
+                        gepubliceerdePublicaties[document.Publicatie] = publicatie;
+                    }
+                    else
+                    {
+                        // een document zonder publicatie. dit zou niet moeten kunnen
+                        continue;
+                    }
+                }
+
+                if (publicatie.Publicatiestatus != "gepubliceerd")
+                {
+                    continue;
+                }
+
                 // als we de publisher niet bij de publicatie kunnen vinden, is de organisatie niet bekend of heeft deze als oorsprong "zelf_toegevoegd"
                 // in al deze gevallen negeren we het document
-                if (document == null || 
-                    !gepubliceerdePublicaties.TryGetValue(document.Publicatie, out var publicatie) ||
-                    !organisaties.TryGetValue(publicatie.Publisher, out var publisher))
+                if (!organisaties.TryGetValue(publicatie.Publisher, out var publisher))
                 {
                     continue;
                 }
@@ -64,8 +94,6 @@ namespace ODBP.Features.Sitemap.SitemapInstances
                         DiWoo = new()
                         {
                             Creatiedatum = document.Creatiedatum,
-                            // als we om de een of andere reden geen organisatie kunnen vinden obv van de publisher id, laten we deze leeg
-                            // we voorzien niet dat dit gebeurt maar het is altijd beter om een document met minder metadata te tonen dan helemaal niet
                             Publisher = publisher,
                             Opsteller = publicatie.Opsteller != null && organisaties.TryGetValue(publicatie.Opsteller, out var opsteller)
                                 ? opsteller
@@ -91,12 +119,12 @@ namespace ODBP.Features.Sitemap.SitemapInstances
                             Documenthandelingen = document.Documenthandelingen.Select(x => new Documenthandeling
                             {
                                 AtTime = x.AtTime,
-                                SoortHandeling = new() 
+                                SoortHandeling = new()
                                 {
                                     Value = x.SoortHandeling,
-                                    Resource = !string.IsNullOrWhiteSpace(x.Identifier) 
-                                        ? x.Identifier 
-                                        : x.SoortHandeling 
+                                    Resource = !string.IsNullOrWhiteSpace(x.Identifier)
+                                        ? x.Identifier
+                                        : x.SoortHandeling
                                 }
                             }).ToArray()
                         }
@@ -111,6 +139,10 @@ namespace ODBP.Features.Sitemap.SitemapInstances
 
             return new DiwooXmlResult(model);
         }
+
+        private ValueTask<IReadOnlyDictionary<string, ResourceWithValue>> GetCachedWaardelijstDictionary(HttpClient client, string path, CancellationToken token) =>
+            cache.GetOrSetAsync(path, TimeSpan.FromMinutes(1), () => GetWaardelijstDictionary(client, path, token)!)!;
+
 
         /// <summary>
         /// Haalt een waardelijst op zodat we de waardes op basis van de id kunnen opzoeken.
@@ -139,10 +171,10 @@ namespace ODBP.Features.Sitemap.SitemapInstances
         /// <summary>
         /// Haalt gepubliceerde publicaties zodat we die op basis van de id kunnen opzoeken.
         /// </summary>
-        private static async Task<IReadOnlyDictionary<string, OdrcPublicatie>> GetGepubliceerdePublicatieDictionary(HttpClient client, CancellationToken token)
+        private static async Task<Dictionary<string, OdrcPublicatie>> GetPublicatieDictionary(HttpClient client, DateOnly vanaf, DateOnly tot, CancellationToken token)
         {
             var result = new Dictionary<string, OdrcPublicatie>();
-            await foreach (var item in GetAllPages(client, PublicatiesPath, token))
+            await foreach (var item in GetAllPages(client, $"{PublicatiesQueryPath}&registratiedatumVanaf={vanaf:o}&registratiedatumTot={tot:o}", token))
             {
                 var publicatie = item.Deserialize(SitemapPublicatieContext.Default.OdrcPublicatie);
                 if (publicatie != null)
@@ -151,6 +183,16 @@ namespace ODBP.Features.Sitemap.SitemapInstances
                 }
             }
             return result;
+        }
+
+        private static async Task<OdrcPublicatie?> GetPublishedPublicatie(HttpClient client, string id, CancellationToken token)
+        {
+            using var response = await client.GetAsync($"{PublicatiesRoot}/{id}", HttpCompletionOption.ResponseHeadersRead, token);
+            if (!response.IsSuccessStatusCode) return null;
+            await using var stream = await response.Content.ReadAsStreamAsync(token);
+            using var doc = await JsonDocument.ParseAsync(stream, cancellationToken: token);
+            if (!doc.RootElement.TryGetProperty("publicatieStatus", out var status) || !status.ValueEquals("gepubliceerd"u8)) return null;
+            return doc.RootElement.Deserialize(SitemapPublicatieContext.Default.OdrcPublicatie);
         }
 
         /// <summary>
@@ -235,6 +277,7 @@ namespace ODBP.Features.Sitemap.SitemapInstances
         public string? Opsteller { get; set; }
         public required DateTimeOffset LaatstGewijzigdDatum { get; set; }
         public required IReadOnlyList<string> DiWooInformatieCategorieen { get; set; }
+        public required string Publicatiestatus { get; set; }
     }
 
     public class OdrcDocumentHandeling
