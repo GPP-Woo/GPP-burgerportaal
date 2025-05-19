@@ -143,6 +143,9 @@ namespace ODBP.Features.Sitemap.SitemapInstances
             return new DiwooXmlResult(model);
         }
 
+        // we cachen de waardelijsten omdat de harvester voor elke maand een sitemap opvraagt.
+        // de waardelijsten zullen vrijwel nooit wijzigen tussen de sitemaps in.
+        // als dit onverhoopt toch het geval is, gebruiken we een consistente waarde over de sitemaps heen
         private ValueTask<IReadOnlyDictionary<string, ResourceWithValue>> GetCachedWaardelijstDictionary(HttpClient client, string path, CancellationToken token) =>
             cache.GetOrSetAsync(path, TimeSpan.FromMinutes(1), () => GetWaardelijstDictionary(client, path, token)!)!;
 
