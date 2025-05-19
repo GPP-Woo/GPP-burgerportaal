@@ -30,7 +30,7 @@ namespace ODBP.Features.Sitemap.SitemapIndex
 
         // we kunnen de vroegste creatiedatum theoretisch permanent cachen als we er eentje hebben, want er gaat nooit een document eerder aangemaakt worden
         private ValueTask<DateTimeOffset?> GetCachedEarliestDocumentCreationDate(CancellationToken token) =>
-            cache.GetOrSetAsync(nameof(GetEarliestDocumentCreationDate), TimeSpan.MaxValue, () => GetEarliestDocumentCreationDate(token));
+            cache.GetOrSetAsync(nameof(GetEarliestDocumentCreationDate), TimeSpan.FromDays(1), () => GetEarliestDocumentCreationDate(token));
 
         private async Task<DateTimeOffset?> GetEarliestDocumentCreationDate(CancellationToken token)
         {
