@@ -6,7 +6,7 @@ namespace ODBP.Features.Sitemap.SitemapInstances;
 public class SitemapModel
 {
     [XmlElement("url")]
-    public required List<Publicatie> Urls { get; init; }
+    public List<Publicatie> Urls { get; } = [];
 }
 
 public class Publicatie

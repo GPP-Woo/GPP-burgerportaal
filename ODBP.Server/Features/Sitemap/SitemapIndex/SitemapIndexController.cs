@@ -8,7 +8,7 @@ namespace ODBP.Features.Sitemap.SitemapIndex
     public class SitemapIndexController(BaseUri baseUri, IOdrcClientFactory odrcClientFactory, ISimpleCache cache)
     {
         /// <summary>
-        /// Retourneert voor elke maand, vanaf de eerste documentcreatiedatum tot nu, een link naar de betreffende sitemap. Niet elke maand heeft per definitie documenten: die sitemaps zijn leeg (maar wel valide)
+        /// Retourneert voor elke maand, vanaf de eerste documentcreatiedatum tot en met nu, een link naar de betreffende sitemap. Niet elke maand heeft per definitie documenten: die sitemaps zijn leeg (maar wel valide)
         /// </summary>
         /// <param name="token"></param>
         /// <returns></returns>

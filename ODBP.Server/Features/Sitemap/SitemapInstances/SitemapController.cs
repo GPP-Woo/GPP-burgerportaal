@@ -24,6 +24,16 @@ namespace ODBP.Features.Sitemap.SitemapInstances
         [HttpGet("/api/sitemap/{year:int}/{month:int}.xml")]
         public async Task<IActionResult> Get(int year, int month, CancellationToken token)
         {
+            var model = new SitemapModel();
+
+            if (year > DateOnly.MaxValue.Year ||
+                year < DateOnly.MinValue.Year ||
+                month > DateOnly.MaxValue.Month ||
+                month < DateOnly.MinValue.Month)
+            {
+                return new DiwooXmlResult(model);
+            }
+
             var vanaf = new DateOnly(year, month, 1);
             var tot = vanaf.AddMonths(1);
 
@@ -40,8 +50,6 @@ namespace ODBP.Features.Sitemap.SitemapInstances
             var gepubliceerdePublicaties = await GetPublicatieDictionary(odrcClient, vanaf, tot, token);
             var organisaties = await organisatiesTask;
             var informatiecategorieen = await informatiecategorieenTask;
-
-            var publicaties = new List<Publicatie>();
 
             // doorloop alle documenten
             await foreach (var item in GetAllPages(odrcClient, $"{DocumentenQueryPath}&registratiedatumVanaf={vanaf:o}&registratiedatumTot={tot:o}", token))
@@ -82,7 +90,7 @@ namespace ODBP.Features.Sitemap.SitemapInstances
                     continue;
                 }
 
-                publicaties.Add(new()
+                model.Urls.Add(new()
                 {
                     Loc = new Uri(baseUri, $"{DocumentenRoot}/{document.Uuid}/download").ToString(),
                     // we nemen zowel gegevens van het document als van de publicatie over in de sitemap
@@ -131,11 +139,6 @@ namespace ODBP.Features.Sitemap.SitemapInstances
                     }
                 });
             }
-
-            var model = new SitemapModel
-            {
-                Urls = publicaties
-            };
 
             return new DiwooXmlResult(model);
         }
