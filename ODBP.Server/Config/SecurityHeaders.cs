@@ -49,54 +49,76 @@ namespace Microsoft.AspNetCore.Builder
                 }
             }
 
-            return app.UseSecurityHeaders(x => x
-                .AddDefaultSecurityHeaders()
-                .AddCrossOriginOpenerPolicy(x =>
+            return app.UseSecurityHeaders(headerPolicyCollection =>
+            {
+                headerPolicyCollection
+                    .AddDefaultSecurityHeaders()
+                    .AddCrossOriginOpenerPolicy(x =>
+                    {
+                        x.SameOrigin();
+                    })
+                    .AddCrossOriginResourcePolicy(x =>
+                    {
+                        x.SameOrigin();
+                    })
+                    .AddContentSecurityPolicy(csp =>
+                    {
+                        csp.AddUpgradeInsecureRequests();
+                        csp.AddDefaultSrc().None();
+                        csp.AddConnectSrc().From(string.Join(" ", connectSources.Where(src => !string.IsNullOrWhiteSpace(src))));
+                        csp.AddScriptSrc().Self();
+                        csp.AddStyleSrc().From(string.Join(" ", styleSources.Where(src => !string.IsNullOrWhiteSpace(src))));
+                        csp.AddImgSrc().From(string.Join(" ", imgSources.Where(src => !string.IsNullOrWhiteSpace(src))));
+                        csp.AddFontSrc().From(string.Join(" ", fontSources.Where(src => !string.IsNullOrWhiteSpace(src))));
+                        csp.AddFrameSrc().From(string.Join(" ", frameSources.Where(src => !string.IsNullOrWhiteSpace(src))));
+                        csp.AddFrameAncestors().None();
+                        csp.AddFormAction().Self();
+                        csp.AddBaseUri().None();
+                    })
+                    .AddPermissionsPolicy(permissions =>
+                    {
+                        permissions.AddAccelerometer().None();
+                        permissions.AddAmbientLightSensor().None();
+                        permissions.AddAutoplay().None();
+                        permissions.AddCamera().None();
+                        permissions.AddEncryptedMedia().None();
+                        permissions.AddFullscreen();
+                        permissions.AddGeolocation().None();
+                        permissions.AddGyroscope().None();
+                        permissions.AddMagnetometer().None();
+                        permissions.AddMicrophone().None();
+                        permissions.AddMidi().None();
+                        permissions.AddPayment().None();
+                        permissions.AddPictureInPicture().None();
+                        permissions.AddSpeaker().None();
+                        permissions.AddSyncXHR().None();
+                        permissions.AddUsb().None();
+                        permissions.AddVR().None();
+                        
+                        if (!string.IsNullOrEmpty(resourcesConfig.VideoUrl))
+                        {
+                            // origin needs to be quoted, browser requirement
+                            var videoOrigin = $"\"{ new Uri(resourcesConfig.VideoUrl).GetLeftPart(UriPartial.Authority) }\"";
+
+                            // enable these for video
+                            permissions.AddAccelerometer().Self().Sources.Add(videoOrigin);
+                            permissions.AddEncryptedMedia().Self().Sources.Add(videoOrigin);
+                            permissions.AddFullscreen().Self().Sources.Add(videoOrigin);
+                            permissions.AddGyroscope().Self().Sources.Add(videoOrigin);
+                            permissions.AddPictureInPicture().Self().Sources.Add(videoOrigin);
+                        }
+                    });
+
+                // COEP ...
+                if (string.IsNullOrEmpty(resourcesConfig.VideoUrl))
                 {
-                    x.SameOrigin();
-                })
-                .AddCrossOriginEmbedderPolicy(x =>
-                {
-                    x.RequireCorp();
-                })
-                .AddCrossOriginResourcePolicy(x =>
-                {
-                    x.SameOrigin();
-                })
-                .AddContentSecurityPolicy(csp =>
-                {
-                    csp.AddUpgradeInsecureRequests();
-                    csp.AddDefaultSrc().None();
-                    csp.AddConnectSrc().From(string.Join(" ", connectSources.Where(src => !string.IsNullOrWhiteSpace(src))));
-                    csp.AddScriptSrc().Self();
-                    csp.AddStyleSrc().From(string.Join(" ", styleSources.Where(src => !string.IsNullOrWhiteSpace(src))));
-                    csp.AddImgSrc().From(string.Join(" ", imgSources.Where(src => !string.IsNullOrWhiteSpace(src))));
-                    csp.AddFontSrc().From(string.Join(" ", fontSources.Where(src => !string.IsNullOrWhiteSpace(src))));
-                    csp.AddFrameSrc().From(string.Join(" ", frameSources.Where(src => !string.IsNullOrWhiteSpace(src))));
-                    csp.AddFrameAncestors().None();
-                    csp.AddFormAction().Self();
-                    csp.AddBaseUri().None();
-                })
-                .AddPermissionsPolicy(permissions =>
-                {
-                    // permissions.AddAccelerometer().None();
-                    permissions.AddAmbientLightSensor().None();
-                    permissions.AddAutoplay().None();
-                    permissions.AddCamera().None();
-                    // permissions.AddEncryptedMedia().None();
-                    // permissions.AddFullscreen().None();
-                    permissions.AddGeolocation().None();
-                    // permissions.AddGyroscope().None();
-                    permissions.AddMagnetometer().None();
-                    permissions.AddMicrophone().None();
-                    permissions.AddMidi().None();
-                    permissions.AddPayment().None();
-                    // permissions.AddPictureInPicture().None();
-                    permissions.AddSpeaker().None();
-                    permissions.AddSyncXHR().None();
-                    permissions.AddUsb().None();
-                    permissions.AddVR().None();
-                }));
+                    headerPolicyCollection
+                        .AddCrossOriginEmbedderPolicy(x =>
+                        {
+                            x.RequireCorp();
+                        });
+                }
+            });
         }
     }
 }

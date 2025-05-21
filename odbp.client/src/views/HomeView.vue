@@ -1,13 +1,15 @@
 <template>
-  <article class="utrecht-article">
-    <video-embed
-      v-if="resources?.videoUrl"
-      :url="resources?.videoUrl"
-      title="Burgerportaal instructievideo"
-    />
+  <div v-if="resources?.videoUrl" class="gpp-woo-home-video-section">
+    <article v-html="html" class="utrecht-article"></article>
 
-    <div v-html="html"></div>
-  </article>
+    <section>
+      <utrecht-heading :level="2">Uitleg Burgerportaal</utrecht-heading>
+
+      <video-embed :url="resources.videoUrl" title="Uitleg Burgerportaal" />
+    </section>
+  </div>
+
+  <article v-else v-html="html" class="utrecht-article"></article>
 
   <utrecht-spotlight-section v-if="promoted?.length">
     <utrecht-heading :level="2">Onderwerpen</utrecht-heading>
@@ -48,18 +50,28 @@ const promoted = computed(() =>
 <style lang="scss" scoped>
 @use "@/assets/variables";
 
+.gpp-woo-home-video-section {
+  --utrecht-heading-2-margin-block-start: calc(
+    var(--utrecht-space-around, 0) * var(--utrecht-heading-1-margin-block-start, 0)
+  );
+
+  display: grid;
+
+  @media screen and (min-width: #{variables.$breakpoint-lg}) {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 2rem;
+  }
+
+  iframe {
+    max-inline-size: var(--utrecht-article-max-inline-size);
+    margin-block-start: calc(
+      var(--utrecht-space-around, 0) * var(--utrecht-paragraph-margin-block-start, 0)
+    );
+  }
+}
+
 .utrecht-spotlight-section {
   --utrecht-heading-2-margin-block-start: 0;
   --utrecht-heading-2-margin-block-end: calc(var(--gpp-woo-tile-grid-grid-gap) / 4);
-}
-
-iframe {
-  float: right;
-  margin-block: 0.5rem;
-  margin-inline-start: 2rem;
-
-  @media screen and (min-width: #{variables.$breakpoint-md}) {
-    max-inline-size: 20rem;
-  }
 }
 </style>
