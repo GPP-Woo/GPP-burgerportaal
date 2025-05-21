@@ -48,6 +48,7 @@ namespace ODBP.Features
             }
         }
         public string? MediaUrl => Uri.TryCreate(_configuration["ODRC_BASE_URL"], UriKind.Absolute, out var uri) ? new Uri(uri, "media/").ToString() : null;
+        public string? VideoUrl => Uri.TryCreate(_configuration["RESOURCES:GEMEENTE_VIDEO_URL"], UriKind.Absolute, out var uri) ? uri.ToString() : null;
         public string? WebsiteUrl => Uri.TryCreate(_configuration["RESOURCES:GEMEENTE_WEBSITE_URL"], UriKind.Absolute, out var uri) ? uri.ToString() : null;
         public string? PrivacyUrl => Uri.TryCreate(_configuration["RESOURCES:GEMEENTE_PRIVACY_URL"], UriKind.Absolute, out var uri) ? uri.ToString() : null;
         public string? ContactUrl => Uri.TryCreate(_configuration["RESOURCES:GEMEENTE_CONTACT_URL"], UriKind.Absolute, out var uri) ? uri.ToString() : null;

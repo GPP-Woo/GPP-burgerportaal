@@ -1,6 +1,10 @@
 <template>
   <article class="utrecht-article">
-    <video-embed url="https://player.vimeo.com/video/917554267" title="Instructie video" />
+    <video-embed
+      v-if="resources?.videoUrl"
+      :url="resources?.videoUrl"
+      title="Burgerportaal instructievideo"
+    />
 
     <div v-html="html"></div>
   </article>

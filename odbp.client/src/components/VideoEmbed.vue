@@ -2,9 +2,8 @@
   <iframe
     :src="url"
     :title="title"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allow="accelerometer; encrypted-media; gyroscope; fullscreen; picture-in-picture"
     referrerpolicy="strict-origin-when-cross-origin"
-    allowfullscreen
   ></iframe>
 </template>
 

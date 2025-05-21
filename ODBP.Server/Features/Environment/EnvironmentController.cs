@@ -30,6 +30,7 @@ namespace ODBP.Features.Environment
                 _resourcesConfig.TokensUrl,
                 _resourcesConfig.Theme,
                 _resourcesConfig.MediaUrl,
+                _resourcesConfig.VideoUrl,
                 _resourcesConfig.WebsiteUrl,
                 _resourcesConfig.PrivacyUrl,
                 _resourcesConfig.ContactUrl,
