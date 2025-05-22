@@ -118,7 +118,8 @@ namespace Microsoft.AspNetCore.Builder
                         }
                     });
 
-                // COEP ...
+                // COEP disabled for video embedding - see /coep_video.md
+                // YouTube/Vimeo don't provide required COEP headers on iframe sources
                 if (string.IsNullOrEmpty(resourcesConfig.VideoUrl))
                 {
                     headerPolicyCollection
