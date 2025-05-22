@@ -6,6 +6,8 @@ namespace ODBP.Features
     {
         private readonly IConfiguration _configuration = configuration;
 
+        private readonly string[] _validVideoDomains = { "youtube.com", "youtu.be", "youtube-nocookie.com", "vimeo.com" };
+
         public string? Title
         {
             get
@@ -48,7 +50,21 @@ namespace ODBP.Features
             }
         }
         public string? MediaUrl => Uri.TryCreate(_configuration["ODRC_BASE_URL"], UriKind.Absolute, out var uri) ? new Uri(uri, "media/").ToString() : null;
-        public string? VideoUrl => Uri.TryCreate(_configuration["RESOURCES:GEMEENTE_VIDEO_URL"], UriKind.Absolute, out var uri) ? uri.ToString() : null;
+        public string? VideoUrl
+        {
+            get
+            {
+                if (Uri.TryCreate(_configuration["RESOURCES:GEMEENTE_VIDEO_URL"], UriKind.Absolute, out var uri))
+                {
+                    var hostname = uri.Host.ToLowerInvariant();
+                    var isValidVideoDomain = _validVideoDomains.Any(domain => hostname == domain || hostname.EndsWith($".{domain}"));
+
+                    return isValidVideoDomain ? uri.ToString() : null;
+                }
+
+                return null;
+            }
+        }
         public string? WebsiteUrl => Uri.TryCreate(_configuration["RESOURCES:GEMEENTE_WEBSITE_URL"], UriKind.Absolute, out var uri) ? uri.ToString() : null;
         public string? PrivacyUrl => Uri.TryCreate(_configuration["RESOURCES:GEMEENTE_PRIVACY_URL"], UriKind.Absolute, out var uri) ? uri.ToString() : null;
         public string? ContactUrl => Uri.TryCreate(_configuration["RESOURCES:GEMEENTE_CONTACT_URL"], UriKind.Absolute, out var uri) ? uri.ToString() : null;

@@ -56,10 +56,10 @@ const promoted = computed(() =>
   );
 
   display: grid;
+  column-gap: var(--gpp-woo-home-video-section-column-gap);
 
   @media screen and (min-width: #{variables.$breakpoint-lg}) {
     grid-template-columns: repeat(2, 1fr);
-    column-gap: 2rem;
   }
 
   iframe {

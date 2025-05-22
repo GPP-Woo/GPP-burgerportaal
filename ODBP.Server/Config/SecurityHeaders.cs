@@ -49,6 +49,15 @@ namespace Microsoft.AspNetCore.Builder
                 }
             }
 
+            // Add video cdn's to img-src: during playback the player
+            // may load additional images which are then subject to our parent CSP
+            var videoCdnDomains = new[] { "*.ytimg.com", "*.vimeocdn.com" };
+
+            if (!string.IsNullOrEmpty(resourcesConfig.VideoUrl))
+            {
+                imgSources.AddRange(videoCdnDomains);
+            }
+
             return app.UseSecurityHeaders(headerPolicyCollection =>
             {
                 headerPolicyCollection
@@ -97,10 +106,10 @@ namespace Microsoft.AspNetCore.Builder
                         
                         if (!string.IsNullOrEmpty(resourcesConfig.VideoUrl))
                         {
-                            // origin needs to be quoted, browser requirement
+                            // Origin needs to be quoted, browser requirement
                             var videoOrigin = $"\"{ new Uri(resourcesConfig.VideoUrl).GetLeftPart(UriPartial.Authority) }\"";
 
-                            // enable these for video
+                            // Enable these for video
                             permissions.AddAccelerometer().Self().Sources.Add(videoOrigin);
                             permissions.AddEncryptedMedia().Self().Sources.Add(videoOrigin);
                             permissions.AddFullscreen().Self().Sources.Add(videoOrigin);
