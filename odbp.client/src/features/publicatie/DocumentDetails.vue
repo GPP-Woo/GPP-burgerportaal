@@ -2,7 +2,8 @@
   <simple-spinner v-if="loading"></simple-spinner>
 
   <utrecht-alert v-else-if="error"
-    >Er is iets misgegaan bij het ophalen van de documentgegevens...</utrecht-alert
+    >Helaas! Dit document is niet (meer) beschikbaar! Mogelijk is deze verwijderd. Neem contact op
+    met de gemeente voor nadere informatie.</utrecht-alert
   >
 
   <template v-else>
@@ -140,6 +141,7 @@ const documentRows = computed(
       ["Officiële titel", documentData.value?.officieleTitel],
       ["Verkorte titel", documentData.value?.verkorteTitel],
       ["Omschrijving", documentData.value?.omschrijving],
+      ["Datum document", formatDate(documentData.value?.creatiedatum)],
       ["Geregistreerd op", formatDate(documentData.value?.registratiedatum)],
       ["Laatst gewijzigd op", formatDate(documentData.value?.laatstGewijzigdDatum)]
     ])
