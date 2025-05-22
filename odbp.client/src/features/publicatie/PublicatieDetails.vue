@@ -2,7 +2,8 @@
   <simple-spinner v-if="loading"></simple-spinner>
 
   <utrecht-alert v-else-if="error"
-    >Er is iets misgegaan bij het ophalen van de publicatie...</utrecht-alert
+    >Helaas! Deze publicatie is niet (meer) beschikbaar! Mogelijk is deze verwijderd. Neem contact
+    op met de gemeente voor nadere informatie.</utrecht-alert
   >
 
   <template v-else>
