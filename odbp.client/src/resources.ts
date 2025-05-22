@@ -9,6 +9,7 @@ export type Resources = Partial<{
   imageUrl: string;
   tokensUrl: string;
   theme: string;
+  videoUrl: string;
   websiteUrl: string;
   privacyUrl: string;
   contactUrl: string;
