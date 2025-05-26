@@ -49,9 +49,6 @@
                 >Datum document</utrecht-table-header-cell
               >
               <utrecht-table-header-cell scope="col" class="gpp-woo-table-fixed-header"
-                >Laatst gewijzigd op</utrecht-table-header-cell
-              >
-              <utrecht-table-header-cell scope="col" class="gpp-woo-table-fixed-header"
                 >Bestand</utrecht-table-header-cell
               >
             </utrecht-table-row>
@@ -63,7 +60,6 @@
                 uuid,
                 officieleTitel,
                 creatiedatum,
-                laatstGewijzigdDatum,
                 bestandsnaam,
                 bestandsomvang
               } in documenten"
@@ -77,7 +73,6 @@
                 >
               </utrecht-table-cell>
               <utrecht-table-cell>{{ formatDate(creatiedatum) }}</utrecht-table-cell>
-              <utrecht-table-cell>{{ formatDate(laatstGewijzigdDatum) }}</utrecht-table-cell>
               <utrecht-table-cell>
                 <utrecht-link
                   :href="`${API_URL}/documenten/${uuid}/download`"
