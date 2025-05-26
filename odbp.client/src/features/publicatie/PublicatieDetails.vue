@@ -2,7 +2,8 @@
   <simple-spinner v-if="loading"></simple-spinner>
 
   <utrecht-alert v-else-if="error"
-    >Er is iets misgegaan bij het ophalen van de publicatie...</utrecht-alert
+    >Helaas! Deze publicatie is niet (meer) beschikbaar! Mogelijk is deze verwijderd. Neem contact
+    op met de gemeente voor nadere informatie.</utrecht-alert
   >
 
   <template v-else>
@@ -45,7 +46,7 @@
             <utrecht-table-row>
               <utrecht-table-header-cell scope="col">Officiële titel</utrecht-table-header-cell>
               <utrecht-table-header-cell scope="col" class="gpp-woo-table-fixed-header"
-                >Laatst gewijzigd op</utrecht-table-header-cell
+                >Datum document</utrecht-table-header-cell
               >
               <utrecht-table-header-cell scope="col" class="gpp-woo-table-fixed-header"
                 >Bestand</utrecht-table-header-cell
@@ -58,7 +59,7 @@
               v-for="{
                 uuid,
                 officieleTitel,
-                laatstGewijzigdDatum,
+                creatiedatum,
                 bestandsnaam,
                 bestandsomvang
               } in documenten"
@@ -71,7 +72,7 @@
                   >{{ officieleTitel }}</router-link
                 >
               </utrecht-table-cell>
-              <utrecht-table-cell>{{ formatDate(laatstGewijzigdDatum) }}</utrecht-table-cell>
+              <utrecht-table-cell>{{ formatDate(creatiedatum) }}</utrecht-table-cell>
               <utrecht-table-cell>
                 <utrecht-link
                   :href="`${API_URL}/documenten/${uuid}/download`"

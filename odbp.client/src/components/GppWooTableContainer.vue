@@ -24,7 +24,7 @@
     }
 
     .gpp-woo-table-fixed-header {
-      min-inline-size: var(--gpp-woo-table-container-header-inline-size);
+      min-inline-size: var(--gpp-woo-table-container-header-min-inline-size);
     }
   }
 }
