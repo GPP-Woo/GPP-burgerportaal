@@ -90,6 +90,12 @@ namespace ODBP.Features.Sitemap.SitemapInstances
                     continue;
                 }
 
+                var identifiers = (publicatie.Kenmerken ?? [])
+                    .Concat(document.Kenmerken ?? [])
+                    .Select(x=> x.Kenmerk)
+                    .Distinct()
+                    .ToArray();
+
                 model.Urls.Add(new()
                 {
                     Loc = new Uri(baseUri, $"{DocumentenRoot}/{document.Uuid}/download").ToString(),
@@ -109,7 +115,7 @@ namespace ODBP.Features.Sitemap.SitemapInstances
                             Verantwoordelijke = publicatie.Verantwoordelijke != null && organisaties.TryGetValue(publicatie.Verantwoordelijke, out var verantwoordelijke)
                                 ? verantwoordelijke
                                 : null,
-                            Identifiers = string.IsNullOrWhiteSpace(document.Identifier) ? null : [document.Identifier],
+                            Identifiers = identifiers.Length == 0 ? null : identifiers,
                             Omschrijvingen = string.IsNullOrWhiteSpace(document.Omschrijving) ? null : [document.Omschrijving],
                             Titelcollectie = new()
                             {
@@ -273,6 +279,7 @@ namespace ODBP.Features.Sitemap.SitemapInstances
         public required IReadOnlyList<OdrcDocumentHandeling> Documenthandelingen { get; set; }
         public required string Creatiedatum { get; set; }
         public string? Omschrijving { get; set; }
+        public OdrcKenmerk[]? Kenmerken { get; set; }
     }
 
     public class OdrcPublicatie
@@ -284,6 +291,7 @@ namespace ODBP.Features.Sitemap.SitemapInstances
         public required DateTimeOffset LaatstGewijzigdDatum { get; set; }
         public required IReadOnlyList<string> DiWooInformatieCategorieen { get; set; }
         public required string Publicatiestatus { get; set; }
+        public OdrcKenmerk[]? Kenmerken { get; set; }
     }
 
     public class OdrcDocumentHandeling
@@ -291,5 +299,11 @@ namespace ODBP.Features.Sitemap.SitemapInstances
         public required string SoortHandeling { get; set; }
         public required string AtTime { get; set; }
         public string? Identifier { get; set; }
+    }
+
+    public class OdrcKenmerk
+    {
+        public required string Kenmerk { get; set; }
+        public required string Bron { get; set; }
     }
 }
