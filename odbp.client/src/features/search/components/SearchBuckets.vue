@@ -12,11 +12,17 @@
           @change="$emit('change')"
         />
 
-        <span class="gpp-woo-search-buckets__name">{{
-          bucket.naam in resultOptions
-            ? resultOptions[bucket.naam as ResultType].label
-            : bucket.naam
-        }}</span>
+        <span class="gpp-woo-search-buckets__name"
+          >{{
+            bucket.naam in resultOptions
+              ? resultOptions[bucket.naam as ResultType].label
+              : bucket.naam
+          }}
+
+          <gpp-woo-tooltip v-if="bucket.omschrijving" position="inline-end">
+            {{ bucket.omschrijving }}
+          </gpp-woo-tooltip>
+        </span>
 
         <span class="gpp-woo-search-buckets__count">({{ bucket.count }})</span>
       </utrecht-form-label>
@@ -27,6 +33,7 @@
 <script setup lang="ts">
 import { useModel } from "vue";
 import { resultOptions, type Bucket, type ResultType, type ResultTypeBucket } from "../service";
+import GppWooTooltip from "@/components/GppWooTooltip.vue";
 
 const props = defineProps<{
   legend: string;
@@ -57,5 +64,10 @@ const getBucketRef = (bucket: Bucket | ResultTypeBucket) =>
   .gpp-woo-search-buckets__name {
     flex: 1;
   }
+}
+
+.utrecht-button {
+  --utrecht-button-min-block-size: 0;
+  --utrecht-button-min-inline-size: 0;
 }
 </style>

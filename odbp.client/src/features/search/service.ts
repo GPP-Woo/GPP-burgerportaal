@@ -34,6 +34,7 @@ export type Bucket = {
   uuid: string;
   naam: string;
   count: number;
+  omschrijving?: string;
 };
 
 export type ResultTypeBucket = Omit<Bucket, "uuid">;
