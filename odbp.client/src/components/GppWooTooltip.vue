@@ -2,7 +2,6 @@
   <div ref="anchorRef" class="utrecht-tooltip-anchor" @click.prevent>
     <button
       @click="toggle()"
-      @blur="onBlur"
       :aria-controls="tooltipId"
       :aria-describedby="tooltipId"
     >
@@ -46,11 +45,9 @@ const tooltipId = useId();
 
 const [isVisible, toggle] = useToggle(false);
 
-onKeyStroke("Escape", () => (isVisible.value = false));
+onKeyStroke(["Escape", "Tab"], () => (isVisible.value = false));
 
 onClickOutside(anchorRef, () => (isVisible.value = false));
-
-const onBlur = () => (isVisible.value = false);
 
 const tooltipClasses = computed(() => {
   const positionClass = isTooltipPosition(props.position)
@@ -78,8 +75,7 @@ const arrowClasses = computed(() => {
 
 .utrecht-tooltip {
   font-weight: var(--utrecht-paragraph-font-weight);
-
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1), 0px 6px 12px rgba(0, 0, 0, 0.06);
+  cursor: text;
 }
 
 button {
