@@ -10,6 +10,7 @@
     </button>
 
     <div
+      ref="tooltipRef"
       popover
       role="tooltip"
       :id="tooltipId"
@@ -22,10 +23,15 @@
 </template>
 
 <script setup lang="ts">
-import { useId } from "vue";
+import { ref, useId } from "vue";
+import { onKeyStroke } from "@vueuse/core";
 import UtrechtIcon from "@/components/UtrechtIcon.vue";
 
 const tooltipId = useId();
+
+const tooltipRef = ref<HTMLElement>();
+
+onKeyStroke("Tab", () => tooltipRef.value?.hidePopover());
 </script>
 
 <style lang="scss" scoped>
@@ -34,10 +40,16 @@ const tooltipId = useId();
 }
 
 .utrecht-tooltip {
-  top: 50dvh;
-  left: 50vw;
+  --utrecht-tooltip-background-color: var(--utrecht-spotlight-section-info-background-color);
+  --utrecht-tooltip-max-inline-size: 40rem;
+
+  position: fixed;
+  inset-block-start: 50dvh;
+  inset-inline-start: 50vw;
   transform: translate(-50%, -50%);
+  inline-size: 90%;
   margin: 0;
+
   font-weight: var(--utrecht-paragraph-font-weight);
   cursor: text;
 
@@ -50,13 +62,20 @@ button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: calc(var(--utrecht-document-line-height) * 1rem);
-  width: calc(var(--utrecht-document-line-height) * 1rem);
+  block-size: calc(var(--utrecht-document-line-height) * 1rem);
+  inline-size: calc(var(--utrecht-document-line-height) * 1rem);
   padding: 0;
   border: none;
   border-radius: 50%;
   color: var(--utrecht-button-primary-action-color);
   background-color: var(--utrecht-button-primary-action-background-color);
   cursor: pointer;
+
+  &:focus-visible {
+    outline-color: var(--utrecht-focus-outline-color);
+    outline-offset: var(--utrecht-focus-outline-offset);
+    outline-style: var(--utrecht-focus-outline-style);
+    outline-width: var(--utrecht-focus-outline-width);
+  }
 }
 </style>
