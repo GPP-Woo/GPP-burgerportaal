@@ -1,10 +1,6 @@
 <template>
   <div ref="anchorRef" class="utrecht-tooltip-anchor" @click.prevent>
-    <button
-      @click="toggle()"
-      :aria-controls="tooltipId"
-      :aria-describedby="tooltipId"
-    >
+    <button @click="toggle()" :aria-controls="tooltipId" :aria-describedby="tooltipId">
       <utrecht-icon icon="question" />
     </button>
 
@@ -71,6 +67,7 @@ const arrowClasses = computed(() => {
 <style lang="scss" scoped>
 .utrecht-tooltip-anchor {
   --utrecht-icon-size: 1em;
+  --utrecht-tooltip-background-color: var(--utrecht-spotlight-section-info-background-color);
 }
 
 .utrecht-tooltip {

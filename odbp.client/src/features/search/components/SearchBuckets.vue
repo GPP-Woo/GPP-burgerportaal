@@ -12,14 +12,14 @@
           @change="$emit('change')"
         />
 
-        <span class="gpp-woo-search-buckets__name"
-          >{{
+        <span class="gpp-woo-search-buckets__name">
+          {{
             bucket.naam in resultOptions
               ? resultOptions[bucket.naam as ResultType].label
               : bucket.naam
           }}
 
-          <gpp-woo-tooltip v-if="bucket.omschrijving" position="block-start">
+          <gpp-woo-tooltip v-if="bucket.omschrijving" position="inline-end">
             {{ bucket.omschrijving }}
           </gpp-woo-tooltip>
         </span>
