@@ -19,7 +19,7 @@
               : bucket.naam
           }}
 
-          <gpp-woo-tooltip v-if="bucket.omschrijving" position="inline-end">
+          <gpp-woo-tooltip v-if="bucket.omschrijving">
             {{ bucket.omschrijving }}
           </gpp-woo-tooltip>
         </span>
@@ -64,10 +64,5 @@ const getBucketRef = (bucket: Bucket | ResultTypeBucket) =>
   .gpp-woo-search-buckets__name {
     flex: 1;
   }
-}
-
-.utrecht-button {
-  --utrecht-button-min-block-size: 0;
-  --utrecht-button-min-inline-size: 0;
 }
 </style>

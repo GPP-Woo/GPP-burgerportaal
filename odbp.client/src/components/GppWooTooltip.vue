@@ -1,55 +1,62 @@
 <template>
-  <div class="utrecht-tooltip-anchor" @click.prevent>
-    <utrecht-button :appearance="'primary-action-button'" @click="isVisible = !isVisible">?</utrecht-button>
+  <div class="utrecht-tooltip-anchor">
+    <button
+      type="button"
+      :popovertarget="tooltipId"
+      :aria-controls="tooltipId"
+      :aria-describedby="tooltipId"
+    >
+      <utrecht-icon icon="question" />
+    </button>
 
-    <div role="tooltip" :class="tooltipClasses">
+    <div
+      popover
+      role="tooltip"
+      :id="tooltipId"
+      class="utrecht-tooltip gpp-woo-pre-wrap"
+      @click.prevent
+    >
       <slot></slot>
-
-      <span :class="arrowClasses"></span>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { useId } from "vue";
+import UtrechtIcon from "@/components/UtrechtIcon.vue";
 
-const isVisible = ref(false);
-
-const POSITION_VALUES = [
-  "block-end",
-  "block-start",
-  "bottom",
-  "inline-end",
-  "inline-start",
-  "left",
-  "right",
-  "top"
-] as const;
-
-type TooltipPosition = (typeof POSITION_VALUES)[number];
-
-const isTooltipPosition = (x: unknown): x is TooltipPosition =>
-  POSITION_VALUES.includes(x as TooltipPosition);
-
-const props = defineProps<{ position: TooltipPosition }>();
-
-const tooltipClasses = computed(() => {
-  const positionClass = isTooltipPosition(props.position)
-    ? `utrecht-tooltip--${props.position}`
-    : null;
-
-  const visibleClass = !isVisible.value
-    ? "utrecht-tooltip--not-visible"
-    : "utrecht-tooltip--visible";
-
-  return ["utrecht-tooltip", positionClass, visibleClass].filter(Boolean);
-});
-
-const arrowClasses = computed(() => {
-  const positionClass = isTooltipPosition(props.position)
-    ? `utrecht-tooltip__arrow--${props.position}`
-    : null;
-
-  return ["utrecht-tooltip__arrow", positionClass].filter(Boolean);
-});
+const tooltipId = useId();
 </script>
+
+<style lang="scss" scoped>
+.utrecht-tooltip-anchor {
+  --utrecht-icon-size: 1em;
+}
+
+.utrecht-tooltip {
+  top: 50dvh;
+  left: 50vw;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  font-weight: var(--utrecht-paragraph-font-weight);
+  cursor: text;
+
+  &::backdrop {
+    backdrop-filter: blur(1px);
+  }
+}
+
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(var(--utrecht-document-line-height) * 1rem);
+  width: calc(var(--utrecht-document-line-height) * 1rem);
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  color: var(--utrecht-button-primary-action-color);
+  background-color: var(--utrecht-button-primary-action-background-color);
+  cursor: pointer;
+}
+</style>
