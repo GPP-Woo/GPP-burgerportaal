@@ -1,31 +1,74 @@
 <template>
-  <div class="utrecht-tooltip-anchor">
+  <div ref="anchorRef" class="utrecht-tooltip-anchor" @click.prevent>
     <button
-      type="button"
-      :popovertarget="tooltipId"
+      @click="toggle()"
+      @blur="onBlur"
       :aria-controls="tooltipId"
       :aria-describedby="tooltipId"
     >
       <utrecht-icon icon="question" />
     </button>
 
-    <div
-      popover
-      role="tooltip"
-      :id="tooltipId"
-      class="utrecht-tooltip gpp-woo-pre-wrap"
-      @click.prevent
-    >
+    <div role="tooltip" :id="tooltipId" :class="tooltipClasses">
       <slot></slot>
+
+      <span :class="arrowClasses"></span>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useId } from "vue";
+import { computed, ref, useId } from "vue";
+import { onClickOutside, onKeyStroke, useToggle } from "@vueuse/core";
 import UtrechtIcon from "@/components/UtrechtIcon.vue";
 
+const POSITION_VALUES = [
+  "block-end",
+  "block-start",
+  "bottom",
+  "inline-end",
+  "inline-start",
+  "left",
+  "right",
+  "top"
+] as const;
+
+type TooltipPosition = (typeof POSITION_VALUES)[number];
+
+const isTooltipPosition = (x: unknown): x is TooltipPosition =>
+  POSITION_VALUES.includes(x as TooltipPosition);
+
+const props = defineProps<{ position?: TooltipPosition }>();
+
+const anchorRef = ref<HTMLElement>();
+
 const tooltipId = useId();
+
+const [isVisible, toggle] = useToggle(false);
+
+onKeyStroke("Escape", () => (isVisible.value = false));
+
+onClickOutside(anchorRef, () => (isVisible.value = false));
+
+const onBlur = () => (isVisible.value = false);
+
+const tooltipClasses = computed(() => {
+  const positionClass = isTooltipPosition(props.position)
+    ? `utrecht-tooltip--${props.position}`
+    : null;
+
+  const visibleClass = !isVisible.value ? "utrecht-tooltip--not-visible" : null;
+
+  return ["utrecht-tooltip", positionClass, visibleClass, "gpp-woo-pre-wrap"].filter(Boolean);
+});
+
+const arrowClasses = computed(() => {
+  const positionClass = isTooltipPosition(props.position)
+    ? `utrecht-tooltip__arrow--${props.position}`
+    : null;
+
+  return ["utrecht-tooltip__arrow", positionClass].filter(Boolean);
+});
 </script>
 
 <style lang="scss" scoped>
@@ -34,16 +77,9 @@ const tooltipId = useId();
 }
 
 .utrecht-tooltip {
-  top: 50dvh;
-  left: 50vw;
-  transform: translate(-50%, -50%);
-  margin: 0;
   font-weight: var(--utrecht-paragraph-font-weight);
-  cursor: text;
 
-  &::backdrop {
-    backdrop-filter: blur(1px);
-  }
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1), 0px 6px 12px rgba(0, 0, 0, 0.06);
 }
 
 button {

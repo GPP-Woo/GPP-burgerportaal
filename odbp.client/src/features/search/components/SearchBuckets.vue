@@ -19,7 +19,7 @@
               : bucket.naam
           }}
 
-          <gpp-woo-tooltip v-if="bucket.omschrijving">
+          <gpp-woo-tooltip v-if="bucket.omschrijving" position="inline-end">
             {{ bucket.omschrijving }}
           </gpp-woo-tooltip>
         </span>
