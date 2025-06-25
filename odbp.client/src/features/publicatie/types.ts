@@ -17,6 +17,7 @@ export type Publicatie = {
   laatstGewijzigdDatum?: string;
   informatieCategorieen: string[];
   onderwerpen: string[];
+  kenmerken: Kenmerk[];
 };
 
 export type PublicatieDocument = {
@@ -33,9 +34,15 @@ export type PublicatieDocument = {
   bestandsnaam: string;
   bestandsformaat: string;
   bestandsomvang: number;
+  kenmerken: Kenmerk[];
 };
 
 type Eigenaar = {
   identifier: string;
   weergaveNaam: string;
+};
+
+type Kenmerk = {
+  kenmerk: string;
+  bron: string;
 };
