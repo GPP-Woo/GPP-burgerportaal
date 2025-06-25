@@ -12,16 +12,26 @@
           @change="$emit('change')"
         />
 
-        <span class="gpp-woo-search-buckets__name"
-          >{{
+        <span class="gpp-woo-search-buckets__name">
+          {{
             bucket.naam in resultOptions
               ? resultOptions[bucket.naam as ResultType].label
               : bucket.naam
           }}
 
-          <gpp-woo-tooltip v-if="bucket.omschrijving">
+          <gpp-woo-info-popover v-if="bucket.omschrijving">
+            <template #trigger="{ triggerProps }">
+              <utrecht-button
+                v-bind="triggerProps"
+                appearance="primary-action-button"
+                class="gpp-woo-info-popover__trigger"
+              >
+                <utrecht-icon icon="question" />
+              </utrecht-button>
+            </template>
+
             {{ bucket.omschrijving }}
-          </gpp-woo-tooltip>
+          </gpp-woo-info-popover>
         </span>
 
         <span class="gpp-woo-search-buckets__count">({{ bucket.count }})</span>
@@ -33,7 +43,8 @@
 <script setup lang="ts">
 import { useModel } from "vue";
 import { resultOptions, type Bucket, type ResultType, type ResultTypeBucket } from "../service";
-import GppWooTooltip from "@/components/GppWooTooltip.vue";
+import GppWooInfoPopover from "@/components/GppWooInfoPopover.vue";
+import UtrechtIcon from "@/components/UtrechtIcon.vue";
 
 const props = defineProps<{
   legend: string;
@@ -64,5 +75,19 @@ const getBucketRef = (bucket: Bucket | ResultTypeBucket) =>
   .gpp-woo-search-buckets__name {
     flex: 1;
   }
+}
+
+.gpp-woo-info-popover__trigger {
+  --utrecht-icon-size: 1em;
+  --_button-size: calc(1.4 * var(--utrecht-icon-size));
+  --utrecht-button-min-block-size: var(--_button-size);
+  --utrecht-button-min-inline-size: var(--_button-size);
+  --utrecht-button-inline-size: var(--_button-size);
+
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  vertical-align: top;
+  cursor: pointer;
 }
 </style>
