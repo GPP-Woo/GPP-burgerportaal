@@ -1,6 +1,4 @@
-﻿using ODBP.Features.Publicaties;
-
-namespace ODBP.Features.Documenten
+﻿namespace ODBP.Features.Documenten
 {
     public class PublicatieDocument
     {
