@@ -8,7 +8,7 @@
     popover
     role="tooltip"
     :id="tooltipId"
-    class="utrecht-tooltip gpp-woo-info-popover gpp-woo-pre-wrap"
+    class="utrecht-tooltip gpp-woo-info-popover"
     @click.prevent
   >
     <utrecht-icon icon="info" />
@@ -47,7 +47,6 @@ onKeyStroke("Tab", () => tooltipRef.value?.hidePopover());
   transform: translate(-50%, -50%);
   margin: 0;
   box-shadow: var(--gpp-woo-info-popover-box-shadow);
-  cursor: text;
 
   .utrecht-icon {
     --utrecht-icon-size: var(--gpp-woo-info-popover-icon-size);

@@ -30,7 +30,7 @@
               </utrecht-button>
             </template>
 
-            {{ bucket.omschrijving }}
+            <p class="gpp-woo-info-popover__content gpp-woo-pre-wrap">{{ bucket.omschrijving }}</p>
           </gpp-woo-info-popover>
         </span>
 
@@ -88,6 +88,10 @@ const getBucketRef = (bucket: Bucket | ResultTypeBucket) =>
   border: none;
   border-radius: 50%;
   vertical-align: top;
-  cursor: pointer;
+}
+
+.gpp-woo-info-popover__content {
+  margin-block: 0;
+  cursor: text;
 }
 </style>
