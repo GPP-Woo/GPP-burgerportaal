@@ -39,9 +39,9 @@
 
   --gpp-woo-search-buckets-fieldset-space-around: 2;
   --gpp-woo-search-buckets-form-label-column-gap: var(--utrecht-space-inline-xs);
-  --gpp-woo-search-buckets-info-icon-size: 1em;
+  --gpp-woo-search-buckets-info-font-size: 1em;
   --gpp-woo-search-buckets-info-button-size: calc(
-    var(--utrecht-document-line-height) * var(--gpp-woo-search-buckets-info-icon-size)
+    var(--utrecht-document-line-height) * var(--gpp-woo-search-buckets-info-font-size)
   );
 
   --gpp-woo-search-result-list-item-margin-block: 0;
