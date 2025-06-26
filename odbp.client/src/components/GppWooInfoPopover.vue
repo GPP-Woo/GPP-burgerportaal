@@ -1,19 +1,21 @@
 <template>
-  <slot v-if="isPopoverSupported" name="trigger" :trigger-props="triggerProps">
-    <button type="button" v-bind="triggerProps">?</button>
-  </slot>
+  <div v-if="isPopoverSupported" class="utrecht-tooltip-anchor">
+    <slot name="trigger" :trigger-props="triggerProps">
+      <button type="button" v-bind="triggerProps">?</button>
+    </slot>
 
-  <div
-    ref="tooltipRef"
-    popover
-    role="tooltip"
-    :id="tooltipId"
-    class="utrecht-tooltip gpp-woo-info-popover"
-    @click.prevent
-  >
-    <utrecht-icon icon="info" />
+    <div
+      ref="tooltipRef"
+      popover
+      role="tooltip"
+      :id="tooltipId"
+      class="utrecht-tooltip gpp-woo-info-popover"
+      @click.prevent
+    >
+      <utrecht-icon icon="info" />
 
-    <slot></slot>
+      <slot></slot>
+    </div>
   </div>
 </template>
 
@@ -35,7 +37,7 @@ onKeyStroke("Tab", () => tooltipRef.value?.hidePopover());
 
 // 2025-06-26: popover feature has 'baseline 2024 newly available'
 // for now, as this is a non critical feature and not supporting visiters are limited for the site,
-// when popover is not supported we hide popover trigger instead of complete fallback
+// when popover is not supported we hide popover instead of complete fallback
 const isPopoverSupported = useSupported(() => "popover" in HTMLElement.prototype);
 </script>
 
