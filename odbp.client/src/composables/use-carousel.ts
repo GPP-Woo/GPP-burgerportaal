@@ -23,7 +23,7 @@ export const useCarousel = <T>(items: MaybeRefOrGetter<T[]>, options: UseCarouse
 
   // Recalculate the slideWidth (item width + gap) as the containerWidth changes
   const slideWidth = ref(0);
-  
+
   watch(containerWidth, () => {
     if (!scrollContainer.value) return;
 
