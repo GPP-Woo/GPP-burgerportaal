@@ -1,5 +1,5 @@
 <template>
-  <slot name="trigger" :trigger-props="triggerProps">
+  <slot v-if="isPopoverSupported" name="trigger" :trigger-props="triggerProps">
     <button type="button" v-bind="triggerProps">?</button>
   </slot>
 
@@ -19,7 +19,7 @@
 
 <script setup lang="ts">
 import { computed, ref, useId } from "vue";
-import { onKeyStroke } from "@vueuse/core";
+import { onKeyStroke, useSupported } from "@vueuse/core";
 import UtrechtIcon from "@/components/UtrechtIcon.vue";
 
 const tooltipId = useId();
@@ -32,6 +32,11 @@ const triggerProps = computed(() => ({
 }));
 
 onKeyStroke("Tab", () => tooltipRef.value?.hidePopover());
+
+// 2025-06-26: popover feature has 'baseline 2024 newly available'
+// for now, as this is a non critical feature and not supporting visiters are limited for the site,
+// when popover is not supported we hide popover trigger instead of complete fallback
+const isPopoverSupported = useSupported(() => "popover" in HTMLElement.prototype);
 </script>
 
 <style lang="scss" scoped>
