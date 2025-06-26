@@ -12,8 +12,6 @@
       class="utrecht-tooltip gpp-woo-info-popover"
       @click.prevent
     >
-      <utrecht-icon icon="info" />
-
       <slot></slot>
     </div>
   </div>
@@ -22,7 +20,6 @@
 <script setup lang="ts">
 import { computed, ref, useId } from "vue";
 import { onKeyStroke, useSupported } from "@vueuse/core";
-import UtrechtIcon from "@/components/UtrechtIcon.vue";
 
 const tooltipId = useId();
 
@@ -53,14 +50,5 @@ const isPopoverSupported = useSupported(() => "popover" in HTMLElement.prototype
   transform: translate(-50%, -50%);
   margin: 0;
   box-shadow: var(--gpp-woo-info-popover-box-shadow);
-
-  .utrecht-icon {
-    --utrecht-icon-size: var(--gpp-woo-info-popover-icon-size);
-
-    display: block;
-    float: left;
-    margin-inline-end: var(--utrecht-tooltip-padding-inline);
-    margin-block-end: var(--utrecht-tooltip-padding-inline);
-  }
 }
 </style>

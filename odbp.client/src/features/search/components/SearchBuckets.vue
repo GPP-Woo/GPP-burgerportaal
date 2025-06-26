@@ -25,9 +25,8 @@
                 v-bind="triggerProps"
                 appearance="primary-action-button"
                 class="gpp-woo-info-popover__trigger"
+                >?</utrecht-button
               >
-                <utrecht-icon icon="question" />
-              </utrecht-button>
             </template>
 
             <utrecht-paragraph class="gpp-woo-info-popover__content gpp-woo-pre-wrap">{{
@@ -46,7 +45,6 @@
 import { useModel } from "vue";
 import { resultOptions, type Bucket, type ResultType, type ResultTypeBucket } from "../service";
 import GppWooInfoPopover from "@/components/GppWooInfoPopover.vue";
-import UtrechtIcon from "@/components/UtrechtIcon.vue";
 
 const props = defineProps<{
   legend: string;
@@ -80,11 +78,12 @@ const getBucketRef = (bucket: Bucket | ResultTypeBucket) =>
 }
 
 .gpp-woo-info-popover__trigger {
-  --utrecht-icon-size: var(--gpp-woo-search-buckets-info-icon-size);
   --utrecht-button-min-block-size: var(--gpp-woo-search-buckets-info-button-size);
   --utrecht-button-min-inline-size: var(--gpp-woo-search-buckets-info-button-size);
   --utrecht-button-inline-size: var(--gpp-woo-search-buckets-info-button-size);
 
+  font-size: var(--gpp-woo-search-buckets-info-font-size);
+  block-size: var(--gpp-woo-search-buckets-info-button-size);
   padding: 0;
   border: none;
   border-radius: 50%;
