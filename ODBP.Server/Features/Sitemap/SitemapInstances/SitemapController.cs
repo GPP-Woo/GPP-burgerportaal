@@ -92,7 +92,7 @@ namespace ODBP.Features.Sitemap.SitemapInstances
 
                 var identifiers = (publicatie.Kenmerken ?? [])
                     .Concat(document.Kenmerken ?? [])
-                    .Select(x=> x.Kenmerk)
+                    .Select(x => x.Kenmerk)
                     .Distinct()
                     .ToArray();
 
@@ -102,12 +102,12 @@ namespace ODBP.Features.Sitemap.SitemapInstances
                     // we nemen zowel gegevens van het document als van de publicatie over in de sitemap
                     // het lastmod veld is input voor de crawler om te bepalen of er iets opnieuw geindexeerd moet worden
                     // de laatste wijzigingsdatum van het document / de publicatie is dus leidend
-                    Lastmod = MaxDateTimeOffset(document.LaatstGewijzigdDatum, publicatie.LaatstGewijzigdDatum).ToString("o"),
+                    Lastmod = MaxDateTimeOffset(document.LaatstGewijzigdDatum, publicatie.LaatstGewijzigdDatum).ToIso8601String(),
                     Document = new()
                     {
                         DiWoo = new()
                         {
-                            Creatiedatum = document.Creatiedatum,
+                            Creatiedatum = document.Creatiedatum.ToIso8601String(),
                             Publisher = publisher,
                             Opsteller = publicatie.Opsteller != null && organisaties.TryGetValue(publicatie.Opsteller, out var opsteller)
                                 ? opsteller
@@ -130,17 +130,7 @@ namespace ODBP.Features.Sitemap.SitemapInstances
                                     LookupValuesInDictionary(publicatie.DiWooInformatieCategorieen, informatiecategorieen)
                                     .ToArray()
                             },
-                            Documenthandelingen = document.Documenthandelingen.Select(x => new Documenthandeling
-                            {
-                                AtTime = x.AtTime,
-                                SoortHandeling = new()
-                                {
-                                    Value = x.SoortHandeling,
-                                    Resource = !string.IsNullOrWhiteSpace(x.Identifier)
-                                        ? x.Identifier
-                                        : x.SoortHandeling
-                                }
-                            }).ToArray()
+                            Documenthandelingen = ResolveDocumentHandelingen(document).ToArray()
                         }
                     }
                 });
@@ -258,6 +248,21 @@ namespace ODBP.Features.Sitemap.SitemapInstances
         /// Retourneert de maximale waarde van twee DateTimeOffsets.
         /// </summary>
         private static DateTimeOffset MaxDateTimeOffset(DateTimeOffset left, DateTimeOffset right) => left > right ? left : right;
+
+        private static IEnumerable<Documenthandeling> ResolveDocumentHandelingen(OdrcDocument document)
+        {
+            yield return new Documenthandeling { AtTime = document.Creatiedatum.WithWestEuropeTime(default).ToIso8601String(), SoortHandeling = new() { Resource = "https://identifier.overheid.nl/tooi/def/thes/kern/c_641ecd76", Value = "vaststelling" } };
+
+            if (document.Ontvangstdatum.HasValue)
+            {
+                yield return new Documenthandeling { AtTime = document.Ontvangstdatum.Value.ToIso8601String(), SoortHandeling = new() { Resource = "https://identifier.overheid.nl/tooi/def/thes/kern/c_dfcee535", Value = "ontvangst" } };
+            }
+
+            if (document.DatumOndertekend.HasValue)
+            {
+                yield return new Documenthandeling { AtTime = document.DatumOndertekend.Value.ToIso8601String(), SoortHandeling = new() { Resource = "https://identifier.overheid.nl/tooi/def/thes/kern/c_e1ec050e", Value = "ondertekening" } };
+            }
+        }
     }
 
     [JsonSerializable(typeof(OdrcDocument))]
@@ -277,9 +282,12 @@ namespace ODBP.Features.Sitemap.SitemapInstances
         public required string Identifier { get; set; }
         public required DateTimeOffset LaatstGewijzigdDatum { get; set; }
         public required IReadOnlyList<OdrcDocumentHandeling> Documenthandelingen { get; set; }
-        public required string Creatiedatum { get; set; }
+        public required DateOnly Creatiedatum { get; set; }
         public string? Omschrijving { get; set; }
         public OdrcKenmerk[]? Kenmerken { get; set; }
+
+        public DateTimeOffset? Ontvangstdatum { get; set; }
+        public DateTimeOffset? DatumOndertekend { get; set; }
     }
 
     public class OdrcPublicatie
