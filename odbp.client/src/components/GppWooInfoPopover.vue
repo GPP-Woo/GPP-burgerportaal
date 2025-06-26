@@ -36,7 +36,6 @@ onKeyStroke("Tab", () => tooltipRef.value?.hidePopover());
 
 <style lang="scss" scoped>
 .gpp-woo-info-popover {
-  --utrecht-tooltip-font-weight: var(--gpp-woo-info-popover-font-weight);
   --utrecht-tooltip-background-color: var(--gpp-woo-info-popover-background-color);
   --utrecht-tooltip-max-inline-size: var(--gpp-woo-info-popover-max-inline-size);
   --utrecht-tooltip-padding-inline: var(--gpp-woo-info-popover-padding-inline);

@@ -30,7 +30,9 @@
               </utrecht-button>
             </template>
 
-            <p class="gpp-woo-info-popover__content gpp-woo-pre-wrap">{{ bucket.omschrijving }}</p>
+            <utrecht-paragraph class="gpp-woo-info-popover__content gpp-woo-pre-wrap">{{
+              bucket.omschrijving
+            }}</utrecht-paragraph>
           </gpp-woo-info-popover>
         </span>
 
@@ -79,7 +81,7 @@ const getBucketRef = (bucket: Bucket | ResultTypeBucket) =>
 
 .gpp-woo-info-popover__trigger {
   --utrecht-icon-size: 1em;
-  --_button-size: calc(1.4 * var(--utrecht-icon-size));
+  --_button-size: calc(var(--utrecht-document-line-height) * var(--utrecht-icon-size));
   --utrecht-button-min-block-size: var(--_button-size);
   --utrecht-button-min-inline-size: var(--_button-size);
   --utrecht-button-inline-size: var(--_button-size);
@@ -91,7 +93,9 @@ const getBucketRef = (bucket: Bucket | ResultTypeBucket) =>
 }
 
 .gpp-woo-info-popover__content {
-  margin-block: 0;
+  --utrecht-paragraph-margin-block-start: 0;
+  --utrecht-paragraph-margin-block-end: 0;
+
   cursor: text;
 }
 </style>
