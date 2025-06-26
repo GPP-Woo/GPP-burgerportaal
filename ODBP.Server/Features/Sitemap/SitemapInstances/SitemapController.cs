@@ -251,7 +251,7 @@ namespace ODBP.Features.Sitemap.SitemapInstances
 
         private static IEnumerable<Documenthandeling> ResolveDocumentHandelingen(OdrcDocument document)
         {
-            yield return new Documenthandeling { AtTime = document.Creatiedatum.ToIso8601String(), SoortHandeling = new() { Resource = "https://identifier.overheid.nl/tooi/def/thes/kern/c_641ecd76", Value = "vaststelling" } };
+            yield return new Documenthandeling { AtTime = document.Creatiedatum.WithWestEuropeTime(default).ToIso8601String(), SoortHandeling = new() { Resource = "https://identifier.overheid.nl/tooi/def/thes/kern/c_641ecd76", Value = "vaststelling" } };
 
             if (document.Ontvangstdatum.HasValue)
             {
