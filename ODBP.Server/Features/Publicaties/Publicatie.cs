@@ -14,11 +14,18 @@
         public DateTime LaatstGewijzigdDatum { get; set; }
         public List<string>? InformatieCategorieen { get; set; }
         public List<string>? Onderwerpen { get; set; }
+        public List<Identifier>? Kenmerken { get; set; }
     }
 
     public class Eigenaar
     {
         public string? Identifier { get; set; }
         public string? WeergaveNaam { get; set; }
+    }
+
+    public class Identifier
+    {
+        public string? Kenmerk { get; set; }
+        public string? Bron { get; set; }
     }
 }

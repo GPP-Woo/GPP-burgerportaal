@@ -16,11 +16,18 @@
         public required string Bestandsnaam { get; set; }
         public required string Bestandsformaat { get; set; }
         public required double Bestandsomvang { get; set; }
+        public List<Identifier>? Kenmerken { get; set; }
     }
 
     public class Eigenaar
     {
         public string? Identifier { get; set; }
         public string? WeergaveNaam { get; set; }
+    }
+
+    public class Identifier
+    {
+        public string? Kenmerk { get; set; }
+        public string? Bron { get; set; }
     }
 }

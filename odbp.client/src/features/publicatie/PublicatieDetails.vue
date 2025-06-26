@@ -152,6 +152,7 @@ const publicatieRows = computed(
             lijsten.value?.informatiecategorieen.find((c) => c.uuid === uuid)?.naam || "onbekend"
         }))
       ],
+      ["Kenmerken", publicatieData.value?.kenmerken.map((i) => i.kenmerk).join(", ")],
       ["Geregistreerd op", formatDate(publicatieData.value?.registratiedatum)],
       ["Laatst gewijzigd op", formatDate(publicatieData.value?.laatstGewijzigdDatum)]
     ])
