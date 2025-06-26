@@ -80,11 +80,10 @@ const getBucketRef = (bucket: Bucket | ResultTypeBucket) =>
 }
 
 .gpp-woo-info-popover__trigger {
-  --utrecht-icon-size: 1em;
-  --_button-size: calc(var(--utrecht-document-line-height) * var(--utrecht-icon-size));
-  --utrecht-button-min-block-size: var(--_button-size);
-  --utrecht-button-min-inline-size: var(--_button-size);
-  --utrecht-button-inline-size: var(--_button-size);
+  --utrecht-icon-size: var(--gpp-woo-search-buckets-info-icon-size);
+  --utrecht-button-min-block-size: var(--gpp-woo-search-buckets-info-button-size);
+  --utrecht-button-min-inline-size: var(--gpp-woo-search-buckets-info-button-size);
+  --utrecht-button-inline-size: var(--gpp-woo-search-buckets-info-button-size);
 
   padding: 0;
   border: none;
