@@ -102,7 +102,7 @@ namespace ODBP.Features.Sitemap.SitemapInstances
                     // we nemen zowel gegevens van het document als van de publicatie over in de sitemap
                     // het lastmod veld is input voor de crawler om te bepalen of er iets opnieuw geindexeerd moet worden
                     // de laatste wijzigingsdatum van het document / de publicatie is dus leidend
-                    Lastmod = MaxDateTimeOffset(document.LaatstGewijzigdDatum, publicatie.LaatstGewijzigdDatum).ToString("o"),
+                    Lastmod = MaxDateTimeOffset(document.LaatstGewijzigdDatum, publicatie.LaatstGewijzigdDatum).ToIso8601String(),
                     Document = new()
                     {
                         DiWoo = new()
