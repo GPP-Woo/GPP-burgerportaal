@@ -33,6 +33,8 @@ export type PublicatieDocument = {
   creatiedatum: string;
   registratiedatum?: string;
   laatstGewijzigdDatum?: string;
+  ontvangstdatum?: string | null;
+  datumOndertekend?: string | null;
   bestandsnaam: string;
   bestandsformaat: string;
   bestandsomvang: number;
