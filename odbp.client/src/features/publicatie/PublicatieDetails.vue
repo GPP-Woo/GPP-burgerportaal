@@ -152,6 +152,8 @@ const publicatieRows = computed(
             lijsten.value?.informatiecategorieen.find((c) => c.uuid === uuid)?.naam || "onbekend"
         }))
       ],
+      ["Datum in werking", formatDate(publicatieData.value?.datumBeginGeldigheid)],
+      ["Datum buiten werking", formatDate(publicatieData.value?.datumEindeGeldigheid)],
       ["Kenmerken", publicatieData.value?.kenmerken.map((i) => i.kenmerk).join(", ")],
       ["Geregistreerd op", formatDate(publicatieData.value?.registratiedatum)],
       ["Laatst gewijzigd op", formatDate(publicatieData.value?.laatstGewijzigdDatum)]

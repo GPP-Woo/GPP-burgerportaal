@@ -15,6 +15,8 @@ export type Publicatie = {
   publicatiestatus: keyof typeof PublicatieStatus;
   registratiedatum?: string;
   laatstGewijzigdDatum?: string;
+  datumBeginGeldigheid?: string | null;
+  datumEindeGeldigheid?: string | null;
   informatieCategorieen: string[];
   onderwerpen: string[];
   kenmerken: Kenmerk[];

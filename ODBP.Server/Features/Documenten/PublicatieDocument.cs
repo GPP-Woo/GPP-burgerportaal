@@ -11,8 +11,10 @@
         public Eigenaar? Eigenaar { get; set; }
         public string? Publicatiestatus { get; set; }
         public DateOnly Creatiedatum { get; set; }
-        public DateTime Registratiedatum { get; set; }
-        public DateTime LaatstGewijzigdDatum { get; set; }
+        public DateTimeOffset Registratiedatum { get; set; }
+        public DateTimeOffset LaatstGewijzigdDatum { get; set; }
+        public DateTimeOffset? Ontvangstdatum { get; set; }
+        public DateTimeOffset? DatumOndertekend { get; set; }
         public required string Bestandsnaam { get; set; }
         public required string Bestandsformaat { get; set; }
         public required double Bestandsomvang { get; set; }
