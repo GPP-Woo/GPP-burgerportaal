@@ -142,6 +142,8 @@ const documentRows = computed(
       ["Verkorte titel", documentData.value?.verkorteTitel],
       ["Omschrijving", documentData.value?.omschrijving],
       ["Datum document", formatDate(documentData.value?.creatiedatum)],
+      ["Datum ontvangst", formatDate(documentData.value?.ontvangstdatum)],
+      ["Datum ondertekening (intern)", formatDate(documentData.value?.datumOndertekend)],
       ["Kenmerken", documentData.value?.kenmerken.map((i) => i.kenmerk).join(", ")],
       ["Geregistreerd op", formatDate(documentData.value?.registratiedatum)],
       ["Laatst gewijzigd op", formatDate(documentData.value?.laatstGewijzigdDatum)]
