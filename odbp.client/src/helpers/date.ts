@@ -13,8 +13,9 @@ const padZero = (v: string | number, count: number) => {
 const parseValidDate = (date: DateLike) => {
   if (!date) return undefined;
   date = new Date(date);
+
   if (date instanceof Date && !isNaN(date.getTime())) return date;
-  return date;
+  return undefined;
 };
 
 export const formatDate = (date: DateLike) => {
