@@ -27,7 +27,6 @@ This project is and only uses :ref:`introduction_open-source`.
 
 .. toctree::
    :maxdepth: 1
-   :caption: Further reading
 
-    team
+    team.md
     open-source/index
