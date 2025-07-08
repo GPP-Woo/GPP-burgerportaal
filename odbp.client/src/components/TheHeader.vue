@@ -44,8 +44,8 @@ const svg = computed(() => {
 
 .utrecht-page-header {
   grid-template-columns: 1fr;
-  align-items: end;
   gap: var(--gpp-woo-header-gap);
+  align-items: var(--gpp-woo-header-align-items);
   padding-inline-end: var(--gpp-woo-header-padding-inline-end);
   padding-inline-start: var(--gpp-woo-header-padding-inline-start);
 
