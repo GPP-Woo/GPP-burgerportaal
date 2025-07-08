@@ -38,7 +38,7 @@
         </utrecht-table>
       </gpp-woo-table-container>
 
-      <gpp-woo-table-container>
+      <gpp-woo-table-container v-if="documenten.length">
         <utrecht-heading :level="2" :id="headingId">Documenten bij deze publicatie</utrecht-heading>
 
         <utrecht-table :aria-labelledby="headingId" class="utrecht-table--alternate-row-color">
