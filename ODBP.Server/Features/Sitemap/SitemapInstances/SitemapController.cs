@@ -281,11 +281,9 @@ namespace ODBP.Features.Sitemap.SitemapInstances
         public string? VerkorteTitel { get; set; }
         public required string Identifier { get; set; }
         public required DateTimeOffset LaatstGewijzigdDatum { get; set; }
-        public required IReadOnlyList<OdrcDocumentHandeling> Documenthandelingen { get; set; }
         public required DateOnly Creatiedatum { get; set; }
         public string? Omschrijving { get; set; }
         public OdrcKenmerk[]? Kenmerken { get; set; }
-
         public DateTimeOffset? Ontvangstdatum { get; set; }
         public DateTimeOffset? DatumOndertekend { get; set; }
     }
@@ -300,13 +298,6 @@ namespace ODBP.Features.Sitemap.SitemapInstances
         public required IReadOnlyList<string> DiWooInformatieCategorieen { get; set; }
         public required string Publicatiestatus { get; set; }
         public OdrcKenmerk[]? Kenmerken { get; set; }
-    }
-
-    public class OdrcDocumentHandeling
-    {
-        public required string SoortHandeling { get; set; }
-        public required string AtTime { get; set; }
-        public string? Identifier { get; set; }
     }
 
     public class OdrcKenmerk
