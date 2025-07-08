@@ -3,7 +3,6 @@
     public class PublicatieDocument
     {
         public Guid Uuid { get; set; }
-        public string? Identifier { get; set; }
         public Guid Publicatie { get; set; }
         public required string OfficieleTitel { get; set; }
         public string? VerkorteTitel { get; set; }
