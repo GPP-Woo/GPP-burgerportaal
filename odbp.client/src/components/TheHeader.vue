@@ -38,3 +38,19 @@ const svg = computed(() => {
   return (document.getElementById(svgTemplateId) as HTMLTemplateElement)?.innerHTML;
 });
 </script>
+
+<style lang="scss" scoped>
+@use "@/assets/variables";
+
+.utrecht-page-header {
+  grid-template-columns: 1fr;
+  align-items: end;
+  padding-inline: 0;
+
+  @media screen and (min-width: #{variables.$breakpoint-md}) {
+    & {
+      grid-template-columns: 1fr auto;
+    }
+  }
+}
+</style>
