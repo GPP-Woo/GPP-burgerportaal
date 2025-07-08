@@ -132,7 +132,6 @@ watch(
 const documentRows = computed(
   () =>
     new Map([
-      ["Identificatie", documentData.value?.identifier],
       [
         "Eigenaar",
         lijsten.value?.organisaties.find((o) => o.uuid === publicatieData.value?.publisher)?.naam ||
