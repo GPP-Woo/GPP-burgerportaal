@@ -45,7 +45,9 @@ const svg = computed(() => {
 .utrecht-page-header {
   grid-template-columns: 1fr;
   align-items: end;
-  padding-inline: 0;
+  gap: var(--gpp-woo-header-gap);
+  padding-inline-end: var(--gpp-woo-header-padding-inline-end);
+  padding-inline-start: var(--gpp-woo-header-padding-inline-start);
 
   @media screen and (min-width: #{variables.$breakpoint-md}) {
     & {
