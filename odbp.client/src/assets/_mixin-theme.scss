@@ -1,4 +1,10 @@
 @mixin gpp-woo-theme {
+  // --gpp-woo-page-header
+  --gpp-woo-header-gap: 1rem;
+  --gpp-woo-header-align-items: end;
+  --gpp-woo-header-padding-inline-end: 0;
+  --gpp-woo-header-padding-inline-start: 0;
+
   // gpp-woo-page-footer
   --gpp-woo-page-footer-link-list-column-gap: var(--utrecht-space-inline-3xl);
 
