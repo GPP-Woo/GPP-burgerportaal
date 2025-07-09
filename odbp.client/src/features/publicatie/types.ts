@@ -24,7 +24,6 @@ export type Publicatie = {
 
 export type PublicatieDocument = {
   uuid: string;
-  identifier: string;
   publicatie: string;
   officieleTitel: string;
   verkorteTitel?: string;
