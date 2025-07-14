@@ -22,12 +22,10 @@ Alle componenten zijn ontwikkeld in lijn met het `Common Ground`_ model.
 GPP-Burgerportaal is een open open-source component
 
 
-
 .. _`Wet open overheid (Woo)` : https://wetten.overheid.nl/BWBR0045754/
 .. _`Common Ground`: https://commonground.nl/
 .. _`DiWoo`: https://standaarden.overheid.nl/diwoo/
 
-This project is and only uses open-source.
 
 
 .. toctree::
