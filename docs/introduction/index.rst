@@ -13,7 +13,7 @@ Het GPP-Woo bestaat uit vier componenten. Eén van die componenten is het GPP-Bu
 
 Het volledige platform bevat nog 3 andere componenten: 
 
-* `GPP Publiccatiebank <https://github.com/GPP-Woo/GPP-publicatiebank>`_, , een opslagvoorziening inclusief API's voor openbare documenten en metadata.
+* `GPP Publiccatiebank <https://github.com/GPP-Woo/GPP-publicatiebank>`_, een opslagvoorziening inclusief API's voor openbare documenten en metadata.
 * `GPP App <https://github.com/GPP-Woo/GPP-app>`_, die de gebruikersinterfaces bevat voor het publiceren van openbare documenten door medewerkers. 
 * `GPP Search <https://github.com/GPP-Woo/GPP-zoeken>`_, de zoektechnologie voor het doorzoekbaar en vindbaar maken van openbare documenten. Zowel de metadata als de inhoud van de documenten worden geïndexeerd.
 
