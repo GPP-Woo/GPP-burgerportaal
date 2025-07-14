@@ -37,4 +37,3 @@ Lees meer
    installation/index
    developers/index
    versions
-   changelog
