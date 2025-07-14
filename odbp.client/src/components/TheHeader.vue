@@ -38,3 +38,21 @@ const svg = computed(() => {
   return (document.getElementById(svgTemplateId) as HTMLTemplateElement)?.innerHTML;
 });
 </script>
+
+<style lang="scss" scoped>
+@use "@/assets/variables";
+
+.utrecht-page-header {
+  grid-template-columns: 1fr;
+  gap: var(--gpp-woo-header-gap);
+  align-items: var(--gpp-woo-header-align-items);
+  padding-inline-end: var(--gpp-woo-header-padding-inline-end);
+  padding-inline-start: var(--gpp-woo-header-padding-inline-start);
+
+  @media screen and (min-width: #{variables.$breakpoint-md}) {
+    & {
+      grid-template-columns: 1fr auto;
+    }
+  }
+}
+</style>
