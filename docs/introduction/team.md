@@ -1,12 +1,12 @@
-# Who's behind GPP-Burgerportaal?
+# De organisaties achter de GPP-App.
 
-The 'GPP-Burgerportaal' software was initiated by Dimpact, financed by several Dutch municipalities and developed by ICATT and Maykin, as part of the 'Generic Publication Platform Woo (GPP-Woo)'.
+De ‘GPP-App’ is geïnitieerd door Dimpact, gefinancierd door meerdere Nederlandse gemeenten en ontwikkeld door ICATT en Maykin, als onderdeel van het ‘Generiek Publicatie Platform Woo (GPP-Woo)’.
 
-## Initiator
-[Dimpact](https://www.dimpact.nl/) is a cooperation of, for and by Dutch municipalities. They are proprietor and manage all developments. Together they provide good municipal services, which is done by developing and improving software solutions. Dimpact stimulates and facilitates innovations in municipalities. Dimpact and its members share knowledge and inspire each other at events.
+## Initiatiefnemer
+[Dimpact](https://www.dimpact.nl/) is een coöperatie van, voor en door Nederlandse gemeenten. Zij zijn eigenaar en beheren alle ontwikkelingen. Samen zorgen zij voor goede gemeentelijke dienstverlening, onder andere door softwareoplossingen te ontwikkelen en verbeteren. Dimpact stimuleert en faciliteert innovaties binnen gemeenten. Dimpact en haar leden delen kennis en inspireren elkaar tijdens evenementen.
 
 ## Financiers
-Brought together by Dimpact, the following nine municipalities contributed knowledge and financial means:
+Onder begeleiding van Dimpact hebben de volgende negen gemeenten kennis en financiële middelen bijgedragen:
 
 - Enschede
 - Groningen
@@ -18,14 +18,17 @@ Brought together by Dimpact, the following nine municipalities contributed knowl
 - Waterland
 - Zaanstad
 
-## Development
-The 'Generic Publication Platform Woo (GPP-Woo)' was developed by ICATT and Maykin. ICATT was in the lead for the platform as a whole. The 'GPP-Publicatiebank' component is primarily developed by Maykin.
 
-[ICATT](https://www.icatt.nl/) is strong in well-thought-out digital solutions, especially for organizations of social importance. They advise. They develop. And they perform. This is how they make any organisation stronger on the inside and easier on the outside. People-oriented and digital – for the people who count on those organisations.
 
-[Maykin](https://www.maykinmedia.nl/) develops webservices, APIs and web applications using modern but proven webdevelopment technologies. Open Source is in Maykin's DNA. They put a strong focus software that does the job and keeps doing so by focusing on automated testing.
+## Ontwikkeling
+Het ‘Generiek Publicatie Platform Woo (GPP-Woo)’ is ontwikkeld door ICATT en Maykin. ICATT was leidend voor het platform als geheel. De onderdelen ‘GPP-Publicatiebank’ en ‘GPP-Zoeken’ zijn primair ontwikkeld door Maykin.
 
-Maykin and ICATT are currently the maintainer of the concept API standard, as well as the four components that make up [GPP-Woo](https://github.com/GPP-Woo).
+[ICATT](https://www.icatt.nl/) blinkt uit in doordachte digitale oplossingen, met name voor organisaties van maatschappelijk belang. Ze adviseren. Ze ontwikkelen. En ze voeren uit. Zo versterken zij organisaties van binnenuit en maken ze deze gebruiksvriendelijk aan de buitenkant. Mensgericht en digitaal – voor de mensen die rekenen op deze organisaties.
+
+[Maykin](https://www.maykinmedia.nl/) ontwikkelt webservices, API’s en webapplicaties met behulp van moderne maar bewezen webtechnologieën. Open Source zit in het DNA van Maykin. Ze richten zich sterk op software die werkt én blijft werken door middel van geautomatiseerd testen.
+
+Maykin en ICATT zijn op dit moment de beheerders van de concept-API-standaard, en van de vier componenten die samen GPP-Woo vormen.
+
 
 ## Community
-GPP-Woo will be developed by [the community behind GPP-Woo](https://www.gpp-woo.nl/community).
+GPP-Woo wordt verder ontwikkeld door [de community achter GPP-Woo](https://www.gpp-woo.nl/community).
