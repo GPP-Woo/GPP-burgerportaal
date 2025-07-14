@@ -31,7 +31,6 @@ Lees meer
 
 .. toctree::
    :maxdepth: 2
-   :hidden:
 
    introduction/index
    admin/index
