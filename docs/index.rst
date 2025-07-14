@@ -26,7 +26,5 @@ Lees meer
    :maxdepth: 2
 
    introduction/index
-   admin/index
-   installation/index
-   developers/index
-   versions
+   installation/index   
+   handleiding/index
