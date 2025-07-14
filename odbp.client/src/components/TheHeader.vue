@@ -55,4 +55,12 @@ const svg = computed(() => {
     }
   }
 }
+
+.utrecht-logo {
+  > :deep(img),
+  > :deep(svg) {
+    // shrink logo to container width (and dont strech beyond intrinsic width)
+    max-inline-size: 100%;
+  }
+}
 </style>
