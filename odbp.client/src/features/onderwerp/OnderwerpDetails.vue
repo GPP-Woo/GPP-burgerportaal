@@ -51,7 +51,7 @@ import GppWooTableContainer from "@/components/GppWooTableContainer.vue";
 import { formatDate } from "@/helpers";
 import type { Onderwerp } from "./types";
 
-const API_URL = `/api/v1`;
+const API_URL = `/api/v2`;
 
 const props = defineProps<{ uuid: string }>();
 

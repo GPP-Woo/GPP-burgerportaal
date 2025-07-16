@@ -34,7 +34,7 @@ namespace ODBP.Features.Sitemap.SitemapIndex
 
         private async Task<DateTimeOffset?> GetEarliestDocumentCreationDate(CancellationToken token)
         {
-            const string Url = $"/api/v1/documenten?publicatiestatus=gepubliceerd&pageSize=1&sorteer=creatiedatum";
+            const string Url = $"/api/v2/documenten?publicatiestatus=gepubliceerd&pageSize=1&sorteer=creatiedatum";
             using var client = odrcClientFactory.Create("Opbouwen sitemapindex");
             using var response = await client.GetAsync(Url, HttpCompletionOption.ResponseHeadersRead, token);
             if (!response.IsSuccessStatusCode) return null;
