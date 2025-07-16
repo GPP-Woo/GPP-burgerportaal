@@ -106,7 +106,7 @@ import { formatDate } from "@/helpers";
 import type { Publicatie, PublicatieDocument } from "./types";
 import { lijsten } from "@/stores/lijsten";
 
-const API_URL = `/api/v1`;
+const API_URL = `/api/v2`;
 
 const props = defineProps<{ uuid: string }>();
 

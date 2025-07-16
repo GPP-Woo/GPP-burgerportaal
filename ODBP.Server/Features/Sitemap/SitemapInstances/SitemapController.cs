@@ -12,7 +12,7 @@ namespace ODBP.Features.Sitemap.SitemapInstances
     [OutputCache(PolicyName = OutputCachePolicies.Sitemap)]
     public class SitemapController(IOdrcClientFactory odrcClientFactory, BaseUri baseUri, ISimpleCache cache)
     {
-        const string ApiVersion = "v1";
+        const string ApiVersion = "v2";
         const string ApiRoot = $"/api/{ApiVersion}";
         const string OrganisatiesPath = $"{ApiRoot}/organisaties?pageSize=100&isActief=alle";
         const string InformatieCategorieenPath = $"{ApiRoot}/informatiecategorieen?pageSize=100";
