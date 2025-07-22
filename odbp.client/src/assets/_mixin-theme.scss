@@ -29,7 +29,7 @@
   --gpp-woo-indicator-block-size: 1rem;
   --gpp-woo-indicator-inline-size: 1rem;
   --gpp-woo-indicator-background-color: var(--utrecht-color-grey-80);
-  --gpp-woo-indicator-background-color-active: var(--utrecht-color-blue-35);
+  --gpp-woo-indicator-background-color-active: var(--utrecht-button-primary-action-background-color);
   --gpp-woo-indicator-border-radius: 50%;
 
   // gpp-woo-search
@@ -67,7 +67,7 @@
   --gpp-woo-meta-data-list-item-font-size: var(--utrecht-typography-scale-xs-font-size);
   --gpp-woo-meta-data-list-item-category-border-bottom: 1px dotted rgb(170, 170, 170);
 
-  --gpp-woo-data-badge-link-background-color: var(--utrecht-color-blue-35);
+  --gpp-woo-data-badge-link-background-color: var(--utrecht-button-primary-action-background-color);
 
   // gpp-woo-topic-detail
   --gpp-woo-topic-detail-max-image-size: 25rem;
