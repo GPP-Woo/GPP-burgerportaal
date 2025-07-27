@@ -6,7 +6,7 @@ Inrichting van het Burgerportaal
 Vormgeving en links naar de gemeentelijk website
 -------------------------------------------------
 
-Het GPP-Burgerportaal, de website waar burgers openbare documenten kunnen zoeken en raadplegen, kan volledig aangepast worden aan de huisstijl van de gemeente. Hiervoor wordt gebruik gemaakt van het `NL Design System (NLDS) <https://nldesignsystem.nl/>`_. Daarnaast zijn er diverse onderdelen van de interface die gemeente-specifiek ingericht kunnen worden. 
+Het GPP-Burgerportaal,  an het `NL Design System (NLDS) <https://nldesignsystem.nl/>`_. Daarnaast zijn er diverse onderdelen van de interface die gemeente-specifiek ingericht kunnen worden. 
 
 Let op: het is belangrijk om na te denken over deze onderdelen vóórdat een gemeente het GPP-Burgerportaal gaat installeren. Zie ook `het stappenplan op de community website <https://www.gpp-woo.nl/implementatie>`_. 
 
