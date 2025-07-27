@@ -6,9 +6,10 @@ Introductie
 De overheid wil voor burgers transparant en open zijn. Daarom heeft zij de `Wet open overheid (Woo)`_ vastgesteld. Die vraagt dat gemeenten hun documenten openbaar en digitaal beschikbaar maken. Zo laten gemeenten zien wát zij doen en waaróm zij dat doen.
 
 In de praktijk maken gemeenten al documenten openbaar. Dat doen zij op online platforms die vaak alleen geschikt zijn voor een beperkte set aan documenten.  
-
-Om overheidsorganisaties te ondersteunen in de uitvoering van deze wet, is het "Generiek PublicatiePlatform Woo (GPP-Woo)" ontwikkeld. Dit platform is samengesteld uit vier componenten, waaronder het **GPP-Burgerportaal**.
-Dit component is een gebruikersinterface voor burgers voor het zoeken en raadplegen van openbare documenten. Deze omvat eveneens de sitemaps die nodig zijn om aan te kunnen sluiten op de landelijke Woo-index via de Woo-harvester (`DiWoo`).  
+ 
+Om gemeenten te ondersteunen in de uitvoering van deze wet, is het "Generiek Publicatieplatform Woo (GPP-Woo)" ontwikkeld. 
+Dit platform is samengesteld uit vier componenten, waaronder het **GPP-Burgerportaal**.
+Dit is een webapplicatie, waarop burgers de publicaties uit een GPP-registratiecomponent kunnen doorzoeken. De webapplicatie zorgt ook voor de xml sitemaps die nodig zijn om aan te kunnen sluiten op de landelijke Woo-index via de Woo-harvester (`DiWoo`).  
 
 Het volledige platform bevat nog 3 andere componenten: 
 
@@ -18,7 +19,7 @@ Het volledige platform bevat nog 3 andere componenten:
 
 Alle componenten zijn ontwikkeld in lijn met het `Common Ground`_ model.
 
-GPP-Burgerportaal is een open open-source component
+GPP-Burgerportaal is een open open-source component.
 
 
 .. _`Wet open overheid (Woo)` : https://wetten.overheid.nl/BWBR0045754/
@@ -32,5 +33,4 @@ GPP-Burgerportaal is een open open-source component
    
 
    team.md
-   open-source/index
  

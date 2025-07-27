@@ -1,3 +1,4 @@
+
 # De organisaties achter de GPP-App.
 
 De ‘GPP-App’ is geïnitieerd door Dimpact, gefinancierd door meerdere Nederlandse gemeenten en ontwikkeld door ICATT en Maykin, als onderdeel van het ‘Generiek Publicatie Platform Woo (GPP-Woo)’.

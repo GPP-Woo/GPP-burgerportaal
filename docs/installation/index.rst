@@ -2,7 +2,7 @@
 
 Installatie
 ============
-Het GPP-Burgerportaal kan in een Kubernetes-cluster geïnstalleerd worden m.b.v. Helm_. In een aparte repostitory houden de ontwikkelaars de `helm charts <https://github.com/GPP-Woo/charts>`_ bij. Daar zijn ook verdere installatie-instructies te vinden.
+Het GPP-Burgerportaal kan in een Kubernetes-cluster geïnstalleerd worden m.b.v. Helm_. In een aparte repository houden de ontwikkelaars de `helm charts <https://github.com/GPP-Woo/charts>`_ bij. Daar zijn ook verdere installatie-instructies te vinden.
 
 
 Omgevingsvariabelen
