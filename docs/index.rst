@@ -14,12 +14,9 @@ Dit platform is samengesteld uit vier componenten. Eén van die componenten is h
 Alle componenten zijn ontwikkeld in lijn met het `Common Ground`_ model.
 
 
-Lees meer
----------------
-
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    introduction/index
    installation/index   
