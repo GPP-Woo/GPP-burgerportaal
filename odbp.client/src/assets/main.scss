@@ -35,27 +35,6 @@
     grid-template-columns: minmax(0, 1fr);
   }
 
-  header {
-    margin-block: 1px;
-    padding-inline: 0;
-
-    img {
-      display: block;
-    }
-
-    nav {
-      inline-size: auto;
-    }
-
-    @media screen and (min-width: #{variables.$breakpoint-md}) {
-      & {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
-      }
-    }
-  }
-
   .visually-hidden {
     position: absolute !important;
     overflow: hidden;

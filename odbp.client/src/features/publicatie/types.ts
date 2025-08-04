@@ -15,13 +15,15 @@ export type Publicatie = {
   publicatiestatus: keyof typeof PublicatieStatus;
   registratiedatum?: string;
   laatstGewijzigdDatum?: string;
+  datumBeginGeldigheid?: string | null;
+  datumEindeGeldigheid?: string | null;
   informatieCategorieen: string[];
   onderwerpen: string[];
+  kenmerken: Kenmerk[];
 };
 
 export type PublicatieDocument = {
   uuid: string;
-  identifier: string;
   publicatie: string;
   officieleTitel: string;
   verkorteTitel?: string;
@@ -30,12 +32,20 @@ export type PublicatieDocument = {
   creatiedatum: string;
   registratiedatum?: string;
   laatstGewijzigdDatum?: string;
+  ontvangstdatum?: string | null;
+  datumOndertekend?: string | null;
   bestandsnaam: string;
   bestandsformaat: string;
   bestandsomvang: number;
+  kenmerken: Kenmerk[];
 };
 
 type Eigenaar = {
   identifier: string;
   weergaveNaam: string;
+};
+
+type Kenmerk = {
+  kenmerk: string;
+  bron: string;
 };

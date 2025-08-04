@@ -97,7 +97,7 @@
 
     <search-buckets
       legend="Informatiecategorieën"
-      :buckets="facets?.informatieCategorieen"
+      :buckets="informatieCategorieFacets"
       v-model="model.informatieCategorieen"
       @change="$emit('submit')"
     />
@@ -105,9 +105,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, useId, useModel, watch } from "vue";
+import { computed, ref, useId, useModel, watch } from "vue";
 import { useMediaQuery } from "@vueuse/core";
 import UtrechtIcon from "@/components/UtrechtIcon.vue";
+import { lijsten } from "@/stores/lijsten";
 import SearchBuckets from "@/features/search/components/SearchBuckets.vue";
 import type { SearchFormFields, Facets } from "../service";
 
@@ -118,6 +119,14 @@ const props = defineProps<{
 const model = useModel(props, "modelValue");
 
 const panelId = useId();
+
+const informatieCategorieFacets = computed(() =>
+  props.facets?.informatieCategorieen.map((facet) => ({
+    ...facet,
+    omschrijving: lijsten.value?.informatiecategorieen.find((cat) => cat.uuid === facet.uuid)
+      ?.omschrijving
+  }))
+);
 
 const breakpoint = getComputedStyle(document.documentElement).getPropertyValue("--breakpoint-md");
 const isLargeViewportWidth = useMediaQuery(`(min-width: ${breakpoint})`);

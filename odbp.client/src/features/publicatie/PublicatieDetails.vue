@@ -2,7 +2,8 @@
   <simple-spinner v-if="loading"></simple-spinner>
 
   <utrecht-alert v-else-if="error"
-    >Er is iets misgegaan bij het ophalen van de publicatie...</utrecht-alert
+    >Helaas! Deze publicatie is niet (meer) beschikbaar! Mogelijk is deze verwijderd. Neem contact
+    op met de gemeente voor nadere informatie.</utrecht-alert
   >
 
   <template v-else>
@@ -37,7 +38,7 @@
         </utrecht-table>
       </gpp-woo-table-container>
 
-      <gpp-woo-table-container>
+      <gpp-woo-table-container v-if="documenten.length">
         <utrecht-heading :level="2" :id="headingId">Documenten bij deze publicatie</utrecht-heading>
 
         <utrecht-table :aria-labelledby="headingId" class="utrecht-table--alternate-row-color">
@@ -45,7 +46,7 @@
             <utrecht-table-row>
               <utrecht-table-header-cell scope="col">Officiële titel</utrecht-table-header-cell>
               <utrecht-table-header-cell scope="col" class="gpp-woo-table-fixed-header"
-                >Laatst gewijzigd op</utrecht-table-header-cell
+                >Datum document</utrecht-table-header-cell
               >
               <utrecht-table-header-cell scope="col" class="gpp-woo-table-fixed-header"
                 >Bestand</utrecht-table-header-cell
@@ -58,7 +59,7 @@
               v-for="{
                 uuid,
                 officieleTitel,
-                laatstGewijzigdDatum,
+                creatiedatum,
                 bestandsnaam,
                 bestandsomvang
               } in documenten"
@@ -71,7 +72,7 @@
                   >{{ officieleTitel }}</router-link
                 >
               </utrecht-table-cell>
-              <utrecht-table-cell>{{ formatDate(laatstGewijzigdDatum) }}</utrecht-table-cell>
+              <utrecht-table-cell>{{ formatDate(creatiedatum) }}</utrecht-table-cell>
               <utrecht-table-cell>
                 <utrecht-link
                   :href="`${API_URL}/documenten/${uuid}/download`"
@@ -105,7 +106,7 @@ import { formatDate } from "@/helpers";
 import type { Publicatie, PublicatieDocument } from "./types";
 import { lijsten } from "@/stores/lijsten";
 
-const API_URL = `/api/v1`;
+const API_URL = `/api/v2`;
 
 const props = defineProps<{ uuid: string }>();
 
@@ -151,6 +152,9 @@ const publicatieRows = computed(
             lijsten.value?.informatiecategorieen.find((c) => c.uuid === uuid)?.naam || "onbekend"
         }))
       ],
+      ["Datum in werking", formatDate(publicatieData.value?.datumBeginGeldigheid)],
+      ["Datum buiten werking", formatDate(publicatieData.value?.datumEindeGeldigheid)],
+      ["Kenmerken", publicatieData.value?.kenmerken.map((i) => i.kenmerk).join(", ")],
       ["Geregistreerd op", formatDate(publicatieData.value?.registratiedatum)],
       ["Laatst gewijzigd op", formatDate(publicatieData.value?.laatstGewijzigdDatum)]
     ])

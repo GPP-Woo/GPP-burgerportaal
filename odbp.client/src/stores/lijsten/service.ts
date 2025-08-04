@@ -6,9 +6,9 @@ import type { Onderwerp } from "@/features/onderwerp/types";
 
 const fetchLijsten = () =>
   promiseAll({
-    organisaties: fetchAllPages<WaardelijstItem>("/api/v1/organisaties"),
-    informatiecategorieen: fetchAllPages<WaardelijstItem>("/api/v1/informatiecategorieen"),
-    onderwerpen: fetchAllPages<Onderwerp>("/api/v1/onderwerpen").then((r) =>
+    organisaties: fetchAllPages<WaardelijstItem>("/api/v2/organisaties"),
+    informatiecategorieen: fetchAllPages<WaardelijstItem>("/api/v2/informatiecategorieen"),
+    onderwerpen: fetchAllPages<Onderwerp>("/api/v2/onderwerpen").then((r) =>
       r.map((item) => ({
         ...item,
         naam: item.officieleTitel

@@ -1,4 +1,10 @@
 @mixin gpp-woo-theme {
+  // --gpp-woo-page-header
+  --gpp-woo-header-gap: 1rem;
+  --gpp-woo-header-align-items: end;
+  --gpp-woo-header-padding-inline-end: 0;
+  --gpp-woo-header-padding-inline-start: 0;
+
   // gpp-woo-page-footer
   --gpp-woo-page-footer-link-list-column-gap: var(--utrecht-space-inline-3xl);
 
@@ -12,6 +18,7 @@
   // gpp-woo-table-container
   --gpp-woo-table-container-table-min-width: 36rem;
   --gpp-woo-table-container-header-inline-size: 20ch;
+  --gpp-woo-table-container-header-min-inline-size: 16ch;
 
   // gpp-woo-tiles
   --gpp-woo-tile-grid-max-columns: 3;
@@ -38,6 +45,10 @@
 
   --gpp-woo-search-buckets-fieldset-space-around: 2;
   --gpp-woo-search-buckets-form-label-column-gap: var(--utrecht-space-inline-xs);
+  --gpp-woo-search-buckets-info-font-size: 1em;
+  --gpp-woo-search-buckets-info-button-size: calc(
+    var(--utrecht-document-line-height) * var(--gpp-woo-search-buckets-info-font-size)
+  );
 
   --gpp-woo-search-result-list-item-margin-block: 0;
   --gpp-woo-search-result-list-heading-3-margin-block-end: var(
@@ -60,4 +71,16 @@
 
   // gpp-woo-topic-detail
   --gpp-woo-topic-detail-max-image-size: 25rem;
+
+  // gpp-woo-home-video-section
+  --gpp-woo-home-video-section-column-gap: 2rem;
+
+  // gpp-woo-info-popover
+  --gpp-woo-info-popover-font-weight: var(--utrecht-paragraph-font-weight);
+  --gpp-woo-info-popover-background-color: var(--utrecht-spotlight-section-info-background-color);
+  --gpp-woo-info-popover-max-inline-size: min(90vw, 40rem);
+  --gpp-woo-info-popover-padding-inline: 1rem;
+  --gpp-woo-info-popover-box-shadow:
+    0px 4px 6px rgba(0, 0, 0, 0.1), 0px 6px 12px rgba(0, 0, 0, 0.06);
+  --gpp-woo-info-popover-icon-size: 3rem;
 }

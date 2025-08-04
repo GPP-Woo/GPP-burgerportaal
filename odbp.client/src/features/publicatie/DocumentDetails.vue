@@ -2,7 +2,8 @@
   <simple-spinner v-if="loading"></simple-spinner>
 
   <utrecht-alert v-else-if="error"
-    >Er is iets misgegaan bij het ophalen van de documentgegevens...</utrecht-alert
+    >Helaas! Dit document is niet (meer) beschikbaar! Mogelijk is deze verwijderd. Neem contact op
+    met de gemeente voor nadere informatie.</utrecht-alert
   >
 
   <template v-else>
@@ -99,7 +100,7 @@ import { formatDate } from "@/helpers";
 import type { Publicatie, PublicatieDocument } from "./types";
 import { lijsten } from "@/stores/lijsten";
 
-const API_URL = `/api/v1`;
+const API_URL = `/api/v2`;
 
 const props = defineProps<{ uuid: string }>();
 
@@ -131,7 +132,6 @@ watch(
 const documentRows = computed(
   () =>
     new Map([
-      ["Identificatie", documentData.value?.identifier],
       [
         "Eigenaar",
         lijsten.value?.organisaties.find((o) => o.uuid === publicatieData.value?.publisher)?.naam ||
@@ -140,6 +140,10 @@ const documentRows = computed(
       ["Officiële titel", documentData.value?.officieleTitel],
       ["Verkorte titel", documentData.value?.verkorteTitel],
       ["Omschrijving", documentData.value?.omschrijving],
+      ["Datum document", formatDate(documentData.value?.creatiedatum)],
+      ["Datum ontvangst", formatDate(documentData.value?.ontvangstdatum)],
+      ["Datum ondertekening (intern)", formatDate(documentData.value?.datumOndertekend)],
+      ["Kenmerken", documentData.value?.kenmerken.map((i) => i.kenmerk).join(", ")],
       ["Geregistreerd op", formatDate(documentData.value?.registratiedatum)],
       ["Laatst gewijzigd op", formatDate(documentData.value?.laatstGewijzigdDatum)]
     ])

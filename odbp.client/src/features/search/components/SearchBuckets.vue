@@ -12,11 +12,28 @@
           @change="$emit('change')"
         />
 
-        <span class="gpp-woo-search-buckets__name">{{
-          bucket.naam in resultOptions
-            ? resultOptions[bucket.naam as ResultType].label
-            : bucket.naam
-        }}</span>
+        <span class="gpp-woo-search-buckets__name">
+          {{
+            bucket.naam in resultOptions
+              ? resultOptions[bucket.naam as ResultType].label
+              : bucket.naam
+          }}
+
+          <gpp-woo-info-popover v-if="bucket.omschrijving">
+            <template #trigger="{ triggerProps }">
+              <utrecht-button
+                v-bind="triggerProps"
+                appearance="primary-action-button"
+                class="gpp-woo-info-popover__trigger"
+                >?</utrecht-button
+              >
+            </template>
+
+            <utrecht-paragraph class="gpp-woo-info-popover__content gpp-woo-pre-wrap">{{
+              bucket.omschrijving
+            }}</utrecht-paragraph>
+          </gpp-woo-info-popover>
+        </span>
 
         <span class="gpp-woo-search-buckets__count">({{ bucket.count }})</span>
       </utrecht-form-label>
@@ -27,6 +44,7 @@
 <script setup lang="ts">
 import { useModel } from "vue";
 import { resultOptions, type Bucket, type ResultType, type ResultTypeBucket } from "../service";
+import GppWooInfoPopover from "@/components/GppWooInfoPopover.vue";
 
 const props = defineProps<{
   legend: string;
@@ -57,5 +75,25 @@ const getBucketRef = (bucket: Bucket | ResultTypeBucket) =>
   .gpp-woo-search-buckets__name {
     flex: 1;
   }
+}
+
+.gpp-woo-info-popover__trigger {
+  --utrecht-button-min-block-size: var(--gpp-woo-search-buckets-info-button-size);
+  --utrecht-button-min-inline-size: var(--gpp-woo-search-buckets-info-button-size);
+  --utrecht-button-inline-size: var(--gpp-woo-search-buckets-info-button-size);
+
+  font-size: var(--gpp-woo-search-buckets-info-font-size);
+  block-size: var(--gpp-woo-search-buckets-info-button-size);
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  vertical-align: top;
+}
+
+.gpp-woo-info-popover__content {
+  --utrecht-paragraph-margin-block-start: 0;
+  --utrecht-paragraph-margin-block-end: 0;
+
+  cursor: text;
 }
 </style>
