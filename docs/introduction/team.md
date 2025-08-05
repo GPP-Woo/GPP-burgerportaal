@@ -1,7 +1,7 @@
 
-# De organisaties achter de GPP-App.
+# De organisaties achter het GPP-Burgerportaal.
 
-De ‘GPP-App’ is geïnitieerd door Dimpact, gefinancierd door meerdere Nederlandse gemeenten en ontwikkeld door ICATT en Maykin, als onderdeel van het ‘Generiek Publicatie Platform Woo (GPP-Woo)’.
+Het ‘GPP-Burgerportaal is geïnitieerd door Dimpact, gefinancierd door meerdere Nederlandse gemeenten en ontwikkeld door ICATT en Maykin, als onderdeel van het ‘Generiek Publicatie Platform Woo (GPP-Woo)’.
 
 ## Initiatiefnemer
 [Dimpact](https://www.dimpact.nl/) is een coöperatie van, voor en door Nederlandse gemeenten. Zij zijn eigenaar en beheren alle ontwikkelingen. Samen zorgen zij voor goede gemeentelijke dienstverlening, onder andere door softwareoplossingen te ontwikkelen en verbeteren. Dimpact stimuleert en faciliteert innovaties binnen gemeenten. Dimpact en haar leden delen kennis en inspireren elkaar tijdens evenementen.
