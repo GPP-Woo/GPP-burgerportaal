@@ -27,4 +27,6 @@ Op de voorpagina van het Burgerportaal staat een caroussel waarin belangrijke lo
 
 De inhoud van de thema's komt geheel uit de GPP-Publicatiebank. Deze staan in de Publicatiebank onder Onderwerpen. Meer informatie hierover vindt u in de `documentatie van de GPP-Publicatiebank <https://gpp-publicatiebank.readthedocs.io/en/latest/admin/publicaties/index.html#onderwerpen>`_.
 
-
+Sitemap t.b.v. landelijke Woo-index
+-----------------------------------
+Voor een correct werkende aansluiting op de `landelijke Woo-index <https://open.overheid.nl/>`_ moeten de openbare documenten vermeld worden in een sitemap. Het GPP-Burgerportaal genereert deze sitemaps, zodat de `Woo-harvester <https://standaarden.overheid.nl/diwoo/>`_ ze kan overnemen. De sitemap wordt iedere 24 uur geactualiseerd. De sitemap is te vinden op `domeinnaam-van-het-burgerportaal\robots.txt`. 
