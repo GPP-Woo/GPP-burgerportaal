@@ -6,7 +6,7 @@ Inrichting van het Burgerportaal
 Vormgeving en links naar de gemeentelijk website
 -------------------------------------------------
 
-Het GPP-Burgerportaal,  an het `NL Design System (NLDS) <https://nldesignsystem.nl/>`_. Daarnaast zijn er diverse onderdelen van de interface die gemeente-specifiek ingericht kunnen worden. 
+Het GPP-Burgerportaal, maakt gebruik van het `NL Design System (NLDS) <https://nldesignsystem.nl/>`_. Daarnaast zijn er diverse onderdelen van de interface die gemeente-specifiek ingericht kunnen worden. 
 
 Let op: het is belangrijk om na te denken over deze onderdelen vóórdat een gemeente het GPP-Burgerportaal gaat installeren. Zie ook `het stappenplan op de community website <https://www.gpp-woo.nl/implementatie>`_. 
 
@@ -18,7 +18,7 @@ Het is mogelijk om op de homepage van het Burgerportaal gemeentespecifieke infor
 
 Video 
 ^^^^^^
-Het is ook mogelijk om een video met uitleg te plaatsen op de homepage. Dit moet een video zijn vanaf Vimeo of vanaf YouTube. De verwijzing naar die URL moet ingesteld worden in de Omgevingsvariabelen. Als er eenn video-url wordt ingevuld, zal deze naast de gemeentespecifieke informatie getoond worden. Als er géén video is, wordt deze informatie over de breedte van de homepage getoond.
+Het is ook mogelijk om een video met uitleg te plaatsen op de homepage. Dit moet een video zijn vanaf Vimeo of vanaf YouTube. De verwijzing naar die URL moet ingesteld worden in de omgevingsvariabelen. Als er een video-url wordt ingevuld, zal deze naast de gemeentespecifieke informatie getoond worden. Als er géén video is, wordt deze informatie over de breedte van de homepage getoond. Let op: het gebruik van een video heeft invloed op de Cross-Origin-Embedder-Policy. Meer informatie hierover staat `in de Readme van de repository <https://github.com/GPP-Woo/GPP-burgerportaal?tab=readme-ov-file#cross-origin-resource-sharing-cors-en-cross-origin-embedder-policy-coep>`_.
 
 
 Lokale thema's: onderwerpen
