@@ -29,4 +29,4 @@ De inhoud van de thema's komt geheel uit de GPP-Publicatiebank. Deze staan in de
 
 Sitemap t.b.v. landelijke Woo-index
 -----------------------------------
-Voor een correct werkende aansluiting op de `landelijke Woo-index <https://open.overheid.nl/>`_ moeten de openbare documenten vermeld worden in een sitemap. Het GPP-Burgerportaal genereert deze sitemaps, zodat de `Woo-harvester <https://standaarden.overheid.nl/diwoo/>`_ ze kan overnemen. De sitemap wordt iedere 24 uur geactualiseerd. De sitemap is te vinden op ``domeinnaam-van-het-burgerportaal/robots.txt``. 
+Voor een correct werkende aansluiting op de `landelijke Woo-index <https://open.overheid.nl/>`_ moeten de openbare documenten vermeld worden in een sitemap. Het GPP-Burgerportaal genereert deze sitemaps, zodat de `Woo-harvester <https://standaarden.overheid.nl/diwoo/>`_ ze kan overnemen. De sitemap wordt iedere 24 uur geactualiseerd. De sitemap is te vinden op ``https://domeinnaam-van-het-burgerportaal/robots.txt``. 
