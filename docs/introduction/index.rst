@@ -9,7 +9,7 @@ In de praktijk maken gemeenten al documenten openbaar. Dat doen zij op online pl
  
 Om gemeenten te ondersteunen in de uitvoering van deze wet, is het "Generiek Publicatieplatform Woo (GPP-Woo)" ontwikkeld. 
 Dit platform is samengesteld uit vier componenten, waaronder het **GPP-Burgerportaal**.
-Dit is een webapplicatie, waarop burgers de publicaties uit een GPP-registratiecomponent kunnen doorzoeken. De webapplicatie zorgt ook voor de xml sitemaps die nodig zijn om aan te kunnen sluiten op de landelijke Woo-index via de Woo-harvester (`DiWoo`).  
+Dit is een webapplicatie, waarop burgers de publicaties uit een GPP-registratiecomponent (zoals `de GPP Publicatiebank <https://github.com/GPP-Woo/GPP-publicatiebank>`_) kunnen doorzoeken. De webapplicatie zorgt ook voor de xml sitemaps die nodig zijn om aan te kunnen sluiten op de landelijke Woo-index via de Woo-harvester (`DiWoo`).  
 
 Het volledige platform bevat nog 3 andere componenten: 
 
