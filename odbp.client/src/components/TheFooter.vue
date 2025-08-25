@@ -54,6 +54,7 @@ const listItems = new Map<keyof Resources, string>([
 
   &__version-info {
     font-size: 8px;
+    white-space: nowrap;
     position: absolute;
     left: 50%;
     bottom: 0;
