@@ -20,7 +20,7 @@
 
     <div v-if="versionInfo" class="gpp-woo-page-footer__version-info">
       <span v-if="versionInfo.semanticVersion">Versie: {{ versionInfo.semanticVersion }}</span>
-      <span v-if="versionInfo.gitSha">Commit: {{ versionInfo.gitSha }}</span>
+      <span v-if="versionInfo.gitSha">Commit: {{ versionInfo.gitSha.substring(0, 7) }}</span>
     </div>
   </utrecht-page-footer>
 </template>

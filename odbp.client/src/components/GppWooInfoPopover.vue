@@ -59,7 +59,7 @@ const isPopoverSupported = useSupported(() => "popover" in HTMLElement.prototype
       transform: none;
       inline-size: auto;
       position-area: var(--gpp-woo-info-popover-position-area);
-      position-try: flip-block;
+      position-try: var(--gpp-woo-info-popover-position-try);
     }
   }
 }
