@@ -39,6 +39,8 @@ const isPopoverSupported = useSupported(() => "popover" in HTMLElement.prototype
 </script>
 
 <style lang="scss" scoped>
+@use "@/assets/variables";
+
 .gpp-woo-info-popover {
   --utrecht-tooltip-background-color: var(--gpp-woo-info-popover-background-color);
   --utrecht-tooltip-max-inline-size: var(--gpp-woo-info-popover-max-inline-size);
@@ -48,7 +50,17 @@ const isPopoverSupported = useSupported(() => "popover" in HTMLElement.prototype
   inset-block: 50%;
   inset-inline: 50%;
   transform: translate(-50%, -50%);
-  margin: 0;
+  margin: var(--gpp-woo-info-popover-margin);
   box-shadow: var(--gpp-woo-info-popover-box-shadow);
+
+  @media (min-width: variables.$breakpoint-md) {
+    @supports (position-area: center) {
+      inset: auto;
+      transform: none;
+      inline-size: auto;
+      position-area: var(--gpp-woo-info-popover-position-area);
+      position-try: var(--gpp-woo-info-popover-position-try);
+    }
+  }
 }
 </style>
