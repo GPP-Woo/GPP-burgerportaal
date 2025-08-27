@@ -1,19 +1,16 @@
-﻿using System.Text.RegularExpressions;
-using Microsoft.AspNetCore.StaticFiles;
+﻿using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Net.Http.Headers;
 
 namespace Microsoft.AspNetCore.Builder;
 
-public static partial class StaticFileCacheHeaders
+public static class StaticFileCacheHeaders
 {
     private const int DurationInSeconds = 60 * 60 * 24 * 100;
-
-    private static readonly Regex s_hashHashRegex = HashRegex();
 
     private static readonly CacheControlHeaderValue s_longCache = new()
     {
         Public = true,
-        MaxAge = TimeSpan.FromSeconds(DurationInSeconds)
+        MaxAge = TimeSpan.FromSeconds(DurationInSeconds),
     };
 
     private static readonly CacheControlHeaderValue s_noCache = new()
@@ -21,9 +18,15 @@ public static partial class StaticFileCacheHeaders
         NoCache = true,
     };
 
+    private static readonly CacheControlHeaderValue s_noCacheNoStore = new()
+    {
+        NoCache = true,
+        NoStore = true
+    };
+
     private static readonly StaticFileOptions s_staticFileOptions = new()
     {
-        OnPrepareResponse = SetCacheHeaders
+        OnPrepareResponse = SetCacheHeader,
     };
 
     public static IApplicationBuilder UseOdbpStaticFiles(this IApplicationBuilder app) => app.UseStaticFiles(s_staticFileOptions);
@@ -31,17 +34,23 @@ public static partial class StaticFileCacheHeaders
     public static IEndpointConventionBuilder MapFallbackToIndexHtml(this IEndpointRouteBuilder builder) => builder
         .MapFallbackToFile("index.html", s_staticFileOptions).AllowAnonymous();
 
-    private static void SetCacheHeaders(this StaticFileResponseContext ctx)
+    private static void SetCacheHeader(this StaticFileResponseContext ctx)
     {
         var headers = ctx.Context.Response.GetTypedHeaders();
-
-        headers.CacheControl = ctx.File.Name.HasHash()
-            ? s_longCache
-            : s_noCache;
+        headers.CacheControl = ctx.GetCacheControlHeaderValue();
     }
 
-    private static bool HasHash(this string fileName) => s_hashHashRegex.IsMatch(fileName);
-    
-    [GeneratedRegex(@"^[\w]+-[a-zA-Z0-9]{8}\.[\w]+$")]
-    private static partial Regex HashRegex();
+    private static CacheControlHeaderValue GetCacheControlHeaderValue(this StaticFileResponseContext ctx)
+    {
+        var path = ctx.Context.Request.Path.Value ?? "";
+        var parent = Path.GetDirectoryName(path.AsSpan());
+        // don't cache html files and also ignore etags,
+        // because security headers might change,
+        // and in that case the etag doesn't change with it
+        if (ctx.File.Name.EndsWith(".html")) return s_noCacheNoStore;
+        // if the file name has a hash, we can cache it indefinitely
+        else if (parent.EndsWith("assets")) return s_longCache;
+        // otherwise we shouldn't cache, but we can still use etags
+        return s_noCache;
+    }
 }
