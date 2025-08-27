@@ -11,7 +11,7 @@
         public string? Publicatiestatus { get; set; }
         public DateOnly Creatiedatum { get; set; }
         public DateTimeOffset Registratiedatum { get; set; }
-        public DateTimeOffset Publicatiedatum { get; init; }
+        public DateTimeOffset? GepubliceerdOp { get; init; }
         public DateTimeOffset LaatstGewijzigdDatum { get; set; }
         public DateTimeOffset? Ontvangstdatum { get; set; }
         public DateTimeOffset? DatumOndertekend { get; set; }

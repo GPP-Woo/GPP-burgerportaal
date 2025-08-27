@@ -155,7 +155,7 @@ const publicatieRows = computed(
       ["Datum in werking", formatDate(publicatieData.value?.datumBeginGeldigheid)],
       ["Datum buiten werking", formatDate(publicatieData.value?.datumEindeGeldigheid)],
       ["Kenmerken", publicatieData.value?.kenmerken.map((i) => i.kenmerk).join(", ")],
-      ["Gepubliceerd op", formatDate(publicatieData.value?.publicatiedatum)],
+      ["Gepubliceerd op", formatDate(publicatieData.value?.gepubliceerdOp)],
       ["Laatst gewijzigd op", formatDate(publicatieData.value?.laatstGewijzigdDatum)]
     ])
 );

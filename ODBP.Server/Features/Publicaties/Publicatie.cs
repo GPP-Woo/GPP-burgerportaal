@@ -11,7 +11,7 @@
         public Eigenaar? Eigenaar { get; set; }
         public string? Publicatiestatus { get; set; }
         public DateTimeOffset Registratiedatum { get; set; }
-        public DateTimeOffset Publicatiedatum { get; set; }
+        public DateTimeOffset? GepubliceerdOp { get; set; }
         public DateTimeOffset LaatstGewijzigdDatum { get; set; }
         public DateOnly? DatumBeginGeldigheid { get; set; }
         public DateOnly? DatumEindeGeldigheid { get; set; }
