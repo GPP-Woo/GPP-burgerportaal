@@ -29,7 +29,9 @@
   --gpp-woo-indicator-block-size: 1rem;
   --gpp-woo-indicator-inline-size: 1rem;
   --gpp-woo-indicator-background-color: var(--utrecht-color-grey-80);
-  --gpp-woo-indicator-background-color-active: var(--utrecht-button-primary-action-background-color);
+  --gpp-woo-indicator-background-color-active: var(
+    --utrecht-button-primary-action-background-color
+  );
   --gpp-woo-indicator-border-radius: 50%;
 
   // gpp-woo-search

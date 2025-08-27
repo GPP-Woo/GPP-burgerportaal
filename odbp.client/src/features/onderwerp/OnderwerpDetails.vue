@@ -64,7 +64,7 @@ const { data, isFetching, error } = useFetchApi(
 const rows = computed(
   () =>
     new Map<string, string | undefined>([
-      ["Geregistreerd op", formatDate(data.value?.registratiedatum)],
+      ["Gepubliceerd op", formatDate(data.value?.registratiedatum)],
       ["Laatst gewijzigd op", formatDate(data.value?.laatstGewijzigdDatum)]
     ])
 );
