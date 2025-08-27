@@ -8,7 +8,7 @@
           officieleTitel,
           informatieCategorieen,
           publisher,
-          publicatiedatum,
+          gepubliceerdOp,
           laatstGewijzigdDatum,
           omschrijving
         }
@@ -47,10 +47,10 @@
         <utrecht-paragraph>{{ truncate(omschrijving, 150) }}</utrecht-paragraph>
 
         <utrecht-paragraph>
-          <time :datetime="publicatiedatum">{{ formatDate(publicatiedatum) }}</time>
+          <time :datetime="gepubliceerdOp">{{ formatDate(gepubliceerdOp) }}</time>
 
           <template
-            v-if="laatstGewijzigdDatum?.substring(0, 10) !== publicatiedatum?.substring(0, 10)"
+            v-if="laatstGewijzigdDatum?.substring(0, 10) !== gepubliceerdOp?.substring(0, 10)"
           >
             <span>{{ ", gewijzigd op " }}</span>
 

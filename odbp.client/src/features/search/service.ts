@@ -17,7 +17,8 @@ export type SearchResponseItem = {
     publisher: WaardelijstItem | null;
     publicatie: string;
     creatiedatum: string;
-    publicatiedatum: string;
+    registratiedatum: string;
+    gepubliceerdOp: string;
     laatstGewijzigdDatum: string;
     omschrijving: string;
   };
@@ -47,8 +48,8 @@ type WaardelijstItem = {
 export type SearchFormFields = {
   query: string;
   sort: string;
-  publicatiedatumVanaf: string;
-  publicatiedatumTot: string;
+  gepubliceerdOpVanaf: string;
+  gepubliceerdOpTot: string;
   laatstGewijzigdDatumVanaf: string;
   laatstGewijzigdDatumTot: string;
   resultTypes: string[];
@@ -74,8 +75,8 @@ export type ResultType = ValueOf<typeof resultOptions>["value"];
 
 export async function search({
   signal,
-  publicatiedatumVanaf,
-  publicatiedatumTot,
+  gepubliceerdOpVanaf,
+  gepubliceerdOpTot,
   laatstGewijzigdDatumVanaf,
   laatstGewijzigdDatumTot,
   ...body
@@ -83,8 +84,8 @@ export async function search({
   query: string;
   page: number;
   sort: Sort;
-  publicatiedatumVanaf?: string | null;
-  publicatiedatumTot?: string | null;
+  gepubliceerdOpVanaf?: string | null;
+  gepubliceerdOpTot?: string | null;
   laatstGewijzigdDatumVanaf?: string | null;
   laatstGewijzigdDatumTot?: string | null;
   resultTypes?: string[];
@@ -95,8 +96,8 @@ export async function search({
   return fetch("/api/zoeken", {
     body: JSON.stringify({
       ...body,
-      publicatiedatumVanaf: formatIsoDate(publicatiedatumVanaf),
-      publicatiedatumTot: formatIsoDate(addToDate(publicatiedatumTot, { day: 1 })),
+      gepubliceerdOpVanaf: formatIsoDate(gepubliceerdOpVanaf),
+      gepubliceerdOpTot: formatIsoDate(addToDate(gepubliceerdOpTot, { day: 1 })),
       laatstGewijzigdDatumVanaf: formatIsoDate(laatstGewijzigdDatumVanaf),
       laatstGewijzigdDatumTot: formatIsoDate(addToDate(laatstGewijzigdDatumTot, { day: 1 }))
     }),

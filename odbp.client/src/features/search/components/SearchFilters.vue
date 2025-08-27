@@ -31,7 +31,7 @@
 
         <utrecht-textbox
           id="registration-date-from"
-          v-model="model.publicatiedatumVanaf"
+          v-model="model.gepubliceerdOpVanaf"
           type="date"
           @blur="$emit('submit')"
           @change="$emit('submit')"
@@ -45,7 +45,7 @@
 
         <utrecht-textbox
           id="registration-date-until"
-          v-model="model.publicatiedatumTot"
+          v-model="model.gepubliceerdOpTot"
           type="date"
           @blur="$emit('submit')"
           @change="$emit('submit')"
