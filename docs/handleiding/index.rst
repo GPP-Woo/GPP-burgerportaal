@@ -15,6 +15,7 @@ In de `lijst met omgevingsvariabelen <https://github.com/GPP-Woo/GPP-burgerporta
 Sfeerfoto
 ^^^^^^^^^^
 Het is mogelijk om een sfeerfoto in te stellen. Deze foto zal op elke pagina als headerbeeld getoond worden. Deze bestandsformaten worden ondersteund:
+
 - jpg
 - jpeg
 - png
