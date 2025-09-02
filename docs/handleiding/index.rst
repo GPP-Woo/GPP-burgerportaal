@@ -14,7 +14,12 @@ In de `lijst met omgevingsvariabelen <https://github.com/GPP-Woo/GPP-burgerporta
 
 Sfeerfoto
 ^^^^^^^^^^
-Het is mogelijk om een sfeerfoto in te stellen. Deze foto zal op elke pagina als headerbeeld getoond worden. Er zijn geen technische vereisten aan deze foto, behalve het bestandsformaat: het moet bestandstype dat is toegestaan in de html ``<imgage>``-tag. In de `html-referentie op mozilla.org <https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/img#supported_image_formats>`_` staat meer informatie hierover. 
+Het is mogelijk om een sfeerfoto in te stellen. Deze foto zal op elke pagina als headerbeeld getoond worden. Deze bestandsformaten worden ondersteund:
+- jpg
+- jpeg
+- png
+- gif
+- webp 
 
 Houdt bij selectie van de sfeerfoto rekening met het volgende: 
 
