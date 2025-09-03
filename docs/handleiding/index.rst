@@ -12,13 +12,31 @@ Let op: het is belangrijk om na te denken over deze onderdelen vóórdat een gem
 
 In de `lijst met omgevingsvariabelen <https://github.com/GPP-Woo/GPP-burgerportaal?tab=readme-ov-file#burgerportaal>`_ staat uitgelegd welke gegevens het Burgerportaal nodig heeft van de gemeente, om aan te sluiten bij de gemeentelijke website. Het gaat dan om die variabelen die beginnen met ``RESOURCES:``
 
+Sfeerfoto
+^^^^^^^^^^
+Het is mogelijk om een sfeerfoto in te stellen. Deze foto zal op elke pagina als headerbeeld getoond worden. Deze bestandsformaten worden ondersteund:
+
+- jpg
+- jpeg
+- png
+- gif
+- webp 
+
+Houdt bij selectie van de sfeerfoto rekening met het volgende: 
+
+- De website zoomt op de foto in of uit, afhankelijk van het formaat van het scherm. De aspect ratio zal hierbij niet wijzigen: de website zorgt er wel voor dat de foto over de breedte van de pagina wordt getoond. Dus afhankelijk van het formaat van het venster verdwijnt er een deel van de boven- en onderkant, of van de zijkanten van de afbeelding. 
+- De afbeelding zal in zijn geheel geladen worden, ongeacht het formaat van het scherm of het device (desktop, mobiel). De omvang en afmetingen van de afbeelding hangen dus samen met de schermresolutie waarvoor je als gemeente wilt optimaliseren.
+- Op elke pagina staat een blok met de ondertitel van het portaal uitgeschreven. Op de homepagina staat hierin ook een zoekveld. Houd er rekening mee dat dit blok altijd over de Sfeerfoto heen valt. Afhankelijk van het formaat van het venster valt dit blok dus over een groter of minder groot deel van de foto heen. 
+
 Informatie op de homepage
 -----------------------------
 Het is mogelijk om op de homepage van het Burgerportaal gemeentespecifieke informatie te tonen. Deze informatie moet zijn opgemaakt in HTML-format. Hierin is beperkte opmaak mogelijk: kopjes van 2 niveaus, links naar andere websites en genummerde of bullet-lijsten. Dit kan met de volgende HTML-elementen: ``<h1>``, ``<h2>``, ``<p>``, ``<a>``, ``<ul>``, ``<ol>``, ``<li>``.
 
 Video 
 ^^^^^^
-Het is ook mogelijk om een video met uitleg te plaatsen op de homepage. Dit moet een video zijn vanaf Vimeo of vanaf YouTube. De verwijzing naar die URL moet ingesteld worden in de omgevingsvariabelen. Als er een video-url wordt ingevuld, zal deze naast de gemeentespecifieke informatie getoond worden. Als er géén video is, wordt deze informatie over de breedte van de homepage getoond. Let op: het gebruik van een video heeft invloed op de Cross-Origin-Embedder-Policy. Meer informatie hierover staat `in de Readme van de repository <https://github.com/GPP-Woo/GPP-burgerportaal?tab=readme-ov-file#cross-origin-resource-sharing-cors-en-cross-origin-embedder-policy-coep>`_.
+Het is ook mogelijk om een video met uitleg te plaatsen op de homepage. Dit moet een video zijn vanaf Vimeo of vanaf YouTube. De verwijzing naar die URL moet ingesteld worden in de omgevingsvariabelen. Als er een video-url wordt ingevuld, zal deze naast de gemeentespecifieke informatie getoond worden. Als er géén video is, wordt deze informatie over de breedte van de homepage getoond. 
+
+Let op: het gebruik van een video heeft invloed op de Cross-Origin-Embedder-Policy. Meer informatie hierover staat `in de Readme van de repository <https://github.com/GPP-Woo/GPP-burgerportaal?tab=readme-ov-file#cross-origin-resource-sharing-cors-en-cross-origin-embedder-policy-coep>`_.
 
 
 Lokale thema's: onderwerpen
@@ -29,4 +47,4 @@ De inhoud van de thema's komt geheel uit de GPP-Publicatiebank. Deze staan in de
 
 Sitemap t.b.v. landelijke Woo-index
 -----------------------------------
-Voor een correct werkende aansluiting op de `landelijke Woo-index <https://open.overheid.nl/>`_ moeten de openbare documenten vermeld worden in een sitemap. Het GPP-Burgerportaal genereert deze sitemaps, zodat de `Woo-harvester <https://standaarden.overheid.nl/diwoo/>`_ ze kan overnemen. De sitemap wordt iedere 24 uur geactualiseerd. De sitemap is te vinden op ``https://domeinnaam-van-het-burgerportaal/robots.txt``. 
+Voor een correct werkende aansluiting op de `landelijke Woo-index <https://open.overheid.nl/>`_ moeten de openbare documenten vermeld worden in een sitemap. Het GPP-Burgerportaal genereert deze sitemaps, zodat de `Woo-harvester <https://standaarden.overheid.nl/diwoo/>`_ ze kan overnemen. De sitemap wordt iedere 24 uur geactualiseerd. De sitemap is te vinden op ``https://domeinnaam-van-het-burgerportaal/robots.txt``, en voldoet aan het het schema ``diwoo-metadata.xsd`` versie 0.9.8.
