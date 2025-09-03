@@ -14,6 +14,7 @@ export type Publicatie = {
   eigenaar?: Eigenaar;
   publicatiestatus: keyof typeof PublicatieStatus;
   registratiedatum?: string;
+  gepubliceerdOp?: string;
   laatstGewijzigdDatum?: string;
   datumBeginGeldigheid?: string | null;
   datumEindeGeldigheid?: string | null;
@@ -31,6 +32,7 @@ export type PublicatieDocument = {
   publicatiestatus: keyof typeof PublicatieStatus;
   creatiedatum: string;
   registratiedatum?: string;
+  gepubliceerdOp?: string;
   laatstGewijzigdDatum?: string;
   ontvangstdatum?: string | null;
   datumOndertekend?: string | null;

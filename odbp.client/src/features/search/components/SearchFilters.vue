@@ -24,14 +24,14 @@
     class="gpp-woo-search-filters"
   >
     <utrecht-fieldset>
-      <utrecht-legend class="visually-hidden">Registratiedatum</utrecht-legend>
+      <utrecht-legend class="visually-hidden">Publicatiedatum</utrecht-legend>
 
       <utrecht-form-field>
-        <utrecht-form-label for="registration-date-from">Registratiedatum vanaf</utrecht-form-label>
+        <utrecht-form-label for="registration-date-from">Publicatiedatum vanaf</utrecht-form-label>
 
         <utrecht-textbox
           id="registration-date-from"
-          v-model="model.registratiedatumVanaf"
+          v-model="model.gepubliceerdOpVanaf"
           type="date"
           @blur="$emit('submit')"
           @change="$emit('submit')"
@@ -40,12 +40,12 @@
 
       <utrecht-form-field>
         <utrecht-form-label for="registration-date-until"
-          >Registratiedatum tot en met</utrecht-form-label
+          >Publicatiedatum tot en met</utrecht-form-label
         >
 
         <utrecht-textbox
           id="registration-date-until"
-          v-model="model.registratiedatumTot"
+          v-model="model.gepubliceerdOpTot"
           type="date"
           @blur="$emit('submit')"
           @change="$emit('submit')"

@@ -45,6 +45,7 @@ public record Record
     public string? Omschrijving { get; init; }
     public DateTimeOffset? Creatiedatum { get; init; }
     public DateTimeOffset? Registratiedatum { get; init; }
+    public DateTimeOffset? GepubliceerdOp { get; init; }
     public DateTimeOffset? LaatstGewijzigdDatum { get; init; }
     public InformatieCategorie[] InformatieCategorieen { get; init; } = [];
 }

@@ -4,5 +4,6 @@
     {
         public const string DiwooNamespace = "https://standaarden.overheid.nl/diwoo/metadata/";
         public const string SitemapNamespace = "http://www.sitemaps.org/schemas/sitemap/0.9";
+        public const string MdtoNamespace = "https://www.nationaalarchief.nl/mdto";
     }
 }
