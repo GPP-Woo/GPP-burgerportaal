@@ -3,7 +3,6 @@
     public class Onderwerp
     {
         public Guid Uuid { get; set; }
-        public List<string>? Publicaties { get; set; }
         public string? OfficieleTitel { get; set; }
         public string? Omschrijving { get; set; }
         public string? Afbeelding { get; set; }

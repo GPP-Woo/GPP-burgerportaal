@@ -197,7 +197,7 @@ namespace ODBP.Features.Sitemap.SitemapInstances
             if (!response.IsSuccessStatusCode) return null;
             await using var stream = await response.Content.ReadAsStreamAsync(token);
             using var doc = await JsonDocument.ParseAsync(stream, cancellationToken: token);
-            if (!doc.RootElement.TryGetProperty("publicatieStatus", out var status) || !status.ValueEquals("gepubliceerd"u8)) return null;
+            if (!doc.RootElement.TryGetProperty("publicatiestatus", out var status) || !status.ValueEquals("gepubliceerd"u8)) return null;
             return doc.RootElement.Deserialize(SitemapPublicatieContext.Default.OdrcPublicatie);
         }
 
