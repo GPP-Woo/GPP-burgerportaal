@@ -25,7 +25,7 @@ namespace ODBP.Features.Documenten
                 return StatusCode(502);
             }
 
-            var json = await response.Content.ReadFromJsonAsync<PagedResponseModel<JsonNode>>(token);
+            var json = await response.Content.ReadFromJsonAsync<PagedResponseModel<PublicatieDocument>>(token);
 
             return Ok(json);
         }

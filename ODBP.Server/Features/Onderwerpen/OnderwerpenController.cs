@@ -21,7 +21,7 @@ namespace ODBP.Features.Onderwerpen
                 return StatusCode(502);
             }
 
-            var json = await response.Content.ReadFromJsonAsync<PagedResponseModel<JsonNode>>(token);
+            var json = await response.Content.ReadFromJsonAsync<PagedResponseModel<Onderwerp>>(token);
 
             return Ok(json);
         }
