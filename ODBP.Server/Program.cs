@@ -1,6 +1,7 @@
 ﻿using System.Net.Http.Headers;
 using ODBP.Apis.Odrc;
 using ODBP.Apis.Search;
+using ODBP.Authentication;
 using ODBP.Config;
 using ODBP.Features;
 using ODBP.Features.Sitemap;
@@ -30,6 +31,16 @@ try
     builder.Services.AddControllers();
     builder.Services.AddHealthChecks();
     builder.Services.AddHttpClient();
+    builder.Services.AddAuth(o =>
+    {
+        o.Authority = builder.Configuration["OIDC_AUTHORITY"] ?? "";
+        o.ClientId = builder.Configuration["OIDC_CLIENT_ID"] ?? "";
+        o.ClientSecret = builder.Configuration["OIDC_CLIENT_SECRET"] ?? "";
+        o.AdminRole = builder.Configuration["OIDC_ADMIN_ROLE"] ?? "";
+        o.RoleClaimType = builder.Configuration["OIDC_ROLE_CLAIM_TYPE"];
+        o.IdClaimType = builder.Configuration["OIDC_ID_CLAIM_TYPE"];
+        o.NameClaimType = builder.Configuration["OIDC_NAME_CLAIM_TYPE"];
+    });
     builder.Services.AddSingleton<IOdrcClientFactory, OdrcClientFactory>();
     builder.Services.AddBaseUri();
 
@@ -67,6 +78,10 @@ try
     }
 
     app.UseOdbpSecurityHeaders();
+
+    app.UseAuthentication();
+    app.UseAuthorization();
+    app.MapAuthEndpoints();
 
     app.MapControllers();
     app.MapHealthChecks("/healthz");

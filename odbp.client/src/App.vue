@@ -1,20 +1,27 @@
 <template>
-  <the-header />
+  <template v-if="isBeheer">
+    <router-view />
+  </template>
 
-  <main id="main">
-    <gpp-woo-hero />
+  <template v-else>
+    <the-header />
 
-    <section class="utrecht-page utrecht-page-content">
-      <router-view />
-    </section>
-  </main>
+    <main id="main">
+      <gpp-woo-hero />
 
-  <the-footer />
+      <section class="utrecht-page utrecht-page-content">
+        <router-view />
+      </section>
+    </main>
+
+    <the-footer />
+  </template>
 </template>
 
 <script setup lang="ts">
-import { RouterView } from "vue-router";
 import TheHeader from "./components/TheHeader.vue";
 import GppWooHero from "./components/GppWooHero.vue";
 import TheFooter from "./components/TheFooter.vue";
+
+const isBeheer = window.location.pathname.startsWith("/beheer");
 </script>

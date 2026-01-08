@@ -1,6 +1,16 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHistory, type NavigationGuard } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import SearchView from "../views/SearchView.vue";
+
+const requireAuth: NavigationGuard = async (to) => {
+  const response = await fetch("/api/me", { headers: { "is-api": "true" } });
+
+  if (response.ok && (await response.json()).isLoggedIn) return true;
+
+  window.location.href = `/api/challenge?returnUrl=${encodeURIComponent(to.fullPath)}`;
+
+  return false;
+};
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -56,6 +66,21 @@ const router = createRouter({
       meta: {
         title: "Onderwerp"
       }
+    },
+    {
+      path: "/beheer",
+      component: () => import("../views/beheer/BeheerLayout.vue"),
+      beforeEnter: requireAuth,
+      children: [
+        {
+          path: "",
+          name: "beheer",
+          component: () => import("../views/beheer/BeheerHomeView.vue"),
+          meta: {
+            title: "Beheer"
+          }
+        }
+      ]
     }
   ]
 });
