@@ -19,13 +19,12 @@
       </figure>
     </component>
 
-    <utrecht-nav-bar />
+    <slot name="nav-bar"></slot>
   </utrecht-page-header>
 </template>
 
 <script lang="ts" setup>
 import { computed } from "vue";
-import UtrechtNavBar from "./UtrechtNavBar.vue";
 import { injectResources } from "@/resources";
 
 const resources = injectResources();

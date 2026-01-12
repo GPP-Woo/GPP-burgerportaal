@@ -1,11 +1,12 @@
 import { createRouter, createWebHistory, type NavigationGuard } from "vue-router";
+import { fetchAuthUser } from "@/api/auth";
 import HomeView from "../views/HomeView.vue";
 import SearchView from "../views/SearchView.vue";
 
 const requireAuth: NavigationGuard = async (to) => {
-  const response = await fetch("/api/me", { headers: { "is-api": "true" } });
+  const user = await fetchAuthUser();
 
-  if (response.ok && (await response.json()).isLoggedIn) return true;
+  if (user?.isLoggedIn) return true;
 
   window.location.href = `/api/challenge?returnUrl=${encodeURIComponent(to.fullPath)}`;
 
@@ -70,6 +71,9 @@ const router = createRouter({
     {
       path: "/beheer",
       component: () => import("../views/beheer/BeheerLayout.vue"),
+      meta: {
+        isBeheer: true
+      },
       beforeEnter: requireAuth,
       children: [
         {

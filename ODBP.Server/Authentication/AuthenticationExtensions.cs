@@ -4,7 +4,6 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace ODBP.Authentication
 {
-
     public static class AuthenticationExtensions
     {
         private const string SignOutCallback = "/beheer/signout-callback-oidc";

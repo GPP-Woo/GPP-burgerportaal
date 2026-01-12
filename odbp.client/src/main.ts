@@ -22,5 +22,8 @@ registerComponents(app);
 
   app.use(router);
 
+  // Await to prevent layout glitch
+  await router.isReady();
+
   app.mount("#app");
 })();

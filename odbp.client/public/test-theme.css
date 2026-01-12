@@ -16,5 +16,6 @@
 
 .test-theme {
   --utrecht-typography-sans-serif-font-family: "Titillium Web", Helvetica, Arial, sans-serif;
+  --utrecht-page-header-padding-block-start: 0;
   --gpp-woo-search-field-column-gap: 0;
 }

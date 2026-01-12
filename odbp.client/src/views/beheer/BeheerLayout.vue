@@ -1,56 +1,40 @@
 <template>
-  <div class="beheer-layout">
-    <header>
-      <h1>GPP-Woo Burgerportaal (beheer)</h1>
+  <the-header>
+    <template #nav-bar>
+      <nav class="utrecht-nav-bar" aria-label="Beheermenu">
+        <div class="utrecht-nav-bar__content">
+          <ul v-if="!loading" role="list" class="utrecht-nav-list" id="menu">
+            <li class="utrecht-nav-list__item">
+              <span v-if="user" class="utrecht-nav-list__link">
+                {{ user.fullName }}
+              </span>
+            </li>
 
-      <nav>
-        <ul role="list">
-          <li>
-            <span v-if="user?.fullName">
-              {{ user.fullName }}
-            </span>
-          </li>
-
-          <li>
-            <a href="/api/logoff" title="Uitloggen">Uitloggen</a>
-          </li>
-        </ul>
+            <li class="utrecht-nav-list__item">
+              <a href="/api/logoff" class="utrecht-nav-list__link utrecht-link utrecht-link--html-a"
+                >Uitloggen</a
+              >
+            </li>
+          </ul>
+        </div>
       </nav>
-    </header>
+    </template>
+  </the-header>
 
-    <main>
-      <router-view />
-    </main>
+  <section class="utrecht-page utrecht-page-content">
+    <router-view />
+  </section>
 
-    <footer>
-      <div v-if="versionInfo">
-        <span v-if="versionInfo.semanticVersion">Versie: {{ versionInfo.semanticVersion }}</span>
-        <span v-if="versionInfo.gitSha">Commit: {{ versionInfo.gitSha.substring(0, 7) }}</span>
-      </div>
-    </footer>
-  </div>
+  <the-footer />
 </template>
 
 <script setup lang="ts">
+import TheHeader from "@/components/TheHeader.vue";
+import TheFooter from "@/components/TheFooter.vue";
 import { useLoader } from "@/composables/use-loader";
+import { fetchAuthUser, type AuthUser } from "@/api/auth";
 
-type AuthUser = {
-  isLoggedIn: boolean;
-  id: string;
-  fullName: string;
-  roles: string[];
-  isAdmin: boolean;
-};
-
-const { data: user } = useLoader<AuthUser>(() =>
-  fetch("/api/me", { headers: { "is-api": "true" } }).then((r) => (r.ok ? r.json() : null))
-);
-
-const { data: versionInfo } = useLoader<{ semanticVersion?: string; gitSha?: string }>(() =>
-  fetch("/api/environment/version", { headers: { "is-api": "true" } }).then((r) =>
-    r.ok ? r.json() : undefined
-  )
-);
+const { data: user, loading } = useLoader<AuthUser | null>(() => fetchAuthUser());
 </script>
 
 <style lang="scss" scoped></style>
