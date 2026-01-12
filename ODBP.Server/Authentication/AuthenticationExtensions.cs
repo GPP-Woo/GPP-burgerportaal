@@ -177,7 +177,7 @@ namespace ODBP.Authentication
         private static string GetRelativeReturnUrl(HttpRequest request)
         {
             var returnUrl = request.Query["returnUrl"].FirstOrDefault();
-            if (string.IsNullOrWhiteSpace(returnUrl) || new Uri(returnUrl, UriKind.RelativeOrAbsolute).IsAbsoluteUri) return "/";
+            if (string.IsNullOrWhiteSpace(returnUrl) || new Uri(returnUrl, UriKind.RelativeOrAbsolute).IsAbsoluteUri) return "/beheer";
             return $"/{returnUrl.AsSpan().TrimStart('/')}";
         }
     }
