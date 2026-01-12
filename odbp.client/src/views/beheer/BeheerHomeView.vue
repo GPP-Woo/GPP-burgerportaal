@@ -1,5 +1,5 @@
 <template>
-  <h2>Welkom</h2>
+  <h1>GPP-Woo Burgerportaal (beheer)</h1>
 
   <p>Aan deze functionaliteit wordt nog gewerkt.</p>
 </template>
