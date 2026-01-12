@@ -31,5 +31,5 @@ import GppWooHero from "./components/GppWooHero.vue";
 import TheFooter from "./components/TheFooter.vue";
 
 const route = useRoute();
-const isBeheer = computed(() => route.matched.some((r) => r.meta.isBeheer));
+const isBeheer = computed(() => route.matched.some((r) => r.name === "beheer"));
 </script>

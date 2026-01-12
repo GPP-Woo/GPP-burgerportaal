@@ -3,10 +3,10 @@ import { fetchAuthUser } from "@/api/auth";
 import HomeView from "../views/HomeView.vue";
 import SearchView from "../views/SearchView.vue";
 
-const requireAuth: NavigationGuard = async (to) => {
+const requiresAdmin: NavigationGuard = async (to) => {
   const user = await fetchAuthUser();
 
-  if (user?.isLoggedIn) return true;
+  if (user?.isLoggedIn && user?.isAdmin) return true;
 
   window.location.href = `/api/challenge?returnUrl=${encodeURIComponent(to.fullPath)}`;
 
@@ -70,15 +70,13 @@ const router = createRouter({
     },
     {
       path: "/beheer",
+      name: "beheer",
       component: () => import("../views/beheer/BeheerLayout.vue"),
-      meta: {
-        isBeheer: true
-      },
-      beforeEnter: requireAuth,
+      beforeEnter: requiresAdmin,
       children: [
         {
           path: "",
-          name: "beheer",
+          name: "beheer-home",
           component: () => import("../views/beheer/BeheerHomeView.vue"),
           meta: {
             title: "Beheer"
