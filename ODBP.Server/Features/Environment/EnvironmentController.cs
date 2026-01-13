@@ -1,5 +1,7 @@
 ﻿using System.Reflection;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ODBP.Authentication;
 
 namespace ODBP.Features.Environment
 {
@@ -15,6 +17,13 @@ namespace ODBP.Features.Environment
         public EnvironmentController(ResourcesConfig resourcesConfig)
         {
             _resourcesConfig = resourcesConfig;
+        }
+
+        [HttpGet("admin")]
+        [Authorize(Policy = AdminPolicy.Name)]
+        public IActionResult IsAdmin()
+        {
+            return Ok(new { message = "Gebruiker is admin." });
         }
 
         [HttpGet("resources")]

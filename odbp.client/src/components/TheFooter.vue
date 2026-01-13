@@ -31,6 +31,7 @@ import { injectResources, type Resources } from "@/resources";
 import { useLoader } from "@/composables/use-loader";
 
 const resources = injectResources();
+
 const { data: versionInfo } = useLoader<{ semanticVersion?: string; gitSha?: string }>(() =>
   fetch("/api/environment/version").then((r) => (r.ok ? r.json() : undefined))
 );

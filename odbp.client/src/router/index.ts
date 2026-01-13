@@ -1,6 +1,19 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHistory, type NavigationGuard } from "vue-router";
+import { fetchAuthUser } from "@/api/auth";
 import HomeView from "../views/HomeView.vue";
 import SearchView from "../views/SearchView.vue";
+
+const requiresAdmin: NavigationGuard = async (to) => {
+  const user = await fetchAuthUser();
+
+  if (!user?.isLoggedIn) {
+    window.location.href = `/api/challenge?returnUrl=${encodeURIComponent(to.fullPath)}`;
+
+    return false;
+  }
+
+  if (!user?.isAdmin) return { name: "forbidden" };
+};
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -55,6 +68,30 @@ const router = createRouter({
       props: true,
       meta: {
         title: "Onderwerp"
+      }
+    },
+    {
+      path: "/beheer",
+      name: "beheer",
+      component: () => import("../views/beheer/BeheerLayout.vue"),
+      beforeEnter: requiresAdmin,
+      children: [
+        {
+          path: "",
+          name: "beheer-home",
+          component: () => import("../views/beheer/BeheerHomeView.vue"),
+          meta: {
+            title: "Beheer"
+          }
+        }
+      ]
+    },
+    {
+      path: "/forbidden",
+      name: "forbidden",
+      component: () => import("../views/ForbiddenView.vue"),
+      meta: {
+        title: "Geen toegang"
       }
     }
   ]

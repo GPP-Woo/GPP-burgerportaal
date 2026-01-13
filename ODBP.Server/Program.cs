@@ -1,6 +1,7 @@
 ﻿using System.Net.Http.Headers;
 using ODBP.Apis.Odrc;
 using ODBP.Apis.Search;
+using ODBP.Authentication;
 using ODBP.Config;
 using ODBP.Features;
 using ODBP.Features.Sitemap;
@@ -21,7 +22,15 @@ logger.Information("Starting up");
 try
 {
     var builder = WebApplication.CreateBuilder(args);
-    string GetRequiredConfig(string key) => builder.Configuration[key] ?? throw new ArgumentException("Missende environment variabel", key);
+
+    string GetRequiredConfig(string key)
+    {
+        var value = builder.Configuration[key];
+
+        return string.IsNullOrWhiteSpace(value)
+            ? throw new Exception($"Environment variable {key} is missing or empty")
+            : value;
+    };
 
     builder.Host.UseSerilog(logger);
 
@@ -30,6 +39,18 @@ try
     builder.Services.AddControllers();
     builder.Services.AddHealthChecks();
     builder.Services.AddHttpClient();
+
+    builder.Services.AddAuth(options =>
+    {
+        options.Authority = GetRequiredConfig("OIDC_AUTHORITY");
+        options.ClientId = GetRequiredConfig("OIDC_CLIENT_ID");
+        options.ClientSecret = GetRequiredConfig("OIDC_CLIENT_SECRET");
+        options.AdminRole = GetRequiredConfig("OIDC_ADMIN_ROLE");
+        options.NameClaimType = builder.Configuration["OIDC_NAME_CLAIM_TYPE"];
+        options.RoleClaimType = builder.Configuration["OIDC_ROLE_CLAIM_TYPE"];
+        options.IdClaimType = builder.Configuration["OIDC_ID_CLAIM_TYPE"];
+    });
+
     builder.Services.AddSingleton<IOdrcClientFactory, OdrcClientFactory>();
     builder.Services.AddBaseUri();
 
@@ -67,6 +88,10 @@ try
     }
 
     app.UseOdbpSecurityHeaders();
+
+    app.UseAuthentication();
+    app.UseAuthorization();
+    app.MapAuthEndpoints();
 
     app.MapControllers();
     app.MapHealthChecks("/healthz");
