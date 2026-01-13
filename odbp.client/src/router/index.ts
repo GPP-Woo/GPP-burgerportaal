@@ -6,11 +6,13 @@ import SearchView from "../views/SearchView.vue";
 const requiresAdmin: NavigationGuard = async (to) => {
   const user = await fetchAuthUser();
 
-  if (user?.isLoggedIn && user?.isAdmin) return true;
+  if (!user?.isLoggedIn) {
+    window.location.href = `/api/challenge?returnUrl=${encodeURIComponent(to.fullPath)}`;
 
-  window.location.href = `/api/challenge?returnUrl=${encodeURIComponent(to.fullPath)}`;
+    return false;
+  }
 
-  return false;
+  if (!user?.isAdmin) return { name: "forbidden" };
 };
 
 const router = createRouter({
@@ -83,6 +85,14 @@ const router = createRouter({
           }
         }
       ]
+    },
+    {
+      path: "/forbidden",
+      name: "forbidden",
+      component: () => import("../views/ForbiddenView.vue"),
+      meta: {
+        title: "Geen toegang"
+      }
     }
   ]
 });
