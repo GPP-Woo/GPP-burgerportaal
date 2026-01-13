@@ -1,50 +1,43 @@
 ﻿using System.Reflection;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ODBP.Authentication;
+using Microsoft.EntityFrameworkCore;
+using ODBP.Data;
 
 namespace ODBP.Features.Environment
 {
     [Route("api/environment")]
     [ApiController]
-    public class EnvironmentController : ControllerBase
+    public class EnvironmentController(ResourcesConfig resourcesConfig, OdbpDbContext context) : ControllerBase
     {
         private record VersionInfo(string? SemanticVersion, string? GitSha);
 
-        private readonly ResourcesConfig _resourcesConfig;
         private static readonly VersionInfo s_versionInfo = GetVersionInfo();
 
-        public EnvironmentController(ResourcesConfig resourcesConfig)
-        {
-            _resourcesConfig = resourcesConfig;
-        }
-
-        [HttpGet("admin")]
-        [Authorize(Policy = AdminPolicy.Name)]
-        public IActionResult IsAdmin()
-        {
-            return Ok(new { message = "Gebruiker is admin." });
-        }
-
         [HttpGet("resources")]
-        public IActionResult GetResources()
+        public async Task<IActionResult> GetResources(CancellationToken token)
         {
+            var resources = await context.Resources.FirstOrDefaultAsync(token);
+
+            var welcome = string.IsNullOrWhiteSpace(resources?.Welcome) 
+                ? $"<h1>Welkom op het Woo-burgerportaal van {resourcesConfig.Name}!</h1>"
+                : resources.Welcome;
+
             var response = new
             {
-                _resourcesConfig.Title,
-                _resourcesConfig.Name,
-                _resourcesConfig.LogoUrl,
-                _resourcesConfig.FaviconUrl,
-                _resourcesConfig.ImageUrl,
-                _resourcesConfig.TokensUrl,
-                _resourcesConfig.Theme,
-                _resourcesConfig.MediaUrl,
-                _resourcesConfig.VideoUrl,
-                _resourcesConfig.WebsiteUrl,
-                _resourcesConfig.PrivacyUrl,
-                _resourcesConfig.ContactUrl,
-                _resourcesConfig.Welcome,
-                _resourcesConfig.A11yUrl
+                resourcesConfig.Title,
+                resourcesConfig.Name,
+                resourcesConfig.LogoUrl,
+                resourcesConfig.FaviconUrl,
+                resourcesConfig.ImageUrl,
+                resourcesConfig.TokensUrl,
+                resourcesConfig.Theme,
+                resourcesConfig.MediaUrl,
+                resourcesConfig.VideoUrl,
+                resourcesConfig.WebsiteUrl,
+                resourcesConfig.PrivacyUrl,
+                resourcesConfig.ContactUrl,
+                Welcome = welcome,
+                resourcesConfig.A11yUrl
             };
 
             return Ok(response);

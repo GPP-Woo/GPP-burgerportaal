@@ -3,14 +3,14 @@
 
   <p>Aan deze functionaliteit wordt nog gewerkt.</p>
 
-  <p v-if="!loading">{{ data?.message }}</p>
+  <p v-if="!loading">{{ data?.welcome }}</p>
 </template>
 
 <script setup lang="ts">
 import { useLoader } from "@/composables/use-loader";
 
-const { data, loading } = useLoader<{ message: string }>(() =>
-  fetch("/api/environment/admin", { headers: { "is-api": "true" } }).then((r) =>
+const { data, loading } = useLoader<{ welcome: string }>(() =>
+  fetch("/api/beheer/homepage", { headers: { "is-api": "true" } }).then((r) =>
     r.ok ? r.json() : null
   )
 );
