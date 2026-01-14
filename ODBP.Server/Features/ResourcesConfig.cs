@@ -68,14 +68,6 @@ namespace ODBP.Features
         public string? WebsiteUrl => Uri.TryCreate(_configuration["RESOURCES:GEMEENTE_WEBSITE_URL"], UriKind.Absolute, out var uri) ? uri.ToString() : null;
         public string? PrivacyUrl => Uri.TryCreate(_configuration["RESOURCES:GEMEENTE_PRIVACY_URL"], UriKind.Absolute, out var uri) ? uri.ToString() : null;
         public string? ContactUrl => Uri.TryCreate(_configuration["RESOURCES:GEMEENTE_CONTACT_URL"], UriKind.Absolute, out var uri) ? uri.ToString() : null;
-        public string? Welcome
-        {
-            get
-            {
-                var welcome = _configuration["RESOURCES:GEMEENTE_WELKOM"];
-                return !string.IsNullOrWhiteSpace(welcome) ? welcome : null;
-            }
-        }
         public string? A11yUrl => Uri.TryCreate(_configuration["RESOURCES:TOEGANKELIJKHEIDSVERKLARING_REGISTER_URL"], UriKind.Absolute, out var uri) ? uri.ToString() : null;
     }
 }
