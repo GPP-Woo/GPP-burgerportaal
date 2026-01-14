@@ -14,7 +14,7 @@ namespace ODBP.Features.Beheer
         [HttpGet]
         public async Task<IActionResult> Get(CancellationToken token)
         {
-            var resources = await context.Resources.FirstOrDefaultAsync(token);
+            var resources = await context.Resources.SingleAsync(token);
 
             return Ok(new { welcome = resources?.Welcome });
         }
@@ -22,18 +22,9 @@ namespace ODBP.Features.Beheer
         [HttpPut]
         public async Task<IActionResult> Put([FromBody] HomepageRequest request, CancellationToken token)
         {
-            var resources = await context.Resources.FirstOrDefaultAsync(token);
+            var resources = await context.Resources.SingleAsync(token);
 
-            if (resources == null)
-            {
-                resources = new Data.Entities.Resources { Id = 1, Welcome = request.Welcome };
-
-                context.Resources.Add(resources);
-            }
-            else
-            {
-                resources.Welcome = request.Welcome;
-            }
+            resources.Welcome = request.Welcome;
 
             await context.SaveChangesAsync(token);
 

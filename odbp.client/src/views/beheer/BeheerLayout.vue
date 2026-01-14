@@ -3,17 +3,41 @@
     <template #nav-bar>
       <nav class="utrecht-nav-bar" aria-label="Beheermenu">
         <div class="utrecht-nav-bar__content">
-          <ul v-if="!loading" role="list" class="utrecht-nav-list" id="menu">
-            <li class="utrecht-nav-list__item">
-              <span v-if="user" class="utrecht-nav-list__link">
-                {{ user.fullName }}
-              </span>
+          <ul role="list" class="utrecht-nav-list" id="menu">
+            <li
+              v-for="[name, label] in Object.entries(links)"
+              :key="name"
+              class="utrecht-nav-list__item"
+            >
+              <component
+                :is="$route.name !== name ? 'router-link' : 'span'"
+                :to="$route.name !== name ? { name } : undefined"
+                class="utrecht-nav-list__link gpp-woo-link--icon"
+                :class="{
+                  'utrecht-link utrecht-link--html-a': $route.name !== name
+                }"
+              >
+                {{ label }}
+
+                <utrecht-icon icon="pen" />
+
+                <span v-if="$route.name === name" class="visually-hidden">(active link)</span>
+              </component>
             </li>
 
             <li class="utrecht-nav-list__item">
-              <a href="/api/logoff" class="utrecht-nav-list__link utrecht-link utrecht-link--html-a"
-                >Uitloggen</a
-              >
+              <utrecht-link href="/api/logoff" class="utrecht-nav-list__link gpp-woo-link--icon">
+                Uitloggen
+
+                <utrecht-icon icon="logout" />
+              </utrecht-link>
+            </li>
+
+            <li class="utrecht-nav-list__item">
+              <span v-if="user" class="utrecht-nav-list__link gpp-woo-link--icon">
+                <utrecht-icon icon="user" />
+                {{ user.fullName }}
+              </span>
             </li>
           </ul>
         </div>
@@ -22,6 +46,8 @@
   </the-header>
 
   <section class="utrecht-page utrecht-page-content">
+    <utrecht-heading :level="1">GPP-Woo Burgerportaal (beheer)</utrecht-heading>
+    
     <router-view />
   </section>
 
@@ -31,10 +57,23 @@
 <script setup lang="ts">
 import TheHeader from "@/components/TheHeader.vue";
 import TheFooter from "@/components/TheFooter.vue";
+import UtrechtIcon from "@/components/UtrechtIcon.vue";
 import { useLoader } from "@/composables/use-loader";
 import { fetchAuthUser, type AuthUser } from "@/api/auth";
 
-const { data: user, loading } = useLoader<AuthUser | null>(() => fetchAuthUser());
+const { data: user } = useLoader<AuthUser | null>(() => fetchAuthUser());
+
+const links = {
+  "beheer-home": "Homepage"
+} as const;
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.utrecht-nav-list__item:last-child {
+  border-inline-start: 1px solid;
+}
+
+.gpp-woo-link--icon {
+  --utrecht-icon-size: 1rem;
+}
+</style>

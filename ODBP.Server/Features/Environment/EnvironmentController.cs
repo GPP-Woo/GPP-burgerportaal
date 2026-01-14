@@ -16,10 +16,10 @@ namespace ODBP.Features.Environment
         [HttpGet("resources")]
         public async Task<IActionResult> GetResources(CancellationToken token)
         {
-            var resources = await context.Resources.FirstOrDefaultAsync(token);
+            var resources = await context.Resources.SingleAsync(token);
 
             var welcome = string.IsNullOrWhiteSpace(resources?.Welcome) 
-                ? $"<h1>Welkom op het Woo-burgerportaal van {resourcesConfig.Name}!</h1>"
+                ? $"Welkom op het Woo-burgerportaal van {resourcesConfig.Name}!"
                 : resources.Welcome;
 
             var response = new
