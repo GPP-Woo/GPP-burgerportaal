@@ -88,4 +88,8 @@
   --gpp-woo-info-popover-margin: 0.5rem;
   --gpp-woo-info-popover-position-area: block-start inline-end;
   --gpp-woo-info-popover-position-try: flip-block;
+  --gpp-woo-popover-trigger-font-size: 1em;
+  --gpp-woo-popover-trigger-button-size: calc(
+    var(--utrecht-document-line-height) * var(--gpp-woo-search-buckets-info-font-size)
+  );
 }
