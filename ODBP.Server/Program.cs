@@ -1,8 +1,10 @@
 ﻿using System.Net.Http.Headers;
+using Microsoft.EntityFrameworkCore;
 using ODBP.Apis.Odrc;
 using ODBP.Apis.Search;
 using ODBP.Authentication;
 using ODBP.Config;
+using ODBP.Data;
 using ODBP.Features;
 using ODBP.Features.Sitemap;
 using Serilog;
@@ -51,6 +53,9 @@ try
         options.IdClaimType = builder.Configuration["OIDC_ID_CLAIM_TYPE"];
     });
 
+    var connStr = $"Username={builder.Configuration["POSTGRES_USER"]};Password={builder.Configuration["POSTGRES_PASSWORD"]};Host={builder.Configuration["POSTGRES_HOST"]};Database={builder.Configuration["POSTGRES_DB"]};Port={builder.Configuration["POSTGRES_PORT"]}";
+    builder.Services.AddDbContext<OdbpDbContext>(opt => opt.UseNpgsql(connStr));
+
     builder.Services.AddSingleton<IOdrcClientFactory, OdrcClientFactory>();
     builder.Services.AddBaseUri();
 
@@ -96,6 +101,11 @@ try
     app.MapControllers();
     app.MapHealthChecks("/healthz");
     app.MapFallbackToIndexHtml();
+
+    await using (var scope = app.Services.CreateAsyncScope())
+    {
+        await scope.ServiceProvider.GetRequiredService<OdbpDbContext>().Database.MigrateAsync();
+    }
 
     app.Run();
 }

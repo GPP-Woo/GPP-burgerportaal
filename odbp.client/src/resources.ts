@@ -66,7 +66,15 @@ const linkResource = async (url: string) =>
     link.href = url;
     link.crossOrigin = "anonymous";
 
-    link.onload = () => resolve({ url });
+    link.onload = () => {
+      if (link.as === "image") {
+        // Always 'consume' preloaded image. In rare case some layout doesn't use it, this prevents warning.
+        Object.assign(new Image(), { src: url, crossOrigin: "anonymous" });
+      }
+
+      resolve({ url });
+    };
+
     link.onerror = () => reject({ url });
 
     document.head.appendChild(link);

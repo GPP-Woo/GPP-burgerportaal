@@ -20,10 +20,19 @@
 | `RESOURCES:GEMEENTE_WEBSITE_URL`                     | Het website-adres van de gemeente, om vanuit het burgerportaal naar de website van de gemeente te linken. <details><summary>Meer informatie</summary> Bijvoorbeeld: `https://www.mijn-gemeente.nl`</details>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | `RESOURCES:GEMEENTE_PRIVACY_URL`                     | Het website-adres waar de privacyverklaring van de gemeente staat. Wordt gebruikt om vanuit burgerportaal naar te linken. <details><summary>Meer informatie</summary> Bijvoorbeeld: `https://www.mijn-gemeente.nl/privacy`</details>                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | `RESOURCES:GEMEENTE_CONTACT_URL`                     | Het website-adres waar contactgegevens van de gemeente te vinden zijn. Wordt gebruikt om vanuit burgerportaal naar te linken. <details><summary>Meer informatie</summary> Bijvoorbeeld: `https://www.mijn-gemeente.nl/contact`</details>                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| `RESOURCES:GEMEENTE_WELKOM`                          | De in HTML opgemaakte welkomsttekst voor op de homepage. <details><summary>Meer informatie</summary> **Let op:** het HTML-fragment moet afhankelijk van het formaat (bijvoorbeeld JSON of YAML) op de juiste manier 'escaped' / geformateerd worden om deze als omgevingsvariabele te kunnen toevoegen. De volgende HTML-elementen kunnen hier gebruikt worden: `<h1>, <h2>, <p>, <a>, <ul>, <ol>, <li>`</details>                                                                                                                                                                                                                                                                             |
 | `RESOURCES:TOEGANKELIJKHEIDSVERKLARING_REGISTER_URL` | Het website-adres van het overheidsregister van toegankelijkheids­verklaringen. Wordt gebruikt om vanuit burgerportaal naar te linken. <details><summary>Meer informatie</summary> Waarschijnlijk: `https://www.toegankelijkheidsverklaring.nl/register`</details>                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | `DOWNLOAD_TIMEOUT_MINUTES`                           | Het aantal minuten dat het downloaden van bestanden maximaal mag duren. <br/> (default waarde is `10`)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | `SITEMAP_CACHE_DURATION_HOURS`                       | Het aantal uur dat de sitemap in de cache bewaard wordt. <br/> (default waarde is `23`)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+
+## Beheer
+
+Het burgerportaal heeft een beheeromgeving die toegankelijk is via `/beheer`.
+
+### Welkomsttekst
+
+De welkomsttekst op de homepage kan worden beheerd via de beheeromgeving. De tekst kan worden opgemaakt, het gebruik van alinea's, titels en sub-titels, opsommingen (genummerd en ongenummerd) en linkjes wordt ondersteund.
+
+Als er geen welkomsttekst is ingesteld in de beheeromgeving, wordt een standaard welkomstbericht getoond op basis van de gemeentenaam (`RESOURCES:GEMEENTE_NAAM`).
 
 ## Cross-Origin Resource Sharing (CORS) en Cross-Origin-Embedder-Policy (COEP)
 
@@ -57,27 +66,28 @@ Op dit moment is de implementatie gebaseerd op alleen het Utrecht Design System,
 
 ### Gebruikte CSS-componenten
 
-| Component                                     | Storybook                                                                                                                   |
-| :-------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------- |
-| **Document** (`utrecht-document`)             | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-document--design-tokens)       |
-| **Surface** (`utrecht-surface`)               | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-surface--design-tokens)        |
-| **Page** (`utrecht-page`)                     | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-page--design-tokens)           |
-| **Page header** (`utrecht-page-header`)       | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-page-header--design-tokens)    |
-| **Page content** (`utrecht-page-content`)     | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-page-content--design-tokens)   |
-| **Page footer** (`utrecht-page-footer`)       | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-page-footer--design-tokens)    |
-| **Navigation bar** (`utrecht-nav-bar`)        | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-nav-bar--design-tokens)        |
-| **Link** (`utrecht-link`)                     | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-link--design-tokens)           |
-| **Skip link** (`utrecht-skip-link`)           | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-skip-link--design-tokens)      |
-| **Article** (`utrecht-article`)               | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-article--design-tokens)        |
-| **Heading** (`utrecht-heading`)               | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-heading-1--design-tokens)      |
-| **Paragraph** (`utrecht-paragraph`)           | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-paragraph--design-tokens)      |
-| **Unordered list** (`utrecht-unordered-list`) | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-unordered-list--design-tokens) |
-| **Button** (`utrecht-button`)                 | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-button--design-tokens)         |
-| **Form field** (`utrecht-form-field`)         | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-form-field--design-tokens)     |
-| **Form label** (`utrecht-form-label`)         | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-form-label--design-tokens)     |
-| **Textbox** (`utrecht-textbox`)               | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-textbox--design-tokens)        |
-| **Table** (`utrecht-table`)                   | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-table--design-tokens)          |
-| **Logo** (`utrecht-logo`)                     | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-logo--design-tokens)           |
+| Component                                           | Storybook                                                                                                                      |
+| :-------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------- |
+| **Document** (`utrecht-document`)                   | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-document--design-tokens)          |
+| **Surface** (`utrecht-surface`)                     | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-surface--design-tokens)           |
+| **Page** (`utrecht-page`)                           | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-page--design-tokens)              |
+| **Page header** (`utrecht-page-header`)             | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-page-header--design-tokens)       |
+| **Page content** (`utrecht-page-content`)           | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-page-content--design-tokens)      |
+| **Page footer** (`utrecht-page-footer`)             | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-page-footer--design-tokens)       |
+| **Navigation bar** (`utrecht-nav-bar`)              | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-nav-bar--design-tokens)           |
+| **Link** (`utrecht-link`)                           | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-link--design-tokens)              |
+| **Skip link** (`utrecht-skip-link`)                 | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-skip-link--design-tokens)         |
+| **Article** (`utrecht-article`)                     | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-article--design-tokens)           |
+| **Heading** (`utrecht-heading`)                     | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-heading-1--design-tokens)         |
+| **Paragraph** (`utrecht-paragraph`)                 | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-paragraph--design-tokens)         |
+| **Unordered list** (`utrecht-unordered-list`)       | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-unordered-list--design-tokens)    |
+| **Button** (`utrecht-button`)                       | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-button--design-tokens)            |
+| **Form field** (`utrecht-form-field`)               | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-form-field--design-tokens)        |
+| **Form label** (`utrecht-form-label`)               | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-form-label--design-tokens)        |
+| **Textbox** (`utrecht-textbox`)                     | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-textbox--design-tokens)           |
+| **Table** (`utrecht-table`)                         | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-table--design-tokens)             |
+| **Logo** (`utrecht-logo`)                           | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-logo--design-tokens)              |
+| **Spotlight section** (`utrecht-spotlight-section`) | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-spotlight-section--design-tokens) |
 
 ### GPP Woo Theme
 

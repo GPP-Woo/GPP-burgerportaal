@@ -5,6 +5,25 @@ services:
       context: .
       dockerfile: ODBP.Server/Dockerfile
     environment:
+      - POSTGRES_HOST=postgres-db
+      - POSTGRES_DB=ODPC
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=localdev
       - ASPNETCORE_FORWARDEDHEADERS_ENABLED=true
     ports:
       - "53997:8080"
+    depends_on:
+      - postgres-db
+  postgres-db:
+    image: postgis/postgis:${PG_VERSION:-16-master}
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=localdev
+    restart: always
+    ports:
+      - "5432"
+
+volumes:
+  postgres-db:
