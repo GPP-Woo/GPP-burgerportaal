@@ -15,6 +15,12 @@
         <ck-editor v-model="homepage.welcome" id="welcome" />
       </utrecht-form-field>
 
+      <utrecht-form-field>
+        <utrecht-form-label for="videoUrl">Promotie- of instructievideo</utrecht-form-label>
+
+        <utrecht-textbox id="videoUrl" v-model="homepage.videoUrl" />
+      </utrecht-form-field>
+
       <utrecht-form-field class="form-actions">
         <utrecht-button
           type="button"
@@ -40,7 +46,7 @@ import SimpleSpinner from "@/components/SimpleSpinner.vue";
 import UtrechtAlert from "@/components/UtrechtAlert.vue";
 import CkEditor from "@/components/ckeditor";
 
-type HomepageBeheer = { welcome: string };
+type HomepageBeheer = { welcome: string; videoUrl: string };
 
 const headingId = useId();
 
@@ -50,17 +56,22 @@ const { data, isFetching, error, put } = useFetchApi(
 
 const { cloned: homepage, isModified, sync } = useCloned(data);
 
-const submit = async () => await put(homepage.value).execute();
+const submit = async () => await put(homepage).execute();
 </script>
 
 <style lang="scss" scoped>
-.utrecht-form-label {
-  display: block;
-  margin-block-end: 0.5rem;
-}
+.utrecht-form {
+  --utrecht-form-field-margin-block-end: 1rem;
+  --utrecht-form-field-margin-block-start: 1rem;
 
-.form-actions {
-  display: flex;
-  justify-content: space-between;
+  .utrecht-form-label {
+    display: block;
+    margin-block-end: 0.5rem;
+  }
+
+  .form-actions {
+    display: flex;
+    justify-content: space-between;
+  }
 }
 </style>

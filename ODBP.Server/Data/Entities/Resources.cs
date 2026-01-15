@@ -4,5 +4,6 @@
     {
         public int Id { get; set; } = 1;
         public string? Welcome { get; set; }
+        public string? VideoUrl { get; set; }
     }
 }

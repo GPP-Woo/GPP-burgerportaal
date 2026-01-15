@@ -1,9 +1,26 @@
 ﻿using ODBP.Features;
 
-namespace Microsoft.AspNetCore.Builder
+namespace ODBP.Config
 {
     public static class SecurityHeaders
     {
+        // Video embed domains - always allowed in CSP for dynamic video configuration
+        private static readonly string[] s_videoEmbedDomains = [
+            "https://youtube.com",
+            "https://www.youtube.com",
+            "https://youtube-nocookie.com",
+            "https://www.youtube-nocookie.com",
+            "https://player.vimeo.com"
+        ];
+        private static readonly string[] s_videoCdnDomains = ["*.ytimg.com", "*.vimeocdn.com"];
+        private static readonly string[] s_videoOrigins = [
+            "\"https://youtube.com\"",
+            "\"https://www.youtube.com\"",
+            "\"https://youtube-nocookie.com\"",
+            "\"https://www.youtube-nocookie.com\"",
+            "\"https://player.vimeo.com\""
+        ];
+
         public static IApplicationBuilder UseOdbpSecurityHeaders(this WebApplication app)
         {
             var resourcesConfig = app.Services.GetRequiredService<ResourcesConfig>();
@@ -24,15 +41,18 @@ namespace Microsoft.AspNetCore.Builder
                 resourcesConfig.MediaUrl
             };
 
+            imgSources.AddRange(s_videoCdnDomains);
+
             var fontSources = new List<string?> {
                 "'self'",
                 resourcesConfig.FontSources
             };
 
             var frameSources = new List<string?> {
-                "'self'",
-                resourcesConfig.VideoUrl
+                "'self'"
             };
+
+            frameSources.AddRange(s_videoEmbedDomains);
 
             // Add svg logo to connectSources to be able to fetch through js
             var logoUrl = resourcesConfig.LogoUrl;
@@ -47,15 +67,6 @@ namespace Microsoft.AspNetCore.Builder
                 {
                     imgSources.Add(logoUrl);
                 }
-            }
-
-            // Add video cdn's to img-src: during playback the player
-            // may load additional images which are then subject to our parent CSP
-            var videoCdnDomains = new[] { "*.ytimg.com", "*.vimeocdn.com" };
-
-            if (!string.IsNullOrEmpty(resourcesConfig.VideoUrl))
-            {
-                imgSources.AddRange(videoCdnDomains);
             }
 
             return app.UseSecurityHeaders(headerPolicyCollection =>
@@ -86,48 +97,42 @@ namespace Microsoft.AspNetCore.Builder
                     })
                     .AddPermissionsPolicy(permissions =>
                     {
-                        permissions.AddAccelerometer().None();
+                        // permissions.AddAccelerometer().None();
                         permissions.AddAmbientLightSensor().None();
                         permissions.AddAutoplay().None();
                         permissions.AddCamera().None();
-                        permissions.AddEncryptedMedia().None();
-                        permissions.AddFullscreen();
+                        //permissions.AddEncryptedMedia().None();
+                        //permissions.AddFullscreen();
                         permissions.AddGeolocation().None();
-                        permissions.AddGyroscope().None();
+                        // permissions.AddGyroscope().None();
                         permissions.AddMagnetometer().None();
                         permissions.AddMicrophone().None();
                         permissions.AddMidi().None();
                         permissions.AddPayment().None();
-                        permissions.AddPictureInPicture().None();
+                        // permissions.AddPictureInPicture().None();
                         permissions.AddSpeaker().None();
                         permissions.AddSyncXHR().None();
                         permissions.AddUsb().None();
                         permissions.AddVR().None();
-                        
-                        if (!string.IsNullOrEmpty(resourcesConfig.VideoUrl))
-                        {
-                            // Origin needs to be quoted, browser requirement
-                            var videoOrigin = $"\"{ new Uri(resourcesConfig.VideoUrl).GetLeftPart(UriPartial.Authority) }\"";
 
-                            // Enable these for video
-                            permissions.AddAccelerometer().Self().Sources.Add(videoOrigin);
-                            permissions.AddEncryptedMedia().Self().Sources.Add(videoOrigin);
-                            permissions.AddFullscreen().Self().Sources.Add(videoOrigin);
-                            permissions.AddGyroscope().Self().Sources.Add(videoOrigin);
-                            permissions.AddPictureInPicture().Self().Sources.Add(videoOrigin);
+                        var accelerometer = permissions.AddAccelerometer().Self();
+                        var encryptedMedia = permissions.AddEncryptedMedia().Self();
+                        var fullscreen = permissions.AddFullscreen().Self();
+                        var gyroscope = permissions.AddGyroscope().Self();
+                        var pictureInPicture = permissions.AddPictureInPicture().Self();
+
+                        foreach (var origin in s_videoOrigins)
+                        {
+                            accelerometer.Sources.Add(origin);
+                            encryptedMedia.Sources.Add(origin);
+                            fullscreen.Sources.Add(origin);
+                            gyroscope.Sources.Add(origin);
+                            pictureInPicture.Sources.Add(origin);
                         }
                     });
 
-                // COEP disabled for video embedding - see /coep_video.md
-                // YouTube/Vimeo don't provide required COEP headers on iframe sources
-                if (string.IsNullOrEmpty(resourcesConfig.VideoUrl))
-                {
-                    headerPolicyCollection
-                        .AddCrossOriginEmbedderPolicy(x =>
-                        {
-                            x.RequireCorp();
-                        });
-                }
+                // COEP is handled dynamically by CoepMiddleware based on database
+                // See /coep_video.md for details
             });
         }
     }
