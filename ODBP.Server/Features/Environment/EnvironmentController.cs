@@ -19,7 +19,7 @@ namespace ODBP.Features.Environment
             var resources = await context.Resources.SingleAsync(token);
 
             var welcome = string.IsNullOrWhiteSpace(resources?.Welcome) 
-                ? $"Welkom op het Woo-burgerportaal van {resourcesConfig.Name}!"
+                ? $"<p>Welkom op het Woo-burgerportaal van {resourcesConfig.Name}!</p>"
                 : resources.Welcome;
 
             var response = new
