@@ -94,6 +94,8 @@ try
 
     app.UseOdbpSecurityHeaders();
 
+    app.UseCoep();
+
     app.UseAuthentication();
     app.UseAuthorization();
     app.MapAuthEndpoints();

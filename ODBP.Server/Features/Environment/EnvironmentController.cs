@@ -22,6 +22,8 @@ namespace ODBP.Features.Environment
                 ? $"<p>Welkom op het Woo-burgerportaal van {resourcesConfig.Name}!</p>"
                 : resources.Welcome;
 
+            var videoUrl = resources?.VideoUrl;
+
             var response = new
             {
                 resourcesConfig.Title,
@@ -32,11 +34,11 @@ namespace ODBP.Features.Environment
                 resourcesConfig.TokensUrl,
                 resourcesConfig.Theme,
                 resourcesConfig.MediaUrl,
-                resourcesConfig.VideoUrl,
+                videoUrl,
                 resourcesConfig.WebsiteUrl,
                 resourcesConfig.PrivacyUrl,
                 resourcesConfig.ContactUrl,
-                Welcome = welcome,
+                welcome,
                 resourcesConfig.A11yUrl
             };
 
