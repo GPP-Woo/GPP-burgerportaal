@@ -36,6 +36,7 @@
             <li class="utrecht-nav-list__item">
               <span v-if="user" class="utrecht-nav-list__link gpp-woo-link--icon">
                 <utrecht-icon icon="user" />
+
                 {{ user.fullName }}
               </span>
             </li>
@@ -47,7 +48,7 @@
 
   <section class="utrecht-page utrecht-page-content">
     <utrecht-heading :level="1">GPP-Woo Burgerportaal (beheer)</utrecht-heading>
-    
+
     <router-view />
   </section>
 

@@ -46,24 +46,56 @@
 
         <utrecht-textbox
           id="videoUrl"
-          v-model="homepage.videoUrl"
+          v-model.trim="homepage.videoUrl"
           placeholder="https://"
           :pattern="videoUrlPattern"
+          :readonly="result ?? undefined"
+          aria-describedby="videoUrlError"
         />
+
+        <span id="videoUrlError" class="form-error"
+          >De waarde moet een geldig YouTube of Vimeo embed URL zijn.</span
+        >
+
+        <div aria-live="polite">
+          <span v-if="result?.error" class="form-error">{{ result.error }}</span>
+
+          <p v-else-if="result?.title">
+            <strong>Videotitel:</strong> <em>{{ result.title }}</em>
+          </p>
+        </div>
       </utrecht-form-field>
 
       <utrecht-form-field class="form-actions">
-        <utrecht-button
-          type="button"
-          :appearance="'secondary-action-button'"
-          :disabled="!isModified"
-          @click="sync()"
-          >Annuleren</utrecht-button
-        >
+        <small-spinner v-if="isValidating" />
 
-        <utrecht-button type="submit" :appearance="'primary-action-button'"
-          >Publiceren</utrecht-button
-        >
+        <template v-else-if="result">
+          <utrecht-button type="button" :appearance="'secondary-action-button'" @click="cancel"
+            >Annuleer publicatie</utrecht-button
+          >
+
+          <utrecht-button
+            v-if="result.valid"
+            type="button"
+            :appearance="'primary-action-button'"
+            @click="save"
+            >Bevestig publicatie</utrecht-button
+          >
+        </template>
+
+        <template v-else>
+          <utrecht-button
+            type="button"
+            :appearance="'secondary-action-button'"
+            :disabled="!isModified"
+            @click="sync()"
+            >Annuleren</utrecht-button
+          >
+
+          <utrecht-button type="submit" :appearance="'primary-action-button'"
+            >Publiceren</utrecht-button
+          >
+        </template>
       </utrecht-form-field>
     </utrecht-fieldset>
   </form>
@@ -75,6 +107,7 @@ import { useCloned } from "@vueuse/core";
 import { useFetchApi } from "@/api";
 import CkEditor from "@/components/ckeditor";
 import SimpleSpinner from "@/components/SimpleSpinner.vue";
+import SmallSpinner from "@/components/SmallSpinner.vue";
 import UtrechtAlert from "@/components/UtrechtAlert.vue";
 import GppWooInfoPopover from "@/components/GppWooInfoPopover.vue";
 
@@ -83,19 +116,46 @@ const videoUrlPattern =
 
 type HomepageBeheer = { welcome: string; videoUrl: string };
 
+type VideoValidationResult = { valid: boolean; title: string | null; error: string | null };
+
 const headingId = useId();
 
-const { data, isFetching, error, put } = useFetchApi(
-  () => "/api/beheer/homepage"
-).json<HomepageBeheer>();
+const {
+  data,
+  isFetching,
+  error,
+  put: putHomepage
+} = useFetchApi(() => "/api/beheer/homepage").json<HomepageBeheer>();
 
 const { cloned: homepage, isModified, sync } = useCloned(data);
 
+const {
+  data: result,
+  isFetching: isValidating,
+  post: postVideoUrl
+} = useFetchApi(() => "/api/beheer/video/validate", {
+  immediate: false
+}).json<VideoValidationResult>();
+
 const submit = async () => {
-  if (homepage.value?.videoUrl !== data.value?.videoUrl) console.log('validate video');
-  
-  await put(homepage).execute();
+  const videoUrl = homepage.value?.videoUrl;
+
+  if (videoUrl && videoUrl !== data.value?.videoUrl) {
+    await postVideoUrl({ videoUrl }).execute();
+
+    return;
+  }
+
+  await save();
 };
+
+const save = async () => {
+  result.value = null;
+
+  await putHomepage(homepage).execute();
+};
+
+const cancel = () => (result.value = null);
 </script>
 
 <style lang="scss" scoped>
@@ -111,6 +171,24 @@ const submit = async () => {
   .form-actions {
     display: flex;
     justify-content: space-between;
+  }
+
+  .form-error {
+    display: block;
+    color: var(--utrecht-color-invalid);
+    margin-block-start: 0.5rem;
+  }
+
+  .utrecht-textbox {
+    & + .form-error {
+      display: none;
+    }
+
+    &:user-invalid {
+      & + .form-error {
+        display: block;
+      }
+    }
   }
 }
 
