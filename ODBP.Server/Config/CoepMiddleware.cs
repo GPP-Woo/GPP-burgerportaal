@@ -12,7 +12,7 @@ namespace ODBP.Config
     public class CoepMiddleware(RequestDelegate next)
     {
         public const string CacheKey = "HasVideoUrl";
-        private static readonly TimeSpan s_cacheDuration = TimeSpan.FromMinutes(5);
+        private static readonly TimeSpan s_cacheDuration = TimeSpan.FromDays(1);
 
         public async Task InvokeAsync(HttpContext context, OdbpDbContext db, IMemoryCache cache)
         {
