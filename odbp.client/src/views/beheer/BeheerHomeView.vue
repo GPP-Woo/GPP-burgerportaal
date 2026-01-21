@@ -4,7 +4,11 @@
   <simple-spinner v-if="isFetching" />
 
   <utrecht-alert v-else-if="error" type="error">
-    <p>Er is een fout opgetreden.</p>
+    <p>{{ error.message ?? "Er is een fout opgetreden." }}</p>
+
+    <utrecht-button type="button" :appearance="'primary-action-button'" @click="get()"
+      >Ga terug</utrecht-button
+    >
   </utrecht-alert>
 
   <form v-else-if="homepage" class="utrecht-form" @submit.prevent="submit">
@@ -49,53 +53,26 @@
           v-model.trim="homepage.videoUrl"
           placeholder="https://"
           :pattern="videoUrlPattern"
-          :readonly="result ?? undefined"
           aria-describedby="videoUrlError"
         />
 
         <span id="videoUrlError" class="form-error"
           >De waarde moet een geldig YouTube of Vimeo embed URL zijn.</span
         >
-
-        <div aria-live="polite">
-          <span v-if="result?.error" class="form-error">{{ result.error }}</span>
-
-          <p v-else-if="result?.title">
-            <strong>Videotitel:</strong> <em>{{ result.title }}</em>
-          </p>
-        </div>
       </utrecht-form-field>
 
       <utrecht-form-field class="form-actions">
-        <small-spinner v-if="isValidating" />
+        <utrecht-button
+          type="button"
+          :appearance="'secondary-action-button'"
+          :disabled="!isModified"
+          @click="sync()"
+          >Annuleren</utrecht-button
+        >
 
-        <template v-else-if="result">
-          <utrecht-button type="button" :appearance="'secondary-action-button'" @click="cancel"
-            >Annuleer publicatie</utrecht-button
-          >
-
-          <utrecht-button
-            v-if="result.valid"
-            type="button"
-            :appearance="'primary-action-button'"
-            @click="save"
-            >Bevestig publicatie</utrecht-button
-          >
-        </template>
-
-        <template v-else>
-          <utrecht-button
-            type="button"
-            :appearance="'secondary-action-button'"
-            :disabled="!isModified"
-            @click="sync()"
-            >Annuleren</utrecht-button
-          >
-
-          <utrecht-button type="submit" :appearance="'primary-action-button'"
-            >Publiceren</utrecht-button
-          >
-        </template>
+        <utrecht-button type="submit" :appearance="'primary-action-button'"
+          >Publiceren</utrecht-button
+        >
       </utrecht-form-field>
     </utrecht-fieldset>
   </form>
@@ -107,7 +84,6 @@ import { useCloned } from "@vueuse/core";
 import { useFetchApi } from "@/api";
 import CkEditor from "@/components/ckeditor";
 import SimpleSpinner from "@/components/SimpleSpinner.vue";
-import SmallSpinner from "@/components/SmallSpinner.vue";
 import UtrechtAlert from "@/components/UtrechtAlert.vue";
 import GppWooInfoPopover from "@/components/GppWooInfoPopover.vue";
 
@@ -116,46 +92,30 @@ const videoUrlPattern =
 
 type HomepageBeheer = { welcome: string; videoUrl: string };
 
-type VideoValidationResult = { valid: boolean; title: string | null; error: string | null };
-
 const headingId = useId();
 
 const {
   data,
   isFetching,
   error,
+  get: getHomepage,
   put: putHomepage
-} = useFetchApi(() => "/api/beheer/homepage").json<HomepageBeheer>();
+} = useFetchApi(() => "/api/beheer/homepage", {
+  async onFetchError(ctx) {
+    try {
+      ctx.error = await ctx.response?.json();
+      return ctx;
+    } catch {
+      return ctx;
+    }
+  }
+}).json<HomepageBeheer>();
 
 const { cloned: homepage, isModified, sync } = useCloned(data);
 
-const {
-  data: result,
-  isFetching: isValidating,
-  post: postVideoUrl
-} = useFetchApi(() => "/api/beheer/video/validate", {
-  immediate: false
-}).json<VideoValidationResult>();
+const get = () => getHomepage().execute();
 
-const submit = async () => {
-  const videoUrl = homepage.value?.videoUrl;
-
-  if (videoUrl && videoUrl !== data.value?.videoUrl) {
-    await postVideoUrl({ videoUrl }).execute();
-
-    return;
-  }
-
-  await save();
-};
-
-const save = async () => {
-  result.value = null;
-
-  await putHomepage(homepage).execute();
-};
-
-const cancel = () => (result.value = null);
+const submit = () => putHomepage(homepage).execute();
 </script>
 
 <style lang="scss" scoped>
