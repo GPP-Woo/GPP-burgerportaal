@@ -74,6 +74,11 @@ const links = {
   border-inline-start: 1px solid;
 }
 
+.utrecht-page {
+  box-sizing: border-box;
+  inline-size: 100%;
+}
+
 .gpp-woo-link--icon {
   --utrecht-icon-size: 1rem;
 }

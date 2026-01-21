@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
@@ -11,8 +12,16 @@ namespace ODBP.Features.Beheer
     [ApiController]
     [Route("api/beheer/homepage")]
     [Authorize(AdminPolicy.Name)]
-    public class HomepageController(OdbpDbContext context, IMemoryCache cache) : ControllerBase
+    public partial class HomepageController(OdbpDbContext context, IMemoryCache cache) : ControllerBase
     {
+        private const string InvalidError = "De waarde moet een geldig YouTube of Vimeo embed URL zijn.";
+
+        [GeneratedRegex(@"^https://(www\.)?(youtube\.com|youtube-nocookie\.com)/embed/([\w-]+)")]
+        private static partial Regex YouTubeEmbedRegex();
+
+        [GeneratedRegex(@"^https://player\.vimeo\.com/video/(\d+)")]
+        private static partial Regex VimeoEmbedRegex();
+
         [HttpGet]
         public async Task<IActionResult> Get(CancellationToken token)
         {
@@ -27,6 +36,17 @@ namespace ODBP.Features.Beheer
             var resources = await context.Resources.SingleAsync(token);
 
             var oldVideoUrl = resources.VideoUrl;
+
+            if (!string.IsNullOrWhiteSpace(request.VideoUrl) && request.VideoUrl != oldVideoUrl)
+            {
+                var youtubeMatch = YouTubeEmbedRegex().Match(request.VideoUrl);
+                var vimeoMatch = VimeoEmbedRegex().Match(request.VideoUrl);
+
+                if (!(youtubeMatch.Success || vimeoMatch.Success))
+                {
+                    return BadRequest(new { message = InvalidError });
+                }
+            }
 
             resources.VideoUrl = request.VideoUrl;
             resources.Welcome = request.Welcome;
