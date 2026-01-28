@@ -57,5 +57,5 @@ team is responsible for the handling of security issues.
    channels.
 
 
-[CVE_identifier]: https://cve.mitre.org/cve/identifiers/
+[CVE_identifier]: https://www.cve.org/
 [ICATT]: https://www.icatt.nl
