@@ -65,7 +65,8 @@ import { fetchAuthUser, type AuthUser } from "@/api/auth";
 const { data: user } = useLoader<AuthUser | null>(() => fetchAuthUser());
 
 const links = {
-  "beheer-home": "Homepage"
+  "beheer-home": "Homepage",
+  "beheer-algemeen": "Algemeen"
 } as const;
 </script>
 

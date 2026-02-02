@@ -10,7 +10,7 @@ namespace ODBP.Features.Beheer
     [ApiController]
     [Route("api/beheer/afbeeldingen")]
     [Authorize(AdminPolicy.Name)]
-    public class AfbeeldingenController(OdbpDbContext context, StorageConfig storageConfig) : ControllerBase
+    public class AfbeeldingenController(OdbpDbContext context) : ControllerBase
     {
         private static readonly Dictionary<ImageType, string[]> s_allowedExtensions = new()
         {
@@ -66,12 +66,12 @@ namespace ODBP.Features.Beheer
             }
 
             // Ensure storage directory exists
-            storageConfig.EnsureDirectoryExists();
+            StorageConfig.EnsureDirectoryExists();
 
             // Generate unique filename
             var uniqueFileName = $"{type.ToString().ToLowerInvariant()}_{Guid.NewGuid()}{extension}";
 
-            var filePath = Path.Combine(storageConfig.ImagesPath, uniqueFileName);
+            var filePath = Path.Combine(StorageConfig.ImagesPath, uniqueFileName);
 
             // Save file
             using (var stream = new FileStream(filePath, FileMode.Create))
@@ -81,6 +81,7 @@ namespace ODBP.Features.Beheer
 
             // Update database
             var resources = await context.Resources.SingleAsync(token);
+
             var oldFileName = type switch
             {
                 ImageType.Logo => resources.LogoFileName,
@@ -92,7 +93,7 @@ namespace ODBP.Features.Beheer
             // Delete old file if exists
             if (!string.IsNullOrWhiteSpace(oldFileName))
             {
-                var oldFilePath = Path.Combine(storageConfig.ImagesPath, oldFileName);
+                var oldFilePath = Path.Combine(StorageConfig.ImagesPath, oldFileName);
                 if (System.IO.File.Exists(oldFilePath))
                 {
                     System.IO.File.Delete(oldFilePath);
@@ -115,7 +116,7 @@ namespace ODBP.Features.Beheer
 
             await context.SaveChangesAsync(token);
 
-            return StatusCode(201);
+            return Ok(new { fileName = uniqueFileName });
         }
     }
 

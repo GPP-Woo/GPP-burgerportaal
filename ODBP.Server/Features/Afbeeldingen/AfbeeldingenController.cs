@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using ODBP.Data;
 
 namespace ODBP.Features.Afbeeldingen
 {
@@ -13,7 +11,7 @@ namespace ODBP.Features.Afbeeldingen
 
     [ApiController]
     [Route("api/afbeeldingen")]
-    public class AfbeeldingenController(OdbpDbContext context, StorageConfig storageConfig) : ControllerBase
+    public class AfbeeldingenController() : ControllerBase
     {
         private static readonly Dictionary<ImageType, string> s_defaultFileNames = new()
         {
@@ -33,34 +31,43 @@ namespace ODBP.Features.Afbeeldingen
             { ".webp", "image/webp" }
         };
 
-        [HttpGet("{type}")]
-        public async Task<IActionResult> Get(ImageType type, CancellationToken token)
+        [HttpGet("{fileName}")]
+        public IActionResult Get(string fileName)
         {
-            var resources = await context.Resources.SingleAsync(token);
+            var type = GetImageTypeFromFilename(fileName);
 
-            var fileName = type switch
+            if (type == null)
             {
-                ImageType.Logo => resources.LogoFileName,
-                ImageType.Favicon => resources.FaviconFileName,
-                ImageType.Image => resources.ImageFileName,
-                _ => null
-            };
-
-            // If no custom image is set, try and serve default
-            if (string.IsNullOrWhiteSpace(fileName))
-            {
-                return ServeDefaultImage(type);
+                return NotFound();
             }
 
-            // If image does not exists, try and serve default
-            var filePath = Path.Combine(storageConfig.ImagesPath, fileName);
+            // If it's just the type name, serve default
+            if (fileName.Equals(type.Value.ToString(), StringComparison.OrdinalIgnoreCase))
+            {
+                return ServeDefaultImage(type.Value);
+            }
+
+            // If image does not exists, serve default
+            var filePath = Path.Combine(StorageConfig.ImagesPath, fileName);
 
             if (!System.IO.File.Exists(filePath))
             {
-                return ServeDefaultImage(type);
+                return ServeDefaultImage(type.Value);
             }
 
             return ServeFile(filePath);
+        }
+
+        private static ImageType? GetImageTypeFromFilename(string filename)
+        {
+            if (filename.StartsWith("logo", StringComparison.OrdinalIgnoreCase))
+                return ImageType.Logo;
+            if (filename.StartsWith("favicon", StringComparison.OrdinalIgnoreCase))
+                return ImageType.Favicon;
+            if (filename.StartsWith("image", StringComparison.OrdinalIgnoreCase))
+                return ImageType.Image;
+
+            return null;
         }
 
         private IActionResult ServeDefaultImage(ImageType type)

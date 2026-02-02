@@ -1,0 +1,147 @@
+<template>
+  <utrecht-fieldset class="afbeelding-fieldset">
+    <utrecht-legend>
+      {{ title }}
+
+      <gpp-woo-info-popover v-if="helpText">
+        <template #trigger="{ triggerProps }">
+          <utrecht-button
+            v-bind="triggerProps"
+            appearance="primary-action-button"
+            class="gpp-woo-info-popover__trigger"
+            >?</utrecht-button
+          >
+        </template>
+
+        <utrecht-paragraph class="gpp-woo-info-popover__content gpp-woo-pre-wrap">
+          {{ helpText }}
+        </utrecht-paragraph>
+      </gpp-woo-info-popover>
+    </utrecht-legend>
+
+    <div class="afbeelding-fieldset__preview">
+      <img
+        :src="src"
+        :alt="`${title} preview`"
+        class="preview-img"
+        :class="previewClass || undefined"
+      />
+    </div>
+
+    <utrecht-form-field>
+      <utrecht-form-label>
+        <input
+          ref="fileInput"
+          type="file"
+          :accept="accept"
+          class="visually-hidden"
+          @change="onFileSelected"
+        />
+
+        <utrecht-button
+          type="button"
+          :appearance="'secondary-action-button'"
+          :disabled="isUploading"
+        >
+          {{ isUploading ? "Uploaden..." : "Vervangen" }}
+        </utrecht-button>
+      </utrecht-form-label>
+    </utrecht-form-field>
+
+    <utrecht-alert v-if="errorMessage" type="error">
+      {{ errorMessage }}
+    </utrecht-alert>
+
+    <utrecht-alert v-if="successMessage" type="ok">
+      {{ successMessage }}
+    </utrecht-alert>
+  </utrecht-fieldset>
+</template>
+
+<script setup lang="ts">
+import { ref } from "vue";
+import UtrechtAlert from "@/components/UtrechtAlert.vue";
+import GppWooInfoPopover from "@/components/GppWooInfoPopover.vue";
+
+defineProps<{
+  title: string;
+  src: string;
+  accept: string;
+  helpText?: string;
+  previewClass?: string;
+  isUploading: boolean;
+  errorMessage: string | null;
+  successMessage: string | null;
+}>();
+
+const emit = defineEmits<{ fileSelected: [file: File] }>();
+
+const fileInput = ref<HTMLInputElement>();
+
+const onFileSelected = (event: Event) => {
+  const input = event.target as HTMLInputElement;
+  const file = input.files?.[0];
+
+  if (file) emit("fileSelected", file);
+
+  if (fileInput.value) fileInput.value.value = "";
+};
+</script>
+
+<style lang="scss" scoped>
+.afbeelding-fieldset {
+  padding: 1rem;
+  margin: 0;
+  border: 1px solid #ccc; // ...
+}
+
+.afbeelding-fieldset__preview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 5rem;
+  padding: 1rem;
+  margin-block: 1rem;
+  background: #f5f5f5; // ...
+}
+
+.preview-img {
+  max-width: 100%;
+  max-height: 5rem;
+  height: auto;
+  object-fit: contain;
+}
+
+.utrecht-form-label {
+  cursor: pointer;
+  font-weight: 400;
+
+  .utrecht-button {
+    pointer-events: none;
+  }
+}
+
+.utrecht-alert {
+  margin-block-start: 1rem;
+}
+
+.gpp-woo-info-popover__trigger {
+  --utrecht-button-min-block-size: var(--gpp-woo-popover-trigger-button-size);
+  --utrecht-button-min-inline-size: var(--gpp-woo-popover-trigger-button-size);
+  --utrecht-button-inline-size: var(--gpp-woo-popover-trigger-button-size);
+
+  font-size: var(--gpp-woo-popover-trigger-font-size);
+  font-weight: 400;
+  block-size: var(--gpp-woo-popover-trigger-button-size);
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  vertical-align: top;
+}
+
+.gpp-woo-info-popover__content {
+  --utrecht-paragraph-margin-block-start: 0;
+
+  cursor: text;
+}
+</style>

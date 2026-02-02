@@ -24,13 +24,17 @@ namespace ODBP.Features.Environment
 
             var videoUrl = resources?.VideoUrl;
 
+            var logoUrl = $"/api/afbeeldingen/{resources?.LogoFileName ?? "logo"}";
+            var faviconUrl = $"/api/afbeeldingen/{resources?.FaviconFileName ?? "favicon"}";
+            var imageUrl = $"/api/afbeeldingen/{resources?.ImageFileName ?? "image"}";
+
             var response = new
             {
                 resourcesConfig.Title,
                 resourcesConfig.Name,
-                resourcesConfig.LogoUrl,
-                resourcesConfig.FaviconUrl,
-                resourcesConfig.ImageUrl,
+                logoUrl,
+                faviconUrl,
+                imageUrl,
                 resourcesConfig.TokensUrl,
                 resourcesConfig.Theme,
                 resourcesConfig.MediaUrl,
