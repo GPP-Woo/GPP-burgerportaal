@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 100" >
+  <rect width="90" height="100" fill="transparent" />
+
+  <polygon points="0,0 90,0 0,100" fill="hsl(211 60% 35%)" />
+
+  <text
+    x="55%"
+    y="88%"
+    text-anchor="middle"
+    font-size="24"
+    fill="hsl(211 60% 35%)"
+  >
+    Burgerportaal
+  </text>
+</svg>
