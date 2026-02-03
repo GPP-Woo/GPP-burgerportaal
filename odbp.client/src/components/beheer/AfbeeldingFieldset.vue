@@ -92,7 +92,7 @@ const onFileSelected = (event: Event) => {
 .afbeelding-fieldset {
   padding: 1rem;
   margin: 0;
-  border: 1px solid #ccc; // ...
+  border: 1px solid #e5e5e5;
 }
 
 .afbeelding-fieldset__preview {
@@ -102,7 +102,7 @@ const onFileSelected = (event: Event) => {
   min-height: 5rem;
   padding: 1rem;
   margin-block: 1rem;
-  background: #f5f5f5; // ...
+  background: #f5f5f5;
 }
 
 .preview-img {
@@ -123,25 +123,5 @@ const onFileSelected = (event: Event) => {
 
 .utrecht-alert {
   margin-block-start: 1rem;
-}
-
-.gpp-woo-info-popover__trigger {
-  --utrecht-button-min-block-size: var(--gpp-woo-popover-trigger-button-size);
-  --utrecht-button-min-inline-size: var(--gpp-woo-popover-trigger-button-size);
-  --utrecht-button-inline-size: var(--gpp-woo-popover-trigger-button-size);
-
-  font-size: var(--gpp-woo-popover-trigger-font-size);
-  font-weight: 400;
-  block-size: var(--gpp-woo-popover-trigger-button-size);
-  padding: 0;
-  border: none;
-  border-radius: 50%;
-  vertical-align: top;
-}
-
-.gpp-woo-info-popover__content {
-  --utrecht-paragraph-margin-block-start: 0;
-
-  cursor: text;
 }
 </style>

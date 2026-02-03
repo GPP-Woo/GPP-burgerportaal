@@ -79,8 +79,30 @@ const links = {
   box-sizing: border-box;
   inline-size: 100%;
 }
+</style>
 
+<style lang="scss">
 .gpp-woo-link--icon {
   --utrecht-icon-size: 1rem;
+}
+
+.gpp-woo-info-popover__trigger {
+  --utrecht-button-min-block-size: var(--gpp-woo-popover-trigger-button-size);
+  --utrecht-button-min-inline-size: var(--gpp-woo-popover-trigger-button-size);
+  --utrecht-button-inline-size: var(--gpp-woo-popover-trigger-button-size);
+
+  font-size: var(--gpp-woo-popover-trigger-font-size);
+  font-weight: 400;
+  block-size: var(--gpp-woo-popover-trigger-button-size);
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  vertical-align: top;
+}
+
+.gpp-woo-info-popover__content {
+  --utrecht-paragraph-margin-block-start: 0;
+
+  cursor: text;
 }
 </style>

@@ -54,7 +54,8 @@ namespace ODBP.Features.Beheer
 
             if (!allowedExtensions.Contains(extension))
             {
-                return BadRequest(new { message = $"Ongeldig bestandsformaat." });
+                return BadRequest(new { message = $"Dit bestandsformaat wordt niet ondersteund. " +
+                    $"De volgende bestandsformaten worden wel ondersteund: { string.Join(", ", allowedExtensions.Select(e => e.TrimStart('.'))) }" });
             }
 
             // Validate file size
@@ -62,7 +63,8 @@ namespace ODBP.Features.Beheer
 
             if (file.Length > maxSize)
             {
-                return BadRequest(new { message = $"Bestand is te groot." });
+                return BadRequest(new { message = $"De bestandsgrootte is te hoog. " +
+                    $"Afbeeldingen tot een bestandsgrootte van { FormatFileSize(maxSize) } worden ondersteund." });
             }
 
             // Ensure storage directory exists
@@ -118,6 +120,21 @@ namespace ODBP.Features.Beheer
             await context.SaveChangesAsync(token);
 
             return Ok(new { fileName = uniqueFileName });
+        }
+
+        private static string FormatFileSize(long bytes)
+        {
+            if (bytes >= 1024 * 1024)
+            {
+                return $"{ bytes / (1024 * 1024) } MB";
+            }
+
+            if (bytes >= 1024)
+            {
+                return $"{ bytes / 1024 } KB";
+            }
+
+            return $"{ bytes } bytes";
         }
     }
 

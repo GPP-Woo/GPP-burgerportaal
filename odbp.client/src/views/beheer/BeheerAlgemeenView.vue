@@ -58,14 +58,9 @@ import SimpleSpinner from "@/components/SimpleSpinner.vue";
 import UtrechtAlert from "@/components/UtrechtAlert.vue";
 import AfbeeldingFieldset from "@/components/beheer/AfbeeldingFieldset.vue";
 
-const helpLogo = `Het logo wordt weergegeven in de header van het portaal.
-  Ondersteunde formaten: SVG, PNG, JPG, GIF, WebP. Maximale bestandsgrootte: 2 MB.`;
-
-const helpFavicon = `Het favicon is het kleine pictogram dat in de browser-tab wordt getoond.
-  Ondersteunde formaten: ICO, SVG, PNG. Maximale bestandsgrootte: 512 KB.`;
-
-const helpImage = `De sfeerfoto wordt weergegeven onder de menubalk op de homepage.
-  Ondersteunde formaten: SVG, PNG, JPG, GIF, WebP. Maximale bestandsgrootte: 5 MB.`;
+const helpLogo = `Het logo wordt in het burgerportaal linksboven op iedere pagina getoond. De volgende bestandsformaten worden ondersteund: SVG, PNG, JPG, GIF, WebP. Maximale bestandsgrootte: 2 MB.`;
+const helpFavicon = `Het favicon wordt door webbrowsers getoond in de URL-balk en/of op het browser-tabblad. De volgende bestandsformaten worden ondersteund: ICO, SVG, PNG. Maximale bestandsgrootte: 512 KB.`;
+const helpImage = `De sfeerfoto wordt in het burgerportaal op iedere pagina bovenaan onder de menubalk getoond. De volgende bestandsformaten worden ondersteund: SVG, PNG, JPG, GIF, WebP. Maximale bestandsgrootte: 5 MB.`;
 
 type ImageType = "logo" | "favicon" | "image";
 
@@ -115,16 +110,16 @@ const uploadImage = async (type: ImageType, file: File) => {
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(data.message || "Upload mislukt");
+      throw new Error(data.message || "Upload mislukt.");
     }
 
     afbeeldingen.value[type] = data.fileName;
 
-    state[type].success = "Upload gelukt";
+    state[type].success = "Upload gelukt.";
 
     setTimeout(() => (state[type].success = null), 3000);
   } catch (err) {
-    state[type].error = err instanceof Error ? err.message : "Upload mislukt";
+    state[type].error = err instanceof Error ? err.message : "Upload mislukt.";
   } finally {
     state[type].isUploading = false;
   }
@@ -132,13 +127,22 @@ const uploadImage = async (type: ImageType, file: File) => {
 </script>
 
 <style lang="scss" scoped>
+@use "@/assets/variables";
+
 form {
   display: grid;
-  grid-template-columns: 1fr 1fr;
   grid-template-areas:
+    "logo"
+    "favicon"
+    "image";
+  gap: 2rem;
+
+  @media screen and (min-width: #{variables.$breakpoint-md}) {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
     "logo favicon"
     "image image";
-  gap: 2rem;
+  }
 }
 
 .afbeelding-fieldset {
