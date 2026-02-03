@@ -42,6 +42,18 @@ Bij het opslaan wordt gevalideerd of de video beschikbaar is. De video wordt get
 
 **Let op:** De embedder is verantwoordelijk voor juiste toegankelijkheid van video content, inclusief ondertiteling en toetsenbordnavigatie.
 
+### Afbeeldingen
+
+Het logo, favicon en de sfeerfoto kunnen worden beheerd via de beheeromgeving. Per afbeelding gelden de volgende beperkingen:
+
+| Afbeelding | Toegestane formaten      | Maximale grootte |
+| :--------- | :----------------------- | :--------------- |
+| Logo       | SVG, PNG, JPG, GIF, WebP | 2 MB             |
+| Favicon    | ICO, SVG, PNG            | 512 KB           |
+| Sfeerfoto  | SVG, PNG, JPG, GIF, WebP | 5 MB             |
+
+Als er geen afbeelding is geüpload, wordt een standaard afbeelding getoond.
+
 ## Cross-Origin Resource Sharing (CORS) en Cross-Origin-Embedder-Policy (COEP)
 
 Deze applicatie maakt gebruik van Cross-Origin-Embedder-Policy (COEP: require-corp), maar de externe resources worden geladen onder CORS (met cross-origin-attributen). Dat betekent dat die externe resources de juiste Access-Control-Allow-Origin-header moeten bevatten.
