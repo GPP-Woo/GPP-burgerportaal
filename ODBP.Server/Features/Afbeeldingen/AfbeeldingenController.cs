@@ -46,10 +46,10 @@ namespace ODBP.Features.Afbeeldingen
             {
                 return ServeDefaultImage(type.Value);
             }
-
-            // If image does not exists, serve default
+            
             var filePath = Path.Combine(StorageConfig.ImagesPath, fileName);
 
+            // If image does not exists, serve default
             if (!System.IO.File.Exists(filePath))
             {
                 return ServeDefaultImage(type.Value);

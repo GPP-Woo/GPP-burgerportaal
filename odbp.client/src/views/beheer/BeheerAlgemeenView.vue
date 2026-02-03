@@ -17,10 +17,10 @@
       title="Logo organisatie"
       :src="logoSrc"
       accept=".svg,.png,.jpg,.jpeg,.gif,.webp"
-      help-text="Het logo wordt weergegeven in de header van het portaal. Ondersteunde formaten: SVG, PNG, JPG, GIF, WebP. Maximale bestandsgrootte: 2 MB."
+      :help-text="helpLogo"
       :is-uploading="state.logo.isUploading"
-      :error-message="state.logo.error"
-      :success-message="state.logo.success"
+      :error="state.logo.error"
+      :success="state.logo.success"
       @fileSelected="(file) => uploadImage(`logo`, file)"
     />
 
@@ -29,10 +29,10 @@
       title="Favicon"
       :src="faviconSrc"
       accept=".ico,.svg,.png"
-      help-text="Het favicon is het kleine pictogram dat in de browser-tab wordt getoond. Ondersteunde formaten: ICO, SVG, PNG. Maximale bestandsgrootte: 512 KB."
+      :help-text="helpFavicon"
       :is-uploading="state.favicon.isUploading"
-      :error-message="state.favicon.error"
-      :success-message="state.favicon.success"
+      :error="state.favicon.error"
+      :success="state.favicon.success"
       @fileSelected="(file) => uploadImage(`favicon`, file)"
     />
 
@@ -41,11 +41,11 @@
       title="Sfeerfoto"
       :src="imageSrc"
       accept=".svg,.png,.jpg,.jpeg,.gif,.webp"
-      help-text="De sfeerfoto wordt weergegeven onder de menubalk op de homepage. Ondersteunde formaten: SVG, PNG, JPG, GIF, WebP. Maximale bestandsgrootte: 5 MB."
+      :help-text="helpImage"
       preview-class="preview-image"
       :is-uploading="state.image.isUploading"
-      :error-message="state.image.error"
-      :success-message="state.image.success"
+      :error="state.image.error"
+      :success="state.image.success"
       @fileSelected="(file) => uploadImage(`image`, file)"
     />
   </form>
@@ -58,15 +58,24 @@ import SimpleSpinner from "@/components/SimpleSpinner.vue";
 import UtrechtAlert from "@/components/UtrechtAlert.vue";
 import AfbeeldingFieldset from "@/components/beheer/AfbeeldingFieldset.vue";
 
-type ImageType = "logo" | "favicon" | "image";
+const helpLogo = `Het logo wordt weergegeven in de header van het portaal.
+  Ondersteunde formaten: SVG, PNG, JPG, GIF, WebP. Maximale bestandsgrootte: 2 MB.`;
 
-type Afbeeldingen = Record<ImageType, string | null>;
+const helpFavicon = `Het favicon is het kleine pictogram dat in de browser-tab wordt getoond.
+  Ondersteunde formaten: ICO, SVG, PNG. Maximale bestandsgrootte: 512 KB.`;
+
+const helpImage = `De sfeerfoto wordt weergegeven onder de menubalk op de homepage.
+  Ondersteunde formaten: SVG, PNG, JPG, GIF, WebP. Maximale bestandsgrootte: 5 MB.`;
+
+type ImageType = "logo" | "favicon" | "image";
 
 type UploadState = {
   isUploading: boolean;
   error: string | null;
   success: string | null;
 };
+
+type Afbeeldingen = Record<ImageType, string | null>;
 
 const afbeeldingen = ref<Afbeeldingen>({ logo: null, favicon: null, image: null });
 
@@ -97,14 +106,11 @@ const uploadImage = async (type: ImageType, file: File) => {
   state[type].success = null;
 
   try {
-    const formData = new FormData();
+    const body = new FormData();
 
-    formData.append("file", file);
+    body.append("file", file);
 
-    const response = await fetch(`/api/beheer/afbeeldingen/${type}`, {
-      method: "POST",
-      body: formData
-    });
+    const response = await fetch(`/api/beheer/afbeeldingen/${type}`, { method: "POST", body });
 
     const data = await response.json();
 

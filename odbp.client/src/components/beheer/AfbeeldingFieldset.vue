@@ -48,12 +48,12 @@
       </utrecht-form-label>
     </utrecht-form-field>
 
-    <utrecht-alert v-if="errorMessage" type="error">
-      {{ errorMessage }}
+    <utrecht-alert v-if="error" type="error">
+      {{ error }}
     </utrecht-alert>
 
-    <utrecht-alert v-if="successMessage" type="ok">
-      {{ successMessage }}
+    <utrecht-alert v-if="success" type="ok">
+      {{ success }}
     </utrecht-alert>
   </utrecht-fieldset>
 </template>
@@ -70,8 +70,8 @@ defineProps<{
   helpText?: string;
   previewClass?: string;
   isUploading: boolean;
-  errorMessage: string | null;
-  successMessage: string | null;
+  error: string | null;
+  success: string | null;
 }>();
 
 const emit = defineEmits<{ fileSelected: [file: File] }>();

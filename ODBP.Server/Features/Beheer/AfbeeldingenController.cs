@@ -94,6 +94,7 @@ namespace ODBP.Features.Beheer
             if (!string.IsNullOrWhiteSpace(oldFileName))
             {
                 var oldFilePath = Path.Combine(StorageConfig.ImagesPath, oldFileName);
+
                 if (System.IO.File.Exists(oldFilePath))
                 {
                     System.IO.File.Delete(oldFilePath);
