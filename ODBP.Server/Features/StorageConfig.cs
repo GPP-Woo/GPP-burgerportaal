@@ -4,10 +4,10 @@
     {
         public string ImagesPath { get; }
 
-        public StorageConfig(IConfiguration configuration)
+        public StorageConfig(IHostEnvironment environment)
         {
-            var path = configuration["IMAGES_PATH"];
-            ImagesPath = !string.IsNullOrWhiteSpace(path) ? path : "/app/data/images";
+            var startPath = Directory.GetParent(environment.ContentRootPath)?.FullName ?? environment.ContentRootPath;
+            ImagesPath = Path.Combine(startPath, "data", "images");
         }
 
         public void EnsureDirectoryExists()
