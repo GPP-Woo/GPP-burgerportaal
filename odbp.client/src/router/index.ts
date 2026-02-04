@@ -85,11 +85,11 @@ const router = createRouter({
           }
         },
         {
-          path: "algemeen",
-          name: "beheer-algemeen",
-          component: () => import("../views/beheer/BeheerAlgemeenView.vue"),
+          path: "afbeeldingen",
+          name: "beheer-afbeeldingen",
+          component: () => import("../views/beheer/BeheerAfbeeldingenView.vue"),
           meta: {
-            title: "Beheer - Algemeen"
+            title: "Beheer - Afbeeldingen"
           }
         }
       ]

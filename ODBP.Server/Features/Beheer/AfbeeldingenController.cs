@@ -76,7 +76,7 @@ namespace ODBP.Features.Beheer
             var filePath = Path.Combine(storageConfig.ImagesPath, uniqueFileName);
 
             // Save file
-            using (var stream = new FileStream(filePath, FileMode.Create))
+            await using (var stream = new FileStream(filePath, FileMode.Create))
             {
                 await file.CopyToAsync(stream, token);
             }
