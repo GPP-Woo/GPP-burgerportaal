@@ -1,10 +1,16 @@
 ﻿namespace ODBP.Features
 {
-    public static class StorageConfig
+    public class StorageConfig
     {
-        public const string ImagesPath = "/app/data/images";
+        public string ImagesPath { get; }
 
-        public static void EnsureDirectoryExists()
+        public StorageConfig(IConfiguration configuration)
+        {
+            var path = configuration["IMAGES_PATH"];
+            ImagesPath = !string.IsNullOrWhiteSpace(path) ? path : "/app/data/images";
+        }
+
+        public void EnsureDirectoryExists()
         {
             if (!Directory.Exists(ImagesPath))
             {

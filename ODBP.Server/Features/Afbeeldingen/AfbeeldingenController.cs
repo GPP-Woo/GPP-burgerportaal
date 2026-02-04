@@ -11,7 +11,7 @@ namespace ODBP.Features.Afbeeldingen
 
     [ApiController]
     [Route("api/afbeeldingen")]
-    public class AfbeeldingenController() : ControllerBase
+    public class AfbeeldingenController(StorageConfig storageConfig) : ControllerBase
     {
         private static readonly Dictionary<ImageType, string> s_defaultFileNames = new()
         {
@@ -47,7 +47,7 @@ namespace ODBP.Features.Afbeeldingen
                 return ServeDefaultImage(type.Value);
             }
             
-            var filePath = Path.Combine(StorageConfig.ImagesPath, fileName);
+            var filePath = Path.Combine(storageConfig.ImagesPath, fileName);
 
             // If image does not exists, serve default
             if (!System.IO.File.Exists(filePath))

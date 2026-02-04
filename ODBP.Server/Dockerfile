@@ -2,7 +2,10 @@
 
 # This stage is used when running from VS in fast mode (Default for Debug configuration)
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-RUN mkdir -p /app/data/images && chown -R app:app /app/data
+RUN mkdir -p /app/data/images
+# prevent writing to the container layer, which would degrade performance.
+# This also serves as a hint for the intended volumes.
+VOLUME ["/app/data"]
 USER app
 WORKDIR /app
 EXPOSE 8080
