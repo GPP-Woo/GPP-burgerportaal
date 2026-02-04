@@ -11,6 +11,8 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=localdev
       - ASPNETCORE_FORWARDEDHEADERS_ENABLED=true
+    volumes:
+      - odbp-data:/data
     ports:
       - "53997:8080"
     depends_on:
@@ -27,3 +29,4 @@ services:
 
 volumes:
   postgres-db:
+  odbp-data:

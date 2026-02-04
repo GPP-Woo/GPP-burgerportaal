@@ -81,7 +81,15 @@ const router = createRouter({
           name: "beheer-home",
           component: () => import("../views/beheer/BeheerHomeView.vue"),
           meta: {
-            title: "Beheer"
+            title: "Beheer - Homepage"
+          }
+        },
+        {
+          path: "afbeeldingen",
+          name: "beheer-afbeeldingen",
+          component: () => import("../views/beheer/BeheerAfbeeldingenView.vue"),
+          meta: {
+            title: "Beheer - Afbeeldingen"
           }
         }
       ]

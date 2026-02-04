@@ -73,6 +73,7 @@ try
         b => b.Expire(TimeSpan.FromHours(cacheExpiryHours))));
 
     builder.Services.AddSingleton<ResourcesConfig>();
+    builder.Services.AddSingleton<StorageConfig>();
     builder.Services.AddHttpClient<ISearchClient, SearchClient>(httpClient =>
     {
         httpClient.BaseAddress = new(GetRequiredConfig("SEARCH_BASE_URL"));

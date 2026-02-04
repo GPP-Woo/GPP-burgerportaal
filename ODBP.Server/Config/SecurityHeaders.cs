@@ -36,8 +36,6 @@ namespace ODBP.Config
 
             var imgSources = new List<string?> {
                 "'self'",
-                resourcesConfig.FaviconUrl,
-                resourcesConfig.ImageUrl,
                 resourcesConfig.MediaUrl
             };
 
@@ -53,21 +51,6 @@ namespace ODBP.Config
             };
 
             frameSources.AddRange(s_videoEmbedDomains);
-
-            // Add svg logo to connectSources to be able to fetch through js
-            var logoUrl = resourcesConfig.LogoUrl;
-
-            if (!string.IsNullOrEmpty(logoUrl))
-            {
-                if (logoUrl.EndsWith(".svg", StringComparison.OrdinalIgnoreCase))
-                {
-                    connectSources.Add(logoUrl);
-                }
-                else
-                {
-                    imgSources.Add(logoUrl);
-                }
-            }
 
             return app.UseSecurityHeaders(headerPolicyCollection =>
             {
