@@ -42,6 +42,7 @@
           type="button"
           :appearance="'secondary-action-button'"
           :disabled="isUploading"
+          tabindex="-1"
         >
           {{ isUploading ? "Uploaden..." : "Vervangen" }}
         </utrecht-button>
@@ -113,11 +114,19 @@ const onFileSelected = (event: Event) => {
 }
 
 .utrecht-form-label {
-  cursor: pointer;
+  display: inline-block;
   font-weight: 400;
+  cursor: pointer;
 
   .utrecht-button {
     pointer-events: none;
+  }
+
+  &:focus-within .utrecht-button {
+    outline-color: var(--utrecht-focus-outline-color);
+    outline-offset: var(--utrecht-focus-outline-offset);
+    outline-style: var(--utrecht-focus-outline-style);
+    outline-width: var(--utrecht-focus-outline-width);
   }
 }
 
