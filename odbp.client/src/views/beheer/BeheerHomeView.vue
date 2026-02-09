@@ -117,38 +117,3 @@ const get = () => getHomepage().execute();
 
 const submit = () => putHomepage(homepage).execute();
 </script>
-
-<style lang="scss" scoped>
-.utrecht-form {
-  --utrecht-form-field-margin-block-end: 1rem;
-  --utrecht-form-field-margin-block-start: 1rem;
-
-  .utrecht-form-label {
-    display: block;
-    margin-block-end: 0.5rem;
-  }
-
-  .form-actions {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .form-error {
-    display: block;
-    color: var(--utrecht-color-invalid);
-    margin-block-start: 0.5rem;
-  }
-
-  .utrecht-textbox {
-    & + .form-error {
-      display: none;
-    }
-
-    &:user-invalid {
-      & + .form-error {
-        display: block;
-      }
-    }
-  }
-}
-</style>

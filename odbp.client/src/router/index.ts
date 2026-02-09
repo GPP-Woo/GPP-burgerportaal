@@ -91,6 +91,14 @@ const router = createRouter({
           meta: {
             title: "Beheer - Afbeeldingen"
           }
+        },
+        {
+          path: "links",
+          name: "beheer-links",
+          component: () => import("../views/beheer/BeheerLinksView.vue"),
+          meta: {
+            title: "Beheer - Externe links"
+          }
         }
       ]
     },

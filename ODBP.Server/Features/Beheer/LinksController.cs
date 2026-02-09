@@ -17,10 +17,10 @@ namespace ODBP.Features.Beheer
             var resources = await context.Resources.SingleAsync(token);
 
             return Ok(new Links(
-                resources.WebsiteUrl,
-                resources.PrivacyUrl,
-                resources.ContactUrl,
-                resources.A11yUrl
+                resources.WebsiteUrl ?? "",
+                resources.PrivacyUrl ?? "",
+                resources.ContactUrl ?? "",
+                resources.A11yUrl ?? ""
             ));
         }
 
@@ -53,11 +53,11 @@ namespace ODBP.Features.Beheer
             ));
         }
 
-        private BadRequestObjectResult? InvalidUrl(string? url, string fieldName, out string? normalized)
+        private BadRequestObjectResult? InvalidUrl(string? url, string fieldName, out string normalized)
         {
             if (string.IsNullOrWhiteSpace(url))
             {
-                normalized = null;
+                normalized = "";
 
                 return null;
             }
@@ -69,11 +69,11 @@ namespace ODBP.Features.Beheer
                 return null;
             }
 
-            normalized = null;
+            normalized = "";
 
             return BadRequest(new { message = $"De waarde moet een geldig URL zijn: {fieldName}" });
         }
     }
 
-    public record Links(string? WebsiteUrl, string? PrivacyUrl, string? ContactUrl, string? A11yUrl);
+    public record Links(string WebsiteUrl, string PrivacyUrl, string ContactUrl, string A11yUrl);
 }
