@@ -27,7 +27,9 @@
       :aria-describedby="`linkError-${linkId}`"
     />
 
-    <span :id="`linkError-${linkId}`" class="form-error">De waarde moet een geldig URL zijn.</span>
+    <span :id="`linkError-${linkId}`" class="form-error"
+      >De opgegeven waarde is geen valide URL. Let op dat de URL moet beginnen met https://.</span
+    >
   </utrecht-form-field>
 </template>
 
