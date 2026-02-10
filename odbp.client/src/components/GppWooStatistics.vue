@@ -4,16 +4,16 @@
   <template v-else-if="statistics && !error">
     <utrecht-heading :level="2">Cijfers over deze website</utrecht-heading>
 
-    <dl>
-      <template v-for="{ label, count, link } in statistics" :key="label">
-        <dt>{{ label }}:</dt>
-        <dd>
+    <utrecht-data-list>
+      <utrecht-data-list-item v-for="{ label, count, link } in statistics" :key="label">
+        <utrecht-data-list-key>{{ label }}:</utrecht-data-list-key>
+        <utrecht-data-list-value :value="count">
           <router-link :to="link" class="utrecht-link utrecht-link--html-a">{{
             count
           }}</router-link>
-        </dd>
-      </template>
-    </dl>
+        </utrecht-data-list-value>
+      </utrecht-data-list-item>
+    </utrecht-data-list>
   </template>
 </template>
 
@@ -53,21 +53,3 @@ const statistics = computed(() => {
   ];
 });
 </script>
-
-<style lang="scss" scoped>
-dl {
-  display: grid;
-  grid-template-columns: max-content 1fr;
-  gap: 0.5rem;
-  margin-block: 0;
-
-  dt {
-    grid-column: 1;
-  }
-
-  dd {
-    grid-column: 2;
-    margin-inline: 0;
-  }
-}
-</style>
