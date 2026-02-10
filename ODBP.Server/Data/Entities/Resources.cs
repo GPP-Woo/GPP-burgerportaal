@@ -8,5 +8,9 @@
         public string? LogoFileName { get; set; }
         public string? FaviconFileName { get; set; }
         public string? ImageFileName { get; set; }
+        public string? WebsiteUrl { get; set; }
+        public string? PrivacyUrl { get; set; }
+        public string? ContactUrl { get; set; }
+        public string? A11yUrl { get; set; }
     }
 }

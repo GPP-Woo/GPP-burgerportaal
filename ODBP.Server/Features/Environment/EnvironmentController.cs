@@ -22,8 +22,6 @@ namespace ODBP.Features.Environment
                 ? $"<p>Welkom op het Woo-burgerportaal van {resourcesConfig.Name}!</p>"
                 : resources.Welcome;
 
-            var videoUrl = resources?.VideoUrl;
-
             var logoUrl = $"/api/afbeeldingen/{resources?.LogoFileName ?? "logo"}";
             var faviconUrl = $"/api/afbeeldingen/{resources?.FaviconFileName ?? "favicon"}";
             var imageUrl = $"/api/afbeeldingen/{resources?.ImageFileName ?? "image"}";
@@ -38,12 +36,12 @@ namespace ODBP.Features.Environment
                 resourcesConfig.TokensUrl,
                 resourcesConfig.Theme,
                 resourcesConfig.MediaUrl,
-                videoUrl,
-                resourcesConfig.WebsiteUrl,
-                resourcesConfig.PrivacyUrl,
-                resourcesConfig.ContactUrl,
+                resources?.VideoUrl,
+                resources?.WebsiteUrl,
+                resources?.PrivacyUrl,
+                resources?.ContactUrl,
                 welcome,
-                resourcesConfig.A11yUrl
+                resources?.A11yUrl
             };
 
             return Ok(response);

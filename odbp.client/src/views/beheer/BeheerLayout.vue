@@ -66,7 +66,8 @@ const { data: user } = useLoader<AuthUser | null>(() => fetchAuthUser());
 
 const links = {
   "beheer-home": "Homepage",
-  "beheer-afbeeldingen": "Afbeeldingen"
+  "beheer-afbeeldingen": "Afbeeldingen",
+  "beheer-links": "Externe links"
 } as const;
 </script>
 
@@ -82,6 +83,39 @@ const links = {
 </style>
 
 <style lang="scss">
+.utrecht-form {
+  --utrecht-form-field-margin-block-end: 1rem;
+  --utrecht-form-field-margin-block-start: 1rem;
+
+  .utrecht-form-label {
+    display: block;
+    margin-block-end: 0.5rem;
+  }
+
+  .form-actions {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .form-error {
+    display: block;
+    color: var(--utrecht-color-invalid);
+    margin-block-start: 0.5rem;
+  }
+
+  .utrecht-textbox {
+    & + .form-error {
+      display: none;
+    }
+
+    &:user-invalid {
+      & + .form-error {
+        display: block;
+      }
+    }
+  }
+}
+
 .gpp-woo-link--icon {
   --utrecht-icon-size: 1rem;
 }
