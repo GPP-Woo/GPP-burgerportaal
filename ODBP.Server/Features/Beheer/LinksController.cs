@@ -30,10 +30,10 @@ namespace ODBP.Features.Beheer
         {
             var resources = await context.Resources.SingleAsync(token);
 
-            resources.WebsiteUrl = new Uri(request.WebsiteUrl, UriKind.Absolute).ToString();
-            resources.PrivacyUrl = new Uri(request.PrivacyUrl, UriKind.Absolute).ToString();
-            resources.ContactUrl = new Uri(request.ContactUrl, UriKind.Absolute).ToString();
-            resources.A11yUrl = new Uri(request.A11yUrl, UriKind.Absolute).ToString();
+            resources.WebsiteUrl = NormalizeUrl(request.WebsiteUrl);
+            resources.PrivacyUrl = NormalizeUrl(request.PrivacyUrl);
+            resources.ContactUrl = NormalizeUrl(request.ContactUrl);
+            resources.A11yUrl = NormalizeUrl(request.A11yUrl);
 
             await context.SaveChangesAsync(token);
 
@@ -44,6 +44,9 @@ namespace ODBP.Features.Beheer
                 resources.A11yUrl
             ));
         }
+
+        private static string NormalizeUrl(string? url) =>
+            Uri.TryCreate(url, UriKind.Absolute, out var uri) ? uri.ToString() : "";
     }
 
     public record Links(
