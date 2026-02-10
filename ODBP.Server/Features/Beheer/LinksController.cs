@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ODBP.Authentication;
@@ -27,21 +28,12 @@ namespace ODBP.Features.Beheer
         [HttpPut]
         public async Task<IActionResult> Put([FromBody] Links request, CancellationToken token)
         {
-            if (InvalidUrl(request.WebsiteUrl, "websiteUrl", out var websiteUrl)
-                is BadRequestObjectResult errorWebsiteUrl) return errorWebsiteUrl;
-            if (InvalidUrl(request.PrivacyUrl, "privacyUrl", out var privacyUrl)
-                is BadRequestObjectResult errorPrivacyUrl) return errorPrivacyUrl;
-            if (InvalidUrl(request.ContactUrl, "contactUrl", out var contactUrl)
-                is BadRequestObjectResult errorContactUrl) return errorContactUrl;
-            if (InvalidUrl(request.A11yUrl, "a11yUrl", out var a11yUrl)
-                is BadRequestObjectResult errorA11yUrl) return errorA11yUrl;
-
             var resources = await context.Resources.SingleAsync(token);
 
-            resources.WebsiteUrl = websiteUrl;
-            resources.PrivacyUrl = privacyUrl;
-            resources.ContactUrl = contactUrl;
-            resources.A11yUrl = a11yUrl;
+            resources.WebsiteUrl = new Uri(request.WebsiteUrl, UriKind.Absolute).ToString();
+            resources.PrivacyUrl = new Uri(request.PrivacyUrl, UriKind.Absolute).ToString();
+            resources.ContactUrl = new Uri(request.ContactUrl, UriKind.Absolute).ToString();
+            resources.A11yUrl = new Uri(request.A11yUrl, UriKind.Absolute).ToString();
 
             await context.SaveChangesAsync(token);
 
@@ -52,28 +44,24 @@ namespace ODBP.Features.Beheer
                 resources.A11yUrl
             ));
         }
-
-        private BadRequestObjectResult? InvalidUrl(string? url, string fieldName, out string normalized)
-        {
-            if (string.IsNullOrWhiteSpace(url))
-            {
-                normalized = "";
-
-                return null;
-            }
-
-            if (Uri.TryCreate(url, UriKind.Absolute, out var uri) && uri.Scheme == Uri.UriSchemeHttps)
-            {
-                normalized = uri.ToString();
-
-                return null;
-            }
-
-            normalized = "";
-
-            return BadRequest(new { message = $"De waarde moet een geldig URL zijn: {fieldName}" });
-        }
     }
 
-    public record Links(string WebsiteUrl, string PrivacyUrl, string ContactUrl, string A11yUrl);
+    public record Links(
+        [HttpsUrl] string WebsiteUrl,
+        [HttpsUrl] string PrivacyUrl,
+        [HttpsUrl] string ContactUrl,
+        [HttpsUrl] string A11yUrl
+    );
+
+    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = false)]
+    public class HttpsUrlAttribute : DataTypeAttribute
+    {
+        public HttpsUrlAttribute() : base(DataType.Url) { }
+        public override bool IsValid(object? value) => value switch
+        {
+            null or "" => true,
+            string url => Uri.TryCreate(url, UriKind.Absolute, out var uri) && uri.Scheme == Uri.UriSchemeHttps,
+            _ => false
+        };
+    }
 }
