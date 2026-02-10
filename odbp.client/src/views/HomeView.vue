@@ -16,6 +16,8 @@
 
     <gpp-woo-tile-carousel :tiles="promoted"> </gpp-woo-tile-carousel>
   </utrecht-spotlight-section>
+
+  <gpp-woo-statistics />
 </template>
 
 <script lang="ts" setup>
@@ -25,6 +27,7 @@ import { sanitizeHtml } from "@/helpers";
 import VideoEmbed from "@/components/VideoEmbed.vue";
 import UtrechtSpotlightSection from "@/components/UtrechtSpotlightSection.vue";
 import GppWooTileCarousel from "@/components/gpp-woo-tiles/GppWooTileCarousel.vue";
+import GppWooStatistics from "@/components/GppWooStatistics.vue";
 import type { Tile } from "@/components/gpp-woo-tiles/GppWooTile.vue";
 import { lijsten } from "@/stores/lijsten";
 

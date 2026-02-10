@@ -1,6 +1,6 @@
 import { addToDate, formatIsoDate } from "@/helpers";
 
-type SearchResponse = {
+export type SearchResponse = {
   count: number;
   previous: boolean;
   next: boolean;
