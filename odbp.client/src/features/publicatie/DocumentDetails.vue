@@ -3,7 +3,8 @@
 
   <utrecht-alert v-else-if="error"
     >Helaas! Dit document is niet (meer) beschikbaar! Mogelijk is deze verwijderd. Neem contact op
-    met de gemeente voor nadere informatie.</utrecht-alert
+    met {{ resources?.organisationLabel ?? "de organisatie" }} voor nadere
+    informatie.</utrecht-alert
   >
 
   <template v-else>
@@ -91,6 +92,7 @@
 
 <script setup lang="ts">
 import { computed, useId, watch } from "vue";
+import { injectResources } from "@/resources";
 import { useFetchApi } from "@/api/use-fetch-api";
 import SimpleSpinner from "@/components/SimpleSpinner.vue";
 import UtrechtAlert from "@/components/UtrechtAlert.vue";
@@ -105,6 +107,8 @@ const API_URL = `/api/v2`;
 const props = defineProps<{ uuid: string }>();
 
 const headingId = useId();
+
+const resources = injectResources();
 
 const loading = computed(() => loadingDocument.value || loadingPublicatie.value);
 const error = computed(() => !!documentError.value || !!publicatieError.value);
