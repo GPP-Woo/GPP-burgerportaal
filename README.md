@@ -113,6 +113,7 @@ Op dit moment is de implementatie gebaseerd op alleen het Utrecht Design System,
 | **Table** (`utrecht-table`)                         | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-table--design-tokens)             |
 | **Logo** (`utrecht-logo`)                           | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-logo--design-tokens)              |
 | **Spotlight section** (`utrecht-spotlight-section`) | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-spotlight-section--design-tokens) |
+| **Data list** (`utrecht-data-list`)                 | [🔗 Design Tokens](https://nl-design-system.github.io/utrecht/storybook/?path=/story/css_css-data-list--design-tokens)         |
 
 ### GPP Woo Theme
 

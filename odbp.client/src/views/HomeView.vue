@@ -16,6 +16,12 @@
 
     <gpp-woo-tile-carousel :tiles="promoted"> </gpp-woo-tile-carousel>
   </utrecht-spotlight-section>
+
+  <utrecht-spotlight-section type="ok">
+    <utrecht-heading :level="2">Cijfers over deze website</utrecht-heading>
+
+    <gpp-woo-statistics />
+  </utrecht-spotlight-section>
 </template>
 
 <script lang="ts" setup>
@@ -25,6 +31,7 @@ import { sanitizeHtml } from "@/helpers";
 import VideoEmbed from "@/components/VideoEmbed.vue";
 import UtrechtSpotlightSection from "@/components/UtrechtSpotlightSection.vue";
 import GppWooTileCarousel from "@/components/gpp-woo-tiles/GppWooTileCarousel.vue";
+import GppWooStatistics from "@/components/GppWooStatistics.vue";
 import type { Tile } from "@/components/gpp-woo-tiles/GppWooTile.vue";
 import { lijsten } from "@/stores/lijsten";
 
@@ -73,5 +80,20 @@ const promoted = computed(() =>
 .utrecht-spotlight-section {
   --utrecht-heading-2-margin-block-start: 0;
   --utrecht-heading-2-margin-block-end: calc(var(--gpp-woo-tile-grid-grid-gap) / 4);
+
+  &--ok {
+    text-align: center;
+  }
+
+  .spinner {
+    margin-inline: auto;
+  }
+
+  .utrecht-data-list {
+    --utrecht-data-list-margin-block-end: 0;
+    --utrecht-data-list-margin-block-start: 0;
+    --utrecht-data-list-rows-column-inline-size: 100%;
+    --utrecht-data-list-rows-item-value-margin-block-start: 0;
+  }
 }
 </style>

@@ -26,7 +26,11 @@ import {
   Select as UtrechtSelect,
   FormFieldset as UtrechtFieldset,
   FormFieldsetLegend as UtrechtLegend,
-  Document as UtrechtDocument
+  Document as UtrechtDocument,
+  DataList as UtrechtDataList,
+  DataListItem as UtrechtDataListItem,
+  DataListKey as UtrechtDataListKey,
+  DataListValue as UtrechtDataListValue
 } from "@utrecht/component-library-vue";
 
 const components = {
@@ -55,7 +59,11 @@ const components = {
   UtrechtSelect,
   UtrechtFieldset,
   UtrechtLegend,
-  UtrechtDocument
+  UtrechtDocument,
+  UtrechtDataList,
+  UtrechtDataListItem,
+  UtrechtDataListKey,
+  UtrechtDataListValue
 } as const;
 
 export type OurComponents = typeof components;
