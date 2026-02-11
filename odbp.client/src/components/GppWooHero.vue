@@ -5,15 +5,16 @@
         v-if="resources?.imageUrl"
         :src="resources.imageUrl"
         class="gpp-woo-hero__image"
-        alt="Afbeelding gemeente"
+        :alt="`Afbeelding van ${resources.organisationLabel} ${resources.organisationName}`"
         crossorigin="anonymous"
       />
 
       <div class="gpp-woo-card">
         <div class="gpp-woo-card__content">
-          <span class="utrecht-heading-2"
-            >{{ resources?.title ? `${resources.title}, ` : `` }}zoek hier in openbaar gemaakte
-            informatie{{ resources?.name ? ` van ${resources.name}` : `` }}</span
+          <span v-if="resources" class="utrecht-heading-2"
+            >{{ resources.portalTitle ? `${resources.portalTitle}, ` : `` }}zoek hier in openbaar
+            gemaakte informatie van {{ resources.organisationLabel }}
+            {{ resources.organisationName }}</span
           >
 
           <form v-if="route.name === 'home'" class="utrecht-form" @submit.prevent.stop="submit">

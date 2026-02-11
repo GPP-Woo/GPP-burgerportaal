@@ -37,7 +37,7 @@ import { lijsten } from "@/stores/lijsten";
 
 const resources = injectResources();
 
-const html = computed(() => (resources?.welcome ? sanitizeHtml(resources.welcome) : ""));
+const html = computed(() => (resources?.welcomeText ? sanitizeHtml(resources.welcomeText) : ""));
 
 const promoted = computed(() =>
   lijsten.value?.onderwerpen
