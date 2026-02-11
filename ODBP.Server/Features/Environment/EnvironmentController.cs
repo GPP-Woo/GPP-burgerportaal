@@ -18,8 +18,8 @@ namespace ODBP.Features.Environment
         {
             var resources = await context.Resources.SingleAsync(token);
 
-            var welcome = string.IsNullOrWhiteSpace(resources?.Welcome) 
-                ? $"<p>Welkom op het Woo-burgerportaal van {resourcesConfig.Name}!</p>"
+            var welcomeText = string.IsNullOrWhiteSpace(resources?.Welcome) 
+                ? $"<p>Welkom op het Woo-burgerportaal van {resourcesConfig.OrganisationLabel} {resourcesConfig.OrganisationName}!</p>"
                 : resources.Welcome;
 
             var logoUrl = $"/api/afbeeldingen/{resources?.LogoFileName ?? "logo"}";
@@ -28,19 +28,19 @@ namespace ODBP.Features.Environment
 
             var response = new
             {
-                resourcesConfig.Title,
-                resourcesConfig.Name,
+                resourcesConfig.PortalTitle,
+                resourcesConfig.OrganisationName,
+                resourcesConfig.OrganisationLabel,
                 logoUrl,
                 faviconUrl,
                 imageUrl,
                 resourcesConfig.TokensUrl,
-                resourcesConfig.Theme,
-                resourcesConfig.MediaUrl,
+                resourcesConfig.ThemeName,
                 resources?.VideoUrl,
                 resources?.WebsiteUrl,
                 resources?.PrivacyUrl,
                 resources?.ContactUrl,
-                welcome,
+                welcomeText,
                 resources?.A11yUrl
             };
 
