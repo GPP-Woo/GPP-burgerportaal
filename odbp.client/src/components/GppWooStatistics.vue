@@ -1,20 +1,16 @@
 <template>
   <small-spinner v-if="isFetching" />
 
-  <template v-else-if="statistics && !error">
-    <utrecht-heading :level="2">Cijfers over deze website</utrecht-heading>
+  <utrecht-paragraph v-else-if="error">Er zijn geen statistieken beschikbaar...</utrecht-paragraph>
 
-    <utrecht-data-list>
-      <utrecht-data-list-item v-for="{ label, count, link } in statistics" :key="label">
-        <utrecht-data-list-key>{{ label }}:</utrecht-data-list-key>
-        <utrecht-data-list-value :value="count">
-          <router-link :to="link" class="utrecht-link utrecht-link--html-a">{{
-            count
-          }}</router-link>
-        </utrecht-data-list-value>
-      </utrecht-data-list-item>
-    </utrecht-data-list>
-  </template>
+  <utrecht-data-list v-else>
+    <utrecht-data-list-item v-for="{ label, count, link } in statistics" :key="label">
+      <utrecht-data-list-key>{{ label }}</utrecht-data-list-key>
+      <utrecht-data-list-value :value="count">
+        <router-link :to="link" class="utrecht-link utrecht-link--html-a">{{ count }}</router-link>
+      </utrecht-data-list-value>
+    </utrecht-data-list-item>
+  </utrecht-data-list>
 </template>
 
 <script setup lang="ts">
@@ -30,9 +26,7 @@ const { data, isFetching, error } = useFetchApi(() => "/api/zoeken")
 const statistics = computed(() => {
   const facets = data.value?.facets;
 
-  if (!facets) return null;
-
-  const getCount = (name: string) => facets.resultTypes.find((r) => r.naam === name)?.count ?? 0;
+  const getCount = (name: string) => facets?.resultTypes.find((r) => r.naam === name)?.count ?? 0;
 
   return [
     {

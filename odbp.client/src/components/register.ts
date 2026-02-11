@@ -29,7 +29,6 @@ import {
   Document as UtrechtDocument,
   DataList as UtrechtDataList,
   DataListItem as UtrechtDataListItem,
-  DataListActions as UtrechtDataListActions,
   DataListKey as UtrechtDataListKey,
   DataListValue as UtrechtDataListValue
 } from "@utrecht/component-library-vue";
@@ -63,7 +62,6 @@ const components = {
   UtrechtDocument,
   UtrechtDataList,
   UtrechtDataListItem,
-  UtrechtDataListActions,
   UtrechtDataListKey,
   UtrechtDataListValue
 } as const;

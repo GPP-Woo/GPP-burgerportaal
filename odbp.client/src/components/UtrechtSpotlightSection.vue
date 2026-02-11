@@ -1,5 +1,11 @@
 <template>
-  <section class="utrecht-spotlight-section utrecht-spotlight-section--info">
+  <section
+    class="utrecht-spotlight-section"
+    :class="{
+      'utrecht-spotlight-section--info': type === 'info',
+      'utrecht-spotlight-section--ok': type === 'ok'
+    }"
+  >
     <slot></slot>
   </section>
 </template>
@@ -17,3 +23,7 @@
   margin-inline-start: calc(-1 * var(--utrecht-page-margin-inline-start));
 }
 </style>
+
+<script setup lang="ts">
+const { type = "info" } = defineProps<{ type?: "info" | "ok" }>();
+</script>
