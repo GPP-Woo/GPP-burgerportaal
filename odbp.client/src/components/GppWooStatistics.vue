@@ -7,7 +7,9 @@
     <utrecht-data-list-item v-for="{ label, count, link } in statistics" :key="label">
       <utrecht-data-list-key>{{ label }}</utrecht-data-list-key>
       <utrecht-data-list-value :value="count">
-        <router-link :to="link" class="utrecht-link utrecht-link--html-a">{{ count }}</router-link>
+        <router-link :to="link" class="utrecht-link utrecht-link--html-a">{{
+          Intl.NumberFormat("nl-NL").format(count)
+        }}</router-link>
       </utrecht-data-list-value>
     </utrecht-data-list-item>
   </utrecht-data-list>

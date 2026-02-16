@@ -92,15 +92,14 @@ const promoted = computed(() =>
   .utrecht-data-list {
     --utrecht-data-list-margin-block-end: 0;
     --utrecht-data-list-margin-block-start: 0;
-    --utrecht-data-list-rows-item-margin-block-start: 0;
-    --utrecht-data-list-rows-item-value-margin-block-start: 0;
 
     display: flex;
     justify-content: center;
     flex-direction: column;
-    row-gap: var(--utrecht-space-block-xl);
 
     @media screen and (min-width: #{variables.$breakpoint-md}) {
+      --utrecht-data-list-rows-item-margin-block-start: 0;
+
       flex-direction: row;
       column-gap: var(--utrecht-space-inline-3xl);
     }
