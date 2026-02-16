@@ -27,7 +27,7 @@
             :href="resources.websiteUrl"
             class="utrecht-nav-list__link gpp-woo-link--icon"
           >
-            Naar de gemeente
+            Naar {{ resources.organisationLabel }}
 
             <span class="visually-hidden">(externe link)</span>
 

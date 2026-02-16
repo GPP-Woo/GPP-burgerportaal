@@ -2,18 +2,19 @@ import { inject, type App } from "vue";
 import { sanitizeSvg } from "./helpers";
 
 export type Resources = Partial<{
-  title: string;
-  name: string;
+  portalTitle: string;
+  organisationName: string;
+  organisationLabel: string;
   logoUrl: string;
   faviconUrl: string;
   imageUrl: string;
   tokensUrl: string;
-  theme: string;
+  themeName: string;
   videoUrl: string;
   websiteUrl: string;
   privacyUrl: string;
   contactUrl: string;
-  welcome: string;
+  welcomeText: string;
   a11yUrl: string;
 }>;
 
@@ -107,13 +108,13 @@ export const loadThemeResources = async (app: App): Promise<void> => {
     await loadResources([resources.tokensUrl, resources.logoUrl, resources.imageUrl]);
 
     // Set portal title
-    setTitle(resources.title);
+    setTitle(resources.portalTitle);
 
     // Replace the provided favicon link
     setIcon(resources.faviconUrl);
 
     // Apply the associated theme class to the root element of the app
-    setTheme(resources.theme);
+    setTheme(resources.themeName);
 
     // Provide references to the loaded resources to the app
     app.provide("resources", resources);

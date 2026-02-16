@@ -15,7 +15,11 @@
       <figure v-if="svg" v-html="svg" class="utrecht-logo"></figure>
 
       <figure v-else-if="resources?.logoUrl" class="utrecht-logo">
-        <img :src="resources.logoUrl" :alt="`Logo ${resources.name}`" crossorigin="anonymous" />
+        <img
+          :src="resources.logoUrl"
+          :alt="`Logo ${resources.organisationName}`"
+          crossorigin="anonymous"
+        />
       </figure>
     </component>
 

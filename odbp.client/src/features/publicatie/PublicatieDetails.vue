@@ -3,7 +3,8 @@
 
   <utrecht-alert v-else-if="error"
     >Helaas! Deze publicatie is niet (meer) beschikbaar! Mogelijk is deze verwijderd. Neem contact
-    op met de gemeente voor nadere informatie.</utrecht-alert
+    op met {{ resources?.organisationLabel ?? "de organisatie" }} voor nadere
+    informatie.</utrecht-alert
   >
 
   <template v-else>
@@ -95,6 +96,7 @@
 
 <script setup lang="ts">
 import { computed, useId } from "vue";
+import { injectResources } from "@/resources";
 import { useFetchApi } from "@/api/use-fetch-api";
 import { useAllPages } from "@/composables/use-all-pages";
 import SimpleSpinner from "@/components/SimpleSpinner.vue";
@@ -111,6 +113,8 @@ const API_URL = `/api/v2`;
 const props = defineProps<{ uuid: string }>();
 
 const headingId = useId();
+
+const resources = injectResources();
 
 const loading = computed(() => loadingPublicatie.value || loadingDocumenten.value);
 const error = computed(() => !!publicatieError.value || !!documentenError.value);

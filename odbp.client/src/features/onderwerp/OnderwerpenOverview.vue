@@ -1,9 +1,9 @@
 <template>
   <utrecht-heading :level="1">Onderwerpen</utrecht-heading>
 
-  <utrecht-paragraph
+  <utrecht-paragraph v-if="resources"
     >Bekijk alle gepubliceerde documenten die horen bij een belangrijk onderwerp dat speelt in
-    {{ resources?.name }}.</utrecht-paragraph
+    {{ resources.organisationLabel }} {{ resources.organisationName }}.</utrecht-paragraph
   >
 
   <utrecht-spotlight-section v-if="promoted?.length">
