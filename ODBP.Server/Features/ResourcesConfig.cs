@@ -21,6 +21,7 @@ namespace ODBP.Features
         private string? GetConfig(params string[] keys) => keys.Select(k => _configuration[k])
                 .FirstOrDefault(v => !string.IsNullOrWhiteSpace(v));
 
+        // True als ORGANISATIE_NAAM (nog) niet is geconfigureerd maar (legacy) GEMEENTE_NAAM wel
         private bool UseLegacyFallback => string.IsNullOrWhiteSpace(_configuration["RESOURCES:ORGANISATIE_NAAM"])
                 && !string.IsNullOrWhiteSpace(_configuration["RESOURCES:GEMEENTE_NAAM"]);
 
@@ -33,6 +34,8 @@ namespace ODBP.Features
                 return !string.IsNullOrWhiteSpace(title) ? title : null;
             }
         }
+
+        // Organisatie naam, zonder type prefix, dus "Demodam" (en niet "Gemeente Demodam")
         public string? OrganisationName
         {
             get
@@ -44,9 +47,12 @@ namespace ODBP.Features
                     return null;
                 }
 
+                // Fallback: strip "Gemeente " uit legacy config
                 return UseLegacyFallback ? GemeentePrefix().Replace(name, "") : name;
             }
         }
+
+        // Organisatietype met het juiste lidwoord, dus "de gemeente", "het waterschap"
         public string OrganisationLabel
         {
             get
@@ -67,6 +73,7 @@ namespace ODBP.Features
                 return "de organisatie";
             }
         }
+        
         public string? TokensUrl
         {    
             get
@@ -76,6 +83,7 @@ namespace ODBP.Features
                 return Uri.TryCreate(url, UriKind.Absolute, out var uri) ? uri.ToString() : null;
             }
         }
+        
         public string? FontSources
         {
             get
