@@ -2,8 +2,7 @@
   <section
     class="utrecht-spotlight-section"
     :class="{
-      'utrecht-spotlight-section--info': type === 'info',
-      'utrecht-spotlight-section--ok': type === 'ok'
+      'utrecht-spotlight-section--info': type === 'info'
     }"
   >
     <slot></slot>
@@ -25,5 +24,5 @@
 </style>
 
 <script setup lang="ts">
-const { type = "info" } = defineProps<{ type?: "info" | "ok" }>();
+defineProps<{ type?: "info" }>();
 </script>

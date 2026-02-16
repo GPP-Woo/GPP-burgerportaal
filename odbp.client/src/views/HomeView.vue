@@ -17,7 +17,7 @@
     <gpp-woo-tile-carousel :tiles="promoted"> </gpp-woo-tile-carousel>
   </utrecht-spotlight-section>
 
-  <utrecht-spotlight-section type="ok">
+  <utrecht-spotlight-section type="info">
     <utrecht-heading :level="2">Cijfers over deze website</utrecht-heading>
 
     <gpp-woo-statistics />
@@ -81,7 +81,7 @@ const promoted = computed(() =>
   --utrecht-heading-2-margin-block-start: 0;
   --utrecht-heading-2-margin-block-end: calc(var(--gpp-woo-tile-grid-grid-gap) / 4);
 
-  &--ok {
+  &--info {
     text-align: center;
   }
 
@@ -92,8 +92,22 @@ const promoted = computed(() =>
   .utrecht-data-list {
     --utrecht-data-list-margin-block-end: 0;
     --utrecht-data-list-margin-block-start: 0;
-    --utrecht-data-list-rows-column-inline-size: 100%;
+    --utrecht-data-list-rows-item-margin-block-start: 0;
     --utrecht-data-list-rows-item-value-margin-block-start: 0;
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    row-gap: var(--utrecht-space-block-xl);
+
+    @media screen and (min-width: #{variables.$breakpoint-md}) {
+      flex-direction: row;
+      column-gap: var(--utrecht-space-inline-3xl);
+    }
+
+    :deep(.utrecht-data-list__item) {
+      display: block;
+    }
   }
 }
 </style>
