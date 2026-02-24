@@ -6,6 +6,7 @@ using ODBP.Authentication;
 using ODBP.Config;
 using ODBP.Data;
 using ODBP.Features;
+using ODBP.Features.Beheer;
 using ODBP.Features.Sitemap;
 using Serilog;
 using Serilog.Events;
@@ -81,6 +82,7 @@ try
     });
     builder.Services.AddMemoryCache();
     builder.Services.AddSingleton<ISimpleCache, SimpleCache>();
+    builder.Services.AddScoped<MigrateResources>();
 
     var app = builder.Build();
 
@@ -108,6 +110,7 @@ try
     await using (var scope = app.Services.CreateAsyncScope())
     {
         await scope.ServiceProvider.GetRequiredService<OdbpDbContext>().Database.MigrateAsync();
+        await scope.ServiceProvider.GetRequiredService<MigrateResources>().ExecuteAsync();
     }
 
     app.Run();
