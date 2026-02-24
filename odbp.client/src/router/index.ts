@@ -12,7 +12,7 @@ const requiresAdmin: NavigationGuard = async (to) => {
     return false;
   }
 
-  if (!user?.isAdmin) return { name: "forbidden" };
+  if (!user?.isAdmin && to.name !== "forbidden") return { name: "forbidden" };
 };
 
 const router = createRouter({
@@ -99,16 +99,16 @@ const router = createRouter({
           meta: {
             title: "Beheer - Externe links"
           }
+        },
+        {
+          path: "/forbidden",
+          name: "forbidden",
+          component: () => import("../views/beheer/ForbiddenView.vue"),
+          meta: {
+            title: "Geen toegang"
+          }
         }
       ]
-    },
-    {
-      path: "/forbidden",
-      name: "forbidden",
-      component: () => import("../views/ForbiddenView.vue"),
-      meta: {
-        title: "Geen toegang"
-      }
     }
   ]
 });
