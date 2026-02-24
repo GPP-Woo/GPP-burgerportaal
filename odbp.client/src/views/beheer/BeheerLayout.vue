@@ -3,43 +3,42 @@
     <template #nav-bar>
       <nav class="utrecht-nav-bar" aria-label="Beheermenu">
         <div class="utrecht-nav-bar__content">
-          <ul role="list" class="utrecht-nav-list" id="menu">
-            <li
-              v-for="[name, label] in Object.entries(links)"
-              :key="name"
-              class="utrecht-nav-list__item"
-            >
-              <component
-                :is="$route.name !== name ? 'router-link' : 'span'"
-                :to="$route.name !== name ? { name } : undefined"
-                class="utrecht-nav-list__link gpp-woo-link--icon"
-                :class="{
-                  'utrecht-link utrecht-link--html-a': $route.name !== name
-                }"
+          <ul role="list" class="utrecht-nav-list" id="menu" v-if="user">
+            <template v-if="user.isAdmin">
+              <li
+                v-for="[name, label] in Object.entries(links)"
+                :key="name"
+                class="utrecht-nav-list__item"
               >
-                {{ label }}
+                <component
+                  :is="$route.name !== name ? 'router-link' : 'span'"
+                  :to="$route.name !== name ? { name } : undefined"
+                  class="utrecht-nav-list__link gpp-woo-link--icon"
+                  :class="{
+                    'utrecht-link utrecht-link--html-a': $route.name !== name
+                  }"
+                >
+                  {{ label }}
+                  <utrecht-icon icon="pen" />
+                  <span v-if="$route.name === name" class="visually-hidden">(active link)</span>
+                </component>
+              </li>
+            </template>
 
-                <utrecht-icon icon="pen" />
-
-                <span v-if="$route.name === name" class="visually-hidden">(active link)</span>
-              </component>
-            </li>
-
-            <li class="utrecht-nav-list__item">
-              <utrecht-link href="/api/logoff" class="utrecht-nav-list__link gpp-woo-link--icon">
-                Uitloggen
-
-                <utrecht-icon icon="logout" />
-              </utrecht-link>
-            </li>
-
-            <li class="utrecht-nav-list__item">
-              <span v-if="user" class="utrecht-nav-list__link gpp-woo-link--icon">
-                <utrecht-icon icon="user" />
-
-                {{ user.fullName }}
-              </span>
-            </li>
+            <template v-if="user.isLoggedIn">
+              <li class="utrecht-nav-list__item">
+                <utrecht-link href="/api/logoff" class="utrecht-nav-list__link gpp-woo-link--icon">
+                  Uitloggen
+                  <utrecht-icon icon="logout" />
+                </utrecht-link>
+              </li>
+              <li class="utrecht-nav-list__item">
+                <span class="utrecht-nav-list__link gpp-woo-link--icon">
+                  <utrecht-icon icon="user" />
+                  {{ user.fullName }}
+                </span>
+              </li>
+            </template>
           </ul>
         </div>
       </nav>
