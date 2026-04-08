@@ -20,6 +20,11 @@ const config: EditorConfig = {
   heading: {
     options: [
       {
+        model: "paragraph",
+        title: "Normaal",
+        class: "ck-heading_paragraph"
+      },
+      {
         model: "heading1",
         view: { name: "h1", classes: "utrecht-heading-1" },
         title: "Heading 1",
