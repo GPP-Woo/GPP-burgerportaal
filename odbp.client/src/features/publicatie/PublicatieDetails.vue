@@ -47,7 +47,6 @@
         <utrecht-table
           :aria-labelledby="headingId"
           :aria-busy="loadingDocumenten"
-          class="utrecht-table--alternate-row-color"
           :class="[
             'utrecht-table--alternate-row-color',
             loadingDocumenten && 'utrecht-table--loading'
@@ -57,7 +56,7 @@
             <utrecht-table-row>
               <utrecht-table-header-cell
                 scope="col"
-                :aria-sort="sortField === 'officiele_titel' ? sortDir : undefined"
+                :aria-sort="sortField === 'officiele_titel' ? sortDir : 'none'"
               >
                 <button
                   type="button"
@@ -71,7 +70,7 @@
               <utrecht-table-header-cell
                 scope="col"
                 class="gpp-woo-table-fixed-header"
-                :aria-sort="sortField === 'creatiedatum' ? sortDir : undefined"
+                :aria-sort="sortField === 'creatiedatum' ? sortDir : 'none'"
               >
                 <button
                   class="utrecht-button utrecht-table__header-cell-button"
