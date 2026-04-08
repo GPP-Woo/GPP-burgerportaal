@@ -17,7 +17,7 @@ namespace ODBP.Features.Documenten
         {
             using var client = clientFactory.Create("Documenten ophalen");
 
-            var url = $"/api/{version}/documenten?publicatie={publicatie}&publicatiestatus=gepubliceerd&sorteer={sorteer}&page={page}";
+            var url = $"/api/{version}/documenten?publicatie={publicatie}&publicatiestatus=gepubliceerd&isGereedVoorPublicatie=true&sorteer={sorteer}&page={page}";
 
             using var response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead, token);
 

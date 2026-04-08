@@ -19,7 +19,7 @@ namespace ODBP.Features.Sitemap.SitemapInstances
         const string PublicatiesRoot = $"{ApiRoot}/publicaties";
         const string PublicatiesQueryPath = $"{PublicatiesRoot}?pageSize=100&sorteer=registratiedatum";
         const string DocumentenRoot = $"{ApiRoot}/documenten";
-        const string DocumentenQueryPath = $"{DocumentenRoot}?pageSize=100&publicatiestatus=gepubliceerd&sorteer=creatiedatum";
+        const string DocumentenQueryPath = $"{DocumentenRoot}?pageSize=100&publicatiestatus=gepubliceerd&isGereedVoorPublicatie=true&sorteer=creatiedatum";
 
         [HttpGet("/api/sitemap/{year:int}/{month:int}.xml")]
         public async Task<IActionResult> Get(int year, int month, CancellationToken token)
