@@ -27,10 +27,10 @@ export const useAllPages = <T>(url: MaybeRefOrGetter<string | null>) => {
   const loading = ref(true);
   const error = ref(false);
 
-  const currentUrl = toValue(url);
-
   const data = asyncComputed(
     async (onCancel) => {
+      const currentUrl = toValue(url);
+
       if (!currentUrl) return [] as T[];
 
       const abortController = new AbortController();

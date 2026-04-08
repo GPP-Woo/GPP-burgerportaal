@@ -40,15 +40,48 @@
       </gpp-woo-table-container>
 
       <gpp-woo-table-container v-if="documenten.length">
-        <utrecht-heading :level="2" :id="headingId">Documenten bij deze publicatie</utrecht-heading>
+        <utrecht-heading :level="2" :id="headingId"
+          >Documenten bij deze publicatie <small-spinner v-if="loadingDocumenten"
+        /></utrecht-heading>
 
-        <utrecht-table :aria-labelledby="headingId" class="utrecht-table--alternate-row-color">
+        <utrecht-table
+          :aria-labelledby="headingId"
+          :aria-busy="loadingDocumenten"
+          class="utrecht-table--alternate-row-color"
+          :class="[
+            'utrecht-table--alternate-row-color',
+            loadingDocumenten && 'utrecht-table--loading'
+          ]"
+        >
           <utrecht-table-header>
             <utrecht-table-row>
-              <utrecht-table-header-cell scope="col">Officiële titel</utrecht-table-header-cell>
-              <utrecht-table-header-cell scope="col" class="gpp-woo-table-fixed-header"
-                >Datum document</utrecht-table-header-cell
+              <utrecht-table-header-cell
+                scope="col"
+                :aria-sort="sortField === 'officiele_titel' ? sortDir : undefined"
               >
+                <button
+                  type="button"
+                  class="utrecht-button utrecht-table__header-cell-button"
+                  @click="toggleSort('officiele_titel')"
+                >
+                  <utrecht-icon :icon="sortField === 'officiele_titel' ? sortIcon : 'sort-none'" />
+                  Officiële titel
+                </button>
+              </utrecht-table-header-cell>
+              <utrecht-table-header-cell
+                scope="col"
+                class="gpp-woo-table-fixed-header"
+                :aria-sort="sortField === 'creatiedatum' ? sortDir : undefined"
+              >
+                <button
+                  class="utrecht-button utrecht-table__header-cell-button"
+                  type="button"
+                  @click="toggleSort('creatiedatum')"
+                >
+                  <utrecht-icon :icon="sortField === 'creatiedatum' ? sortIcon : 'sort-none'" />
+                  Datum document
+                </button>
+              </utrecht-table-header-cell>
               <utrecht-table-header-cell scope="col" class="gpp-woo-table-fixed-header"
                 >Bestand</utrecht-table-header-cell
               >
@@ -95,11 +128,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed, useId } from "vue";
+import { computed, ref, useId } from "vue";
 import { injectResources } from "@/resources";
 import { useFetchApi } from "@/api/use-fetch-api";
 import { useAllPages } from "@/composables/use-all-pages";
 import SimpleSpinner from "@/components/SimpleSpinner.vue";
+import SmallSpinner from "@/components/SmallSpinner.vue";
 import UtrechtAlert from "@/components/UtrechtAlert.vue";
 import UtrechtBadgeList, { type BadgeListItem } from "@/components/UtrechtBadgeList.vue";
 import UtrechtIcon from "@/components/UtrechtIcon.vue";
@@ -116,8 +150,28 @@ const headingId = useId();
 
 const resources = injectResources();
 
-const loading = computed(() => loadingPublicatie.value || loadingDocumenten.value);
+const loading = computed(
+  () => loadingPublicatie.value || (loadingDocumenten.value && !documenten.value.length)
+);
+
 const error = computed(() => !!publicatieError.value || !!documentenError.value);
+
+type SortField = "officiele_titel" | "creatiedatum";
+type SortDirection = "ascending" | "descending";
+
+const sortField = ref<SortField>("creatiedatum");
+const sortDir = ref<SortDirection>("descending");
+const sortIcon = computed(() => `sort-${sortDir.value}`);
+const sortParam = computed(() => `${sortDir.value === "descending" ? "-" : ""}${sortField.value}`);
+
+function toggleSort(field: SortField) {
+  if (sortField.value === field) {
+    sortDir.value = sortDir.value === "ascending" ? "descending" : "ascending";
+  } else {
+    sortField.value = field;
+    sortDir.value = field === "creatiedatum" ? "descending" : "ascending";
+  }
+}
 
 const {
   data: publicatieData,
@@ -129,7 +183,9 @@ const {
   data: documenten,
   loading: loadingDocumenten,
   error: documentenError
-} = useAllPages<PublicatieDocument>(`${API_URL}/documenten/?publicatie=${props.uuid}`);
+} = useAllPages<PublicatieDocument>(
+  computed(() => `${API_URL}/documenten/?publicatie=${props.uuid}&sorteer=${sortParam.value}`)
+);
 
 const publicatieRows = computed(
   () =>
@@ -164,3 +220,20 @@ const publicatieRows = computed(
     ])
 );
 </script>
+
+<style lang="scss" scoped>
+.utrecht-heading-2 {
+  display: flex;
+  align-items: center;
+  gap: 1ch;
+}
+
+.utrecht-table {
+  --utrecht-button-color: var(--utrecht-document-color);
+
+  &--loading {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}
+</style>

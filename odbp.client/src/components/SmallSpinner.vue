@@ -6,7 +6,7 @@
 
 <style lang="scss" scoped>
 .spinner {
-  --_spinner-size: 2rem;
+  --_spinner-size: 1rem;
 
   display: block;
   block-size: var(--_spinner-size);
