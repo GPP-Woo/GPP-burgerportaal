@@ -12,11 +12,12 @@ namespace ODBP.Features.Documenten
             string version,
             [FromQuery] string publicatie,
             CancellationToken token,
+            [FromQuery] string? sorteer = "-creatiedatum",
             [FromQuery] string? page = "1")
         {
             using var client = clientFactory.Create("Documenten ophalen");
 
-            var url = $"/api/{version}/documenten?publicatie={publicatie}&publicatiestatus=gepubliceerd&sorteer=-creatiedatum&page={page}";
+            var url = $"/api/{version}/documenten?publicatie={publicatie}&publicatiestatus=gepubliceerd&isGereedVoorPublicatie=true&sorteer={sorteer}&page={page}";
 
             using var response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead, token);
 
