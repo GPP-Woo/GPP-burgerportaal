@@ -25,8 +25,6 @@ const svg = computed(() => {
 
 <style lang="scss" scoped>
 .gpp-woo-logo {
-  display: flex;
-  align-items: center;
   margin: 0;
   max-inline-size: var(--utrecht-logo-max-inline-size);
   min-inline-size: var(--utrecht-logo-min-inline-size);
@@ -35,8 +33,13 @@ const svg = computed(() => {
   > :deep(svg) {
     display: block;
     max-block-size: var(--utrecht-logo-max-block-size);
-    min-block-size: var(--utrecht-logo-min-block-size);
     max-inline-size: 100%;
+  }
+
+  // override explicit width/height to respect aspect ratio from view-box
+  > :deep(svg) {
+    block-size: auto;
+    inline-size: auto;
   }
 }
 </style>
