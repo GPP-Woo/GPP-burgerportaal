@@ -2,28 +2,28 @@
 #    uv pip compile --output-file requirements.txt requirements.in
 alabaster==1.0.0
     # via sphinx
-babel==2.17.0
+babel==2.18.0
     # via sphinx
-certifi==2026.1.4
+certifi==2026.2.25
     # via requests
-charset-normalizer==3.4.4
+charset-normalizer==3.4.7
     # via requests
 colorama==0.4.6
     # via sphinx
-docutils==0.21.2
+docutils==0.22.4
     # via
     #   myst-parser
     #   sphinx
     #   sphinx-rtd-theme
 idna==3.11
     # via requests
-imagesize==1.4.1
+imagesize==2.0.0
     # via sphinx
 jinja2==3.1.6
     # via
     #   myst-parser
     #   sphinx
-markdown-it-py==3.0.0
+markdown-it-py==4.0.0
     # via
     #   mdit-py-plugins
     #   myst-parser
@@ -33,29 +33,27 @@ mdit-py-plugins==0.5.0
     # via myst-parser
 mdurl==0.1.2
     # via markdown-it-py
-myst-parser==4.0.1
+myst-parser==5.0.0
     # via -r requirements.in
-packaging==25.0
+packaging==26.0
     # via sphinx
-pygments==2.19.2
+pygments==2.20.0
     # via sphinx
 pyyaml==6.0.3
     # via myst-parser
-requests==2.32.5
+requests==2.33.1
     # via sphinx
 roman-numerals==4.1.0
-    # via roman-numerals-py
-roman-numerals-py==4.1.0
     # via sphinx
 snowballstemmer==3.0.1
     # via sphinx
-sphinx==8.2.3
+sphinx==9.1.0
     # via
     #   -r requirements.in
     #   myst-parser
     #   sphinx-rtd-theme
     #   sphinxcontrib-jquery
-sphinx-rtd-theme==3.0.2
+sphinx-rtd-theme==3.1.0
     # via -r requirements.in
 sphinxcontrib-applehelp==2.0.0
     # via sphinx
