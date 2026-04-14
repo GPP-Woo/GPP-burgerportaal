@@ -12,15 +12,10 @@
         'utrecht-link utrecht-link--html-a': $route.name !== 'home'
       }"
     >
-      <figure v-if="svg" v-html="svg" class="utrecht-logo"></figure>
-
-      <figure v-else-if="resources?.logoUrl" class="utrecht-logo">
-        <img
-          :src="resources.logoUrl"
-          :alt="`Logo ${resources.organisationName}`"
-          crossorigin="anonymous"
-        />
-      </figure>
+      <gpp-woo-logo
+        :logo-url="resources?.logoUrl"
+        :organisation-name="resources?.organisationName"
+      />
     </component>
 
     <slot name="nav-bar"></slot>
@@ -28,18 +23,10 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from "vue";
 import { injectResources } from "@/resources";
+import GppWooLogo from "@/components/GppWooLogo.vue";
 
 const resources = injectResources();
-
-const svg = computed(() => {
-  if (!resources?.logoUrl?.endsWith(`.svg`)) return;
-
-  const svgTemplateId = btoa(resources.logoUrl);
-
-  return (document.getElementById(svgTemplateId) as HTMLTemplateElement)?.innerHTML;
-});
 </script>
 
 <style lang="scss" scoped>
@@ -56,14 +43,6 @@ const svg = computed(() => {
     & {
       grid-template-columns: 1fr auto;
     }
-  }
-}
-
-.utrecht-logo {
-  > :deep(img),
-  > :deep(svg) {
-    // shrink logo to container width (and dont strech beyond intrinsic width)
-    max-inline-size: 100%;
   }
 }
 </style>
