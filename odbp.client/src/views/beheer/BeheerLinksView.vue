@@ -1,6 +1,10 @@
 <template>
   <utrecht-heading :level="2">Externe links</utrecht-heading>
 
+  <utrecht-alert v-if="success" type="ok">
+    {{ success }}
+  </utrecht-alert>
+
   <simple-spinner v-if="isFetching" />
 
   <utrecht-alert v-else-if="error" type="error">
@@ -53,6 +57,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
 import { useCloned } from "@vueuse/core";
 import { useFetchApi } from "@/api";
 import SimpleSpinner from "@/components/SimpleSpinner.vue";
@@ -70,6 +75,8 @@ type Links = {
   contactUrl: string;
   a11yUrl: string;
 };
+
+const success = ref<string | null>(null);
 
 const {
   data,
@@ -92,5 +99,14 @@ const { cloned: links, isModified, sync } = useCloned(data);
 
 const get = () => getLinks().execute();
 
-const submit = () => putLinks(links).execute();
+const submit = () =>
+  putLinks(links)
+    .execute()
+    .then(() => {
+      if (!error.value) {
+        success.value = "Publiceren gelukt.";
+
+        setTimeout(() => (success.value = null), 3000);
+      }
+    });
 </script>

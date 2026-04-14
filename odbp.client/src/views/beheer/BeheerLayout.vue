@@ -138,4 +138,8 @@ const links = {
 
   cursor: text;
 }
+
+.utrecht-alert {
+  --utrecht-alert-margin-block-start: 1rem;
+}
 </style>
