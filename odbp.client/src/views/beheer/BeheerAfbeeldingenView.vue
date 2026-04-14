@@ -100,6 +100,13 @@ const uploadImage = async (type: ImageType, file: File) => {
   state[type].error = null;
   state[type].success = null;
 
+  if (file.name.endsWith(".svg") && !(await validSvg(file))) {
+    state[type].error = "Upload mislukt: ongeldig SVG-bestand.";
+    state[type].isUploading = false;
+
+    return;
+  }
+
   try {
     const body = new FormData();
 
@@ -124,6 +131,25 @@ const uploadImage = async (type: ImageType, file: File) => {
     state[type].isUploading = false;
   }
 };
+
+function validSvg(file: File): Promise<boolean> {
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(reader.result as string, "image/svg+xml");
+      const svg = doc.querySelector("svg");
+
+      // check SVG parses and has viewBox attribute (basic check for valid SVG)
+      resolve(svg?.hasAttribute("viewBox") ?? false);
+    };
+
+    reader.onerror = () => resolve(false);
+
+    reader.readAsText(file);
+  });
+}
 </script>
 
 <style lang="scss" scoped>
@@ -140,8 +166,8 @@ form {
   @media screen and (min-width: #{variables.$breakpoint-md}) {
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
-    "logo favicon"
-    "image image";
+      "logo favicon"
+      "image image";
   }
 }
 
