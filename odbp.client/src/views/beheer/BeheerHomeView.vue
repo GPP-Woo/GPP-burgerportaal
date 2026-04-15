@@ -1,6 +1,10 @@
 <template>
   <utrecht-heading :level="2" :id="headingId">Homepage</utrecht-heading>
 
+  <utrecht-alert v-if="success" type="ok">
+    {{ success }}
+  </utrecht-alert>
+
   <simple-spinner v-if="isFetching" />
 
   <utrecht-alert v-else-if="error" type="error">
@@ -79,7 +83,7 @@
 </template>
 
 <script setup lang="ts">
-import { useId } from "vue";
+import { ref, useId } from "vue";
 import { useCloned } from "@vueuse/core";
 import { useFetchApi } from "@/api";
 import CkEditor from "@/components/ckeditor";
@@ -93,6 +97,8 @@ const videoUrlPattern =
 type HomepageBeheer = { welcome: string; videoUrl: string };
 
 const headingId = useId();
+
+const success = ref<string | null>(null);
 
 const {
   data,
@@ -115,5 +121,14 @@ const { cloned: homepage, isModified, sync } = useCloned(data);
 
 const get = () => getHomepage().execute();
 
-const submit = () => putHomepage(homepage).execute();
+const submit = () =>
+  putHomepage(homepage)
+    .execute()
+    .then(() => {
+      if (!error.value) {
+        success.value = "Publiceren gelukt.";
+
+        setTimeout(() => (success.value = null), 3000);
+      }
+    });
 </script>
