@@ -100,8 +100,9 @@ const uploadImage = async (type: ImageType, file: File) => {
   state[type].error = null;
   state[type].success = null;
 
-  if (file.name.endsWith(".svg") && !(await validSvg(file))) {
-    state[type].error = "Upload mislukt: ongeldig SVG-bestand.";
+  if (file.name.endsWith(".svg") && !(await isValidSvg(file))) {
+    state[type].error =
+      "Upload mislukt: controleer of het bestand een geldig SVG-bestand is en een viewBox-attribuut bevat.";
     state[type].isUploading = false;
 
     return;
@@ -132,7 +133,7 @@ const uploadImage = async (type: ImageType, file: File) => {
   }
 };
 
-function validSvg(file: File): Promise<boolean> {
+async function isValidSvg(file: File): Promise<boolean> {
   return new Promise((resolve) => {
     const reader = new FileReader();
 
