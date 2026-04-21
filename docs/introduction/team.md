@@ -7,7 +7,7 @@ Het ‘GPP-Burgerportaal’ is geïnitieerd door Dimpact, gefinancierd door meer
 [Dimpact](https://www.dimpact.nl/) is een coöperatie van, voor en door Nederlandse gemeenten. Zij zijn eigenaar en beheren alle ontwikkelingen. Samen zorgen zij voor goede gemeentelijke dienstverlening, onder andere door softwareoplossingen te ontwikkelen en verbeteren. Dimpact stimuleert en faciliteert innovaties binnen gemeenten. Dimpact en haar leden delen kennis en inspireren elkaar tijdens evenementen.
 
 ## Financiers
-Onder begeleiding van Dimpact hebben de volgende negen gemeenten kennis en financiële middelen bijgedragen:
+Onder begeleiding van Dimpact hebben de volgende gemeenten kennis en financiële middelen bijgedragen:
 
 * `'s-Hertogenbosch <https://www.s-hertogenbosch.nl/>`__
 *  `Assen <https://www.assen.nl/>`__
