@@ -9,17 +9,22 @@ Het ‘GPP-Burgerportaal’ is geïnitieerd door Dimpact, gefinancierd door meer
 ## Financiers
 Onder begeleiding van Dimpact hebben de volgende negen gemeenten kennis en financiële middelen bijgedragen:
 
-- Enschede
-- Groningen
-- Haarlemmermeer
-- Kampen
-- Losser
-- Rotterdam
-- Sittard-Geleen
-- Waterland
-- Zaanstad
-
-
+* `'s-Hertogenbosch <https://www.s-hertogenbosch.nl/>`__
+*  `Assen <https://www.assen.nl/>`__
+* `Culemborg <https://www.culemborg.nl/>`__
+* `Enschede <https://www.enschede.nl/>`__
+* `Groningen <https://gemeente.groningen.nl/>`__
+* `Haarlemmermeer <https://haarlemmermeer.nl/>`__
+* `Kampen <https://www.kampen.nl/>`__
+* `Losser <https://www.losser.nl/>`__
+* `Maashorst <https://www.gemeentemaashorst.nl/>`__
+* `Maastricht <https://www.gemeentemaastricht.nl/>`__
+* `Rotterdam <https://www.rotterdam.nl/>`__
+* `Sittard-Geleen <https://sittard-geleen.nl/>`__
+* `Tiel <https://www.tiel.nl/>`__
+* `Waterland <https://www.waterland.nl/>`__
+* `West Betuwe <https://www.westbetuwe.nl/>`__
+* `Zaanstad <https://www.zaanstad.nl/>`__
 
 ## Ontwikkeling
 Het ‘Generiek Publicatie Platform Woo (GPP-Woo)’ is ontwikkeld door ICATT en Maykin. ICATT was leidend voor het platform als geheel. De onderdelen ‘GPP-Publicatiebank’ en ‘GPP-Zoeken’ zijn primair ontwikkeld door Maykin.
