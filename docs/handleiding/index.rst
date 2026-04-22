@@ -8,7 +8,7 @@ Handleiding
 - :ref:`handleiding_index_voorburgers`
 - :ref:`Aansluiting op de landelijke voorziening <handleiding_index_aansluitinggwv>`
 
-.. _handleiding_index_vormgevingbijinstallatie
+.. _handleiding_index_vormgevingbijinstallatie:
 
 Vormgeving bij installatie
 ---------------------------
@@ -19,7 +19,7 @@ In de `lijst met omgevingsvariabelen <https://github.com/GPP-Woo/GPP-burgerporta
 
 Let op: het is belangrijk om na te denken over deze onderdelen vóórdat een organisatie het GPP-Burgerportaal gaat installeren. Zie ook `het stappenplan op de community website <https://www.gpp-woo.nl/implementatie>`_. 
 
-.. _handleiding_index_vormgevingenbeheer
+.. _handleiding_index_vormgevingenbeheer:
 
 Vormgeving en beheer-fuctionaliteit
 ------------------------------------
@@ -114,7 +114,7 @@ Uitloggen
 
 Door op dit menu-item te klikken wordt de beheerder uitgelogd.
 
-.. _handleiding_index_voorburgers
+.. _handleiding_index_voorburgers:
 
 Zoeken, vinden en raadplegen voor burgers
 ------------------------------------------
@@ -155,7 +155,7 @@ De publieke website bestaat grofweg uit de volgende onderdelen:
 
 Voor een uitgebreidere toelichting op (de smaenhang van) onderwerpen, publicaties en documenten, als ook over de gegevens / metadata hiervan, zie `de documentatie van de GPP-publicatiebank <https://gpp-publicatiebank.readthedocs.io/>`_.
 
-.. _handleiding_index_aansluitinggwv
+.. _handleiding_index_aansluitinggwv:
 
 Aansluiting op de landelijke voorziening
 -----------------------------------------
