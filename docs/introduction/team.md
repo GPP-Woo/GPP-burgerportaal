@@ -7,19 +7,24 @@ Het ‘GPP-Burgerportaal’ is geïnitieerd door Dimpact, gefinancierd door meer
 [Dimpact](https://www.dimpact.nl/) is een coöperatie van, voor en door Nederlandse gemeenten. Zij zijn eigenaar en beheren alle ontwikkelingen. Samen zorgen zij voor goede gemeentelijke dienstverlening, onder andere door softwareoplossingen te ontwikkelen en verbeteren. Dimpact stimuleert en faciliteert innovaties binnen gemeenten. Dimpact en haar leden delen kennis en inspireren elkaar tijdens evenementen.
 
 ## Financiers
-Onder begeleiding van Dimpact hebben de volgende negen gemeenten kennis en financiële middelen bijgedragen:
+Onder begeleiding van Dimpact hebben de volgende gemeenten kennis en financiële middelen bijgedragen:
 
-- Enschede
-- Groningen
-- Haarlemmermeer
-- Kampen
-- Losser
-- Rotterdam
-- Sittard-Geleen
-- Waterland
-- Zaanstad
-
-
+* ['s-Hertogenbosch](https://www.s-hertogenbosch.nl/)
+* [Assen](https://www.assen.nl/)
+* [Culemborg](https://www.culemborg.nl/)
+* [Enschede](https://www.enschede.nl/)
+* [Groningen](https://gemeente.groningen.nl/)
+* [Haarlemmermeer](https://haarlemmermeer.nl/)
+* [Kampen](https://www.kampen.nl/)
+* [Losser](https://www.losser.nl/)
+* [Maashorst](https://www.gemeentemaashorst.nl/)
+* [Maastricht](https://www.gemeentemaastricht.nl/)
+* [Rotterdam](https://www.rotterdam.nl/)
+* [Sittard-Geleen](https://sittard-geleen.nl/)
+* [Tiel](https://www.tiel.nl/)
+* [Waterland](https://www.waterland.nl/)
+* [West Betuwe](https://www.westbetuwe.nl/)
+* [Zaanstad](https://www.zaanstad.nl/)
 
 ## Ontwikkeling
 Het ‘Generiek Publicatie Platform Woo (GPP-Woo)’ is ontwikkeld door ICATT en Maykin. ICATT was leidend voor het platform als geheel. De onderdelen ‘GPP-Publicatiebank’ en ‘GPP-Zoeken’ zijn primair ontwikkeld door Maykin.
