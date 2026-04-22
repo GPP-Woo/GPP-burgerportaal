@@ -21,10 +21,10 @@ Let op: het is belangrijk om na te denken over deze onderdelen vóórdat een org
 
 .. _handleiding_index_vormgevingenbeheer:
 
-Vormgeving en beheer-fuctionaliteit
-------------------------------------
+Vormgeving en beheer-functionaliteit
+-------------------------------------
 
-Het GPP-burgerprortaal beschikt over een beheerscherm waarmee de welkomsttekst en video op de homepage, afbeeldingen en URL's die op de webiste getoond worden, beheerd kunnen worden.
+Het GPP-burgerportaal beschikt over een beheerscherm waarmee de welkomsttekst en video op de homepage, afbeeldingen en URL's die op de website getoond worden, beheerd kunnen worden.
 
 Hoe krijgt een gebruiker toegang tot het beheerscherm?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -46,10 +46,10 @@ Na inloggen ziet de beheerder rechtsboven de volgende menu-items, die we hierond
 Homepage
 ^^^^^^^^
 
-Op het beheerscherm kunnen onder het menu-item "Hompage" twee items gewijzigd worden:
+Op het beheerscherm kunnen onder het menu-item "Homepage" twee items gewijzigd worden:
 
 - Welkomsttekst
-   Dit is de welkomsttekst die op de homepage van het Burgerprotaal aan de burger wordt getoond. Het is mogelijk om de tekst op te maken met titels (*heading 1* en *heading 2*), hyperlinks, genummerde en ongenummerde lijsten.
+   Dit is de welkomsttekst die op de homepage van het Burgerportaal aan de burger wordt getoond. Het is mogelijk om de tekst op te maken met titels (*heading 1* en *heading 2*), hyperlinks, genummerde en ongenummerde lijsten.
 
 - Promotie- of instructievideo
    Op de homepage kan ook een embedded Youtube- of Vimeo-video getoond worden aan de burger. Dit is optioneel. 
@@ -90,10 +90,10 @@ Op het beheerscherm kunnen onder het menu-item "Externe links" vier items gewijz
    Dit is de URL naar de (hoofd-)website van de organisatie. 
    Deze URL wordt geopend wanneer de burger op het Burgerportaal in het menu op het menu-item "Naar de gemeente" klikt.
    Het menu-item wordt niet getoond als in het beheerscherm geen URL hiervoor is ingevoerd.
-   De naam van het menu-item kan bij de installatie van bet Burgerportaal gewijzigd worden naar: "Naar de provincie", "Naar het Waterschap", etc. via de omgevingsvariabele `RESOURCES:ORGANISATIE_TYPE`.
+   De naam van het menu-item kan bij de installatie van bet Burgerportaal gewijzigd worden naar: "Naar de provincie", "Naar het Waterschap", etc. via de omgevingsvariabele ``RESOURCES:ORGANISATIE_TYPE``.
 
 - URL Toegankelijkheidsverklaring
-   Dit is de URL naar de toegankelijkheidsverklaring van het Burgerportaal. Deze staat bijvoorbeeld op `https://www.digitoegankelijk.nl/dashboard`.
+   Dit is de URL naar de toegankelijkheidsverklaring van het Burgerportaal. Deze staat bijvoorbeeld op `https://www.digitoegankelijk.nl/dashboard <https://www.digitoegankelijk.nl/dashboard>`_.
    Deze URL wordt geopend wanneer de burger op het Burgerportaal in de voetbalk onderaan op de link "Toegankelijkheid" klikt.
    Deze link wordt niet getoond als in het beheerscherm geen URL hiervoor is ingevoerd.
 
@@ -133,7 +133,7 @@ De publieke website bestaat grofweg uit de volgende onderdelen:
 
 - Zoekresultaten
    Door op de homepage de zoekbalk te gebruiken of door in het menu bovenaan naar het item "Zoeken" te gaan, komt de burger terecht bij de zoekresultaten.
-   Hier ziet de burger een lijst aan zoekreusltaten die relevant zijn, gelet op de ingevoerde zoektermen.
+   Hier ziet de burger een lijst aan zoekresultaten die relevant zijn, gelet op de ingevoerde zoektermen.
    Bovenaan de lijst ziet de burger de mogelijkheid om de zoektermen aan te passen en de sortering aan te passen (op relevantie dan wel chronologisch).
    Aan de linkerzijde staat de mogelijkheid om de zoekresultaten te filteren op datum (van... tot...), type informatie, organisatie en/of informatiecategorie.
    Onderaan de lijst staat de mogelijkheid om door de lijst te bladeren. Om de webpagina overzichtelijk en performatief te houden worden namelijk max. 10 zoekresultaten per pagina getoond.
@@ -144,7 +144,7 @@ De publieke website bestaat grofweg uit de volgende onderdelen:
    Op het detailscherm van een document staat ook een knop waarmee het bestand (bijv. PDF) gedownload kan worden.
    Op het detailscherm van een publicatie staat onderaan een lijst van gekoppelde documenten.
    Op het detailscherm van een onderwerp staat onderaan een lijst van gekoppelde publicaties.
-   Uiteraard zijn verwijzingen naar documenten, publicaties en onderwerpen aanklikbar, zodat het desbetreffende detailscherm wordt geopend.
+   Uiteraard zijn verwijzingen naar documenten, publicaties en onderwerpen aanklikbaar, zodat het desbetreffende detailscherm wordt geopend.
 
 - Onderwerpen
    Door in het menu bovenaan naar het item "Onderwerpen" te gaan, komt de burger terecht op een overzicht aan onderwerpen.
@@ -153,11 +153,11 @@ De publieke website bestaat grofweg uit de volgende onderdelen:
    Van ieder onderwerp wordt een afbeelding getoond en een korte toelichting.
    Door op een onderwerp te klikken opent de burger het detailscherm van het onderwerp (Zie hierboven).
 
-Voor een uitgebreidere toelichting op (de smaenhang van) onderwerpen, publicaties en documenten, als ook over de gegevens / metadata hiervan, zie `de documentatie van de GPP-publicatiebank <https://gpp-publicatiebank.readthedocs.io/>`_.
+Voor een uitgebreidere toelichting op (de samenhang van) onderwerpen, publicaties en documenten, als ook over de gegevens / metadata hiervan, zie `de documentatie van de GPP-publicatiebank <https://gpp-publicatiebank.readthedocs.io/>`_.
 
 .. _handleiding_index_aansluitinggwv:
 
 Aansluiting op de landelijke voorziening
 -----------------------------------------
 
-Voor een correct werkende aansluiting op de `Generieke Woo-Voorzieing (GWV) <https://open.overheid.nl/>`_ moeten de openbare documenten vermeld worden in een sitemap. Het GPP-Burgerportaal genereert deze sitemaps, zodat de `Woo-harvester <https://standaarden.overheid.nl/diwoo/>`_ ze kan overnemen. De sitemap wordt iedere 24 uur geactualiseerd. De sitemap is te vinden via ``https://domeinnaam-van-het-burgerportaal/robots.txt``, en voldoet aan het het schema ``diwoo-metadata.xsd`` versie 0.9.8.
+Voor een correct werkende aansluiting op de `Generieke Woo-Voorziening (GWV) <https://open.overheid.nl/>`_ moeten de openbare documenten vermeld worden in een sitemap. Het GPP-Burgerportaal genereert deze sitemaps, zodat de `Woo-harvester <https://standaarden.overheid.nl/diwoo/>`_ ze kan overnemen. De sitemap wordt iedere 24 uur geactualiseerd. De sitemap is te vinden via ``https://domeinnaam-van-het-burgerportaal/robots.txt``, en voldoet aan het het schema ``diwoo-metadata.xsd`` versie 0.9.8.
