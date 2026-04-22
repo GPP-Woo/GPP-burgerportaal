@@ -3,10 +3,10 @@
 Handleiding
 ==============================
 
-- Vormgeving bij installatie
-- Vormgeving en beheer-fuctionaliteit
-- Zoeken, vinden en raadplegen voor burgers
-- Aansluiting op de landelijke voorziening
+- :ref:`handleiding_index_vormgevingbijinstallatie`
+- :ref:`handleiding_index_vormgevingenbeheer`
+- :ref:`handleiding_index_voorburgers`
+- :ref:`Aansluiting op de landelijke voorziening <handleiding_index_aansluitinggwv>`
 
 .. _handleiding_index_vormgevingbijinstallatie
 
@@ -29,7 +29,7 @@ Het GPP-burgerprortaal beschikt over een beheerscherm waarmee de welkomsttekst e
 Hoe krijgt een gebruiker toegang tot het beheerscherm?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Het beheerscherm kan gevonden worden door in de browser in de navigatiebalk de URL van het burgerportaal in te voeren, aangevuld met *"/beheer"*. Bijvoorbeeld: `https://burgerprotaal.gemeente.nl/beheer`. 
+Het beheerscherm kan gevonden worden door in de browser in de navigatiebalk de URL van het burgerportaal in te voeren, aangevuld met *"/beheer"*. Bijvoorbeeld: ``https://burgerportaal.gemeente.nl/beheer``. 
 De gebruiker wordt vervolgens gevraagd om in te loggen.
 
 Om een gebruiker beheerders-rechten te geven, moet deze een specifieke rol krijgen in de OpenID Connect Identity Provider (bijv. Azure AD). 
@@ -119,11 +119,45 @@ Door op dit menu-item te klikken wordt de beheerder uitgelogd.
 Zoeken, vinden en raadplegen voor burgers
 ------------------------------------------
 
-**Nog invullen**
+De kernfunctie van het GPP-burgerportaal is uiteraard het bieden van een publiek toegankelijke website waarop burgers openbaar gemaakte informatie kunnen zoeken, vinden en raaadplegen. 
+De burger hoeft niet in te loggen; de website ontsluit immers openbare informatie die de overheid *drempelvrij* aan haar burgers aan wil bieden. 
+De burger kan de website bezoeken door eenvoudigweg naar de juiste URL te gaan, bijvoorbeeld ``https://open.gemeente.nl/``.
+
+De publieke website bestaat grofweg uit de volgende onderdelen:
+
+- Homepage
+   Op de homepage springt de zoekbalk, welke over de sfeerfoto (zie hierboven) heen is geplaatst, het meest in het oog. De burger kan hier een of meer zoektermen invullen en op "enter" drukken of de knop "Zoeken" om naar de zoekresultaten te gaan (Zie hieronder).
+   Onder de zoekbalk staan de welkomsttekst en eventueel een promotie- of instructievideo (zie hierboven).
+   Daaronder verschijnt een automatisch draaiende carroussel met daarin de gepromote onderwerpen (Zie hieronder). 
+   Vervolgens worden enkele basale statistieken getoond (aantal gepubliceerde publicaties, documenten en onderwerpen) en de voetbalk met enkele links (zie hierboven).
+
+- Zoekresultaten
+   Door op de homepage de zoekbalk te gebruiken of door in het menu bovenaan naar het item "Zoeken" te gaan, komt de burger terecht bij de zoekresultaten.
+   Hier ziet de burger een lijst aan zoekreusltaten die relevant zijn, gelet op de ingevoerde zoektermen.
+   Bovenaan de lijst ziet de burger de mogelijkheid om de zoektermen aan te passen en de sortering aan te passen (op relevantie dan wel chronologisch).
+   Aan de linkerzijde staat de mogelijkheid om de zoekresultaten te filteren op datum (van... tot...), type informatie, organisatie en/of informatiecategorie.
+   Onderaan de lijst staat de mogelijkheid om door de lijst te bladeren. Om de webpagina overzichtelijk en performatief te houden worden namelijk max. 10 zoekresultaten per pagina getoond.
+
+- Detailschermen
+   Wanneer een burger op een zoekresultaat klikt, dan wordt het detailscherm geopend. 
+   Op zo'n detailscherm worden de gegevens van die publicatie, dat document of dat onderwerp getoond.
+   Op het detailscherm van een document staat ook een knop waarmee het bestand (bijv. PDF) gedownload kan worden.
+   Op het detailscherm van een publicatie staat onderaan een lijst van gekoppelde documenten.
+   Op het detailscherm van een onderwerp staat onderaan een lijst van gekoppelde publicaties.
+   Uiteraard zijn verwijzingen naar documenten, publicaties en onderwerpen aanklikbar, zodat het desbetreffende detailscherm wordt geopend.
+
+- Onderwerpen
+   Door in het menu bovenaan naar het item "Onderwerpen" te gaan, komt de burger terecht op een overzicht aan onderwerpen.
+   Bovenaan staan de "gepromote" onderwerpen, die ook te zien zijn in de carroussel op de homepage.
+   Daaronder staat een lijst met alle gepubliceerde onderwerpen.
+   Van ieder onderwerp wordt een afbeelding getoond en een korte toelichting.
+   Door op een onderwerp te klikken opent de burger het detailscherm van het onderwerp (Zie hierboven).
+
+Voor een uitgebreidere toelichting op (de smaenhang van) onderwerpen, publicaties en documenten, als ook over de gegevens / metadata hiervan, zie `de documentatie van de GPP-publicatiebank <https://gpp-publicatiebank.readthedocs.io/>`_.
 
 .. _handleiding_index_aansluitinggwv
 
 Aansluiting op de landelijke voorziening
 -----------------------------------------
 
-Voor een correct werkende aansluiting op de `Generieke Woo-Voorzieing (GWV) <https://open.overheid.nl/>`_ moeten de openbare documenten vermeld worden in een sitemap. Het GPP-Burgerportaal genereert deze sitemaps, zodat de `Woo-harvester <https://standaarden.overheid.nl/diwoo/>`_ ze kan overnemen. De sitemap wordt iedere 24 uur geactualiseerd. De sitemap is te vinden op ``https://domeinnaam-van-het-burgerportaal/robots.txt``, en voldoet aan het het schema ``diwoo-metadata.xsd`` versie 0.9.8.
+Voor een correct werkende aansluiting op de `Generieke Woo-Voorzieing (GWV) <https://open.overheid.nl/>`_ moeten de openbare documenten vermeld worden in een sitemap. Het GPP-Burgerportaal genereert deze sitemaps, zodat de `Woo-harvester <https://standaarden.overheid.nl/diwoo/>`_ ze kan overnemen. De sitemap wordt iedere 24 uur geactualiseerd. De sitemap is te vinden via ``https://domeinnaam-van-het-burgerportaal/robots.txt``, en voldoet aan het het schema ``diwoo-metadata.xsd`` versie 0.9.8.
