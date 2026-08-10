@@ -74,6 +74,10 @@ namespace ODBP.Authentication
                     options.CorrelationCookie.SameSite = SameSiteMode.None;
                     options.CorrelationCookie.SecurePolicy = CookieSecurePolicy.Always;
                     options.Authority = authOptions.Authority;
+                    // Local/dev only: allow an http OIDC authority (e.g. a local Keycloak).
+                    // Defaults to requiring HTTPS; set OIDC_REQUIRE_HTTPS=false to relax.
+                    options.RequireHttpsMetadata =
+                        Environment.GetEnvironmentVariable("OIDC_REQUIRE_HTTPS") != "false";
                     options.ClientId = authOptions.ClientId;
                     options.ClientSecret = authOptions.ClientSecret;
                     options.SignedOutRedirectUri = SignOutCallback;
