@@ -56,7 +56,11 @@ namespace ODBP.Features.Sitemap.SitemapInstances
             {
                 var document = item.Deserialize(SitemapPublicatieContext.Default.OdrcDocument);
 
-                if (document == null)
+                // een document zonder publicatie-uuid hoort niet in de sitemap. het
+                // overslaan moet hier gebeuren: TryGetValue hieronder gooit een
+                // ArgumentNullException op een null key, waardoor de hele sitemap 500t
+                // in plaats van dit ene document te negeren.
+                if (document == null || string.IsNullOrEmpty(document.Publicatie))
                 {
                     continue;
                 }
