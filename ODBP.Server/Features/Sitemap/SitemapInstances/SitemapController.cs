@@ -10,7 +10,7 @@ namespace ODBP.Features.Sitemap.SitemapInstances
 {
     [ApiController]
     [OutputCache(PolicyName = OutputCachePolicies.Sitemap)]
-    public class SitemapController(IOdrcClientFactory odrcClientFactory, BaseUri baseUri, ISimpleCache cache)
+    public class SitemapController(IOdrcClientFactory odrcClientFactory, BaseUri baseUri, ISimpleCache cache, ILogger<SitemapController> logger)
     {
         const string ApiVersion = "v2";
         const string ApiRoot = $"/api/{ApiVersion}";
@@ -54,7 +54,18 @@ namespace ODBP.Features.Sitemap.SitemapInstances
             // doorloop alle documenten
             await foreach (var item in GetAllPages(odrcClient, $"{DocumentenQueryPath}&registratiedatumVanaf={vanaf:o}&registratiedatumTot={tot:o}", token))
             {
-                var document = item.Deserialize(SitemapPublicatieContext.Default.OdrcDocument);
+                // één onleesbaar document mag niet de sitemap van een hele maand
+                // meenemen: een ontbrekend verplicht veld gooit hier een JsonException.
+                OdrcDocument? document;
+                try
+                {
+                    document = item.Deserialize(SitemapPublicatieContext.Default.OdrcDocument);
+                }
+                catch (JsonException e)
+                {
+                    logger.LogWarning(e, "Document overgeslagen in de sitemap: kon het niet deserialiseren");
+                    continue;
+                }
 
                 // een document zonder publicatie-uuid hoort niet in de sitemap. het
                 // overslaan moet hier gebeuren: TryGetValue hieronder gooit een
@@ -62,6 +73,7 @@ namespace ODBP.Features.Sitemap.SitemapInstances
                 // in plaats van dit ene document te negeren.
                 if (document == null || string.IsNullOrEmpty(document.Publicatie))
                 {
+                    logger.LogWarning("Document {Uuid} overgeslagen in de sitemap: geen publicatie", document?.Uuid);
                     continue;
                 }
 
