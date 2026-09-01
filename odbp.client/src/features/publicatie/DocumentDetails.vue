@@ -35,6 +35,8 @@
         </utrecht-table>
       </gpp-woo-table-container>
 
+      <pdf-viewer v-if="isPdf" :src="`${API_URL}/documenten/${uuid}/download`" />
+
       <utrecht-paragraph>
         <a
           :href="`${API_URL}/documenten/${uuid}/download`"
@@ -98,6 +100,7 @@ import SimpleSpinner from "@/components/SimpleSpinner.vue";
 import UtrechtAlert from "@/components/UtrechtAlert.vue";
 import UtrechtIcon from "@/components/UtrechtIcon.vue";
 import GppWooTableContainer from "@/components/GppWooTableContainer.vue";
+import PdfViewer from "@/components/PdfViewer.vue";
 import { formatDate } from "@/helpers";
 import type { Publicatie, PublicatieDocument } from "./types";
 import { lijsten } from "@/stores/lijsten";
@@ -112,6 +115,10 @@ const resources = injectResources();
 
 const loading = computed(() => loadingDocument.value || loadingPublicatie.value);
 const error = computed(() => !!documentError.value || !!publicatieError.value);
+
+const isPdf = computed(
+  () => documentData.value?.bestandsnaam?.toLowerCase().endsWith(".pdf") ?? false
+);
 
 const {
   data: documentData,

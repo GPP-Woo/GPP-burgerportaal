@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@ckeditor/ckeditor5-vue": "^7.3.0",
+    "@tato30/vue-pdf": "^2.2.0",
     "@vueuse/core": "^12.7.0",
     "ckeditor5": "^47.4.0",
     "dompurify": "^3.4.0",
