@@ -35,9 +35,13 @@
         </utrecht-table>
       </gpp-woo-table-container>
 
-      <pdf-viewer v-if="isPdf" :src="`${API_URL}/documenten/${uuid}/download`" />
-
       <utrecht-paragraph>
+        <pdf-viewer-dialog
+          v-if="isPdf"
+          :src="`${API_URL}/documenten/${uuid}/download`"
+          :title="documentData?.officieleTitel"
+        />
+
         <a
           :href="`${API_URL}/documenten/${uuid}/download`"
           :download="documentData?.bestandsnaam"
@@ -100,7 +104,7 @@ import SimpleSpinner from "@/components/SimpleSpinner.vue";
 import UtrechtAlert from "@/components/UtrechtAlert.vue";
 import UtrechtIcon from "@/components/UtrechtIcon.vue";
 import GppWooTableContainer from "@/components/GppWooTableContainer.vue";
-import PdfViewer from "@/components/PdfViewer.vue";
+import PdfViewerDialog from "@/components/PdfViewerDialog.vue";
 import { formatDate } from "@/helpers";
 import type { Publicatie, PublicatieDocument } from "./types";
 import { lijsten } from "@/stores/lijsten";
@@ -160,3 +164,14 @@ const documentRows = computed(
     ])
 );
 </script>
+
+<style lang="scss" scoped>
+.utrecht-paragraph {
+  display: flex;
+  justify-content: space-between;
+
+  :deep([class^="utrecht-button"]) {
+    column-gap: 0.25rem;
+  }
+}
+</style>
