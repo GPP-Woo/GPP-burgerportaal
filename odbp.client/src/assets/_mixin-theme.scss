@@ -92,4 +92,17 @@
   --gpp-woo-popover-trigger-button-size: calc(
     var(--utrecht-document-line-height) * var(--gpp-woo-search-buckets-info-font-size)
   );
+
+  // gpp-woo-dialog
+  --gpp-woo-dialog-max-inline-size: min(96vw, 50rem);
+  --gpp-woo-dialog-max-block-size: 96vh;
+  --gpp-woo-dialog-spacing-default: var(--utrecht-space-block-md);
+  --gpp-woo-dialog-spacing-small: var(--utrecht-space-block-xs);
+  --gpp-woo-dialog-border-radius: 0.25rem;
+  --gpp-woo-dialog-backdrop-background-color: rgba(0, 0, 0, 0.5);
+
+  // gpp-woo-progress
+  --gpp-woo-progress-block-size: var(--utrecht-space-block-xs);
+  --gpp-woo-progress-inline-size: 100%;
+  --gpp-woo-progress-border-radius: 0.25rem;
 }

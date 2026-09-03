@@ -1,94 +1,93 @@
 <template>
-  <utrecht-button type="button" :appearance="'primary-action-button'" @click="open">
-    <utrecht-icon icon="eye" />
-    Bekijk document
+  <utrecht-button type="button" :appearance="'primary-action-button'" @click="openDialog">
+    <utrecht-icon icon="eye" /> Bekijk document
   </utrecht-button>
 
   <dialog
     ref="dialogRef"
-    class="pdf-viewer-dialog"
-    aria-label="PDF-documentviewer"
+    class="gpp-woo-pdf-viewer-dialog"
+    :aria-labelledby="headingId"
     @click="onBackdropClick"
   >
-    <div class="pdf-viewer-dialog__header">
-      <p class="pdf-viewer-dialog__title">{{ title }}</p>
+    <div class="gpp-woo-pdf-viewer-dialog__header">
+      <span class="gpp-woo-pdf-viewer-dialog__title" :id="headingId">{{ title }}</span>
 
       <utrecht-button
         type="button"
         :appearance="'secondary-action-button'"
-        class="pdf-viewer-dialog__close"
+        class="gpp-woo-pdf-viewer-dialog__close"
         autofocus
-        @click="close"
+        @click="closeDialog"
       >
         <utrecht-icon icon="xmark" />
+
         <span class="visually-hidden">Sluiten</span>
       </utrecht-button>
     </div>
 
-    <div class="pdf-viewer-dialog__body" @keydown="onKeydown">
-      <template v-if="progress && progress.loaded != progress.total">
-        <progress
-          class="pdf-viewer-dialog__progress"
-          :value="progress.loaded"
-          :max="progress.total"
-          aria-label="PDF laden"
-        >
-          PDF laden...
-        </progress>
-
-        <p>Document wordt geladen: {{ (progress.loaded / progress.total * 100).toFixed(0) }}%</p>
-      </template>
-
+    <div class="gpp-woo-pdf-viewer-dialog__body" @keydown="onKeydown">
       <utrecht-alert v-if="error" type="error">
         Het PDF-document kon niet worden geladen. Probeer het bestand te downloaden.
       </utrecht-alert>
 
-      <template v-if="pdf">
-        <nav class="pdf-viewer-dialog__nav" aria-label="PDF paginanavigatie">
+      <template v-else-if="pdf">
+        <nav class="gpp-woo-pdf-viewer-dialog__nav" aria-label="PDF paginanavigatie">
           <utrecht-button
             type="button"
+            :aria-label="'Vorige pagina'"
             :disabled="page <= 1"
             :appearance="'secondary-action-button'"
             @click="prevPage"
+            >« Vorige</utrecht-button
           >
-            « Vorige
-          </utrecht-button>
 
           <span aria-live="polite">Pagina {{ page }} van {{ pages }}</span>
 
           <utrecht-button
             type="button"
+            :aria-label="'Volgende pagina'"
             :disabled="page >= pages"
             :appearance="'secondary-action-button'"
             @click="nextPage"
+            >Volgende »</utrecht-button
           >
-            Volgende »
-          </utrecht-button>
         </nav>
 
-        <div class="pdf-viewer-dialog__page">
+        <div class="gpp-woo-pdf-viewer-dialog__page">
           <VuePDF :pdf="pdf" :page="page" text-layer annotation-layer fit-parent />
         </div>
+      </template>
+
+      <template v-else>
+        <gpp-woo-progress :loaded="progress?.loaded" :total="progress?.total" />
+
+        <p>
+          Document wordt geladen:
+          {{ !progress ? 0 : ((progress.loaded / progress.total) * 100).toFixed(0) }}%
+        </p>
       </template>
     </div>
   </dialog>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, useId } from "vue";
 import { VuePDF, usePDF } from "@tato30/vue-pdf";
 import "@tato30/vue-pdf/style.css";
 import UtrechtAlert from "@/components/UtrechtAlert.vue";
 import UtrechtIcon from "@/components/UtrechtIcon.vue";
+import GppWooProgress from "@/components/GppWooProgress.vue";
 
 const { src, title } = defineProps<{ src: string; title?: string }>();
+
+const headingId = useId();
 
 const dialogRef = ref<HTMLDialogElement>();
 
 const page = ref(1);
 
-const progress = ref<{ loaded: number; total: number } | null>(null);
 const error = ref(false);
+const progress = ref<{ loaded: number; total: number } | null>(null);
 
 const pdfSrc = ref("");
 
@@ -97,29 +96,25 @@ const { pdf, pages } = usePDF(pdfSrc, {
   onError: () => (error.value = true)
 });
 
-function open() {
-  if (!pdfSrc.value) {
-    pdfSrc.value = src;
-  }
+const openDialog = () => {
+  if (!pdfSrc.value) pdfSrc.value = src;
 
   dialogRef.value?.showModal();
-}
+};
 
-function close() {
-  dialogRef.value?.close();
-}
+const closeDialog = () => dialogRef.value?.close();
 
-function onBackdropClick(e: MouseEvent) {
-  if (e.target === dialogRef.value) close();
-}
+const onBackdropClick = (e: MouseEvent) => {
+  if (e.target === dialogRef.value) closeDialog();
+};
 
-function prevPage() {
+const prevPage = () => {
   if (page.value > 1) page.value--;
-}
+};
 
-function nextPage() {
+const nextPage = () => {
   if (pages.value && page.value < pages.value) page.value++;
-}
+};
 
 function onKeydown(e: KeyboardEvent) {
   if (e.key === "ArrowLeft") {
@@ -133,7 +128,9 @@ function onKeydown(e: KeyboardEvent) {
 </script>
 
 <style lang="scss" scoped>
-.pdf-viewer-dialog {
+@use "@/assets/variables";
+
+.gpp-woo-pdf-viewer-dialog {
   &[open] {
     display: flex;
   }
@@ -143,76 +140,49 @@ function onKeydown(e: KeyboardEvent) {
   margin: auto;
   padding: 0;
   border: none;
-  border-radius: 0.25rem;
-  inline-size: min(96vw, 50rem);
-  min-block-size: 12rem;
-  max-block-size: 96vh;
-  box-shadow: var(--gpp-woo-info-popover-box-shadow);
+  inline-size: var(--gpp-woo-dialog-max-inline-size);
+  max-block-size: var(--gpp-woo-dialog-max-block-size);
+  border-radius: var(--gpp-woo-dialog-border-radius);
 
   &::backdrop {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: var(--gpp-woo-dialog-backdrop-background-color);
   }
 
   &__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 1rem;
-    padding: 1rem;
+    gap: var(--gpp-woo-dialog-spacing-default);
+    padding: var(--gpp-woo-dialog-spacing-default);
     background-color: var(--utrecht-button-primary-action-background-color);
-    color: var(--utrecht-button-primary-action-color, #fff);
+    color: var(--utrecht-button-primary-action-color);
   }
 
   &__title {
-    margin: 0;
+    display: block;
     font-weight: bold;
-    color: inherit;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
 
   &__close {
-    flex-shrink: 0;
+    padding-inline-start: var(--utrecht-button-padding-block-start);
+    padding-inline-end: var(--utrecht-button-padding-block-end);
+  }
+
+  &__nav {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+    margin-block-end: var(--gpp-woo-dialog-spacing-small);
   }
 
   &__body {
     flex: 1;
     overflow: auto;
-    padding: 1rem;
-  }
-
-  &__progress {
-    block-size: 0.5rem;
-    inline-size: 100%;
-    border-radius: 0.25rem;
-    appearance: none;
-    border: none;
-    overflow: hidden;
-
-    &::-webkit-progress-bar {
-      background-color: var(--utrecht-color-grey-90);
-    }
-
-    &::-webkit-progress-value {
-      background-color: var(--utrecht-button-primary-action-background-color);
-    }
-
-    &::-moz-progress-bar {
-      background-color: var(--utrecht-button-primary-action-background-color);
-    }
-  }
-
-  &__nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-    margin-block-end: 0.5rem;
-  }
-
-  &__page {
-    border: 1px solid var(--utrecht-color-grey-90);
+    padding: var(--gpp-woo-dialog-spacing-default);
   }
 }
 </style>

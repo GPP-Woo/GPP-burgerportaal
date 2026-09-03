@@ -35,8 +35,8 @@
         </utrecht-table>
       </gpp-woo-table-container>
 
-      <utrecht-paragraph>
-        <pdf-viewer-dialog
+      <utrecht-paragraph class="gpp-woo-action">
+        <gpp-woo-pdf-viewer-dialog
           v-if="isPdf"
           :src="`${API_URL}/documenten/${uuid}/download`"
           :title="documentData?.officieleTitel"
@@ -49,7 +49,7 @@
         >
           <utrecht-icon icon="download" />
 
-          Download ({{ documentData?.bestandsnaam.split(".").pop()
+          Download document ({{ documentData?.bestandsnaam.split(".").pop()
           }}{{
             documentData?.bestandsomvang
               ? `, ${Math.floor(documentData.bestandsomvang / 1024)}kb`
@@ -104,7 +104,7 @@ import SimpleSpinner from "@/components/SimpleSpinner.vue";
 import UtrechtAlert from "@/components/UtrechtAlert.vue";
 import UtrechtIcon from "@/components/UtrechtIcon.vue";
 import GppWooTableContainer from "@/components/GppWooTableContainer.vue";
-import PdfViewerDialog from "@/components/PdfViewerDialog.vue";
+import GppWooPdfViewerDialog from "@/components/GppWooPdfViewerDialog.vue";
 import { formatDate } from "@/helpers";
 import type { Publicatie, PublicatieDocument } from "./types";
 import { lijsten } from "@/stores/lijsten";
@@ -166,12 +166,16 @@ const documentRows = computed(
 </script>
 
 <style lang="scss" scoped>
-.utrecht-paragraph {
-  display: flex;
-  justify-content: space-between;
+@use "@/assets/variables";
 
-  :deep([class^="utrecht-button"]) {
-    column-gap: 0.25rem;
+.gpp-woo-action {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--utrecht-space-block-md);
+
+  @media screen and (min-width: #{variables.$breakpoint-md}) {
+    flex-direction: row;
+    justify-content: space-between;
   }
 }
 </style>
