@@ -1,7 +1,9 @@
 <template>
-  <utrecht-button type="button" :appearance="'primary-action-button'" @click="openDialog">
-    <utrecht-icon icon="eye" /> Bekijk document
-  </utrecht-button>
+  <slot :open="openDialog">
+    <utrecht-button type="button" :appearance="'primary-action-button'" @click="openDialog">
+      <utrecht-icon icon="eye" /> Bekijk document
+    </utrecht-button>
+  </slot>
 
   <dialog
     ref="dialogRef"
