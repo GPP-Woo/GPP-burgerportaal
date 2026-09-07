@@ -105,7 +105,7 @@ import UtrechtAlert from "@/components/UtrechtAlert.vue";
 import UtrechtIcon from "@/components/UtrechtIcon.vue";
 import GppWooTableContainer from "@/components/GppWooTableContainer.vue";
 import GppWooPdfViewerDialog from "@/components/GppWooPdfViewerDialog.vue";
-import { formatDate } from "@/helpers";
+import { formatDate, isPdfFile } from "@/helpers";
 import type { Publicatie, PublicatieDocument } from "./types";
 import { lijsten } from "@/stores/lijsten";
 
@@ -120,9 +120,7 @@ const resources = injectResources();
 const loading = computed(() => loadingDocument.value || loadingPublicatie.value);
 const error = computed(() => !!documentError.value || !!publicatieError.value);
 
-const isPdf = computed(
-  () => documentData.value?.bestandsnaam?.toLowerCase().endsWith(".pdf") ?? false
-);
+const isPdf = computed(() => isPdfFile(documentData.value?.bestandsnaam));
 
 const {
   data: documentData,
