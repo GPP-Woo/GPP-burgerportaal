@@ -26,11 +26,20 @@
     </div>
 
     <div class="gpp-woo-pdf-viewer-dialog__body" @keydown="onKeydown">
-      <utrecht-alert v-if="error" type="error">
+      <template v-if="loading">
+        <gpp-woo-progress :loaded="progress?.loaded" :total="progress?.total" />
+
+        <p>
+          Document wordt geladen:
+          {{ !progress ? 0 : ((progress.loaded / progress.total) * 100).toFixed(0) }}%
+        </p>
+      </template>
+
+      <utrecht-alert v-else-if="error" type="error">
         Het PDF-document kon niet worden geladen. Probeer het bestand te downloaden.
       </utrecht-alert>
 
-      <template v-else-if="pdf">
+      <template v-else>
         <nav class="gpp-woo-pdf-viewer-dialog__nav" aria-label="PDF paginanavigatie">
           <utrecht-button
             type="button"
@@ -57,21 +66,12 @@
           <VuePDF :pdf="pdf" :page="page" text-layer annotation-layer fit-parent />
         </div>
       </template>
-
-      <template v-else>
-        <gpp-woo-progress :loaded="progress?.loaded" :total="progress?.total" />
-
-        <p>
-          Document wordt geladen:
-          {{ !progress ? 0 : ((progress.loaded / progress.total) * 100).toFixed(0) }}%
-        </p>
-      </template>
     </div>
   </dialog>
 </template>
 
 <script setup lang="ts">
-import { onUnmounted, ref, useId } from "vue";
+import { onUnmounted, ref, useId, watch } from "vue";
 import { VuePDF, usePDF } from "@tato30/vue-pdf";
 import "@tato30/vue-pdf/style.css";
 import UtrechtAlert from "@/components/UtrechtAlert.vue";
@@ -86,27 +86,43 @@ const dialogRef = ref<HTMLDialogElement>();
 
 const page = ref(1);
 
+const loading = ref(false);
 const error = ref(false);
 const progress = ref<{ loaded: number; total: number } | null>(null);
 
-const pdfSrc = ref("");
+// disableRange: backend chain doesn't support HTTP Range requests yet, skip
+// pdf.js' probe request and go straight to streaming.
+const pdfSrc = ref<{ url: string; disableRange: boolean } | "">("");
 
 const { pdf, pages } = usePDF(pdfSrc, {
   onProgress: (progressData) => (progress.value = progressData),
   onError: () => {
-    error.value = true;
-    progress.value = null;
+    pdf.value?.destroy();
     pdfSrc.value = "";
+    loading.value = false;
+    error.value = true;
   }
 });
 
-const openDialog = () => {
-  if (!pdfSrc.value) pdfSrc.value = src;
+// pdf is a shallowRef: internal mutations don't trigger a re-render,
+// so use loading state to reflect changes.
+watch(pdf, () => (loading.value = false));
 
+const openDialog = () => {
   dialogRef.value?.showModal();
+  // always reload instead of reusing: don't want every viewed doc kept in memory
+  // when run as multiple instances on overview pages.
+  pdfSrc.value = { url: src, disableRange: true };
+  loading.value = true;
+  error.value = false;
 };
 
-const closeDialog = () => dialogRef.value?.close();
+const closeDialog = () => {
+  dialogRef.value?.close();
+  // free memory on close, not just on unmount.
+  pdf.value?.destroy();
+  pdfSrc.value = "";
+};
 
 const onBackdropClick = (e: MouseEvent) => {
   if (e.target === dialogRef.value) closeDialog();
@@ -130,6 +146,7 @@ function onKeydown(e: KeyboardEvent) {
   }
 }
 
+// covers edge case of navigating away while the dialog is still open.
 onUnmounted(() => pdf.value?.destroy());
 </script>
 
