@@ -71,7 +71,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, useId } from "vue";
+import { onUnmounted, ref, useId } from "vue";
 import { VuePDF, usePDF } from "@tato30/vue-pdf";
 import "@tato30/vue-pdf/style.css";
 import UtrechtAlert from "@/components/UtrechtAlert.vue";
@@ -93,7 +93,11 @@ const pdfSrc = ref("");
 
 const { pdf, pages } = usePDF(pdfSrc, {
   onProgress: (progressData) => (progress.value = progressData),
-  onError: () => (error.value = true)
+  onError: () => {
+    error.value = true;
+    progress.value = null;
+    pdfSrc.value = "";
+  }
 });
 
 const openDialog = () => {
@@ -125,6 +129,8 @@ function onKeydown(e: KeyboardEvent) {
     e.preventDefault();
   }
 }
+
+onUnmounted(() => pdf.value?.destroy());
 </script>
 
 <style lang="scss" scoped>
