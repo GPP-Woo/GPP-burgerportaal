@@ -35,7 +35,13 @@
         </utrecht-table>
       </gpp-woo-table-container>
 
-      <utrecht-paragraph>
+      <utrecht-paragraph class="gpp-woo-action">
+        <gpp-woo-pdf-viewer-dialog
+          v-if="isPdf"
+          :src="`${API_URL}/documenten/${uuid}/download`"
+          :title="documentData?.officieleTitel"
+        />
+
         <a
           :href="`${API_URL}/documenten/${uuid}/download`"
           :download="documentData?.bestandsnaam"
@@ -43,7 +49,7 @@
         >
           <utrecht-icon icon="download" />
 
-          Download ({{ documentData?.bestandsnaam.split(".").pop()
+          Download document ({{ documentData?.bestandsnaam.split(".").pop()
           }}{{
             documentData?.bestandsomvang
               ? `, ${Math.floor(documentData.bestandsomvang / 1024)}kb`
@@ -98,6 +104,7 @@ import SimpleSpinner from "@/components/SimpleSpinner.vue";
 import UtrechtAlert from "@/components/UtrechtAlert.vue";
 import UtrechtIcon from "@/components/UtrechtIcon.vue";
 import GppWooTableContainer from "@/components/GppWooTableContainer.vue";
+import GppWooPdfViewerDialog from "@/components/GppWooPdfViewerDialog.vue";
 import { formatDate } from "@/helpers";
 import type { Publicatie, PublicatieDocument } from "./types";
 import { lijsten } from "@/stores/lijsten";
@@ -112,6 +119,10 @@ const resources = injectResources();
 
 const loading = computed(() => loadingDocument.value || loadingPublicatie.value);
 const error = computed(() => !!documentError.value || !!publicatieError.value);
+
+const isPdf = computed(
+  () => documentData.value?.bestandsnaam?.toLowerCase().endsWith(".pdf") ?? false
+);
 
 const {
   data: documentData,
@@ -153,3 +164,18 @@ const documentRows = computed(
     ])
 );
 </script>
+
+<style lang="scss" scoped>
+@use "@/assets/variables";
+
+.gpp-woo-action {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--utrecht-space-block-md);
+
+  @media screen and (min-width: #{variables.$breakpoint-md}) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+</style>
