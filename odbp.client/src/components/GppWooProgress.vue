@@ -1,9 +1,9 @@
 <template>
-  <progress class="gpp-woo-progress" :value="loaded" :max="total"> Bezig met laden... </progress>
+  <progress class="gpp-woo-progress" :value="percent" max="100">Bezig met laden...</progress>
 </template>
 
 <script setup lang="ts">
-defineProps<{ loaded?: number; total?: number }>();
+defineProps<{ percent?: number }>();
 </script>
 
 <style lang="scss" scoped>

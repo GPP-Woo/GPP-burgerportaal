@@ -29,9 +29,9 @@
 
     <div class="gpp-woo-pdf-viewer-dialog__body">
       <template v-if="loading">
-        <gpp-woo-progress :loaded="progress?.loaded" :total="progress?.total" />
+        <gpp-woo-progress :percent="progressPercent" />
 
-        <p>Document wordt geladen: {{ loadingPercentage }}</p>
+        <p>Document wordt geladen: {{ progressPercent ?? 0 }}%</p>
       </template>
 
       <utrecht-alert v-else-if="error" type="error">
@@ -74,15 +74,19 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onUnmounted, ref, useId, watch } from "vue";
+import { computed, onUnmounted, ref, shallowRef, useId } from "vue";
 import { useDebounceFn, useResizeObserver } from "@vueuse/core";
-import { VuePDF, usePDF } from "@tato30/vue-pdf";
+import { VuePDF } from "@tato30/vue-pdf";
 import "@tato30/vue-pdf/style.css";
+// pdfjs-dist: transitive dependency, exact-pinned by @tato30/vue-pdf, so no risk of
+// duplicate installs. Used directly (bypassing usePDF) in loadDocument() below.
+import * as PDFJS from "pdfjs-dist";
+import type { OnProgressParameters, PDFDocumentLoadingTask } from "pdfjs-dist";
 import UtrechtAlert from "@/components/UtrechtAlert.vue";
 import UtrechtIcon from "@/components/UtrechtIcon.vue";
 import GppWooProgress from "@/components/GppWooProgress.vue";
 
-const { src, title } = defineProps<{ src: string; title?: string }>();
+const props = defineProps<{ src: string; title?: string }>();
 
 const headingId = useId();
 
@@ -90,35 +94,43 @@ const dialogRef = ref<HTMLDialogElement>();
 const pageWrapperRef = ref<HTMLDivElement>();
 const vuePdfRef = ref<InstanceType<typeof VuePDF>>();
 
+const pdf = shallowRef<PDFDocumentLoadingTask>();
+const pages = ref(0);
 const page = ref(1);
 
 const loading = ref(false);
 const error = ref(false);
-const progress = ref<{ loaded: number; total: number } | null>(null);
+const progress = ref<OnProgressParameters | null>(null);
 
-const loadingPercentage = computed(() =>
-  !progress.value || !progress.value.total
-    ? "0%"
-    : `${((progress.value.loaded / progress.value.total) * 100).toFixed(0)}%`
+const progressPercent = computed(() =>
+  progress.value?.total ? Math.round(progress.value.percent) : undefined
 );
 
-// disableRange: backend chain doesn't support HTTP Range requests yet, skip
-// pdf.js' probe request and go straight to streaming.
-const pdfSrc = ref<{ url: string; disableRange: boolean } | "">("");
+// loadDocument sets pdf.value synchronously (not via usePDF, which only assigns it
+// once loaded) so destroy() always has a valid task, even mid-load.
+function loadDocument(url: string) {
+  pdf.value?.destroy();
 
-const { pdf, pages } = usePDF(pdfSrc, {
-  onProgress: (progressData) => (progress.value = progressData),
-  onError: () => {
-    pdf.value?.destroy();
-    pdfSrc.value = "";
-    loading.value = false;
-    error.value = true;
-  }
-});
+  // disableRange: backend chain doesn't support HTTP Range requests yet, skip
+  // pdf.js' probe request and go straight to streaming.
+  const task = PDFJS.getDocument({ url, disableRange: true });
 
-// pdf is a shallowRef: internal mutations don't trigger a re-render,
-// so use loading state to reflect changes.
-watch(pdf, () => (loading.value = false));
+  task.onProgress = (progressData: OnProgressParameters) => (progress.value = progressData);
+
+  task.promise.then(
+    (doc) => {
+      pages.value = doc.numPages;
+      loading.value = false;
+    },
+    () => {
+      task.destroy();
+      error.value = true;
+      loading.value = false;
+    }
+  );
+
+  pdf.value = task;
+}
 
 // fit-parent only recalculates scale when VuePDF re-renders (page/scale/rotation
 // change), not on viewport/container resize, so trigger it manually.
@@ -131,19 +143,15 @@ const openDialog = () => {
   dialogRef.value?.showModal();
   // always reload instead of reusing: don't want every viewed doc kept in memory
   // when run as multiple instances on overview pages.
-  pdfSrc.value = { url: src, disableRange: true };
   loading.value = true;
   error.value = false;
+  progress.value = null;
+  loadDocument(props.src);
 };
 
 const closeDialog = () => dialogRef.value?.close();
 
-const onDialogClose = () => {
-  // free memory on close, not just on unmount.
-  pdf.value?.destroy();
-  pdfSrc.value = "";
-  progress.value = null;
-};
+const onDialogClose = () => pdf.value?.destroy();
 
 const onBackdropClick = (e: MouseEvent) => {
   if (e.target === dialogRef.value) closeDialog();
@@ -167,7 +175,7 @@ function onKeydown(e: KeyboardEvent) {
   }
 }
 
-// covers edge case of navigating away while the dialog is still open.
+// covers case of navigating away while the dialog is still open.
 onUnmounted(() => pdf.value?.destroy());
 </script>
 
