@@ -49,11 +49,9 @@
         >
           <utrecht-icon icon="download" />
 
-          Download document ({{ documentData?.bestandsnaam.split(".").pop()
+          Download document ({{ documentData?.bestandsnaam.split(".").pop()?.toUpperCase()
           }}{{
-            documentData?.bestandsomvang
-              ? `, ${Math.floor(documentData.bestandsomvang / 1024)}kb`
-              : ""
+            documentData?.bestandsomvang ? `, ${formatFileSize(documentData.bestandsomvang)}` : ""
           }})
         </a>
       </utrecht-paragraph>
@@ -105,7 +103,7 @@ import UtrechtAlert from "@/components/UtrechtAlert.vue";
 import UtrechtIcon from "@/components/UtrechtIcon.vue";
 import GppWooTableContainer from "@/components/GppWooTableContainer.vue";
 import GppWooPdfViewerDialog from "@/components/GppWooPdfViewerDialog.vue";
-import { formatDate, isPdfFile } from "@/helpers";
+import { formatDate, formatFileSize, isPdfFile } from "@/helpers";
 import type { Publicatie, PublicatieDocument } from "./types";
 import { lijsten } from "@/stores/lijsten";
 

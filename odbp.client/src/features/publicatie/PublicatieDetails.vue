@@ -81,7 +81,7 @@
                   Datum document
                 </button>
               </utrecht-table-header-cell>
-              <utrecht-table-header-cell scope="col" colspan="2" class="gpp-woo-table-fixed-header"
+              <utrecht-table-header-cell scope="col" colspan="3" class="gpp-woo-table-fixed-header"
                 >Bestand</utrecht-table-header-cell
               >
             </utrecht-table-row>
@@ -112,10 +112,7 @@
                   :download="bestandsnaam"
                   class="gpp-woo-link--icon"
                 >
-                  <utrecht-icon icon="download" />
-
-                  Download ({{ bestandsnaam.split(".").pop()
-                  }}{{ bestandsomvang ? `, ${Math.floor(bestandsomvang / 1024)}kb` : null }})
+                  <utrecht-icon icon="download" /> Download
                 </utrecht-link>
               </utrecht-table-cell>
               <utrecht-table-cell>
@@ -135,6 +132,12 @@
                   </template>
                 </gpp-woo-pdf-viewer-dialog>
               </utrecht-table-cell>
+              <utrecht-table-cell class="gpp-woo-file-meta"
+                >{{ bestandsnaam.split(".").pop()?.toUpperCase()
+                }}{{
+                  bestandsomvang ? `, ${formatFileSize(bestandsomvang)}` : null
+                }}</utrecht-table-cell
+              >
             </utrecht-table-row>
           </utrecht-table-body>
         </utrecht-table>
@@ -155,7 +158,7 @@ import UtrechtBadgeList, { type BadgeListItem } from "@/components/UtrechtBadgeL
 import UtrechtIcon from "@/components/UtrechtIcon.vue";
 import GppWooTableContainer from "@/components/GppWooTableContainer.vue";
 import GppWooPdfViewerDialog from "@/components/GppWooPdfViewerDialog.vue";
-import { formatDate, isPdfFile } from "@/helpers";
+import { formatDate, formatFileSize, isPdfFile } from "@/helpers";
 import type { Publicatie, PublicatieDocument } from "./types";
 import { lijsten } from "@/stores/lijsten";
 
@@ -252,6 +255,16 @@ const publicatieRows = computed(
     opacity: 0.5;
     pointer-events: none;
   }
+
+  &__header-cell-button {
+    --_utrecht-button-line-height: 1;
+
+    text-align: left;
+  }
+}
+
+.gpp-woo-file-meta {
+  white-space: nowrap;
 }
 
 .gpp-woo-link-button {
