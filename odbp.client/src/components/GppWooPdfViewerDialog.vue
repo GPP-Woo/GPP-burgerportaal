@@ -8,6 +8,8 @@
     class="gpp-woo-pdf-viewer-dialog"
     :aria-labelledby="headingId"
     @click="onBackdropClick"
+    @close="onDialogClose"
+    @keydown="onKeydown"
   >
     <div class="gpp-woo-pdf-viewer-dialog__header">
       <span class="gpp-woo-pdf-viewer-dialog__title" :id="headingId">{{ title }}</span>
@@ -25,14 +27,11 @@
       </utrecht-button>
     </div>
 
-    <div class="gpp-woo-pdf-viewer-dialog__body" @keydown="onKeydown">
+    <div class="gpp-woo-pdf-viewer-dialog__body">
       <template v-if="loading">
         <gpp-woo-progress :loaded="progress?.loaded" :total="progress?.total" />
 
-        <p>
-          Document wordt geladen:
-          {{ !progress ? 0 : ((progress.loaded / progress.total) * 100).toFixed(0) }}%
-        </p>
+        <p>Document wordt geladen: {{ loadingPercentage }}</p>
       </template>
 
       <utrecht-alert v-else-if="error" type="error">
@@ -75,7 +74,7 @@
 </template>
 
 <script setup lang="ts">
-import { onUnmounted, ref, useId, watch } from "vue";
+import { computed, onUnmounted, ref, useId, watch } from "vue";
 import { useDebounceFn, useResizeObserver } from "@vueuse/core";
 import { VuePDF, usePDF } from "@tato30/vue-pdf";
 import "@tato30/vue-pdf/style.css";
@@ -96,6 +95,12 @@ const page = ref(1);
 const loading = ref(false);
 const error = ref(false);
 const progress = ref<{ loaded: number; total: number } | null>(null);
+
+const loadingPercentage = computed(() =>
+  !progress.value || !progress.value.total
+    ? "0%"
+    : `${((progress.value.loaded / progress.value.total) * 100).toFixed(0)}%`
+);
 
 // disableRange: backend chain doesn't support HTTP Range requests yet, skip
 // pdf.js' probe request and go straight to streaming.
@@ -131,8 +136,9 @@ const openDialog = () => {
   error.value = false;
 };
 
-const closeDialog = () => {
-  dialogRef.value?.close();
+const closeDialog = () => dialogRef.value?.close();
+
+const onDialogClose = () => {
   // free memory on close, not just on unmount.
   pdf.value?.destroy();
   pdfSrc.value = "";
