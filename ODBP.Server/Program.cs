@@ -87,6 +87,10 @@ try
     var app = builder.Build();
 
     app.UseSerilogRequestLogging(x => x.Logger = logger);
+
+    // Web Workers run in own global scope (not the document's), so need their own matching COEP response header
+    // UseCoep must run before static files, since those short-circuit the pipeline
+    app.UseCoep();
     app.UseDefaultFiles();
     app.UseOdbpStaticFiles();
 
@@ -96,8 +100,6 @@ try
     }
 
     app.UseOdbpSecurityHeaders();
-
-    app.UseCoep();
 
     app.UseAuthentication();
     app.UseAuthorization();

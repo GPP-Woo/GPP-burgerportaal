@@ -84,9 +84,13 @@ import "@tato30/vue-pdf/style.css";
 // duplicate installs. Used directly (bypassing usePDF) in loadDocument() below.
 import * as PDFJS from "pdfjs-dist";
 import type { OnProgressParameters, PDFDocumentLoadingTask } from "pdfjs-dist";
+// pdf.js runs its parsing in a Web Worker, import as regular content-hashed static asset.
+import pdfWorkerSrc from "pdfjs-dist/build/pdf.worker.min.mjs?url";
 import UtrechtAlert from "@/components/UtrechtAlert.vue";
 import UtrechtIcon from "@/components/UtrechtIcon.vue";
 import GppWooProgress from "@/components/GppWooProgress.vue";
+
+PDFJS.GlobalWorkerOptions.workerSrc = pdfWorkerSrc;
 
 const props = defineProps<{ src: string; title?: string }>();
 
