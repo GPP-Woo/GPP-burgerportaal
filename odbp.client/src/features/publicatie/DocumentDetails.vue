@@ -167,11 +167,10 @@ const documentRows = computed(
 .gpp-woo-action {
   display: flex;
   flex-direction: column;
-  row-gap: var(--utrecht-space-block-md);
+  gap: var(--utrecht-space-block-md);
 
   @media screen and (min-width: #{variables.$breakpoint-md}) {
     flex-direction: row;
-    justify-content: space-between;
   }
 }
 </style>
