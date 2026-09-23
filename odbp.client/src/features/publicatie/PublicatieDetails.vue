@@ -10,6 +10,11 @@
   <template v-else>
     <utrecht-heading :level="1">{{ publicatieData?.officieleTitel }}</utrecht-heading>
 
+    <inzage-procedure
+      v-if="publicatieData?.inzageProcedure"
+      :inzage-procedure="publicatieData.inzageProcedure"
+    />
+
     <section>
       <gpp-woo-table-container>
         <utrecht-table>
@@ -158,6 +163,7 @@ import UtrechtBadgeList, { type BadgeListItem } from "@/components/UtrechtBadgeL
 import UtrechtIcon from "@/components/UtrechtIcon.vue";
 import GppWooTableContainer from "@/components/GppWooTableContainer.vue";
 import GppWooPdfViewerDialog from "@/components/GppWooPdfViewerDialog.vue";
+import InzageProcedure from "./InzageProcedure.vue";
 import { formatDate, formatFileSize, isPdfFile } from "@/helpers";
 import type { Publicatie, PublicatieDocument } from "./types";
 import { lijsten } from "@/stores/lijsten";
