@@ -1,14 +1,8 @@
 type DateLike = string | null | undefined | Date;
 
-const nlLongFormat = Intl.DateTimeFormat("nl-NL", { dateStyle: "long" });
+const NL_TIME_ZONE = "Europe/Amsterdam";
 
-const padZero = (v: string | number, count: number) => {
-  v = v.toString();
-  while (v.length < count) {
-    v = "0" + v;
-  }
-  return v;
-};
+const nlLongFormat = Intl.DateTimeFormat("nl-NL", { dateStyle: "long", timeZone: NL_TIME_ZONE });
 
 const parseValidDate = (date: DateLike) => {
   if (!date) return undefined;
@@ -24,14 +18,23 @@ export const formatDate = (date: DateLike) => {
   return nlLongFormat.format(date);
 };
 
-export const formatIsoDate = (date: DateLike) => {
+export const formatIsoDate = (date: DateLike, timeZone?: string) => {
   date = parseValidDate(date);
   if (!date) return undefined;
-  const year = padZero(date.getFullYear(), 4),
-    month = padZero(date.getMonth() + 1, 2),
-    day = padZero(date.getDate(), 2);
-  return [year, month, day].join("-");
+
+  const parts = new Intl.DateTimeFormat("nl-NL", {
+    timeZone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  }).formatToParts(date);
+
+  const get = (type: "year" | "month" | "day") => parts.find((p) => p.type === type)?.value;
+
+  return [get("year"), get("month"), get("day")].join("-");
 };
+
+export const todayIsoDate = () => formatIsoDate(new Date(), NL_TIME_ZONE)!;
 
 export const addToDate = (
   d: DateLike,

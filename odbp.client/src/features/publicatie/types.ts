@@ -11,6 +11,17 @@ export type Publicatie = {
   informatieCategorieen: string[];
   onderwerpen: string[];
   kenmerken: Kenmerk[];
+  inzageProcedure?: InzageProcedure | null;
+};
+
+export type InzageProcedure = {
+  uuid: string;
+  urlBekendmaking?: string | null;
+  toelichting: string;
+  beschikbaarRechtsmiddel: string;
+  urlReactieformulier?: string | null;
+  datumBeginInzagetermijn: string;
+  datumEindeInzagetermijn: string;
 };
 
 export type PublicatieDocument = {
