@@ -1,0 +1,11 @@
+# Local-only placeholders so the odbp server boots. Real use needs an OIDC IdP
+# and a running GPP-zoeken (SEARCH_BASE_URL/SEARCH_API_KEY point at it).
+services:
+  odbp:
+    environment:
+      - OIDC_AUTHORITY=http://localhost:8888/realms/dev
+      - OIDC_CLIENT_ID=odbp-local
+      - OIDC_CLIENT_SECRET=local-placeholder-secret
+      - OIDC_ADMIN_ROLE=odbp-admin
+      - SEARCH_BASE_URL=http://host.docker.internal:8000/
+      - SEARCH_API_KEY=local-placeholder-key
