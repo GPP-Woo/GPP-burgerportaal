@@ -1,6 +1,8 @@
 type DateLike = string | null | undefined | Date;
 
-const nlLongFormat = Intl.DateTimeFormat("nl-NL", { dateStyle: "long" });
+const NL_TIME_ZONE = "Europe/Amsterdam";
+
+const nlLongFormat = Intl.DateTimeFormat("nl-NL", { dateStyle: "long", timeZone: NL_TIME_ZONE });
 
 const parseValidDate = (date: DateLike) => {
   if (!date) return undefined;
@@ -32,7 +34,7 @@ export const formatIsoDate = (date: DateLike, timeZone?: string) => {
   return [get("year"), get("month"), get("day")].join("-");
 };
 
-export const todayIsoDate = () => formatIsoDate(new Date(), "Europe/Amsterdam")!;
+export const todayIsoDate = () => formatIsoDate(new Date(), NL_TIME_ZONE)!;
 
 export const addToDate = (
   d: DateLike,
