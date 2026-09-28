@@ -16,24 +16,10 @@
     />
 
     <section>
-      <utrecht-heading :level="2">
-        <utrecht-button
-          :id="publicatieGegevensToggleId"
-          type="button"
-          appearance="secondary-action-button"
-          class="gpp-woo-toggle-button"
-          :aria-controls="publicatieGegevensId"
-          :aria-expanded="isPublicatieGegevensExpanded"
-          @click="isPublicatieGegevensExpanded = !isPublicatieGegevensExpanded"
-        >
-          Over deze publicatie
+      <gpp-woo-table-container>
+        <utrecht-table>
+          <utrecht-table-caption>Over deze publicatie</utrecht-table-caption>
 
-          <utrecht-icon :icon="isPublicatieGegevensExpanded ? 'chevron-up' : 'chevron-down'" />
-        </utrecht-button>
-      </utrecht-heading>
-
-      <gpp-woo-table-container :id="publicatieGegevensId" :hidden="!isPublicatieGegevensExpanded">
-        <utrecht-table :aria-labelledby="publicatieGegevensToggleId">
           <utrecht-table-header class="utrecht-table__header--hidden">
             <utrecht-table-row>
               <utrecht-table-header-cell scope="col">Publicatiekenmerk</utrecht-table-header-cell>
@@ -59,12 +45,12 @@
       </gpp-woo-table-container>
 
       <gpp-woo-table-container v-if="documenten.length">
-        <utrecht-heading :level="2" :id="documentenHeadingId"
+        <utrecht-heading :level="2" :id="headingId"
           >Documenten bij deze publicatie <small-spinner v-if="loadingDocumenten"
         /></utrecht-heading>
 
         <utrecht-table
-          :aria-labelledby="documentenHeadingId"
+          :aria-labelledby="headingId"
           :aria-busy="loadingDocumenten"
           :class="[
             'utrecht-table--alternate-row-color',
@@ -166,7 +152,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, useId, watch } from "vue";
+import { computed, ref, useId } from "vue";
 import { injectResources } from "@/resources";
 import { useFetchApi } from "@/api/use-fetch-api";
 import { useAllPages } from "@/composables/use-all-pages";
@@ -186,9 +172,7 @@ const API_URL = `/api/v2`;
 
 const props = defineProps<{ uuid: string }>();
 
-const documentenHeadingId = useId();
-const publicatieGegevensId = useId();
-const publicatieGegevensToggleId = useId();
+const headingId = useId();
 
 const resources = injectResources();
 
@@ -220,15 +204,6 @@ const {
   isFetching: loadingPublicatie,
   error: publicatieError
 } = useFetchApi(() => `${API_URL}/publicaties/${props.uuid}`).json<Publicatie>();
-
-// Publicatie gegevens collapsed by default when inzageProcedure is present
-const isPublicatieGegevensExpanded = ref(false);
-
-watch(
-  loadingPublicatie,
-  (isLoading) =>
-    !isLoading && (isPublicatieGegevensExpanded.value = !publicatieData.value?.inzageProcedure)
-);
 
 const {
   data: documenten,
@@ -277,31 +252,6 @@ const publicatieRows = computed(
   display: flex;
   align-items: center;
   gap: 1ch;
-}
-
-.gpp-woo-toggle-button {
-  --utrecht-button-focus-scale: 1.005;
-  --utrecht-button-hover-scale: 1.005;
-  --utrecht-button-column-gap: var(--utrecht-space-text-xs);
-  --utrecht-button-max-inline-size: none;
-
-  flex: 1;
-  font: inherit;
-  justify-content: space-between;
-  margin-inline-end: calc(
-    -1 *
-      (
-        var(--utrecht-button-padding-inline-end) +
-          var(--utrecht-button-secondary-action-border-width)
-      )
-  );
-  margin-inline-start: calc(
-    -1 *
-      (
-        var(--utrecht-button-padding-inline-start) +
-          var(--utrecht-button-secondary-action-border-width)
-      )
-  );
 }
 
 .utrecht-table {
