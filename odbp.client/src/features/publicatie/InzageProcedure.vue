@@ -8,18 +8,36 @@
       }}</utrecht-paragraph>
 
       <utrecht-paragraph v-if="status === 'scheduled'">
-        De inzagetermijn is nog niet gestart. Deze loopt vanaf
-        {{ formatDate(inzageProcedure.datumBeginInzagetermijn) }}.
+        <em
+          >De inzagetermijn is nog niet gestart. Deze loopt vanaf
+          {{ formatDate(inzageProcedure.datumBeginInzagetermijn) }} tot en met
+          {{ formatDate(inzageProcedure.datumEindeInzagetermijn) }}.
+        </em>
       </utrecht-paragraph>
 
       <utrecht-paragraph v-else-if="status === 'open'">
-        U kunt via een {{ inzageProcedure.beschikbaarRechtsmiddel }} reageren tot en met
-        {{ formatDate(inzageProcedure.datumEindeInzagetermijn) }}.
+        <em>
+          U kunt de documenten hieronder inzien. U kunt hierop een
+          {{ inzageProcedure.beschikbaarRechtsmiddel }} indienen tot en met
+          {{ formatDate(inzageProcedure.datumEindeInzagetermijn) }}.
+        </em>
       </utrecht-paragraph>
 
-      <utrecht-paragraph v-else>De reactietermijn is helaas verstreken.</utrecht-paragraph>
+      <utrecht-paragraph v-else><em>De reactietermijn is helaas verstreken.</em></utrecht-paragraph>
 
       <ul role="list" class="utrecht-link-list utrecht-link-list--html-ul">
+        <li v-if="inzageProcedure.urlBekendmaking" class="utrecht-link-list__item">
+          <utrecht-link external :href="inzageProcedure.urlBekendmaking" class="gpp-woo-link--icon">
+            <utrecht-icon icon="angle-right" class="utrecht-link-list__item--style-type" />
+
+            Bekijk de bekendmaking
+
+            <span class="visually-hidden">(externe link)</span>
+
+            <utrecht-icon icon="external" />
+          </utrecht-link>
+        </li>
+
         <li
           v-if="status === 'open' && inzageProcedure.urlReactieformulier"
           class="utrecht-link-list__item"
@@ -31,19 +49,7 @@
           >
             <utrecht-icon icon="angle-right" class="utrecht-link-list__item--style-type" />
 
-            Naar het reactieformulier
-
-            <span class="visually-hidden">(externe link)</span>
-
-            <utrecht-icon icon="external" />
-          </utrecht-link>
-        </li>
-
-        <li v-if="inzageProcedure.urlBekendmaking" class="utrecht-link-list__item">
-          <utrecht-link external :href="inzageProcedure.urlBekendmaking" class="gpp-woo-link--icon">
-            <utrecht-icon icon="angle-right" class="utrecht-link-list__item--style-type" />
-
-            Bekijk de bekendmaking
+            Dien {{ inzageProcedure.beschikbaarRechtsmiddel }} in
 
             <span class="visually-hidden">(externe link)</span>
 
