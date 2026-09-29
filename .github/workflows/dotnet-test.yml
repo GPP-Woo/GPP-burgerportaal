@@ -1,0 +1,24 @@
+name: .NET Tests
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main", "release-*"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+      # Alleen het testproject: ODBP.Server bouwt via ProjectReference mee, terwijl
+      # de hele solution ook de Vue-client (odbp.client.esproj) zou willen bouwen.
+      - name: Test
+        run: dotnet test ODBP.Tests/ODBP.Tests.csproj --configuration Release
