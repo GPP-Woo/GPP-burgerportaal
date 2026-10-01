@@ -2,6 +2,7 @@ import { fileURLToPath, URL } from "node:url";
 
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
+import { NodePackageImporter } from "sass";
 
 const proxyCalls = ["/api", "/signin-oidc", "/signout-callback-oidc", "/healthz"];
 
@@ -26,5 +27,12 @@ export default defineConfig({
   },
   build: {
     assetsInlineLimit: 0
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        importers: [new NodePackageImporter()]
+      }
+    }
   }
 });

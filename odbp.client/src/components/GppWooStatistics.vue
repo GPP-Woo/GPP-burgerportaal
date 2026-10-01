@@ -8,7 +8,7 @@
       <utrecht-data-list-key>{{ label }}</utrecht-data-list-key>
       <utrecht-data-list-value :value="count">
         <router-link :to="link" class="utrecht-link utrecht-link--html-a">{{
-          Intl.NumberFormat("nl-NL").format(count)
+          formatCappedCount(count, HOMEPAGE_STATISTICS_COUNT_THRESHOLD)
         }}</router-link>
       </utrecht-data-list-value>
     </utrecht-data-list-item>
@@ -19,7 +19,10 @@
 import { computed } from "vue";
 import { useFetchApi } from "@/api";
 import SmallSpinner from "@/components/SmallSpinner.vue";
+import { formatCappedCount } from "@/helpers";
 import { resultOptions, type SearchResponse } from "@/features/search/service";
+
+const HOMEPAGE_STATISTICS_COUNT_THRESHOLD = 99_999;
 
 const { data, isFetching, error } = useFetchApi(() => "/api/zoeken")
   .json<SearchResponse>()

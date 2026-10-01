@@ -7,7 +7,7 @@
 
 @layer base {
   @include meta.load-css("./design-tokens");
-  @include meta.load-css("@utrecht/component-library-css");
+  @include meta.load-css("pkg:@utrecht/component-library-css/dist/index");
 }
 
 @layer layout {

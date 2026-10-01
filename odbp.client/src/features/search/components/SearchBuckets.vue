@@ -35,7 +35,9 @@
           </gpp-woo-info-popover>
         </span>
 
-        <span class="gpp-woo-search-buckets__count">({{ bucket.count }})</span>
+        <span class="gpp-woo-search-buckets__count"
+          >({{ formatCappedCount(bucket.count, SEARCH_COUNT_THRESHOLD) }})</span
+        >
       </utrecht-form-label>
     </utrecht-form-field>
   </utrecht-fieldset>
@@ -45,6 +47,9 @@
 import { useModel } from "vue";
 import { resultOptions, type Bucket, type ResultType, type ResultTypeBucket } from "../service";
 import GppWooInfoPopover from "@/components/GppWooInfoPopover.vue";
+import { formatCappedCount } from "@/helpers";
+
+const SEARCH_COUNT_THRESHOLD = 9_999;
 
 const props = defineProps<{
   legend: string;
