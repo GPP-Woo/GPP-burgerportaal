@@ -1,3 +1,8 @@
+export const formatCappedCount = (count: number, threshold: number) =>
+  count > threshold
+    ? `${Intl.NumberFormat("nl-NL").format(threshold)}+`
+    : Intl.NumberFormat("nl-NL").format(count);
+
 export const formatFileSize = (bytes?: number) => {
   if (!bytes) return;
 
