@@ -33,6 +33,8 @@ const statistics = computed(() => {
 
   const getCount = (name: string) => facets?.resultTypes.find((r) => r.naam === name)?.count ?? 0;
 
+  const onderwerpenCount = getCount(resultOptions.topic.value);
+
   return [
     {
       label: "Publicaties",
@@ -44,11 +46,9 @@ const statistics = computed(() => {
       count: getCount(resultOptions.document.value),
       link: { name: "zoeken", query: { resultTypes: [resultOptions.document.value] } }
     },
-    {
-      label: "Onderwerpen",
-      count: getCount(resultOptions.topic.value),
-      link: { name: "onderwerpen" }
-    }
+    ...(onderwerpenCount > 0
+      ? [{ label: "Onderwerpen", count: onderwerpenCount, link: { name: "onderwerpen" } }]
+      : [])
   ];
 });
 </script>
