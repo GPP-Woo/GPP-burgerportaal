@@ -31,6 +31,14 @@ const getResources = async (): Promise<Resources> => {
 
 const setTitle = (title?: string) => title && (document.title = title);
 
+const setLoaderTitle = (title?: string) => {
+  if (!title) return;
+
+  const loaderTitle = document.querySelector(".gpp-woo-loader-title");
+
+  if (loaderTitle) loaderTitle.textContent = title;
+};
+
 const setTheme = (theme?: string) => theme && document.body.classList.add(theme);
 
 const setIcon = (url?: string) =>
@@ -99,6 +107,11 @@ export const loadThemeResources = async (app: App): Promise<void> => {
   // First fetch the references to external resources from the API
   const resources = await getResources();
 
+  // Then set portal title as soon as our own API responds, without
+  // waiting for the (potentially slow) external resources below
+  setTitle(resources.portalTitle);
+  setLoaderTitle(resources.portalTitle);
+
   try {
     // Then load the external resources if provided: theme tokens, logo, and image
     // (this is done before mounting the app to prevent layout shifts)
@@ -106,9 +119,6 @@ export const loadThemeResources = async (app: App): Promise<void> => {
     // Images will be preloaded, waiting to be referenced from the app
     // Svgs will be fetched and appended as a template for further referencing
     await loadResources([resources.tokensUrl, resources.logoUrl, resources.imageUrl]);
-
-    // Set portal title
-    setTitle(resources.portalTitle);
 
     // Replace the provided favicon link
     setIcon(resources.faviconUrl);
