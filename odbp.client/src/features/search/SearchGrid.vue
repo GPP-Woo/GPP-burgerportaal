@@ -30,7 +30,10 @@
 
       <template v-else-if="data">
         <div v-if="data.results.length">
-          <utrecht-paragraph>{{ data.count }} resultaten gevonden</utrecht-paragraph>
+          <utrecht-paragraph
+            >{{ formatCappedCount(data.count, SEARCH_COUNT_THRESHOLD) }} resultaten
+            gevonden</utrecht-paragraph
+          >
 
           <search-result-list :results="data.results" />
 
@@ -60,7 +63,9 @@ import {
   type SearchFormFields,
   type Sort
 } from "@/features/search/service";
-import { mapPaginatedResultsToUtrechtPagination } from "@/helpers";
+import { formatCappedCount, mapPaginatedResultsToUtrechtPagination } from "@/helpers";
+
+const SEARCH_COUNT_THRESHOLD = 9_999;
 
 const props = defineProps<{ onderwerp?: string }>();
 
