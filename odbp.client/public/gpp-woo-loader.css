@@ -7,9 +7,11 @@ body {
   animation: fadeIn 2s forwards;
 }
 
-.gpp-woo-loader-text {
+.gpp-woo-loader-body {
   font-family: Arial, Helvetica, sans-serif !important;
   font-size: 1.5rem;
+  line-height: 1.5rem;
+  min-height: 1.5rem;
   text-align: center;
   padding: 1rem;
   margin: 2rem;
@@ -36,4 +38,12 @@ body {
   100% {
     background-position: 200% 0;
   }
+}
+
+.gpp-woo-loader-suffix {
+  display: none;
+}
+
+.gpp-woo-loader-title:not(:empty) + .gpp-woo-loader-suffix {
+  display: inline;
 }
