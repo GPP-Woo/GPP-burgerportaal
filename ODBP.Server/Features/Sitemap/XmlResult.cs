@@ -13,6 +13,13 @@ namespace ODBP.Features.Sitemap
         private static readonly XmlWriterSettings s_xmlWriterSettings = new() { Async = true, NamespaceHandling = NamespaceHandling.OmitDuplicates };
         private const int DefaultBufferSize = 4096;
 
+        /// <summary>
+        /// Het model dat naar xml geserialiseerd wordt. Zo kan een test het resultaat
+        /// van een controller inspecteren zonder ExecuteResultAsync uit te voeren
+        /// (die valideert tegen schema's die over het netwerk opgehaald worden).
+        /// </summary>
+        public T Model => model;
+
         public async Task ExecuteResultAsync(ActionContext context)
         {
             var token = context.HttpContext.RequestAborted;
