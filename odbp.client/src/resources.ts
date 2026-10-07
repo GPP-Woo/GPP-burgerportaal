@@ -29,14 +29,14 @@ const getResources = async (): Promise<Resources> => {
   }
 };
 
-const setTitle = (title?: string) => title && (document.title = title);
+const DEFAULT_TITLE = "Woo Burgerportaal";
+
+const setTitle = (title?: string) => (document.title = title || DEFAULT_TITLE);
 
 const setLoaderTitle = (title?: string) => {
-  if (!title) return;
-
   const loaderTitle = document.querySelector(".gpp-woo-loader-title");
 
-  if (loaderTitle) loaderTitle.textContent = title;
+  if (loaderTitle) loaderTitle.textContent = title || DEFAULT_TITLE;
 };
 
 const setTheme = (theme?: string) => theme && document.body.classList.add(theme);
