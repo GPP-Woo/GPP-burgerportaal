@@ -2,11 +2,7 @@
   <nav class="utrecht-nav-bar" aria-label="Hoofdmenu">
     <div class="utrecht-nav-bar__content">
       <ul role="list" class="utrecht-nav-list" id="menu">
-        <li
-          v-for="[name, label] in Object.entries(links)"
-          :key="name"
-          class="utrecht-nav-list__item"
-        >
+        <li v-for="{ name, label } in filteredLinks" :key="name" class="utrecht-nav-list__item">
           <component
             :is="$route.name !== name ? 'router-link' : 'span'"
             :to="$route.name !== name ? { name } : undefined"
@@ -40,16 +36,23 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from "vue";
 import { injectResources } from "@/resources";
 import UtrechtIcon from "@/components/UtrechtIcon.vue";
+import { lijsten } from "@/stores/lijsten";
 
 const resources = injectResources();
 
-const links = {
-  home: "Home",
-  zoeken: "Zoeken",
-  onderwerpen: "Onderwerpen"
-} as const;
+const links = [
+  { name: "home", label: "Home" },
+  { name: "zoeken", label: "Zoeken" },
+  { name: "onderwerpen", label: "Onderwerpen" }
+] as const;
+
+// Hide link to Onderwerpen if no onderwerpen
+const filteredLinks = computed(() =>
+  lijsten.value?.onderwerpen.length ? links : links.filter(({ name }) => name !== "onderwerpen")
+);
 </script>
 
 <style lang="scss" scoped>
