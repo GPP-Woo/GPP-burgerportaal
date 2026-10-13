@@ -65,31 +65,30 @@
                 scope="col"
                 :aria-sort="sortField === 'officiele_titel' ? sortDir : 'none'"
               >
-                <button
-                  type="button"
-                  class="utrecht-button utrecht-table__header-cell-button"
+                <utrecht-button
+                  class="utrecht-table__header-cell-button"
                   @click="toggleSort('officiele_titel')"
                 >
                   <utrecht-icon :icon="sortField === 'officiele_titel' ? sortIcon : 'sort-none'" />
                   Officiële titel
-                </button>
+                </utrecht-button>
               </utrecht-table-header-cell>
               <utrecht-table-header-cell
                 scope="col"
-                class="gpp-woo-table-fixed-header"
                 :aria-sort="sortField === 'creatiedatum' ? sortDir : 'none'"
               >
-                <button
-                  class="utrecht-button utrecht-table__header-cell-button"
-                  type="button"
+                <utrecht-button
+                  class="utrecht-table__header-cell-button"
                   @click="toggleSort('creatiedatum')"
                 >
                   <utrecht-icon :icon="sortField === 'creatiedatum' ? sortIcon : 'sort-none'" />
                   Datum document
-                </button>
+                </utrecht-button>
               </utrecht-table-header-cell>
-              <utrecht-table-header-cell scope="col" colspan="3" class="gpp-woo-table-fixed-header"
-                >Bestand</utrecht-table-header-cell
+              <utrecht-table-header-cell scope="col" colspan="3"
+                ><span class="utrecht-button utrecht-table__header-cell-button"
+                  >Bestand</span
+                ></utrecht-table-header-cell
               >
             </utrecht-table-row>
           </utrecht-table-header>
@@ -285,8 +284,6 @@ const publicatieRows = computed<PublicatieRow[]>(() => [
 }
 
 .utrecht-table {
-  --utrecht-button-color: var(--utrecht-document-color);
-
   &--loading {
     opacity: 0.5;
     pointer-events: none;
@@ -296,6 +293,17 @@ const publicatieRows = computed<PublicatieRow[]>(() => [
     --_utrecht-button-line-height: 1;
 
     text-align: left;
+
+    &:is(span) {
+      &:hover,
+      &:active {
+        cursor: auto;
+        user-select: text;
+        color: var(--_utrecht-button-color);
+        background-color: var(--_utrecht-button-background-color);
+        border-color: var(--_utrecht-button-background-color);
+      }
+    }
   }
 }
 
