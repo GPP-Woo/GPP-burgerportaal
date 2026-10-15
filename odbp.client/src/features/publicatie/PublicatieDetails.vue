@@ -75,6 +75,7 @@
               </utrecht-table-header-cell>
               <utrecht-table-header-cell
                 scope="col"
+                class="gpp-woo-table-fixed-header"
                 :aria-sort="sortField === 'creatiedatum' ? sortDir : 'none'"
               >
                 <utrecht-button
@@ -85,7 +86,10 @@
                   Datum document
                 </utrecht-button>
               </utrecht-table-header-cell>
-              <utrecht-table-header-cell scope="col" colspan="3"
+              <utrecht-table-header-cell
+                scope="col"
+                colspan="3"
+                class="gpp-woo-table-fixed-header"
                 ><span class="utrecht-button utrecht-table__header-cell-button"
                   >Bestand</span
                 ></utrecht-table-header-cell
@@ -301,7 +305,7 @@ const publicatieRows = computed<PublicatieRow[]>(() => [
         user-select: text;
         color: var(--_utrecht-button-color);
         background-color: var(--_utrecht-button-background-color);
-        border-color: var(--_utrecht-button-background-color);
+        border-color: var(--_utrecht-button-border-color);
       }
     }
   }

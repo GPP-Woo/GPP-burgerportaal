@@ -1,6 +1,6 @@
 <template>
   <ul class="gpp-woo-link-list">
-    <li v-for="{ naam, url } in links" :key="naam">
+    <li v-for="{ naam, url } in links" :key="url">
       <router-link :to="url" class="utrecht-link utrecht-link--html-a">{{ naam }}</router-link>
     </li>
   </ul>

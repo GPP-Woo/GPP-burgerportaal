@@ -1,6 +1,6 @@
 <template>
   <ul class="utrecht-badge-list">
-    <li v-for="{ naam } in badges" :key="naam">
+    <li v-for="({ naam }, index) in badges" :key="index">
       <span class="utrecht-data-badge">{{ naam }}</span>
     </li>
   </ul>
