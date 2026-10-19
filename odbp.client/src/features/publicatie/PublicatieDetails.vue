@@ -30,13 +30,15 @@
           </utrecht-table-header>
 
           <utrecht-table-body>
-            <utrecht-table-row v-for="[key, value] in publicatieRows" :key="key">
-              <template v-if="value?.length">
-                <utrecht-table-header-cell scope="row">{{ key }}</utrecht-table-header-cell>
+            <utrecht-table-row v-for="row in publicatieRows" :key="row.label">
+              <template v-if="row.type === 'text' ? row.text : row.items.length">
+                <utrecht-table-header-cell scope="row">{{ row.label }}</utrecht-table-header-cell>
                 <utrecht-table-cell class="gpp-woo-pre-wrap">
-                  <utrecht-badge-list v-if="Array.isArray(value)" :badges="value" />
+                  <gpp-woo-link-list v-if="row.type === 'links'" :links="row.items" />
 
-                  <template v-else>{{ value }}</template>
+                  <utrecht-badge-list v-else-if="row.type === 'badges'" :badges="row.items" />
+
+                  <template v-else>{{ row.text }}</template>
                 </utrecht-table-cell>
               </template>
             </utrecht-table-row>
@@ -63,31 +65,34 @@
                 scope="col"
                 :aria-sort="sortField === 'officiele_titel' ? sortDir : 'none'"
               >
-                <button
-                  type="button"
-                  class="utrecht-button utrecht-table__header-cell-button"
+                <utrecht-button
+                  class="utrecht-table__header-cell-button"
                   @click="toggleSort('officiele_titel')"
                 >
                   <utrecht-icon :icon="sortField === 'officiele_titel' ? sortIcon : 'sort-none'" />
                   Officiële titel
-                </button>
+                </utrecht-button>
               </utrecht-table-header-cell>
               <utrecht-table-header-cell
                 scope="col"
                 class="gpp-woo-table-fixed-header"
                 :aria-sort="sortField === 'creatiedatum' ? sortDir : 'none'"
               >
-                <button
-                  class="utrecht-button utrecht-table__header-cell-button"
-                  type="button"
+                <utrecht-button
+                  class="utrecht-table__header-cell-button"
                   @click="toggleSort('creatiedatum')"
                 >
                   <utrecht-icon :icon="sortField === 'creatiedatum' ? sortIcon : 'sort-none'" />
                   Datum document
-                </button>
+                </utrecht-button>
               </utrecht-table-header-cell>
-              <utrecht-table-header-cell scope="col" colspan="3" class="gpp-woo-table-fixed-header"
-                >Bestand</utrecht-table-header-cell
+              <utrecht-table-header-cell
+                scope="col"
+                colspan="3"
+                class="gpp-woo-table-fixed-header"
+                ><span class="utrecht-button utrecht-table__header-cell-button"
+                  >Bestand</span
+                ></utrecht-table-header-cell
               >
             </utrecht-table-row>
           </utrecht-table-header>
@@ -159,6 +164,7 @@ import { useAllPages } from "@/composables/use-all-pages";
 import SimpleSpinner from "@/components/SimpleSpinner.vue";
 import SmallSpinner from "@/components/SmallSpinner.vue";
 import UtrechtAlert from "@/components/UtrechtAlert.vue";
+import GppWooLinkList, { type LinkListItem } from "@/components/GppWooLinkList.vue";
 import UtrechtBadgeList, { type BadgeListItem } from "@/components/UtrechtBadgeList.vue";
 import UtrechtIcon from "@/components/UtrechtIcon.vue";
 import GppWooTableContainer from "@/components/GppWooTableContainer.vue";
@@ -213,38 +219,65 @@ const {
   computed(() => `${API_URL}/documenten/?publicatie=${props.uuid}&sorteer=${sortParam.value}`)
 );
 
-const publicatieRows = computed(
-  () =>
-    new Map<string, string | BadgeListItem[] | undefined>([
-      ["Officiële titel", publicatieData.value?.officieleTitel],
-      ["Verkorte titel", publicatieData.value?.verkorteTitel],
-      ["Omschrijving", publicatieData.value?.omschrijving],
-      [
-        "Organisatie",
-        lijsten.value?.organisaties.find((o) => o.uuid === publicatieData.value?.publisher)?.naam ||
-          "onbekend"
-      ],
-      [
-        "Onderwerpen",
-        publicatieData.value?.onderwerpen.map((uuid) => ({
-          naam: lijsten.value?.onderwerpen.find((o) => o.uuid === uuid)?.naam || "onbekend",
-          url: `/onderwerpen/${uuid}`
-        }))
-      ],
-      [
-        "Informatiecategorieën",
-        publicatieData.value?.informatieCategorieen.map((uuid) => ({
-          naam:
-            lijsten.value?.informatiecategorieen.find((c) => c.uuid === uuid)?.naam || "onbekend"
-        }))
-      ],
-      ["Datum in werking", formatDate(publicatieData.value?.datumBeginGeldigheid)],
-      ["Datum buiten werking", formatDate(publicatieData.value?.datumEindeGeldigheid)],
-      ["Kenmerken", publicatieData.value?.kenmerken.map((i) => i.kenmerk).join(", ")],
-      ["Gepubliceerd op", formatDate(publicatieData.value?.gepubliceerdOp)],
-      ["Laatst gewijzigd op", formatDate(publicatieData.value?.laatstGewijzigdDatum)]
-    ])
-);
+type PublicatieRow =
+  | { label: string; type: "text"; text?: string }
+  | { label: string; type: "links"; items: LinkListItem[] }
+  | { label: string; type: "badges"; items: BadgeListItem[] };
+
+const publicatieRows = computed<PublicatieRow[]>(() => [
+  { label: "Officiële titel", type: "text", text: publicatieData.value?.officieleTitel },
+  { label: "Verkorte titel", type: "text", text: publicatieData.value?.verkorteTitel },
+  { label: "Omschrijving", type: "text", text: publicatieData.value?.omschrijving },
+  {
+    label: "Organisatie",
+    type: "text",
+    text:
+      lijsten.value?.organisaties.find((o) => o.uuid === publicatieData.value?.publisher)?.naam ||
+      "onbekend"
+  },
+  {
+    label: "Onderwerpen",
+    type: "links",
+    items:
+      publicatieData.value?.onderwerpen.map((uuid) => ({
+        naam: lijsten.value?.onderwerpen.find((o) => o.uuid === uuid)?.naam || "onbekend",
+        url: `/onderwerpen/${uuid}`
+      })) ?? []
+  },
+  {
+    label: "Informatiecategorieën",
+    type: "badges",
+    items:
+      publicatieData.value?.informatieCategorieen.map((uuid) => ({
+        naam: lijsten.value?.informatiecategorieen.find((c) => c.uuid === uuid)?.naam || "onbekend"
+      })) ?? []
+  },
+  {
+    label: "Datum in werking",
+    type: "text",
+    text: formatDate(publicatieData.value?.datumBeginGeldigheid)
+  },
+  {
+    label: "Datum buiten werking",
+    type: "text",
+    text: formatDate(publicatieData.value?.datumEindeGeldigheid)
+  },
+  {
+    label: "Kenmerken",
+    type: "text",
+    text: publicatieData.value?.kenmerken.map((i) => i.kenmerk).join(", ")
+  },
+  {
+    label: "Gepubliceerd op",
+    type: "text",
+    text: formatDate(publicatieData.value?.gepubliceerdOp)
+  },
+  {
+    label: "Laatst gewijzigd op",
+    type: "text",
+    text: formatDate(publicatieData.value?.laatstGewijzigdDatum)
+  }
+]);
 </script>
 
 <style lang="scss" scoped>
@@ -255,8 +288,6 @@ const publicatieRows = computed(
 }
 
 .utrecht-table {
-  --utrecht-button-color: var(--utrecht-document-color);
-
   &--loading {
     opacity: 0.5;
     pointer-events: none;
@@ -266,6 +297,17 @@ const publicatieRows = computed(
     --_utrecht-button-line-height: 1;
 
     text-align: left;
+
+    &:is(span) {
+      &:hover,
+      &:active {
+        cursor: auto;
+        user-select: text;
+        color: var(--_utrecht-button-color);
+        background-color: var(--_utrecht-button-background-color);
+        border-color: var(--_utrecht-button-border-color);
+      }
+    }
   }
 }
 
