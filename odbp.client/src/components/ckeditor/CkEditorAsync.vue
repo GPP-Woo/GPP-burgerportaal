@@ -5,6 +5,7 @@
 <script setup lang="ts">
 import { useModel } from "vue";
 import type { EditorConfig } from "./ckeditor-exports";
+import "ckeditor5/ckeditor5.css";
 
 const props = defineProps<{ modelValue?: string }>();
 const modelValue = useModel(props, "modelValue");
@@ -40,5 +41,3 @@ const config: EditorConfig = {
   }
 };
 </script>
-
-<style src="ckeditor5/ckeditor5.css"></style>
