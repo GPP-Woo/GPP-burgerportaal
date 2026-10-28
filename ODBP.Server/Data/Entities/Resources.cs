@@ -12,5 +12,8 @@
         public string? PrivacyUrl { get; set; }
         public string? ContactUrl { get; set; }
         public string? A11yUrl { get; set; }
+        public AnalyticsTool AnalyticsTool { get; set; } = AnalyticsTool.None;
+        public string? AnalyticsUrl { get; set; }
+        public string? AnalyticsIdentifier { get; set; }
     }
 }

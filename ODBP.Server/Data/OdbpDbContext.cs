@@ -11,6 +11,11 @@ namespace ODBP.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Resources>()
+                .Property(r => r.AnalyticsTool)
+                .HasConversion<string>()
+                .HasDefaultValue(AnalyticsTool.None);
+
             modelBuilder.Entity<Resources>().HasData(new Resources { Id = 1 });
         }
     }

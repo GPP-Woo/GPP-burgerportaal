@@ -16,7 +16,7 @@ namespace ODBP.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.13")
+                .HasAnnotation("ProductVersion", "10.0.13")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -30,6 +30,18 @@ namespace ODBP.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("A11yUrl")
+                        .HasColumnType("text");
+
+                    b.Property<string>("AnalyticsIdentifier")
+                        .HasColumnType("text");
+
+                    b.Property<string>("AnalyticsTool")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("text")
+                        .HasDefaultValue("None");
+
+                    b.Property<string>("AnalyticsUrl")
                         .HasColumnType("text");
 
                     b.Property<string>("ContactUrl")
@@ -63,7 +75,8 @@ namespace ODBP.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1
+                            Id = 1,
+                            AnalyticsTool = "None"
                         });
                 });
 #pragma warning restore 612, 618

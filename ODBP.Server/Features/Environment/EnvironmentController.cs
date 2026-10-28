@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ODBP.Data;
+using ODBP.Data.Entities;
 
 namespace ODBP.Features.Environment
 {
@@ -26,6 +27,13 @@ namespace ODBP.Features.Environment
             var faviconUrl = $"/api/afbeeldingen/{resources?.FaviconFileName ?? "favicon"}";
             var imageUrl = $"/api/afbeeldingen/{resources?.ImageFileName ?? "image"}";
 
+            var analytics = new
+            {
+                tool = resources?.AnalyticsTool ?? AnalyticsTool.None,
+                url = resources?.AnalyticsUrl,
+                identifier = resources?.AnalyticsIdentifier
+            };
+
             var response = new
             {
                 resourcesConfig.PortalTitle,
@@ -41,7 +49,8 @@ namespace ODBP.Features.Environment
                 resources?.PrivacyUrl,
                 resources?.ContactUrl,
                 welcomeText,
-                resources?.A11yUrl
+                resources?.A11yUrl,
+                analytics
             };
 
             return Ok(response);
