@@ -1,7 +1,7 @@
 # See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
 # This stage is used when running from VS in fast mode (Default for Debug configuration)
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS base
 RUN mkdir /data && chown -R app:app /data
 # prevent writing to the container layer, which would degrade performance.
 # This also serves as a hint for the intended volumes.
@@ -11,7 +11,7 @@ WORKDIR /app
 EXPOSE 8080
 
 # This stage is used to build the service project
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS with-node
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS with-node
 RUN apt-get update
 RUN apt-get -y install curl
 RUN curl -sL https://deb.nodesource.com/setup_22.x | bash
