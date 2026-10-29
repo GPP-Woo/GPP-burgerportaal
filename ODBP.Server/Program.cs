@@ -81,6 +81,7 @@ try
         httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token", GetRequiredConfig("SEARCH_API_KEY"));
     });
     builder.Services.AddMemoryCache();
+    builder.Services.AddOdbpSecurityHeaders();
     builder.Services.AddSingleton<ISimpleCache, SimpleCache>();
     builder.Services.AddScoped<MigrateResources>();
 
@@ -90,6 +91,7 @@ try
 
     // Web Workers run in own global scope (not the document's), so need their own matching COEP response header
     // UseCoep must run before static files, since those short-circuit the pipeline
+    app.UseAnalyticsOrigin();
     app.UseCoep();
     app.UseDefaultFiles();
     app.UseOdbpStaticFiles();
