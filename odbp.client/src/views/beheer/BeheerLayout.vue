@@ -66,7 +66,8 @@ const { data: user } = useLoader<AuthUser | null>(() => fetchAuthUser());
 const links = {
   "beheer-home": "Homepage",
   "beheer-afbeeldingen": "Afbeeldingen",
-  "beheer-links": "Externe links"
+  "beheer-links": "Externe links",
+  "beheer-analytics": "Analytics"
 } as const;
 </script>
 
