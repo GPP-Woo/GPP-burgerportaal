@@ -98,6 +98,7 @@
 import { computed, useId, watch } from "vue";
 import { injectResources } from "@/resources";
 import { useFetchApi } from "@/api/use-fetch-api";
+import { usePageTitle } from "@/composables/use-page-title";
 import SimpleSpinner from "@/components/SimpleSpinner.vue";
 import UtrechtAlert from "@/components/UtrechtAlert.vue";
 import UtrechtIcon from "@/components/UtrechtIcon.vue";
@@ -125,6 +126,8 @@ const {
   isFetching: loadingDocument,
   error: documentError
 } = useFetchApi(() => `${API_URL}/documenten/${props.uuid}`).json<PublicatieDocument>();
+
+usePageTitle(() => documentData.value?.officieleTitel);
 
 const {
   get: getPublicatie,

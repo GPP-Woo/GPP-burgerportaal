@@ -44,6 +44,7 @@
 <script setup lang="ts">
 import { computed, useId } from "vue";
 import { useFetchApi } from "@/api";
+import { usePageTitle } from "@/composables/use-page-title";
 import SimpleSpinner from "@/components/SimpleSpinner.vue";
 import UtrechtAlert from "@/components/UtrechtAlert.vue";
 import UtrechtSpotlightSection from "@/components/UtrechtSpotlightSection.vue";
@@ -60,6 +61,8 @@ const headingId = useId();
 const { data, isFetching, error } = useFetchApi(
   () => `${API_URL}/onderwerpen/${props.uuid}`
 ).json<Onderwerp>();
+
+usePageTitle(() => data.value?.officieleTitel);
 
 const rows = computed(
   () =>
