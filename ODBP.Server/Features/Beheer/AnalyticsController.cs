@@ -3,7 +3,10 @@ using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Caching.Memory;
 using ODBP.Authentication;
+using ODBP.Config;
 using ODBP.Data;
 using ODBP.Data.Entities;
 
@@ -12,7 +15,7 @@ namespace ODBP.Features.Beheer
     [ApiController]
     [Route("api/beheer/analytics")]
     [Authorize(AdminPolicy.Name)]
-    public class AnalyticsBeheerController(OdbpDbContext context) : ControllerBase
+    public class AnalyticsBeheerController(OdbpDbContext context, IMemoryCache cache) : ControllerBase
     {
         [HttpGet]
         public async Task<IActionResult> Get(CancellationToken token)
@@ -34,6 +37,7 @@ namespace ODBP.Features.Beheer
             resources.AnalyticsIdentifier = request.Tool == AnalyticsTool.None ? null : request.Identifier?.Trim();
 
             await context.SaveChangesAsync(token);
+            cache.InvalidateAnalyticsCache();
 
             return Ok(ToAnalytics(resources));
         }

@@ -25,7 +25,8 @@ namespace ODBP.Config
                 return !string.IsNullOrEmpty(resources?.VideoUrl);
             });
 
-            if (!hasVideoUrl)
+            // analytics tools don't support COEP either, see /coep_video.md
+            if (!hasVideoUrl && AnalyticsOriginMiddleware.GetOrigin(context) is null)
             {
                 context.Response.Headers["Cross-Origin-Embedder-Policy"] = "require-corp";
             }
