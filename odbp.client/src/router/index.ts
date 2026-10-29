@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, type NavigationGuard } from "vue-router";
 import { fetchAuthUser } from "@/api/auth";
 import HomeView from "../views/HomeView.vue";
+import { initBaseTitle, setPageTitle } from "@/title";
 import SearchView from "../views/SearchView.vue";
 
 const requiresAdmin: NavigationGuard = async (to) => {
@@ -40,7 +41,8 @@ const router = createRouter({
       component: () => import("../views/PublicatieView.vue"),
       props: true,
       meta: {
-        title: "Publicatie"
+        title: "Publicatie",
+        titleFromView: true
       }
     },
     {
@@ -49,7 +51,8 @@ const router = createRouter({
       component: () => import("../views/DocumentView.vue"),
       props: true,
       meta: {
-        title: "Document"
+        title: "Document",
+        titleFromView: true
       }
     },
     {
@@ -67,7 +70,8 @@ const router = createRouter({
       component: () => import("../views/OnderwerpView.vue"),
       props: true,
       meta: {
-        title: "Onderwerp"
+        title: "Onderwerp",
+        titleFromView: true
       }
     },
     {
@@ -121,10 +125,10 @@ const router = createRouter({
   ]
 });
 
-const title = document.title;
+initBaseTitle();
 
 router.beforeEach((to, from) => {
-  document.title = `${to.meta?.title ? to.meta.title + " | " : ""}${title}`;
+  setPageTitle(to.meta?.title as string | undefined);
 
   // keep focus if only the query params are different
   if (to.path === from.path) {
