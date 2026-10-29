@@ -46,6 +46,10 @@ We will **conditionally disable COEP** when video embedding is configured in the
 | **iframe credentialless** | Limited browser support (~60%), no Safari/Firefox support |
 | **Proxy video resources** | Technical complexity                                      |
 
+## Update: COEP is also omitted when analytics is configured
+
+Analytics tools load a script, send requests and load a tracking image from a different origin. Different installations configure different tools, and we do not know whether each tool satisfies `require-corp`. The same rule as for video therefore applies: COEP is omitted while an analytics tool is configured. See [analytics_csp.md](analytics_csp.md).
+
 ## Monitoring and Review
 
 This decision should be revisited when:
