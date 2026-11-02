@@ -73,9 +73,7 @@
         >Annuleren</utrecht-button
       >
 
-      <utrecht-button type="submit" :appearance="'primary-action-button'"
-        >Publiceren</utrecht-button
-      >
+      <utrecht-button type="submit" :appearance="'primary-action-button'">Opslaan</utrecht-button>
     </utrecht-form-field>
   </form>
 </template>
@@ -139,9 +137,10 @@ const submit = () =>
     .execute()
     .then(() => {
       if (!error.value) {
-        success.value = "Publiceren gelukt.";
+        success.value =
+          "Opslaan is gelukt. De wijzigingen kunnen tot enkele minuten duren om overal door te werken.";
 
-        setTimeout(() => (success.value = null), 3000);
+        setTimeout(() => (success.value = null), 10_000);
       }
     });
 </script>
