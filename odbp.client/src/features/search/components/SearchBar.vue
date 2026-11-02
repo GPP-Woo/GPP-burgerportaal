@@ -7,23 +7,18 @@
     <utrecht-form-field>
       <utrecht-form-label for="sort-select">Sorteren</utrecht-form-label>
 
-      <div>
-        <utrecht-select
-          id="sort-select"
-          v-model="model.sort"
-          :options="Object.values(sortOptions)"
-          @change="$emit('submit')"
-        />
-
-        <utrecht-icon icon="sort" />
-      </div>
+      <utrecht-select
+        id="sort-select"
+        v-model="model.sort"
+        :options="Object.values(sortOptions)"
+        @change="$emit('submit')"
+      />
     </utrecht-form-field>
   </utrecht-fieldset>
 </template>
 
 <script setup lang="ts">
 import { useModel } from "vue";
-import UtrechtIcon from "@/components/UtrechtIcon.vue";
 import GppWooSearchField from "@/components/GppWooSearchField.vue";
 import { sortOptions, type SearchFormFields } from "@/features/search/service";
 
@@ -44,21 +39,7 @@ const model = useModel(props, "modelValue");
   }
 }
 
-:has(> #sort-select) {
-  position: relative;
-  max-inline-size: var(--utrecht-form-control-max-inline-size);
-
-  > :last-child {
-    display: flex;
-    position: absolute;
-    inset-inline-end: 0;
-    block-size: 100%;
-    inline-size: 0.5rem;
-    padding-inline-end: var(
-      --utrecht-select-padding-inline-end,
-      var(--utrecht-form-control-padding-inline-end)
-    );
-    pointer-events: none;
-  }
+.utrecht-select--html-select {
+  background-image: url("@/assets/icon-sort.svg");
 }
 </style>
