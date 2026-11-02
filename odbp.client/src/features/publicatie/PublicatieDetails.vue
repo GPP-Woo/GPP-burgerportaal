@@ -86,10 +86,7 @@
                   Datum document
                 </utrecht-button>
               </utrecht-table-header-cell>
-              <utrecht-table-header-cell
-                scope="col"
-                colspan="3"
-                class="gpp-woo-table-fixed-header"
+              <utrecht-table-header-cell scope="col" colspan="3" class="gpp-woo-table-fixed-header"
                 ><span class="utrecht-button utrecht-table__header-cell-button"
                   >Bestand</span
                 ></utrecht-table-header-cell

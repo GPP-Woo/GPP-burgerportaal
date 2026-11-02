@@ -30,7 +30,7 @@ export const useAllPages = <T>(url: MaybeRefOrGetter<string | null>) => {
   const data = asyncComputed(
     async (onCancel) => {
       error.value = false;
-      
+
       const currentUrl = toValue(url);
 
       if (!currentUrl) return [] as T[];

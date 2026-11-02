@@ -108,7 +108,7 @@ const {
   error,
   get: getAnalytics,
   put: putAnalytics
-} = useFetchApi(() => "/api/beheer/analyticsa", {
+} = useFetchApi(() => "/api/beheer/analytics", {
   async onFetchError(ctx) {
     try {
       ctx.error = await ctx.response?.json();
