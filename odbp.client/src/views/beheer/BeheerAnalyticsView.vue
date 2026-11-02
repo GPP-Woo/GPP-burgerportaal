@@ -111,7 +111,7 @@ const {
 } = useFetchApi(() => "/api/beheer/analytics", {
   async onFetchError(ctx) {
     try {
-      ctx.error = await ctx.response?.json();
+      if (ctx.response) ctx.error = await ctx.response.json();
       return ctx;
     } catch {
       return ctx;
