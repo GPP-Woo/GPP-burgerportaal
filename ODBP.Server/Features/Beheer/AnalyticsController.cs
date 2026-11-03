@@ -66,10 +66,11 @@ namespace ODBP.Features.Beheer
             if (Tool == AnalyticsTool.Matomo)
             {
                 if (!Uri.TryCreate(Url?.Trim(), UriKind.Absolute, out var uri) || uri.Scheme != Uri.UriSchemeHttps
+                    || uri.HostNameType != UriHostNameType.Dns
                     || !string.IsNullOrEmpty(uri.UserInfo))
                 {
                     yield return new ValidationResult(
-                        "De opgegeven waarde is geen valide URL. Let op dat de URL moet beginnen met https://.",
+                        "De opgegeven waarde is geen valide URL. Gebruik een https-URL met een domeinnaam (geen IP-adres) en zonder gebruikersgegevens.",
                         [nameof(Url)]);
                 }
 

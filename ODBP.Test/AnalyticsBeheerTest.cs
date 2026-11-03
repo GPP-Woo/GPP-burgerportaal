@@ -38,6 +38,15 @@ namespace ODBP.Test
         }
 
         [TestMethod]
+        public void Validate_matomo_met_ip_adres_is_ongeldig()
+        {
+            var errors = Validate(new(AnalyticsTool.Matomo, "https://192.168.0.1", "12"));
+
+            Assert.AreEqual(1, errors.Count);
+            CollectionAssert.Contains(errors[0].MemberNames.ToList(), nameof(Analytics.Url));
+        }
+
+        [TestMethod]
         [DataRow("abc")]
         [DataRow("0")]
         [DataRow("0012")]
