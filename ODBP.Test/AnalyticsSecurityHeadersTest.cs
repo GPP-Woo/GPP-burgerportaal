@@ -93,11 +93,14 @@ namespace ODBP.Test
             await app.Client.GetAsync("/");
 
             app.Cache.InvalidateAnalyticsCache();
+            app.Cache.InvalidateCoepCache();
             context.Dispose();
             var response = await app.Client.GetAsync("/");
 
             Assert.AreEqual("script-src 'self'", Directive(response, "script-src"));
             Assert.AreEqual("require-corp", response.Headers.GetValues("Cross-Origin-Embedder-Policy").Single());
+            Assert.IsFalse(app.Cache.TryGetValue(CoepMiddleware.CacheKey, out _));
+            Assert.IsFalse(app.Cache.TryGetValue(AnalyticsOriginMiddleware.CacheKey, out _));
         }
 
         [DataTestMethod]

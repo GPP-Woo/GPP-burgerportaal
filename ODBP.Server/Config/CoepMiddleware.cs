@@ -10,21 +10,31 @@ namespace ODBP.Config
     /// and analytics servers can't be assumed to support COEP.
     /// See /coep_video.md and /coep_analytics.md for details.
     /// </summary>
-    public class CoepMiddleware(RequestDelegate next)
+    public class CoepMiddleware(RequestDelegate next, ILogger<CoepMiddleware> logger)
     {
         public const string CacheKey = "HasVideoUrl";
         private static readonly TimeSpan s_cacheDuration = TimeSpan.FromDays(1);
 
         public async Task InvokeAsync(HttpContext context, OdbpDbContext db, IMemoryCache cache)
         {
-            var hasVideoUrl = await cache.GetOrCreateAsync(CacheKey, async entry =>
+            bool hasVideoUrl;
+            try
             {
-                entry.AbsoluteExpirationRelativeToNow = s_cacheDuration;
+                hasVideoUrl = await cache.GetOrCreateAsync(CacheKey, async entry =>
+                {
+                    entry.AbsoluteExpirationRelativeToNow = s_cacheDuration;
 
-                var resources = await db.Resources.FirstOrDefaultAsync();
+                    var resources = await db.Resources.FirstOrDefaultAsync(context.RequestAborted);
 
-                return !string.IsNullOrEmpty(resources?.VideoUrl);
-            });
+                    return !string.IsNullOrEmpty(resources?.VideoUrl);
+                });
+            }
+            catch (Exception ex) when (ex is not OperationCanceledException)
+            {
+                // bij een databasefout geldt de strengste variant (COEP aan); een mislukte lookup wordt niet gecachet
+                logger.LogWarning(ex, "Could not read video configuration");
+                hasVideoUrl = false;
+            }
 
             // analytics servers can't be assumed to support COEP either, see /coep_analytics.md
             if (!hasVideoUrl && AnalyticsOriginMiddleware.GetOrigin(context) is null)
