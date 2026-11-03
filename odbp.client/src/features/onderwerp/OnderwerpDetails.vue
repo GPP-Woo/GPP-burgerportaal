@@ -62,7 +62,7 @@ const { data, isFetching, error } = useFetchApi(
   () => `${API_URL}/onderwerpen/${props.uuid}`
 ).json<Onderwerp>();
 
-usePageTitle(() => data.value?.officieleTitel);
+usePageTitle(() => data.value?.officieleTitel, error);
 
 const rows = computed(
   () =>

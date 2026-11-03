@@ -209,7 +209,7 @@ const {
   error: publicatieError
 } = useFetchApi(() => `${API_URL}/publicaties/${props.uuid}`).json<Publicatie>();
 
-usePageTitle(() => publicatieData.value?.officieleTitel);
+usePageTitle(() => publicatieData.value?.officieleTitel, publicatieError);
 
 const {
   data: documenten,
