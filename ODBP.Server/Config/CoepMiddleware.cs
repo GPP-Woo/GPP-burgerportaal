@@ -6,8 +6,9 @@ namespace ODBP.Config
 {
     /// <summary>
     /// Middleware that dynamically adds Cross-Origin-Embedder-Policy header based on database configuration.
-    /// COEP is only enabled when no video URL is configured, because YouTube/Vimeo don't support COEP headers.
-    /// See /coep_video.md for details.
+    /// COEP is only enabled when no video URL or analytics tool is configured, because YouTube/Vimeo
+    /// and analytics servers can't be assumed to support COEP.
+    /// See /coep_video.md and /coep_analytics.md for details.
     /// </summary>
     public class CoepMiddleware(RequestDelegate next)
     {
@@ -25,7 +26,7 @@ namespace ODBP.Config
                 return !string.IsNullOrEmpty(resources?.VideoUrl);
             });
 
-            // analytics tools don't support COEP either, see /coep_video.md
+            // analytics servers can't be assumed to support COEP either, see /coep_analytics.md
             if (!hasVideoUrl && AnalyticsOriginMiddleware.GetOrigin(context) is null)
             {
                 context.Response.Headers["Cross-Origin-Embedder-Policy"] = "require-corp";

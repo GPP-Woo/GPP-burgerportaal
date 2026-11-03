@@ -128,6 +128,8 @@ Bij het opslaan wordt gecontroleerd of de gegevens een geldig formaat hebben. Er
 
 Onderaan het scherm staan knoppen om de wijzigingen op te slaan of de wijzigingen te annuleren. Na het opslaan kan het tot enkele minuten duren voordat de wijziging overal doorwerkt.
 
+.. warning:: Let op: Cross-Origin-Embedder-Policy wordt uitgeschakeld wanneer een analytics-tool is ingesteld, omdat niet bekend is of de server van de gekozen tool hieraan voldoet. De server van de analytics-tool wordt daarnaast toegevoegd aan de Content Security Policy.
+
 Uitloggen
 ^^^^^^^^^^
 

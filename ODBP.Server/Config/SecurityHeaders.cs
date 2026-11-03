@@ -80,7 +80,7 @@ namespace ODBP.Config
 
             headerPolicyCollection
                 // explicit instead of AddDefaultSecurityHeaders(), whose defaults differ per package version
-                // (COEP is handled dynamically by CoepMiddleware based on database, see /coep_video.md)
+                // (COEP is handled dynamically by CoepMiddleware based on database, see /coep_video.md and /coep_analytics.md)
                 .AddFrameOptionsDeny()
                 .AddContentTypeOptionsNoSniff()
                 .AddReferrerPolicyStrictOriginWhenCrossOrigin()

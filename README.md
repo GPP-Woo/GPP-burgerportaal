@@ -89,6 +89,8 @@ Deze applicatie maakt gebruik van Cross-Origin-Embedder-Policy (COEP: require-co
 
 **Video embedding:** COEP wordt uitgeschakeld wanneer een video is ingesteld via de beheeromgeving, omdat YouTube en Vimeo geen COEP-headers ondersteunen. Zie dit [decision record](./coep_video.md) voor de volledige afweging.
 
+**Analytics:** COEP wordt ook uitgeschakeld wanneer een analytics-tool is ingesteld via de beheeromgeving, omdat we niet weten of de server van de gekozen tool voldoet aan `require-corp`. Zie dit [decision record](./coep_analytics.md) voor de volledige afweging. De server van de analytics-tool wordt daarnaast toegevoegd aan de Content Security Policy (CSP), zie [analytics_csp.md](./analytics_csp.md).
+
 ### Headers:
 
 Voor alle externe resources moet `Access-Control-Allow-Origin: *` of bijvoorbeeld `Access-Control-Allow-Origin: *.mijn-organisatie.nl` ingesteld worden.
