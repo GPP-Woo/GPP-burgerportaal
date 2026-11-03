@@ -41,7 +41,7 @@ Organisations that run their own Matomo can still make it COEP-compatible, but t
 ## Consequences
 
 - With analytics configured, the portal does not have the isolation that COEP provides. The other security headers (CSP, COOP, CORP and so on) are unchanged. The CSP only gains the analytics origin, without path or wildcard.
-- Choosing "Geen" (none) restores COEP. The change follows the cache duration of the analytics origin (at most 5 minutes) and, for a visitor who already has the portal open, applies on the next full page load. See [analytics_csp.md](analytics_csp.md).
+- Choosing "Geen" (none) restores COEP. The change follows the cache duration of the analytics origin (at most 5 minutes by default, see `ANALYTICS_CACHE_DURATION_MINUTES` in [analytics_csp.md](analytics_csp.md)) and, for a visitor who already has the portal open, applies on the next full page load. See [analytics_csp.md](analytics_csp.md).
 
 ## Monitoring and Review
 

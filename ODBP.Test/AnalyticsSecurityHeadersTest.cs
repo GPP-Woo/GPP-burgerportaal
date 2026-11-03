@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -110,9 +111,26 @@ namespace ODBP.Test
             var middleware = new AnalyticsOriginMiddleware(_ => Task.CompletedTask, NullLogger<AnalyticsOriginMiddleware>.Instance);
             var httpContext = new DefaultHttpContext();
 
-            await middleware.InvokeAsync(httpContext, context, new MemoryCache(new MemoryCacheOptions()));
+            await middleware.InvokeAsync(httpContext, context, new MemoryCache(new MemoryCacheOptions()), new ConfigurationBuilder().Build());
 
             Assert.IsNull(AnalyticsOriginMiddleware.GetOrigin(httpContext));
+        }
+
+        [DataTestMethod]
+        [DataRow(null, 5)]
+        [DataRow("", 5)]
+        [DataRow("abc", 5)]
+        [DataRow("0", 1)]
+        [DataRow("-3", 1)]
+        [DataRow("1", 1)]
+        [DataRow("15", 15)]
+        public void Cacheduur_is_configureerbaar_met_minimum_van_een_minuut(string? value, int expectedMinutes)
+        {
+            var config = new ConfigurationBuilder()
+                .AddInMemoryCollection(new Dictionary<string, string?> { [AnalyticsOriginMiddleware.CacheDurationConfigKey] = value })
+                .Build();
+
+            Assert.AreEqual(TimeSpan.FromMinutes(expectedMinutes), AnalyticsOriginMiddleware.GetCacheDuration(config));
         }
 
         // Runs the real middleware pipeline on a local Kestrel port

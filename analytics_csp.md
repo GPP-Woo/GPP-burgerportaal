@@ -13,9 +13,9 @@ An administrator can configure an analytics tool (currently Matomo) in the manag
 
 ## Cache duration
 
-The analytics origin is cached in memory for **at most 5 minutes**. Saving the analytics configuration in the management screen clears the cache of the instance that handles the request.
+The analytics origin is cached in memory for **5 minutes by default**. The duration can be set with `ANALYTICS_CACHE_DURATION_MINUTES` (whole minutes, minimum `1`; a missing, invalid or lower value falls back to the default or the minimum). Saving the analytics configuration in the management screen clears the cache of the instance that handles the request.
 
-- **Multiple instances (pods):** the other instances keep the old origin until their cache expires, so a change is active everywhere within 5 minutes at the latest. No restart is needed.
+- **Multiple instances (pods):** the other instances keep the old origin until their cache expires, so a change is active everywhere within the configured cache duration (5 minutes by default) at the latest. No restart is needed.
 - **Database unavailable:** the strictest CSP (no analytics) is used, never a widened one. Nothing is cached in that case, so every request retries the read and the configured origin returns as soon as the database is available again.
 
 ## Known limitation: single page application

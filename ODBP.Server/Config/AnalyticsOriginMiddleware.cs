@@ -6,16 +6,18 @@ using ODBP.Data.Entities;
 namespace ODBP.Config
 {
     /// <summary>
-    /// Determines the origin of the configured analytics tool (cached for a maximum of 5 minutes)
-    /// and makes it available to the CSP and COEP handling via <see cref="HttpContext.Items"/>.
+    /// Determines the origin of the configured analytics tool (cached, default 5 minutes, configurable via
+    /// <c>ANALYTICS_CACHE_DURATION_MINUTES</c>, minimum 1) and makes it available to the CSP and COEP
+    /// handling via <see cref="HttpContext.Items"/>.
     /// </summary>
     public class AnalyticsOriginMiddleware(RequestDelegate next, ILogger<AnalyticsOriginMiddleware> logger)
     {
         public const string CacheKey = "AnalyticsOrigin";
         public const string ItemsKey = "AnalyticsOrigin";
-        private static readonly TimeSpan s_cacheDuration = TimeSpan.FromMinutes(5);
+        public const string CacheDurationConfigKey = "ANALYTICS_CACHE_DURATION_MINUTES";
+        public const int DefaultCacheDurationMinutes = 5;
 
-        public async Task InvokeAsync(HttpContext context, OdbpDbContext db, IMemoryCache cache)
+        public async Task InvokeAsync(HttpContext context, OdbpDbContext db, IMemoryCache cache, IConfiguration config)
         {
             if (!cache.TryGetValue(CacheKey, out string? origin))
             {
@@ -23,7 +25,7 @@ namespace ODBP.Config
                 {
                     var resources = await db.Resources.AsNoTracking().FirstOrDefaultAsync(context.RequestAborted);
                     origin = ToOrigin(resources);
-                    cache.Set(CacheKey, origin, s_cacheDuration);
+                    cache.Set(CacheKey, origin, GetCacheDuration(config));
                 }
                 catch (Exception ex) when (ex is not OperationCanceledException)
                 {
@@ -39,6 +41,13 @@ namespace ODBP.Config
             }
 
             await next(context);
+        }
+
+        // missing or invalid values fall back to the default; values below 1 are raised to 1
+        public static TimeSpan GetCacheDuration(IConfiguration config)
+        {
+            var minutes = int.TryParse(config[CacheDurationConfigKey], out var m) ? m : DefaultCacheDurationMinutes;
+            return TimeSpan.FromMinutes(Math.Max(1, minutes));
         }
 
         public static string? GetOrigin(HttpContext context) =>
