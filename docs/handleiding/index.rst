@@ -24,7 +24,7 @@ Let op: het is belangrijk om na te denken over deze onderdelen vóórdat een org
 Vormgeving en beheer-functionaliteit
 -------------------------------------
 
-Het GPP-burgerportaal beschikt over een beheerscherm waarmee de welkomsttekst en video op de homepage, afbeeldingen en URL's die op de website getoond worden, beheerd kunnen worden.
+Het GPP-burgerportaal beschikt over een beheerscherm waarmee de welkomsttekst en video op de homepage, afbeeldingen en URL's die op de website getoond worden, en de analytics-tool beheerd kunnen worden.
 
 Hoe krijgt een gebruiker toegang tot het beheerscherm?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -41,6 +41,7 @@ Na inloggen ziet de beheerder rechtsboven de volgende menu-items, die we hierond
 - Homepage
 - Afbeeldingen
 - Externe links
+- Analytics
 - Uitloggen
 
 Homepage
@@ -108,6 +109,24 @@ Op het beheerscherm kunnen onder het menu-item "Externe links" vier items gewijz
    Deze link wordt niet getoond als in het beheerscherm geen URL hiervoor is ingevoerd.
 
 Onderaan het scherm staan knoppen om de wijzigingen op te slaan of de wijzigingen te annuleren.
+
+Analytics
+^^^^^^^^^
+
+Op het beheerscherm kan onder het menu-item "Analytics" de analytics-tool voor het Burgerportaal ingesteld worden. Er kan gekozen worden uit:
+
+- Geen
+   Er wordt geen analytics-tool gebruikt. Als er eerder gegevens van een andere keuze waren opgeslagen, worden deze verwijderd.
+
+- Matomo
+   Bij deze keuze verschijnen twee velden die beide verplicht zijn:
+
+   - URL van de Matomo-instantie: het adres van de Matomo-omgeving van de organisatie. Dit moet beginnen met ``https://``.
+   - Site-ID: het nummer van de website in Matomo. Dit moet een getal zijn.
+
+Bij het opslaan wordt gecontroleerd of de gegevens een geldig formaat hebben. Er wordt niet gecontroleerd of de Matomo-instantie bereikbaar is.
+
+Onderaan het scherm staan knoppen om de wijzigingen op te slaan of de wijzigingen te annuleren. Na het opslaan kan het tot enkele minuten duren voordat de wijziging overal doorwerkt.
 
 Uitloggen
 ^^^^^^^^^^
