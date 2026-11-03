@@ -79,6 +79,9 @@ const router = createRouter({
       name: "beheer",
       component: () => import("../views/beheer/BeheerLayout.vue"),
       beforeEnter: requiresAdmin,
+      meta: {
+        noAnalytics: true
+      },
       children: [
         {
           path: "",
@@ -128,7 +131,10 @@ const router = createRouter({
 initBaseTitle();
 
 router.beforeEach((to, from) => {
-  setPageTitle(to.meta?.title as string | undefined);
+  setPageTitle(
+    (to.meta?.title as string | undefined) ??
+      (to.matched.length ? undefined : "Pagina niet gevonden")
+  );
 
   // keep focus if only the query params are different
   if (to.path === from.path) {

@@ -127,7 +127,7 @@ const {
   error: documentError
 } = useFetchApi(() => `${API_URL}/documenten/${props.uuid}`).json<PublicatieDocument>();
 
-usePageTitle(() => documentData.value?.officieleTitel);
+usePageTitle(() => documentData.value?.officieleTitel, documentError);
 
 const {
   get: getPublicatie,

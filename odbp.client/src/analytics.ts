@@ -1,5 +1,5 @@
 import { nextTick } from "vue";
-import type { Router } from "vue-router";
+import { START_LOCATION, type Router } from "vue-router";
 import type { Resources } from "./resources";
 
 declare global {
@@ -9,6 +9,19 @@ declare global {
 }
 
 const withTrailingSlash = (url: string) => (url.endsWith("/") ? url : `${url}/`);
+
+// Only the path is ever sent: query strings and hashes can contain user input (e.g. search terms)
+const toTrackedUrl = (url: string) => {
+  if (!url) return "";
+
+  try {
+    const { origin, pathname } = new URL(url, window.location.origin);
+
+    return `${origin}${pathname}`;
+  } catch {
+    return "";
+  }
+};
 
 const loadMatomo = (url: string, siteId: string) => {
   const baseUrl = withTrailingSlash(url);
@@ -27,11 +40,19 @@ const loadMatomo = (url: string, siteId: string) => {
 
   document.head.appendChild(script);
 
+  // Overrides the default referrer of the tracker, which could contain a query string after a full page load
+  let previousUrl = toTrackedUrl(document.referrer);
+
   // Always push to window._paq, since Matomo replaces its push method once loaded
   return (path: string, title: string) => {
-    window._paq!.push(["setCustomUrl", `${window.location.origin}${path}`]);
+    const currentUrl = toTrackedUrl(path);
+
+    if (previousUrl) window._paq!.push(["setReferrerUrl", previousUrl]);
+    window._paq!.push(["setCustomUrl", currentUrl]);
     window._paq!.push(["setDocumentTitle", title]);
     window._paq!.push(["trackPageView"]);
+
+    previousUrl = currentUrl;
   };
 };
 
@@ -46,11 +67,12 @@ export const initAnalytics = (router: Router, analytics: Resources["analytics"])
   tracker = loadMatomo(analytics.url, analytics.identifier);
 
   router.afterEach((to, from, failure) => {
-    // Only the portal itself is tracked, not the management screens
-    if (failure || to.path.startsWith("/beheer")) return;
-    if (to.meta.titleFromView) return;
+    // Routes can opt out (the management screens); meta is inherited by child routes
+    if (failure || to.meta.noAnalytics || to.meta.titleFromView) return;
 
-    // Query string is left out, as it can contain user input (e.g. search terms)
+    // Only query or hash changes are no new pageview, but the first navigation (also path "/") is
+    if (from !== START_LOCATION && to.path === from.path) return;
+
     // Wait for the view to set the document title
     nextTick(() => tracker?.(to.path, document.title));
   });
