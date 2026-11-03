@@ -16,11 +16,11 @@ An administrator can configure an analytics tool (currently Matomo) in the manag
 The analytics origin is cached in memory for **at most 5 minutes**. Saving the analytics configuration in the management screen clears the cache of the instance that handles the request.
 
 - **Multiple instances (pods):** the other instances keep the old origin until their cache expires, so a change is active everywhere within 5 minutes at the latest. No restart is needed.
-- **Database unavailable:** the last known origin of that instance stays in effect (kept in memory, so it is lost on restart). If there is none, the strictest CSP (no analytics) is used. While the database is unavailable, every request retries the read.
+- **Database unavailable:** the strictest CSP (no analytics) is used, never a widened one. Nothing is cached in that case, so every request retries the read and the configured origin returns as soon as the database is available again.
 
 ## Known limitation: single page application
 
-The portal is a single page application, so the CSP is only evaluated on a full page load. After a change, a visitor who already has the portal open keeps the old CSP until the next full page load (refresh or opening the portal again). This is accepted.
+The portal is a single page application, so the CSP is only evaluated on a full page load. After a change, a visitor who already has the portal open keeps the old CSP, and an already loaded tracking script keeps running, until the next full page load (refresh or opening the portal again). This is accepted, but relevant for administrators who unlink the tool for privacy reasons: it can take until the next full page load before no more data is sent.
 
 ## Review
 

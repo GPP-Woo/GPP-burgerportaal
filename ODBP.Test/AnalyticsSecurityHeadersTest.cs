@@ -84,7 +84,7 @@ namespace ODBP.Test
         }
 
         [TestMethod]
-        public async Task Bij_een_databasefout_blijft_de_laatst_bekende_origin_gelden()
+        public async Task Bij_een_databasefout_geldt_de_strengste_csp_zonder_analytics()
         {
             var context = InMemoryDatabase.GetDbContext();
             Configure(context, AnalyticsTool.Matomo, Origin);
@@ -95,20 +95,8 @@ namespace ODBP.Test
             context.Dispose();
             var response = await app.Client.GetAsync("/");
 
-            StringAssert.Contains(Directive(response, "script-src"), Origin);
-        }
-
-        [TestMethod]
-        public async Task Bij_een_databasefout_zonder_laatst_bekende_waarde_is_er_geen_analytics_origin()
-        {
-            var context = InMemoryDatabase.GetDbContext();
-            context.Dispose();
-            var middleware = new AnalyticsOriginMiddleware(_ => Task.CompletedTask, NullLogger<AnalyticsOriginMiddleware>.Instance);
-            var httpContext = new DefaultHttpContext();
-
-            await middleware.InvokeAsync(httpContext, context, new MemoryCache(new MemoryCacheOptions()));
-
-            Assert.IsNull(AnalyticsOriginMiddleware.GetOrigin(httpContext));
+            Assert.AreEqual("script-src 'self'", Directive(response, "script-src"));
+            Assert.AreEqual("require-corp", response.Headers.GetValues("Cross-Origin-Embedder-Policy").Single());
         }
 
         [DataTestMethod]

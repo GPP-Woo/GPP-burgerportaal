@@ -82,7 +82,7 @@ Bij Matomo zijn de volgende gegevens verplicht:
 | URL van de Matomo-instantie | Moet beginnen met `https://` |
 | Site-ID                     | Een getal                    |
 
-Er wordt alleen gevalideerd of de gegevens een geldig formaat hebben, niet of de Matomo-instantie bereikbaar is. Wordt "Geen" gekozen, dan worden de eerder opgeslagen Matomo-gegevens verwijderd. Wijzigingen kunnen tot enkele minuten duren voordat ze overal doorwerken.
+Er wordt alleen gevalideerd of de gegevens een geldig formaat hebben, niet of de Matomo-instantie bereikbaar is. Wordt "Geen" gekozen, dan worden de eerder opgeslagen Matomo-gegevens verwijderd. Wijzigingen kunnen tot enkele minuten duren voordat ze overal doorwerken. Een bezoeker die het portaal al open heeft, behoudt de oude instelling en een reeds geladen trackingscript blijft actief tot de volgende volledige paginalading (verversen of opnieuw openen van het portaal). Houd hier rekening mee als de analytics-tool om privacyredenen wordt ontkoppeld.
 ## Cross-Origin Resource Sharing (CORS) en Cross-Origin-Embedder-Policy (COEP)
 
 Deze applicatie maakt gebruik van Cross-Origin-Embedder-Policy (COEP: require-corp), maar de externe resources worden geladen onder CORS (met cross-origin-attributen). Dat betekent dat die externe resources de juiste Access-Control-Allow-Origin-header moeten bevatten.

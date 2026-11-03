@@ -12,7 +12,6 @@ namespace ODBP.Config
     public class AnalyticsOriginMiddleware(RequestDelegate next, ILogger<AnalyticsOriginMiddleware> logger)
     {
         public const string CacheKey = "AnalyticsOrigin";
-        private const string LastKnownCacheKey = "AnalyticsOriginLastKnown";
         public const string ItemsKey = "AnalyticsOrigin";
         private static readonly TimeSpan s_cacheDuration = TimeSpan.FromMinutes(5);
 
@@ -24,14 +23,13 @@ namespace ODBP.Config
                 {
                     var resources = await db.Resources.AsNoTracking().FirstOrDefaultAsync(context.RequestAborted);
                     origin = ToOrigin(resources);
-                    cache.Set(LastKnownCacheKey, origin);
                     cache.Set(CacheKey, origin, s_cacheDuration);
                 }
                 catch (Exception ex) when (ex is not OperationCanceledException)
                 {
-                    // bij een databasefout blijft de laatst bekende waarde gelden, anders geen analytics
+                    // bij een databasefout geldt de strengste CSP (geen analytics); er wordt niets gecachet, zodat het snel herstelt
                     logger.LogWarning(ex, "Could not read analytics configuration");
-                    cache.TryGetValue(LastKnownCacheKey, out origin);
+                    origin = null;
                 }
             }
 
