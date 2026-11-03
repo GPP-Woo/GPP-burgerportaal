@@ -63,12 +63,13 @@ namespace ODBP.Config
 
             if (!Uri.TryCreate(resources.AnalyticsUrl, UriKind.Absolute, out var uri)
                 || uri.Scheme != Uri.UriSchemeHttps
-                || uri.HostNameType != UriHostNameType.Dns)
+                || uri.HostNameType != UriHostNameType.Dns
+                || !string.IsNullOrEmpty(uri.UserInfo))
             {
                 return null;
             }
 
-            return uri.GetLeftPart(UriPartial.Authority);
+            return uri.IsDefaultPort ? $"https://{uri.IdnHost}" : $"https://{uri.IdnHost}:{uri.Port}";
         }
     }
 

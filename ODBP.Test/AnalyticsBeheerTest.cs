@@ -29,6 +29,15 @@ namespace ODBP.Test
         }
 
         [TestMethod]
+        public void Validate_matomo_met_userinfo_in_url_is_ongeldig()
+        {
+            var errors = Validate(new(AnalyticsTool.Matomo, "https://a;sandbox;x@matomo.example.com", "12"));
+
+            Assert.AreEqual(1, errors.Count);
+            CollectionAssert.Contains(errors[0].MemberNames.ToList(), nameof(Analytics.Url));
+        }
+
+        [TestMethod]
         [DataRow("abc")]
         [DataRow("0")]
         [DataRow("0012")]

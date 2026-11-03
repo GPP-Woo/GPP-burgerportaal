@@ -104,6 +104,8 @@ namespace ODBP.Test
         [DataRow("http://matomo.example.com")]
         [DataRow("https://192.168.0.1")]
         [DataRow("not a url")]
+        [DataRow("https://a;sandbox;x@matomo.example.com")]
+        [DataRow("https://user:pass@matomo.example.com")]
         public async Task Alleen_een_https_dns_origin_wordt_toegevoegd(string url)
         {
             using var context = InMemoryDatabase.GetDbContext();
@@ -114,6 +116,21 @@ namespace ODBP.Test
             await middleware.InvokeAsync(httpContext, context, new MemoryCache(new MemoryCacheOptions()), new ConfigurationBuilder().Build());
 
             Assert.IsNull(AnalyticsOriginMiddleware.GetOrigin(httpContext));
+        }
+
+        [DataTestMethod]
+        [DataRow("https://matomo.example.com/matomo/", "https://matomo.example.com")]
+        [DataRow("https://matomo.example.com:8443/x", "https://matomo.example.com:8443")]
+        public async Task Origin_bevat_alleen_host_en_niet_standaard_poort(string url, string expected)
+        {
+            using var context = InMemoryDatabase.GetDbContext();
+            Configure(context, AnalyticsTool.Matomo, url);
+            var middleware = new AnalyticsOriginMiddleware(_ => Task.CompletedTask, NullLogger<AnalyticsOriginMiddleware>.Instance);
+            var httpContext = new DefaultHttpContext();
+
+            await middleware.InvokeAsync(httpContext, context, new MemoryCache(new MemoryCacheOptions()), new ConfigurationBuilder().Build());
+
+            Assert.AreEqual(expected, AnalyticsOriginMiddleware.GetOrigin(httpContext));
         }
 
         [DataTestMethod]

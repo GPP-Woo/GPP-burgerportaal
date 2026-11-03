@@ -48,7 +48,9 @@ namespace ODBP.Features.Beheer
         );
 
         private static string? NormalizeUrl(string? url) =>
-            Uri.TryCreate(url?.Trim(), UriKind.Absolute, out var uri) ? uri.ToString() : null;
+            Uri.TryCreate(url?.Trim(), UriKind.Absolute, out var uri) && string.IsNullOrEmpty(uri.UserInfo)
+                ? uri.ToString()
+                : null;
     }
 
     public partial record Analytics(AnalyticsTool Tool, string? Url, string? Identifier) : IValidatableObject
@@ -63,7 +65,8 @@ namespace ODBP.Features.Beheer
 
             if (Tool == AnalyticsTool.Matomo)
             {
-                if (!Uri.TryCreate(Url?.Trim(), UriKind.Absolute, out var uri) || uri.Scheme != Uri.UriSchemeHttps)
+                if (!Uri.TryCreate(Url?.Trim(), UriKind.Absolute, out var uri) || uri.Scheme != Uri.UriSchemeHttps
+                    || !string.IsNullOrEmpty(uri.UserInfo))
                 {
                     yield return new ValidationResult(
                         "De opgegeven waarde is geen valide URL. Let op dat de URL moet beginnen met https://.",
