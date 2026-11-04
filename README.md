@@ -92,7 +92,7 @@ Is Matomo ingesteld, dan laadt het portaal het trackingscript asynchroon en regi
 - Alleen het **pad** wordt doorgegeven, zonder query en hash. Dat geldt ook voor de referrer. Een navigatie waarbij alleen query of hash wijzigt telt niet.
 - Altijd **zonder cookies** (`disableCookies`) en zonder `enableLinkTracking`.
 - Niet voor de beheerschermen (route-metadata `noAnalytics`, geërfd door kindroutes).
-- Detailpagina's (publicatie, document, onderwerp) worden geregistreerd zodra de titel bekend is, of met de algemene titel als laden mislukt (`usePageTitle`).
+- Detailpagina's (publicatie, document, onderwerp) worden geregistreerd zodra de titel bekend is (`usePageTitle`). Bij een fout bij het laden, ook als het item niet bestaat, geldt de titel "Niet (meer) beschikbaar". Bij navigatie tussen detailpagina's wordt de view opnieuw opgebouwd (`router-view` met `key` op het pad), zodat elke pagina een eigen titel en paginaweergave krijgt, ook bij gelijke titels.
 
 Zie de [handleiding](docs/handleiding/index.rst) voor het gedrag zoals een beheerder het ervaart. Zoekopdrachten en downloads worden hier niet geregistreerd.
 ## Cross-Origin Resource Sharing (CORS) en Cross-Origin-Embedder-Policy (COEP)

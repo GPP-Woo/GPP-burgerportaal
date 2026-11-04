@@ -2,7 +2,7 @@ import { nextTick, ref } from "vue";
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { trackPageView } from "@/analytics";
 import { initBaseTitle } from "@/title";
-import { usePageTitle } from "./use-page-title";
+import { UNAVAILABLE_TITLE, usePageTitle } from "./use-page-title";
 
 vi.mock("@/analytics", () => ({ trackPageView: vi.fn() }));
 vi.mock("vue-router", () => ({ useRoute: () => ({ path: "/publicaties/1" }) }));
@@ -39,7 +39,7 @@ describe("usePageTitle", () => {
     expect(trackPageView).toHaveBeenCalledTimes(1);
   });
 
-  test("tracks with the generic title when loading failed", async () => {
+  test("sets an unavailable title and tracks it when loading failed", async () => {
     const title = ref<string>();
     const failed = ref<unknown>(null);
 
@@ -51,6 +51,10 @@ describe("usePageTitle", () => {
     failed.value = new Error("fetch failed");
     await nextTick();
 
-    expect(trackPageView).toHaveBeenCalledExactlyOnceWith("/publicaties/1", "Portaal");
+    expect(document.title).toBe(`${UNAVAILABLE_TITLE} | Portaal`);
+    expect(trackPageView).toHaveBeenCalledExactlyOnceWith(
+      "/publicaties/1",
+      `${UNAVAILABLE_TITLE} | Portaal`
+    );
   });
 });
