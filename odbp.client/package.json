@@ -14,10 +14,10 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "@ckeditor/ckeditor5-vue": "^7.3.0",
+    "@ckeditor/ckeditor5-vue": "^8.2.0",
     "@tato30/vue-pdf": "^2.2.0",
     "@vueuse/core": "^12.7.0",
-    "ckeditor5": "^47.4.0",
+    "ckeditor5": "^48.5.2",
     "dompurify": "^3.4.0",
     "vue": "^3.5.42",
     "vue-router": "^4.5.0"
