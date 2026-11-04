@@ -132,7 +132,7 @@ Als Matomo is ingesteld, worden de paginaweergaven van het Burgerportaal naar Ma
 - Er wordt alleen het adres van de pagina zelf doorgegeven, zonder zoektermen of andere gegevens achter het vraagteken. Dat geldt ook voor de pagina waarvandaan de Burger komt.
 - Matomo wordt altijd zonder cookies gebruikt, dus een cookiebanner is hiervoor niet nodig.
 - De beheerschermen worden niet meegeteld.
-- Bij publicaties, documenten en onderwerpen staat in Matomo de titel van het onderwerp zelf. Kan de pagina niet geladen worden, dan staat er een algemene titel ("Publicatie", "Document" of "Onderwerp"). Een pagina die niet bestaat heet "Pagina niet gevonden".
+- Bij publicaties, documenten en onderwerpen staat in Matomo de titel van het onderwerp zelf. Kan de pagina niet geladen worden of bestaat het item niet, dan staat er "Niet (meer) beschikbaar". Een pagina die niet bestaat heet "Pagina niet gevonden".
 - Als Matomo niet bereikbaar is of geblokkeerd wordt, blijft het Burgerportaal gewoon werken.
 
 Onderaan het scherm staan knoppen om de wijzigingen op te slaan of de wijzigingen te annuleren. Na het opslaan kan het tot enkele minuten duren voordat de wijziging overal doorwerkt. Een bezoeker die het Burgerportaal al open heeft, behoudt de oude instelling en een reeds geladen trackingscript blijft actief tot de volgende volledige paginalading (verversen of opnieuw openen van het portaal). Houd hier rekening mee als de analytics-tool om privacyredenen wordt ontkoppeld.
