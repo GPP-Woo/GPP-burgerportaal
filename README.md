@@ -87,21 +87,21 @@ Er wordt alleen gevalideerd of de gegevens een geldig formaat hebben, niet of de
 
 #### Paginaweergaven (Matomo)
 
-Is Matomo ingesteld, dan laadt het portaal het trackingscript asynchroon en registreert het elke paginaweergave (ook navigaties binnen de SPA):
+Is Matomo ingesteld, dan laadt het portaal het trackingscript asynchroon en registreert het elke paginaweergave:
 
 - Alleen het **pad** wordt doorgegeven, zonder query en hash. Dat geldt ook voor de referrer. Een navigatie waarbij alleen query of hash wijzigt telt niet.
 - Altijd **zonder cookies** (`disableCookies`) en zonder `enableLinkTracking`.
-- Niet voor de beheerschermen (route-metadata `noAnalytics`, geërfd door kindroutes).
+- Niet voor de beheerschermen (route-metadata `noAnalytics`, geërfd door child routes).
 - Detailpagina's (publicatie, document, onderwerp) worden geregistreerd zodra de titel bekend is (`usePageTitle`). Bij een fout bij het laden, ook als het item niet bestaat, geldt de titel "Niet (meer) beschikbaar". Bij navigatie tussen detailpagina's wordt de view opnieuw opgebouwd (`router-view` met `key` op het pad), zodat elke pagina een eigen titel en paginaweergave krijgt, ook bij gelijke titels.
 
-Zie de [handleiding](docs/handleiding/index.rst) voor het gedrag zoals een beheerder het ervaart. Zoekopdrachten en downloads worden hier niet geregistreerd.
+Zoekopdrachten en downloads worden niet geregistreerd. Zie de [handleiding](docs/handleiding/index.rst) voor het instellen van analytics via de beheeromgeving.
 ## Cross-Origin Resource Sharing (CORS) en Cross-Origin-Embedder-Policy (COEP)
 
 Deze applicatie maakt gebruik van Cross-Origin-Embedder-Policy (COEP: require-corp), maar de externe resources worden geladen onder CORS (met cross-origin-attributen). Dat betekent dat die externe resources de juiste Access-Control-Allow-Origin-header moeten bevatten.
 
 **Video embedding:** COEP wordt uitgeschakeld wanneer een video is ingesteld via de beheeromgeving, omdat YouTube en Vimeo geen COEP-headers ondersteunen. Zie dit [decision record](./coep_video.md) voor de volledige afweging.
 
-**Analytics:** COEP wordt ook uitgeschakeld wanneer een analytics-tool is ingesteld via de beheeromgeving, omdat we niet weten of de server van de gekozen tool voldoet aan `require-corp`. Zie dit [decision record](./coep_analytics.md) voor de volledige afweging. De server van de analytics-tool wordt daarnaast toegevoegd aan de Content Security Policy (CSP), zie [analytics_csp.md](./analytics_csp.md).
+**Analytics:** COEP wordt ook uitgeschakeld wanneer een analytics-tool is ingesteld via de beheeromgeving, omdat we niet weten of de server van de gekozen tool voldoet aan `require-corp`. Zie dit [decision record](./coep_analytics.md) voor de volledige afweging.
 
 ### Headers:
 
