@@ -126,7 +126,9 @@ Op het beheerscherm kan onder het menu-item "Analytics" de analytics-tool voor h
 
 Bij het opslaan wordt gecontroleerd of de gegevens een geldig formaat hebben. Er wordt niet gecontroleerd of de Matomo-instantie bereikbaar is.
 
-Onderaan het scherm staan knoppen om de wijzigingen op te slaan of de wijzigingen te annuleren. Na het opslaan kan het tot enkele minuten duren voordat de wijziging overal doorwerkt.
+Onderaan het scherm staan knoppen om de wijzigingen op te slaan of de wijzigingen te annuleren. Na het opslaan kan het tot enkele minuten duren voordat de wijziging overal doorwerkt. Een bezoeker die het Burgerportaal al open heeft, behoudt de oude instelling en een reeds geladen trackingscript blijft actief tot de volgende volledige paginalading (verversen of opnieuw openen van het portaal). Houd hier rekening mee als de analytics-tool om privacyredenen wordt ontkoppeld.
+
+.. warning:: Let op: Cross-Origin-Embedder-Policy wordt uitgeschakeld wanneer een analytics-tool is ingesteld, omdat niet bekend is of de server van de gekozen tool hieraan voldoet. De server van de analytics-tool wordt daarnaast toegevoegd aan de Content Security Policy.
 
 Uitloggen
 ^^^^^^^^^^
