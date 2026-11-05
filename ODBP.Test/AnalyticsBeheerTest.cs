@@ -81,6 +81,17 @@ namespace ODBP.Test
         }
 
         [TestMethod]
+        public async Task Put_verwijdert_query_en_fragment_uit_de_url()
+        {
+            using var context = InMemoryDatabase.GetDbContext();
+            var controller = new AnalyticsBeheerController(context, new MemoryCache(new MemoryCacheOptions()));
+
+            await controller.Put(new(AnalyticsTool.Matomo, "https://matomo.example.com/matomo?a=1#dashboard", "12"), default);
+
+            Assert.AreEqual("https://matomo.example.com/matomo", context.Resources.Single().AnalyticsUrl);
+        }
+
+        [TestMethod]
         public async Task Put_leegt_de_cache_van_de_analytics_origin()
         {
             using var context = InMemoryDatabase.GetDbContext();

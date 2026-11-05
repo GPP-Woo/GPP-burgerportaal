@@ -62,6 +62,26 @@ describe("analytics (Matomo)", () => {
     expect(commands("enableLinkTracking")).toHaveLength(0);
   });
 
+  test("appends the endpoints to the path of a URL with a query or hash", async () => {
+    await setup({ ...matomo, url: "https://matomo.example.com/matomo?a=1#dashboard" });
+
+    expect(document.head.querySelector("script")?.src).toBe(
+      "https://matomo.example.com/matomo/matomo.js"
+    );
+    expect(window._paq).toContainEqual([
+      "setTrackerUrl",
+      "https://matomo.example.com/matomo/matomo.php"
+    ]);
+  });
+
+  test("loads nothing for an unusable URL", async () => {
+    const { go } = await setup({ ...matomo, url: "not a url" });
+    await go("/");
+
+    expect(window._paq).toBeUndefined();
+    expect(document.head.querySelector("script")).toBeNull();
+  });
+
   test("tracks the first visit of the homepage exactly once", async () => {
     const { go } = await setup();
     await go("/");
