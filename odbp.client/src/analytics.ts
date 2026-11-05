@@ -5,6 +5,7 @@ import type { Resources } from "./resources";
 declare global {
   interface Window {
     _paq?: unknown[][];
+    plausible?: ((event: string, options?: { u: string }) => void) & { q?: unknown[][] };
   }
 }
 
@@ -65,16 +66,42 @@ const loadMatomo = (url: string, siteId: string) => {
   };
 };
 
-let tracker: ReturnType<typeof loadMatomo> | undefined;
+// Manual mode: the script does not track navigations itself, so the portal sends one pageview per navigation.
+// The script always sends document.referrer, which cannot be overridden (the Referrer-Policy keeps it to the origin)
+const loadPlausible = (url: string, domain: string) => {
+  window.plausible =
+    window.plausible ||
+    Object.assign(
+      (...args: unknown[]) => {
+        (window.plausible!.q = window.plausible!.q || []).push(args);
+      },
+      { q: [] as unknown[][] }
+    );
+
+  const script = Object.assign(document.createElement("script"), {
+    async: true,
+    src: `${withTrailingSlash(url)}js/script.manual.js`
+  });
+
+  script.dataset.domain = domain;
+  document.head.appendChild(script);
+
+  return (path: string) => window.plausible!("pageview", { u: toTrackedUrl(path) });
+};
+
+let tracker: ((path: string, title: string) => void) | undefined;
 
 // For views that track their own pageview, once their specific title is known
 export const trackPageView = (path: string, title: string) => tracker?.(path, title);
 
 export const initAnalytics = (router: Router, analytics: Resources["analytics"]) => {
-  if (analytics?.tool !== "Matomo" || !analytics.url || !analytics.identifier) return;
+  if (!analytics?.url || !analytics.identifier) return;
 
   try {
-    tracker = loadMatomo(analytics.url, analytics.identifier);
+    if (analytics.tool === "Matomo") tracker = loadMatomo(analytics.url, analytics.identifier);
+    else if (analytics.tool === "Plausible")
+      tracker = loadPlausible(analytics.url, analytics.identifier);
+    else return;
   } catch {
     // An unusable URL must never break the portal
     return;

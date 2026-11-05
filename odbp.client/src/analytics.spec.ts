@@ -24,6 +24,7 @@ const matomo = { tool: "Matomo", url: "https://matomo.example.com", identifier: 
 const setup = async (analytics: unknown = matomo, referrer = "") => {
   vi.resetModules();
   window._paq = undefined;
+  window.plausible = undefined;
   document.head.innerHTML = "";
   Object.defineProperty(document, "referrer", { value: referrer, configurable: true });
 
@@ -43,6 +44,45 @@ const setup = async (analytics: unknown = matomo, referrer = "") => {
 
 const commands = (name: string) => (window._paq ?? []).filter(([command]) => command === name);
 const trackedUrls = () => commands("setCustomUrl").map(([, url]) => url);
+
+describe("analytics (Plausible)", () => {
+  const plausible = {
+    tool: "Plausible",
+    url: "https://plausible.example.com/",
+    identifier: "burgerportaal.example.com"
+  } as const;
+
+  const pageviews = () => window.plausible?.q ?? [];
+
+  test("loads the manual script asynchronously for the configured domain", async () => {
+    await setup(plausible);
+
+    const script = document.head.querySelector("script");
+
+    expect(script?.src).toBe("https://plausible.example.com/js/script.manual.js");
+    expect(script?.async).toBe(true);
+    expect(script?.dataset.domain).toBe("burgerportaal.example.com");
+  });
+
+  test("tracks one pageview per navigation with only the path", async () => {
+    const { go } = await setup(plausible);
+    await go("/");
+    await go("/zoeken?query=jansen#resultaten");
+    await go("/zoeken?query=a");
+
+    expect(pageviews()).toEqual([
+      ["pageview", { u: `${window.location.origin}/` }],
+      ["pageview", { u: `${window.location.origin}/zoeken` }]
+    ]);
+  });
+
+  test("does not track routes that opt out", async () => {
+    const { go } = await setup(plausible);
+    await go("/beheer");
+
+    expect(pageviews()).toHaveLength(0);
+  });
+});
 
 describe("analytics (Matomo)", () => {
   beforeEach(() => {
