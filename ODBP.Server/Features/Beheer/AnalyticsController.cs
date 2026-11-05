@@ -33,7 +33,7 @@ namespace ODBP.Features.Beheer
 
             // bij "geen" worden de koppelgegevens gewist
             resources.AnalyticsUrl = request.Tool == AnalyticsTool.None ? null : NormalizeUrl(request.Url);
-            resources.AnalyticsIdentifier = request.Tool == AnalyticsTool.None ? null : request.Identifier?.Trim();
+            resources.AnalyticsIdentifier = request.Tool == AnalyticsTool.None ? null : NormalizeIdentifier(request);
 
             await context.SaveChangesAsync(token);
             cache.InvalidateAnalyticsCache();
@@ -46,6 +46,9 @@ namespace ODBP.Features.Beheer
             resources.AnalyticsUrl ?? "",
             resources.AnalyticsIdentifier ?? ""
         );
+
+        private static string? NormalizeIdentifier(Analytics request) =>
+            request.Tool == AnalyticsTool.Plausible ? request.Identifier?.Trim().ToLowerInvariant() : request.Identifier?.Trim();
 
         // query and fragment are dropped: endpoints are appended to the path of the instance
         private static string? NormalizeUrl(string? url) =>
@@ -64,7 +67,7 @@ namespace ODBP.Features.Beheer
                 yield break;
             }
 
-            if (Tool == AnalyticsTool.Matomo)
+            if (Tool is AnalyticsTool.Matomo or AnalyticsTool.Plausible)
             {
                 if (!Uri.TryCreate(Url?.Trim(), UriKind.Absolute, out var uri) || uri.Scheme != Uri.UriSchemeHttps
                     || uri.HostNameType != UriHostNameType.Dns
@@ -74,13 +77,24 @@ namespace ODBP.Features.Beheer
                         "De opgegeven waarde is geen valide URL. Gebruik een https-URL met een domeinnaam (geen IP-adres) en zonder gebruikersgegevens.",
                         [nameof(Url)]);
                 }
+            }
 
-                if (!NumericIdentifier().IsMatch(Identifier?.Trim() ?? ""))
-                {
-                    yield return new ValidationResult("Het site-ID is verplicht en moet een getal zijn.", [nameof(Identifier)]);
-                }
+            if (Tool == AnalyticsTool.Matomo && !NumericIdentifier().IsMatch(Identifier?.Trim() ?? ""))
+            {
+                yield return new ValidationResult("Het site-ID is verplicht en moet een getal zijn.", [nameof(Identifier)]);
+            }
+
+            if (Tool == AnalyticsTool.Plausible && !IsDomainName(Identifier))
+            {
+                yield return new ValidationResult(
+                    "De domeinnaam is verplicht en mag alleen een domeinnaam zijn, zonder https://, pad of poort (bijvoorbeeld burgerportaal.gemeente.nl).",
+                    [nameof(Identifier)]);
             }
         }
+
+        // a bare host name; a full URL, path or port is rejected
+        private static bool IsDomainName(string? value) =>
+            !string.IsNullOrWhiteSpace(value) && Uri.CheckHostName(value.Trim()) == UriHostNameType.Dns;
 
         [GeneratedRegex(@"^[1-9][0-9]{0,8}$")]
         private static partial Regex NumericIdentifier();

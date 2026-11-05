@@ -67,6 +67,31 @@ namespace ODBP.Test
         }
 
         [TestMethod]
+        public async Task Met_plausible_staat_alleen_de_origin_in_de_csp_en_is_coep_uit()
+        {
+            using var context = InMemoryDatabase.GetDbContext();
+            Configure(context, AnalyticsTool.Plausible, "https://plausible.example.com/");
+            await using var app = await TestApp.StartAsync(context);
+
+            var response = await app.Client.GetAsync("/");
+
+            StringAssert.Contains(Directive(response, "script-src"), " https://plausible.example.com");
+            StringAssert.Contains(Directive(response, "connect-src"), " https://plausible.example.com");
+            Assert.IsFalse(response.Headers.Contains("Cross-Origin-Embedder-Policy"));
+        }
+
+        [TestMethod]
+        public async Task De_referrer_bevat_alleen_de_origin()
+        {
+            using var context = InMemoryDatabase.GetDbContext();
+            await using var app = await TestApp.StartAsync(context);
+
+            var response = await app.Client.GetAsync("/");
+
+            Assert.AreEqual("strict-origin", response.Headers.GetValues("Referrer-Policy").Single());
+        }
+
+        [TestMethod]
         public async Task Wijziging_werkt_door_na_het_legen_van_de_cache()
         {
             using var context = InMemoryDatabase.GetDbContext();

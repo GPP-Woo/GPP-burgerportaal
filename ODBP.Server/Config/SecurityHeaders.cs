@@ -83,7 +83,8 @@ namespace ODBP.Config
                 // (COEP is handled dynamically by CoepMiddleware based on database, see /coep_video.md and /coep_analytics.md)
                 .AddFrameOptionsDeny()
                 .AddContentTypeOptionsNoSniff()
-                .AddReferrerPolicyStrictOriginWhenCrossOrigin()
+                // origin only, also within the portal: analytics tools read document.referrer, which could contain a query string (search terms)
+                .AddReferrerPolicyStrictOrigin()
                 .AddStrictTransportSecurityMaxAgeIncludeSubDomains()
                 .AddCrossOriginOpenerPolicy(x =>
                 {

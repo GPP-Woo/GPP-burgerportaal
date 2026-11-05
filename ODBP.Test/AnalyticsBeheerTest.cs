@@ -60,6 +60,48 @@ namespace ODBP.Test
         }
 
         [TestMethod]
+        public void Validate_plausible_met_geldige_gegevens_is_geldig()
+        {
+            Assert.AreEqual(0, Validate(new(AnalyticsTool.Plausible, "https://plausible.example.com", "burgerportaal.gemeente.nl")).Count);
+        }
+
+        [DataTestMethod]
+        [DataRow("https://burgerportaal.gemeente.nl/")]
+        [DataRow("burgerportaal.gemeente.nl/pad")]
+        [DataRow("burgerportaal.gemeente.nl:8443")]
+        [DataRow("")]
+        [DataRow(null)]
+        public void Validate_plausible_met_ongeldige_domeinnaam_is_ongeldig(string? domain)
+        {
+            var errors = Validate(new(AnalyticsTool.Plausible, "https://plausible.example.com", domain));
+
+            Assert.AreEqual(1, errors.Count);
+            CollectionAssert.Contains(errors[0].MemberNames.ToList(), nameof(Analytics.Identifier));
+        }
+
+        [TestMethod]
+        public void Validate_plausible_met_http_url_is_ongeldig()
+        {
+            var errors = Validate(new(AnalyticsTool.Plausible, "http://plausible.example.com", "burgerportaal.gemeente.nl"));
+
+            Assert.AreEqual(1, errors.Count);
+            CollectionAssert.Contains(errors[0].MemberNames.ToList(), nameof(Analytics.Url));
+        }
+
+        [TestMethod]
+        public async Task Put_slaat_plausible_gegevens_op_met_domeinnaam_in_kleine_letters()
+        {
+            using var context = InMemoryDatabase.GetDbContext();
+            var controller = new AnalyticsBeheerController(context, new MemoryCache(new MemoryCacheOptions()));
+
+            await controller.Put(new(AnalyticsTool.Plausible, "https://plausible.example.com", " Burgerportaal.Gemeente.nl "), default);
+
+            var resources = context.Resources.Single();
+            Assert.AreEqual(AnalyticsTool.Plausible, resources.AnalyticsTool);
+            Assert.AreEqual("burgerportaal.gemeente.nl", resources.AnalyticsIdentifier);
+        }
+
+        [TestMethod]
         public void Validate_onbekende_tool_is_ongeldig()
         {
             Assert.AreEqual(1, Validate(new((AnalyticsTool)999, null, null)).Count);
