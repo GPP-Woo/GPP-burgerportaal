@@ -2,9 +2,19 @@ import { nextTick } from "vue";
 import { START_LOCATION, type Router } from "vue-router";
 import type { Resources } from "./resources";
 
+type PlausibleOptions = Record<string, unknown> & {
+  transformRequest?: (payload: Record<string, unknown>) => Record<string, unknown>;
+};
+
+type PlausibleEventOptions = { u: string; props?: Record<string, string> };
+
 declare global {
   interface Window {
     _paq?: unknown[][];
+    plausible?: ((event: string, options?: PlausibleEventOptions) => void) & {
+      q?: unknown[][];
+      o?: PlausibleOptions;
+    };
   }
 }
 
@@ -65,16 +75,52 @@ const loadMatomo = (url: string, siteId: string) => {
   };
 };
 
-let tracker: ReturnType<typeof loadMatomo> | undefined;
+const loadPlausible = (url: string, scriptId: string) => {
+  window.plausible =
+    window.plausible ||
+    Object.assign(
+      (...args: unknown[]) => {
+        (window.plausible!.q = window.plausible!.q || []).push(args);
+      },
+      { q: [] as unknown[][] }
+    );
+
+  // Tracking of navigations, links, downloads and forms is switched off
+  window.plausible.o = {
+    autoCapturePageviews: false,
+    outboundLinks: false,
+    fileDownloads: false,
+    formSubmissions: false,
+    transformRequest: (payload) => ({
+      ...payload,
+      r: toTrackedUrl(String(payload.r ?? "")) || null
+    })
+  };
+
+  const script = Object.assign(document.createElement("script"), {
+    async: true,
+    src: `${withTrailingSlash(url)}js/${scriptId}.js`
+  });
+
+  document.head.appendChild(script);
+
+  return (path: string, title: string) =>
+    window.plausible!("pageview", { u: toTrackedUrl(path), props: { title } });
+};
+
+let tracker: ((path: string, title: string) => void) | undefined;
 
 // For views that track their own pageview, once their specific title is known
 export const trackPageView = (path: string, title: string) => tracker?.(path, title);
 
 export const initAnalytics = (router: Router, analytics: Resources["analytics"]) => {
-  if (analytics?.tool !== "Matomo" || !analytics.url || !analytics.identifier) return;
+  if (!analytics?.url || !analytics.identifier) return;
 
   try {
-    tracker = loadMatomo(analytics.url, analytics.identifier);
+    if (analytics.tool === "Matomo") tracker = loadMatomo(analytics.url, analytics.identifier);
+    else if (analytics.tool === "Plausible")
+      tracker = loadPlausible(analytics.url, analytics.identifier);
+    else return;
   } catch {
     // An unusable URL must never break the portal
     return;

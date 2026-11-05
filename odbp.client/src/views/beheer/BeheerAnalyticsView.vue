@@ -25,12 +25,19 @@
     <utrecht-form-field>
       <utrecht-form-label for="analytics-tool">Analytics-tool</utrecht-form-label>
 
-      <utrecht-select id="analytics-tool" v-model="analytics.tool" :options="toolOptions" />
+      <utrecht-select
+        id="analytics-tool"
+        v-model="analytics.tool"
+        :options="toolOptions"
+        @update:model-value="clear"
+      />
     </utrecht-form-field>
 
-    <template v-if="analytics.tool === 'Matomo'">
+    <template v-if="analytics.tool !== 'None'">
       <utrecht-form-field>
-        <utrecht-form-label for="analytics-url">URL van de Matomo-instantie</utrecht-form-label>
+        <utrecht-form-label for="analytics-url"
+          >URL van de {{ analytics.tool }}-instantie</utrecht-form-label
+        >
 
         <utrecht-textbox
           id="analytics-url"
@@ -47,7 +54,7 @@
         >
       </utrecht-form-field>
 
-      <utrecht-form-field>
+      <utrecht-form-field v-if="analytics.tool === 'Matomo'">
         <utrecht-form-label for="analytics-identifier">Site-ID</utrecht-form-label>
 
         <utrecht-textbox
@@ -60,6 +67,24 @@
 
         <span id="analytics-identifier-error" class="form-error"
           >Het site-ID is verplicht en moet een getal zijn.</span
+        >
+      </utrecht-form-field>
+
+      <utrecht-form-field v-else>
+        <utrecht-form-label for="analytics-identifier">Script-ID</utrecht-form-label>
+
+        <utrecht-textbox
+          id="analytics-identifier"
+          v-model.trim="analytics.identifier"
+          placeholder="pa-AbC123"
+          pattern="pa-[A-Za-z0-9_\-]{1,64}"
+          required
+          aria-describedby="analytics-identifier-error"
+        />
+
+        <span id="analytics-identifier-error" class="form-error"
+          >De script-ID is verplicht en begint met pa- (bijvoorbeeld pa-AbC123), zoals in het script
+          van Plausible.</span
         >
       </utrecht-form-field>
     </template>
@@ -86,14 +111,15 @@ import SimpleSpinner from "@/components/SimpleSpinner.vue";
 import UtrechtAlert from "@/components/UtrechtAlert.vue";
 
 type Analytics = {
-  tool: "None" | "Matomo";
+  tool: "None" | "Matomo" | "Plausible";
   url: string;
   identifier: string;
 };
 
 const toolOptions = [
   { label: "Geen", value: "None" },
-  { label: "Matomo", value: "Matomo" }
+  { label: "Matomo", value: "Matomo" },
+  { label: "Plausible CE", value: "Plausible" }
 ];
 
 const DEFAULT_ERROR = "Er is een fout opgetreden.";
@@ -131,6 +157,13 @@ const errorMessages = computed(() => {
 });
 
 const get = () => getAnalytics().execute();
+
+const clear = () => {
+  if (!analytics.value) return;
+
+  analytics.value.url = "";
+  analytics.value.identifier = "";
+};
 
 const submit = () =>
   putAnalytics(analytics)
