@@ -8,7 +8,16 @@ declare global {
   }
 }
 
-const withTrailingSlash = (url: string) => (url.endsWith("/") ? url : `${url}/`);
+// Endpoint names must be appended to the pathname, not to a query string or hash the URL may contain
+const withTrailingSlash = (url: string) => {
+  const baseUrl = new URL(url);
+
+  baseUrl.search = "";
+  baseUrl.hash = "";
+  if (!baseUrl.pathname.endsWith("/")) baseUrl.pathname += "/";
+
+  return baseUrl.href;
+};
 
 // Only the path is ever sent: query strings and hashes can contain user input (e.g. search terms)
 const toTrackedUrl = (url: string) => {
@@ -64,7 +73,12 @@ export const trackPageView = (path: string, title: string) => tracker?.(path, ti
 export const initAnalytics = (router: Router, analytics: Resources["analytics"]) => {
   if (analytics?.tool !== "Matomo" || !analytics.url || !analytics.identifier) return;
 
-  tracker = loadMatomo(analytics.url, analytics.identifier);
+  try {
+    tracker = loadMatomo(analytics.url, analytics.identifier);
+  } catch {
+    // An unusable URL must never break the portal
+    return;
+  }
 
   router.afterEach((to, from, failure) => {
     // Routes can opt out (the management screens); meta is inherited by child routes
