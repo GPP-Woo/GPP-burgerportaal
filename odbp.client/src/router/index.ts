@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, type NavigationGuard } from "vue-router";
+import { createRouter, createWebHistory, START_LOCATION, type NavigationGuard } from "vue-router";
 import { fetchAuthUser } from "@/api/auth";
 import HomeView from "../views/HomeView.vue";
 import { initBaseTitle, setPageTitle } from "@/title";
@@ -131,15 +131,15 @@ const router = createRouter({
 initBaseTitle();
 
 router.beforeEach((to, from) => {
+  // title and focus depend on the path: a change of only query or hash changes neither
+  if (to.path === from.path && from !== START_LOCATION) {
+    return;
+  }
+
   setPageTitle(
     (to.meta?.title as string | undefined) ??
       (to.matched.length ? undefined : "Pagina niet gevonden")
   );
-
-  // keep focus if only the query params are different
-  if (to.path === from.path) {
-    return;
-  }
 
   document.body.setAttribute("tabindex", "-1");
   document.body.focus();

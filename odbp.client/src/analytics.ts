@@ -85,7 +85,7 @@ export const initAnalytics = (router: Router, analytics: Resources["analytics"])
     if (failure || to.meta.noAnalytics || to.meta.titleFromView) return;
 
     // Only query or hash changes are no new pageview, but the first navigation (also path "/") is
-    if (from !== START_LOCATION && to.path === from.path) return;
+    if (to.path === from.path && from !== START_LOCATION) return;
 
     // Wait for the view to set the document title
     nextTick(() => tracker?.(to.path, document.title));
