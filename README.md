@@ -66,6 +66,23 @@ De links naar externe pagina's kunnen worden beheerd via de beheeromgeving:
 
 Alle URL's moeten beginnen met `https://`. Als een link niet is ingesteld, wordt de betreffende link niet getoond in het portaal.
 
+### Analytics
+
+De analytics-tool kan worden ingesteld via de beheeromgeving. Er kan gekozen worden uit:
+
+| Keuze  | Gebruik                               |
+| :----- | :------------------------------------ |
+| Geen   | Er wordt geen analytics-tool gebruikt |
+| Matomo | Gegevens worden naar Matomo gestuurd  |
+
+Bij Matomo zijn de volgende gegevens verplicht:
+
+| Veld                        | Eisen                        |
+| :-------------------------- | :--------------------------- |
+| URL van de Matomo-instantie | Moet beginnen met `https://` |
+| Site-ID                     | Een getal                    |
+
+Er wordt alleen gevalideerd of de gegevens een geldig formaat hebben, niet of de Matomo-instantie bereikbaar is. Wordt "Geen" gekozen, dan worden de eerder opgeslagen Matomo-gegevens verwijderd. Wijzigingen kunnen tot enkele minuten duren voordat ze overal doorwerken.
 ## Cross-Origin Resource Sharing (CORS) en Cross-Origin-Embedder-Policy (COEP)
 
 Deze applicatie maakt gebruik van Cross-Origin-Embedder-Policy (COEP: require-corp), maar de externe resources worden geladen onder CORS (met cross-origin-attributen). Dat betekent dat die externe resources de juiste Access-Control-Allow-Origin-header moeten bevatten.

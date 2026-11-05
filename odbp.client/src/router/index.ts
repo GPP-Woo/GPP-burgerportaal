@@ -101,6 +101,14 @@ const router = createRouter({
           }
         },
         {
+          path: "analytics",
+          name: "beheer-analytics",
+          component: () => import("../views/beheer/BeheerAnalyticsView.vue"),
+          meta: {
+            title: "Beheer - Analytics"
+          }
+        },
+        {
           path: "/forbidden",
           name: "forbidden",
           component: () => import("../views/beheer/ForbiddenView.vue"),

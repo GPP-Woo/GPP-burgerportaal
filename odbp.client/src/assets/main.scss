@@ -66,12 +66,17 @@
     }
   }
 
-  // overriding background-image for utrecht-checkbox--custom
+  // overriding background-image for utrecht-checkbox--custom and utrecht-select
   // because of use of data uri, which gives csp-error
   .utrecht-checkbox--custom.utrecht-checkbox--checked,
   .utrecht-custom-checkbox--checked,
   .utrecht-checkbox--custom.utrecht-checkbox--html-input:checked,
   .utrecht-custom-checkbox--html-input:checked {
     background-image: url("@/assets/icon-check.svg");
+  }
+
+  .utrecht-select--html-select {
+    background-image: url("@/assets/icon-chevron-down.svg");
+    background-position: right var(--utrecht-space-inline-xs) center;
   }
 }

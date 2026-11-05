@@ -16,6 +16,11 @@ export type Resources = Partial<{
   contactUrl: string;
   welcomeText: string;
   a11yUrl: string;
+  analytics: {
+    tool: "None" | "Matomo";
+    url: string | null;
+    identifier: string | null;
+  };
 }>;
 
 export const injectResources = () => inject<Resources | null>("resources", null);
