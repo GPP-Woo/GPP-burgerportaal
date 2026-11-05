@@ -124,16 +124,23 @@ Op het beheerscherm kan onder het menu-item "Analytics" de analytics-tool voor h
    - URL van de Matomo-instantie: het adres van de Matomo-omgeving van de organisatie. Dit moet beginnen met ``https://``, een domeinnaam bevatten (dus geen IP-adres) en mag geen gebruikersgegevens bevatten.
    - Site-ID: het nummer van de website in Matomo. Dit moet een getal zijn.
 
-Bij het opslaan wordt gecontroleerd of de gegevens een geldig formaat hebben. Er wordt niet gecontroleerd of de Matomo-instantie bereikbaar is.
+- Plausible CE
+   Bij deze keuze verschijnen twee velden die beide verplicht zijn:
 
-Als Matomo is ingesteld, worden de paginaweergaven van het Burgerportaal naar Matomo gestuurd:
+   - URL van de Plausible-instantie: het adres van de Plausible-omgeving van de organisatie. Dit moet beginnen met ``https://``, een domeinnaam bevatten (dus geen IP-adres) en mag geen gebruikersgegevens bevatten.
+   - Domeinnaam: de domeinnaam waaronder het Burgerportaal in Plausible is geregistreerd, bijvoorbeeld ``burgerportaal.gemeente.nl``. Vul alleen de domeinnaam in, dus zonder ``https://``, pad of poort.
+
+Bij het opslaan wordt gecontroleerd of de gegevens een geldig formaat hebben. Er wordt niet gecontroleerd of de instantie bereikbaar is.
+
+Als een analytics-tool is ingesteld, worden de paginaweergaven van het Burgerportaal naar die tool gestuurd:
 
 - Alle pagina's die een Burger bekijkt worden geregistreerd. Een andere zoekterm of filter op dezelfde pagina telt niet als nieuwe paginaweergave.
 - Er wordt alleen het adres van de pagina zelf doorgegeven, zonder zoektermen of andere gegevens achter het vraagteken. Dat geldt ook voor de pagina waarvandaan de Burger komt.
-- Matomo wordt altijd zonder cookies gebruikt, dus een cookiebanner is hiervoor niet nodig.
+- Matomo en Plausible CE worden zonder cookies gebruikt, dus een cookiebanner is hiervoor niet nodig. Links en downloads worden niet apart bijgehouden.
 - De beheerschermen worden niet meegeteld.
-- Bij publicaties, documenten en onderwerpen staat in Matomo de titel van het onderwerp zelf. Kan de publicatie, het document of het onderwerp niet geladen worden (bijvoorbeeld omdat het is verwijderd), dan staat er "Niet (meer) beschikbaar". Een adres dat bij geen enkele pagina van het portaal hoort, heet "Pagina niet gevonden".
-- Als Matomo niet bereikbaar is of geblokkeerd wordt, blijft het Burgerportaal gewoon werken.
+- Bij publicaties, documenten en onderwerpen staat in de tool de titel van het onderwerp zelf (bij Plausible is dit het adres van de pagina). Kan de publicatie, het document of het onderwerp niet geladen worden (bijvoorbeeld omdat het is verwijderd), dan staat er "Niet (meer) beschikbaar". Een adres dat bij geen enkele pagina van het portaal hoort, heet "Pagina niet gevonden".
+- Als de tool niet bereikbaar is of geblokkeerd wordt, blijft het Burgerportaal gewoon werken.
+- Bij Plausible CE is de bron van een bezoek (waar de Burger vandaan kwam) alleen aan het begin van een bezoek betrouwbaar; navigaties binnen het portaal hebben daar geen eigen bron.
 
 Onderaan het scherm staan knoppen om de wijzigingen op te slaan of de wijzigingen te annuleren. Na het opslaan kan het tot enkele minuten duren voordat de wijziging overal doorwerkt. Een bezoeker die het Burgerportaal al open heeft, behoudt de oude instelling en een reeds geladen trackingscript blijft actief tot de volgende volledige paginalading (verversen of opnieuw openen van het portaal). Houd hier rekening mee als de analytics-tool om privacyredenen wordt ontkoppeld.
 
