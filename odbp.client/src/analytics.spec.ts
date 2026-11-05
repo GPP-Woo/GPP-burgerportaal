@@ -26,6 +26,7 @@ const matomo = { tool: "Matomo", url: "https://matomo.example.com", identifier: 
 const setup = async (analytics: unknown = matomo, referrer = "") => {
   vi.resetModules();
   window._paq = undefined;
+  window.plausible = undefined;
   document.head.innerHTML = "";
   Object.defineProperty(document, "referrer", { value: referrer, configurable: true });
 
@@ -45,6 +46,70 @@ const setup = async (analytics: unknown = matomo, referrer = "") => {
 
 const commands = (name: string) => (window._paq ?? []).filter(([command]) => command === name);
 const trackedUrls = () => commands("setCustomUrl").map(([, url]) => url);
+
+describe("analytics (Plausible)", () => {
+  const plausible = {
+    tool: "Plausible",
+    url: "https://plausible.example.com/",
+    identifier: "pa-AbC123_-x"
+  } as const;
+
+  const pageviews = () => window.plausible?.q ?? [];
+
+  test("loads the script of the configured key asynchronously", async () => {
+    await setup(plausible);
+
+    const script = document.head.querySelector("script");
+
+    expect(script?.src).toBe("https://plausible.example.com/js/pa-AbC123_-x.js");
+    expect(script?.async).toBe(true);
+  });
+
+  test("turns off the automatic tracking of the script before it loads", async () => {
+    await setup(plausible);
+
+    expect(window.plausible?.o).toMatchObject({
+      autoCapturePageviews: false,
+      outboundLinks: false,
+      fileDownloads: false,
+      formSubmissions: false
+    });
+  });
+
+  test.each([
+    [
+      "https://extern.example.com/pad/dossier?naam=jansen#deel",
+      "https://extern.example.com/pad/dossier"
+    ],
+    ["", null]
+  ])("sends the referrer %j as %j", async (referrer, expected) => {
+    await setup(plausible);
+
+    const payload = window.plausible?.o?.transformRequest?.({ n: "pageview", r: referrer });
+
+    expect(payload).toEqual({ n: "pageview", r: expected });
+  });
+
+  test("tracks one pageview per navigation with only the path and the title as property", async () => {
+    const { go } = await setup(plausible);
+    document.title = "Portaal";
+    await go("/");
+    await go("/zoeken?query=jansen#resultaten");
+    await go("/zoeken?query=a");
+
+    expect(pageviews()).toEqual([
+      ["pageview", { u: `${window.location.origin}/`, props: { title: "Portaal" } }],
+      ["pageview", { u: `${window.location.origin}/zoeken`, props: { title: "Portaal" } }]
+    ]);
+  });
+
+  test("does not track routes that opt out", async () => {
+    const { go } = await setup(plausible);
+    await go("/beheer");
+
+    expect(pageviews()).toHaveLength(0);
+  });
+});
 
 describe("analytics (Matomo)", () => {
   beforeEach(() => {
