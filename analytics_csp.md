@@ -2,7 +2,7 @@
 
 ## Context
 
-An administrator can configure an analytics tool (currently Matomo) in the management screen. The tool loads a script, sends requests and loads a tracking image from the configured server, so that server has to be allowed by the CSP. Without analytics, the CSP is unchanged.
+An administrator can configure an analytics tool (currently Matomo or Plausible CE) in the management screen. The tool loads a script, sends requests and loads a tracking image from the configured server, so that server has to be allowed by the CSP. Without analytics, the CSP is unchanged.
 
 ## How it works
 
@@ -24,4 +24,4 @@ The portal is a single page application, so the CSP is only evaluated on a full 
 
 ## Review
 
-Revisit this when another analytics tool is added (for example Siteimprove or Plausible): each tool needs its own list of CSP sources, since the origin of the configured URL is not always sufficient.
+Revisit this when another analytics tool is added (for example Siteimprove): each tool needs its own list of CSP sources, since the origin of the configured URL is not always sufficient.

@@ -71,10 +71,11 @@ Alle URL's moeten beginnen met `https://`. Als een link niet is ingesteld, wordt
 
 De analytics-tool kan worden ingesteld via de beheeromgeving. Er kan gekozen worden uit:
 
-| Keuze  | Gebruik                               |
-| :----- | :------------------------------------ |
-| Geen   | Er wordt geen analytics-tool gebruikt |
-| Matomo | Gegevens worden naar Matomo gestuurd  |
+| Keuze        | Gebruik                                    |
+| :----------- | :----------------------------------------- |
+| Geen         | Er wordt geen analytics-tool gebruikt      |
+| Matomo       | Gegevens worden naar Matomo gestuurd       |
+| Plausible CE | Gegevens worden naar Plausible CE gestuurd |
 
 Bij Matomo zijn de volgende gegevens verplicht:
 
@@ -83,14 +84,24 @@ Bij Matomo zijn de volgende gegevens verplicht:
 | URL van de Matomo-instantie | Moet beginnen met `https://`, een domeinnaam bevatten (geen IP-adres) en zonder gebruikersgegevens zijn |
 | Site-ID                     | Een getal                                                                                               |
 
-Er wordt alleen gevalideerd of de gegevens een geldig formaat hebben, niet of de Matomo-instantie bereikbaar is. Wordt "Geen" gekozen, dan worden de eerder opgeslagen Matomo-gegevens verwijderd. Wijzigingen kunnen tot enkele minuten duren voordat ze overal doorwerken. Een bezoeker die het portaal al open heeft, behoudt de oude instelling en een reeds geladen trackingscript blijft actief tot de volgende volledige paginalading (verversen of opnieuw openen van het portaal). Houd hier rekening mee als de analytics-tool om privacyredenen wordt ontkoppeld.
+Bij Plausible CE zijn de volgende gegevens verplicht:
 
-#### Paginaweergaven (Matomo)
+| Veld                           | Eisen                                                                                                                              |
+| :----------------------------- | :--------------------------------------------------------------------------------------------------------------------------------- |
+| URL van de Plausible-instantie | Moet beginnen met `https://`, een domeinnaam bevatten (geen IP-adres) en zonder gebruikersgegevens zijn                            |
+| Script-ID                      | De bestandsnaam van het Plausible-script zonder `.js`: begint met `pa-`, gevolgd door letters, cijfers, `_` of `-` (`pa-AbC123`)   |
 
-Is Matomo ingesteld, dan laadt het portaal het trackingscript asynchroon en registreert het elke paginaweergave:
+Het script-ID staat in het snippet dat Plausible geeft (`.../js/pa-AbC123.js`) en is gekoppeld aan de website in Plausible. Dit vereist een Plausible CE-versie met deze scripts.
 
-- Alleen het **pad** wordt doorgegeven, zonder query en hash. Dat geldt ook voor de referrer. Een navigatie waarbij alleen query of hash wijzigt telt niet.
-- Altijd **zonder cookies** (`disableCookies`) en zonder `enableLinkTracking`.
+Er wordt alleen gevalideerd of de gegevens een geldig formaat hebben, niet of de instantie bereikbaar is. Wordt "Geen" gekozen, dan worden de eerder opgeslagen gegevens verwijderd. Wijzigingen kunnen tot enkele minuten duren voordat ze overal doorwerken. Een bezoeker die het portaal al open heeft, behoudt de oude instelling en een reeds geladen trackingscript blijft actief tot de volgende volledige paginalading (verversen of opnieuw openen van het portaal). Houd hier rekening mee als de analytics-tool om privacyredenen wordt ontkoppeld.
+
+#### Paginaweergaven (Matomo en Plausible CE)
+
+Is een tool ingesteld, dan laadt het portaal het trackingscript asynchroon en registreert het elke paginaweergave:
+
+- Alleen het **pad** wordt doorgegeven, zonder query en hash. Een navigatie waarbij alleen query of hash wijzigt telt niet.
+- Matomo: altijd **zonder cookies** (`disableCookies`) en zonder `enableLinkTracking`, en ook de referrer bevat alleen het pad.
+- Plausible CE: het script `js/<script-ID>.js` van de instantie, met automatisch tracken van navigaties, links, downloads en formulieren uitgeschakeld (`plausible.init`-opties). De referrer wordt met `transformRequest` beperkt tot het pad en de paginatitel gaat mee als custom property `title`, die in Plausible eerst onder Site Settings → Custom Properties moet worden toegevoegd. Het script gebruikt standaard geen cookies.
 - Niet voor de beheerschermen (route-metadata `noAnalytics`, geërfd door child routes).
 - Detailpagina's (publicatie, document, onderwerp) worden geregistreerd zodra de titel bekend is (`usePageTitle`). Bij een fout bij het laden, ook als het item niet bestaat, geldt de titel "Niet (meer) beschikbaar". Bij navigatie tussen detailpagina's wordt de view opnieuw opgebouwd (`router-view` met `key` op het pad), zodat elke pagina een eigen titel en paginaweergave krijgt, ook bij gelijke titels.
 
