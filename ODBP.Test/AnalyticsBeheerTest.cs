@@ -27,9 +27,13 @@ namespace ODBP.Test
         }
 
         [TestMethod]
-        public void Validate_matomo_met_niet_numeriek_site_id_is_ongeldig()
+        [DataRow("abc")]
+        [DataRow("0")]
+        [DataRow("0012")]
+        [DataRow("١٢")]
+        public void Validate_matomo_met_ongeldig_site_id_is_ongeldig(string siteId)
         {
-            var errors = Validate(new(AnalyticsTool.Matomo, "https://matomo.example.com", "abc"));
+            var errors = Validate(new(AnalyticsTool.Matomo, "https://matomo.example.com", siteId));
 
             Assert.AreEqual(1, errors.Count);
             CollectionAssert.Contains(errors[0].MemberNames.ToList(), nameof(Analytics.Identifier));

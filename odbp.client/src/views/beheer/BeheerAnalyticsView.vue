@@ -53,7 +53,7 @@
         <utrecht-textbox
           id="analytics-identifier"
           v-model.trim="analytics.identifier"
-          pattern="[0-9]{1,9}"
+          pattern="[1-9][0-9]{0,8}"
           required
           aria-describedby="analytics-identifier-error"
         />

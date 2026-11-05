@@ -74,7 +74,7 @@ namespace ODBP.Features.Beheer
             }
         }
 
-        [GeneratedRegex(@"^\d{1,9}$")]
+        [GeneratedRegex(@"^[1-9][0-9]{0,8}$")]
         private static partial Regex NumericIdentifier();
     }
 }
