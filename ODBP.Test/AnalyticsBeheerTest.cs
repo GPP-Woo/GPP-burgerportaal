@@ -60,6 +60,49 @@ namespace ODBP.Test
         }
 
         [TestMethod]
+        public void Validate_plausible_met_geldige_gegevens_is_geldig()
+        {
+            Assert.AreEqual(0, Validate(new(AnalyticsTool.Plausible, "https://plausible.example.com", "pa-_SbfyHHhvy2p-A1g_iM1E")).Count);
+        }
+
+        [DataTestMethod]
+        [DataRow("_SbfyHHhvy2p-A1g_iM1E")]
+        [DataRow("pa-_SbfyHHhvy2p-A1g_iM1E.js")]
+        [DataRow("pa-../script")]
+        [DataRow("pa-")]
+        [DataRow("")]
+        [DataRow(null)]
+        public void Validate_plausible_met_ongeldige_script_id_is_ongeldig(string? scriptId)
+        {
+            var errors = Validate(new(AnalyticsTool.Plausible, "https://plausible.example.com", scriptId));
+
+            Assert.AreEqual(1, errors.Count);
+            CollectionAssert.Contains(errors[0].MemberNames.ToList(), nameof(Analytics.Identifier));
+        }
+
+        [TestMethod]
+        public void Validate_plausible_met_http_url_is_ongeldig()
+        {
+            var errors = Validate(new(AnalyticsTool.Plausible, "http://plausible.example.com", "pa-_SbfyHHhvy2p-A1g_iM1E"));
+
+            Assert.AreEqual(1, errors.Count);
+            CollectionAssert.Contains(errors[0].MemberNames.ToList(), nameof(Analytics.Url));
+        }
+
+        [TestMethod]
+        public async Task Put_slaat_plausible_gegevens_op()
+        {
+            using var context = InMemoryDatabase.GetDbContext();
+            var controller = new AnalyticsBeheerController(context, new MemoryCache(new MemoryCacheOptions()));
+
+            await controller.Put(new(AnalyticsTool.Plausible, "https://plausible.example.com", " pa-_SbfyHHhvy2p-A1g_iM1E "), default);
+
+            var resources = context.Resources.Single();
+            Assert.AreEqual(AnalyticsTool.Plausible, resources.AnalyticsTool);
+            Assert.AreEqual("pa-_SbfyHHhvy2p-A1g_iM1E", resources.AnalyticsIdentifier);
+        }
+
+        [TestMethod]
         public void Validate_onbekende_tool_is_ongeldig()
         {
             Assert.AreEqual(1, Validate(new((AnalyticsTool)999, null, null)).Count);
