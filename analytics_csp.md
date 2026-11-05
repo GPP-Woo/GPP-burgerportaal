@@ -6,7 +6,7 @@ An administrator can configure an analytics tool (currently Matomo) in the manag
 
 ## How it works
 
-- `AnalyticsOriginMiddleware` reads the configured tool and URL from the database and derives the **origin** (`https://host[:port]`, without path or wildcard). Only a valid `https` origin is accepted; anything else results in the strictest CSP (no analytics).
+- `AnalyticsOriginMiddleware` reads the configured tool and URL from the database and derives the **origin** (`https://host[:port]`, without path or wildcard). Only a valid `https` origin with a DNS host name and without user info is accepted; anything else (for example an IP address) results in the strictest CSP (no analytics). The management screen rejects such URLs when saving.
 - The origin is added to `script-src`, `connect-src` and `img-src` only.
 - The CSP is selected per request with `SetPolicySelector` (NetEscapades.AspNetCore.SecurityHeaders 1.x). A header policy is built once per origin and reused.
 - COEP is omitted while analytics is configured. See [coep_analytics.md](coep_analytics.md).

@@ -47,9 +47,10 @@ namespace ODBP.Features.Beheer
             resources.AnalyticsIdentifier ?? ""
         );
 
+        // query and fragment are dropped: endpoints are appended to the path of the instance
         private static string? NormalizeUrl(string? url) =>
             Uri.TryCreate(url?.Trim(), UriKind.Absolute, out var uri) && string.IsNullOrEmpty(uri.UserInfo)
-                ? uri.ToString()
+                ? uri.GetLeftPart(UriPartial.Path)
                 : null;
     }
 

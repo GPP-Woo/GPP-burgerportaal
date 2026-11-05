@@ -108,7 +108,7 @@ const loadResources = async (sources: (string | undefined)[]) => {
   if (rejected.length) throw new Error(rejected.map((r) => r.reason.url).join(", "));
 };
 
-export const loadThemeResources = async (app: App): Promise<void> => {
+export const loadThemeResources = async (app: App): Promise<Resources> => {
   // First fetch the references to external resources from the API
   const resources = await getResources();
 
@@ -137,4 +137,6 @@ export const loadThemeResources = async (app: App): Promise<void> => {
     // Log an error if any external resources fail to load
     console.error(`One or more external resources failed to load. ${error}`);
   }
+
+  return resources;
 };

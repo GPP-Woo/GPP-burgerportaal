@@ -157,6 +157,7 @@
 import { computed, ref, useId } from "vue";
 import { injectResources } from "@/resources";
 import { useFetchApi } from "@/api/use-fetch-api";
+import { usePageTitle } from "@/composables/use-page-title";
 import { useAllPages } from "@/composables/use-all-pages";
 import SimpleSpinner from "@/components/SimpleSpinner.vue";
 import SmallSpinner from "@/components/SmallSpinner.vue";
@@ -207,6 +208,8 @@ const {
   isFetching: loadingPublicatie,
   error: publicatieError
 } = useFetchApi(() => `${API_URL}/publicaties/${props.uuid}`).json<Publicatie>();
+
+usePageTitle(() => publicatieData.value?.officieleTitel, publicatieError);
 
 const {
   data: documenten,
