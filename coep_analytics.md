@@ -13,7 +13,7 @@ With COEP `require-corp`, every cross-origin resource must opt in explicitly:
 
 An analytics tool loads a script, sends tracking requests and may load a tracking image from a different origin, the server of the organisation or supplier. For Matomo:
 
-- `matomo.js` is loaded as a plain script (no CORS). In a local test it had no `Access-Control-Allow-Origin` header, so loading it with `crossorigin="anonymous"` would be blocked as well.
+- `matomo.js` is loaded as a plain script (no CORS). By default it might have no `Access-Control-Allow-Origin` header, in which case loading it with `crossorigin="anonymous"` would be blocked as well.
 - `matomo.php` receives the tracking requests. Depending on the browser and the tracker configuration this is a beacon, an XHR/fetch request (CORS) or an image request (no CORS).
 
 Different installations configure different tools and servers, and we do not know whether each of them sends the headers that `require-corp` demands. If they do not, the tool is blocked by the browser and nothing is tracked.
