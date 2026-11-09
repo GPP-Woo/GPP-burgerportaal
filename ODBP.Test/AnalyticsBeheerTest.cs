@@ -1,5 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
+using ODBP.Config;
 using ODBP.Data.Entities;
 using ODBP.Features.Beheer;
 
@@ -21,6 +23,24 @@ namespace ODBP.Test
         public void Validate_matomo_met_http_url_is_ongeldig()
         {
             var errors = Validate(new(AnalyticsTool.Matomo, "http://matomo.example.com", "12"));
+
+            Assert.AreEqual(1, errors.Count);
+            CollectionAssert.Contains(errors[0].MemberNames.ToList(), nameof(Analytics.Url));
+        }
+
+        [TestMethod]
+        public void Validate_matomo_met_userinfo_in_url_is_ongeldig()
+        {
+            var errors = Validate(new(AnalyticsTool.Matomo, "https://a;sandbox;x@matomo.example.com", "12"));
+
+            Assert.AreEqual(1, errors.Count);
+            CollectionAssert.Contains(errors[0].MemberNames.ToList(), nameof(Analytics.Url));
+        }
+
+        [TestMethod]
+        public void Validate_matomo_met_ip_adres_is_ongeldig()
+        {
+            var errors = Validate(new(AnalyticsTool.Matomo, "https://192.168.0.1", "12"));
 
             Assert.AreEqual(1, errors.Count);
             CollectionAssert.Contains(errors[0].MemberNames.ToList(), nameof(Analytics.Url));
@@ -49,7 +69,7 @@ namespace ODBP.Test
         public async Task Put_slaat_matomo_gegevens_op()
         {
             using var context = InMemoryDatabase.GetDbContext();
-            var controller = new AnalyticsBeheerController(context);
+            var controller = new AnalyticsBeheerController(context, new MemoryCache(new MemoryCacheOptions()));
 
             var result = await controller.Put(new(AnalyticsTool.Matomo, " https://matomo.example.com ", " 12 "), default);
 
@@ -61,10 +81,23 @@ namespace ODBP.Test
         }
 
         [TestMethod]
+        public async Task Put_leegt_de_cache_van_de_analytics_origin()
+        {
+            using var context = InMemoryDatabase.GetDbContext();
+            var cache = new MemoryCache(new MemoryCacheOptions());
+            cache.Set(AnalyticsOriginMiddleware.CacheKey, "https://oud.example.com");
+            var controller = new AnalyticsBeheerController(context, cache);
+
+            await controller.Put(new(AnalyticsTool.Matomo, "https://matomo.example.com", "12"), default);
+
+            Assert.IsFalse(cache.TryGetValue(AnalyticsOriginMiddleware.CacheKey, out _));
+        }
+
+        [TestMethod]
         public async Task Put_met_geen_wist_koppelgegevens()
         {
             using var context = InMemoryDatabase.GetDbContext();
-            var controller = new AnalyticsBeheerController(context);
+            var controller = new AnalyticsBeheerController(context, new MemoryCache(new MemoryCacheOptions()));
             await controller.Put(new(AnalyticsTool.Matomo, "https://matomo.example.com", "12"), default);
 
             await controller.Put(new(AnalyticsTool.None, "https://matomo.example.com", "12"), default);

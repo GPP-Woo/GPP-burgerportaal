@@ -3,7 +3,9 @@ using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using ODBP.Authentication;
+using ODBP.Config;
 using ODBP.Data;
 using ODBP.Data.Entities;
 
@@ -12,7 +14,7 @@ namespace ODBP.Features.Beheer
     [ApiController]
     [Route("api/beheer/analytics")]
     [Authorize(AdminPolicy.Name)]
-    public class AnalyticsBeheerController(OdbpDbContext context) : ControllerBase
+    public class AnalyticsBeheerController(OdbpDbContext context, IMemoryCache cache) : ControllerBase
     {
         [HttpGet]
         public async Task<IActionResult> Get(CancellationToken token)
@@ -34,6 +36,7 @@ namespace ODBP.Features.Beheer
             resources.AnalyticsIdentifier = request.Tool == AnalyticsTool.None ? null : request.Identifier?.Trim();
 
             await context.SaveChangesAsync(token);
+            cache.InvalidateAnalyticsCache();
 
             return Ok(ToAnalytics(resources));
         }
@@ -45,7 +48,9 @@ namespace ODBP.Features.Beheer
         );
 
         private static string? NormalizeUrl(string? url) =>
-            Uri.TryCreate(url?.Trim(), UriKind.Absolute, out var uri) ? uri.ToString() : null;
+            Uri.TryCreate(url?.Trim(), UriKind.Absolute, out var uri) && string.IsNullOrEmpty(uri.UserInfo)
+                ? uri.ToString()
+                : null;
     }
 
     public partial record Analytics(AnalyticsTool Tool, string? Url, string? Identifier) : IValidatableObject
@@ -60,10 +65,12 @@ namespace ODBP.Features.Beheer
 
             if (Tool == AnalyticsTool.Matomo)
             {
-                if (!Uri.TryCreate(Url?.Trim(), UriKind.Absolute, out var uri) || uri.Scheme != Uri.UriSchemeHttps)
+                if (!Uri.TryCreate(Url?.Trim(), UriKind.Absolute, out var uri) || uri.Scheme != Uri.UriSchemeHttps
+                    || uri.HostNameType != UriHostNameType.Dns
+                    || !string.IsNullOrEmpty(uri.UserInfo))
                 {
                     yield return new ValidationResult(
-                        "De opgegeven waarde is geen valide URL. Let op dat de URL moet beginnen met https://.",
+                        "De opgegeven waarde is geen valide URL. Gebruik een https-URL met een domeinnaam (geen IP-adres) en zonder gebruikersgegevens.",
                         [nameof(Url)]);
                 }
 

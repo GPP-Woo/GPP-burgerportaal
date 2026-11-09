@@ -81,6 +81,7 @@ try
         httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token", GetRequiredConfig("SEARCH_API_KEY"));
     });
     builder.Services.AddMemoryCache();
+    builder.Services.AddOdbpSecurityHeaders();
     builder.Services.AddSingleton<ISimpleCache, SimpleCache>();
     builder.Services.AddScoped<MigrateResources>();
 
@@ -89,8 +90,11 @@ try
     app.UseSerilogRequestLogging(x => x.Logger = logger);
 
     // Web Workers run in own global scope (not the document's), so need their own matching COEP response header
-    // UseCoep must run before static files, since those short-circuit the pipeline
+    // UseCoep and UseOdbpSecurityHeaders must run before static files, since those short-circuit the pipeline
+    // (otherwise index.html, served for "/", would miss the CSP)
+    app.UseAnalyticsOrigin();
     app.UseCoep();
+    app.UseOdbpSecurityHeaders();
     app.UseDefaultFiles();
     app.UseOdbpStaticFiles();
 
@@ -98,8 +102,6 @@ try
     {
         app.UseOutputCache();
     }
-
-    app.UseOdbpSecurityHeaders();
 
     app.UseAuthentication();
     app.UseAuthorization();
