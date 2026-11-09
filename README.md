@@ -78,19 +78,30 @@ De analytics-tool kan worden ingesteld via de beheeromgeving. Er kan gekozen wor
 
 Bij Matomo zijn de volgende gegevens verplicht:
 
-| Veld                        | Eisen                        |
-| :-------------------------- | :--------------------------- |
-| URL van de Matomo-instantie | Moet beginnen met `https://` |
-| Site-ID                     | Een getal                    |
+| Veld                        | Eisen                                                                                                   |
+| :-------------------------- | :------------------------------------------------------------------------------------------------------ |
+| URL van de Matomo-instantie | Moet beginnen met `https://`, een domeinnaam bevatten (geen IP-adres) en zonder gebruikersgegevens zijn |
+| Site-ID                     | Een getal                                                                                               |
 
 Er wordt alleen gevalideerd of de gegevens een geldig formaat hebben, niet of de Matomo-instantie bereikbaar is. Wordt "Geen" gekozen, dan worden de eerder opgeslagen Matomo-gegevens verwijderd. Wijzigingen kunnen tot enkele minuten duren voordat ze overal doorwerken. Een bezoeker die het portaal al open heeft, behoudt de oude instelling en een reeds geladen trackingscript blijft actief tot de volgende volledige paginalading (verversen of opnieuw openen van het portaal). Houd hier rekening mee als de analytics-tool om privacyredenen wordt ontkoppeld.
+
+#### Paginaweergaven (Matomo)
+
+Is Matomo ingesteld, dan laadt het portaal het trackingscript asynchroon en registreert het elke paginaweergave:
+
+- Alleen het **pad** wordt doorgegeven, zonder query en hash. Dat geldt ook voor de referrer. Een navigatie waarbij alleen query of hash wijzigt telt niet.
+- Altijd **zonder cookies** (`disableCookies`) en zonder `enableLinkTracking`.
+- Niet voor de beheerschermen (route-metadata `noAnalytics`, geërfd door child routes).
+- Detailpagina's (publicatie, document, onderwerp) worden geregistreerd zodra de titel bekend is (`usePageTitle`). Bij een fout bij het laden, ook als het item niet bestaat, geldt de titel "Niet (meer) beschikbaar". Bij navigatie tussen detailpagina's wordt de view opnieuw opgebouwd (`router-view` met `key` op het pad), zodat elke pagina een eigen titel en paginaweergave krijgt, ook bij gelijke titels.
+
+Zoekopdrachten en downloads worden niet geregistreerd. Zie de [handleiding](docs/handleiding/index.rst) voor het instellen van analytics via de beheeromgeving.
 ## Cross-Origin Resource Sharing (CORS) en Cross-Origin-Embedder-Policy (COEP)
 
 Deze applicatie maakt gebruik van Cross-Origin-Embedder-Policy (COEP: require-corp), maar de externe resources worden geladen onder CORS (met cross-origin-attributen). Dat betekent dat die externe resources de juiste Access-Control-Allow-Origin-header moeten bevatten.
 
 **Video embedding:** COEP wordt uitgeschakeld wanneer een video is ingesteld via de beheeromgeving, omdat YouTube en Vimeo geen COEP-headers ondersteunen. Zie dit [decision record](./coep_video.md) voor de volledige afweging.
 
-**Analytics:** COEP wordt ook uitgeschakeld wanneer een analytics-tool is ingesteld via de beheeromgeving, omdat we niet weten of de server van de gekozen tool voldoet aan `require-corp`. Zie dit [decision record](./coep_analytics.md) voor de volledige afweging. De server van de analytics-tool wordt daarnaast toegevoegd aan de Content Security Policy (CSP), zie [analytics_csp.md](./analytics_csp.md).
+**Analytics:** COEP wordt ook uitgeschakeld wanneer een analytics-tool is ingesteld via de beheeromgeving, omdat we niet weten of de server van de gekozen tool voldoet aan `require-corp`. Zie dit [decision record](./coep_analytics.md) voor de volledige afweging.
 
 ### Headers:
 

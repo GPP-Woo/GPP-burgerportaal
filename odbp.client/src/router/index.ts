@@ -1,6 +1,7 @@
-import { createRouter, createWebHistory, type NavigationGuard } from "vue-router";
+import { createRouter, createWebHistory, START_LOCATION, type NavigationGuard } from "vue-router";
 import { fetchAuthUser } from "@/api/auth";
 import HomeView from "../views/HomeView.vue";
+import { initBaseTitle, setPageTitle } from "@/title";
 import SearchView from "../views/SearchView.vue";
 
 const requiresAdmin: NavigationGuard = async (to) => {
@@ -40,7 +41,8 @@ const router = createRouter({
       component: () => import("../views/PublicatieView.vue"),
       props: true,
       meta: {
-        title: "Publicatie"
+        title: "Publicatie",
+        titleFromView: true
       }
     },
     {
@@ -49,7 +51,8 @@ const router = createRouter({
       component: () => import("../views/DocumentView.vue"),
       props: true,
       meta: {
-        title: "Document"
+        title: "Document",
+        titleFromView: true
       }
     },
     {
@@ -67,7 +70,8 @@ const router = createRouter({
       component: () => import("../views/OnderwerpView.vue"),
       props: true,
       meta: {
-        title: "Onderwerp"
+        title: "Onderwerp",
+        titleFromView: true
       }
     },
     {
@@ -75,6 +79,9 @@ const router = createRouter({
       name: "beheer",
       component: () => import("../views/beheer/BeheerLayout.vue"),
       beforeEnter: requiresAdmin,
+      meta: {
+        noAnalytics: true
+      },
       children: [
         {
           path: "",
@@ -109,6 +116,14 @@ const router = createRouter({
           }
         },
         {
+          path: ":pathMatch(.*)*",
+          name: "beheer-not-found",
+          component: { render: () => null },
+          meta: {
+            title: "Pagina niet gevonden"
+          }
+        },
+        {
           path: "/forbidden",
           name: "forbidden",
           component: () => import("../views/beheer/ForbiddenView.vue"),
@@ -117,19 +132,27 @@ const router = createRouter({
           }
         }
       ]
+    },
+    {
+      path: "/:pathMatch(.*)*",
+      name: "not-found",
+      component: { render: () => null },
+      meta: {
+        title: "Pagina niet gevonden"
+      }
     }
   ]
 });
 
-const title = document.title;
+initBaseTitle();
 
 router.beforeEach((to, from) => {
-  document.title = `${to.meta?.title ? to.meta.title + " | " : ""}${title}`;
-
-  // keep focus if only the query params are different
-  if (to.path === from.path) {
+  // title and focus depend on the path: a change of only query or hash changes neither
+  if (to.path === from.path && from !== START_LOCATION) {
     return;
   }
+
+  setPageTitle(to.meta?.title as string | undefined);
 
   document.body.setAttribute("tabindex", "-1");
   document.body.focus();

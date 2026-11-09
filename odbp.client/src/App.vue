@@ -14,7 +14,10 @@
       <gpp-woo-hero />
 
       <section class="utrecht-page utrecht-page-content">
-        <router-view />
+        <!-- key on path: fresh component state per page, so each page is tracked separately -->
+        <router-view v-slot="{ Component, route: viewRoute }">
+          <component :is="Component" :key="viewRoute.path" />
+        </router-view>
       </section>
     </main>
 
