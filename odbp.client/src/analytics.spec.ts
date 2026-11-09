@@ -14,9 +14,11 @@ const routes: RouteRecordRaw[] = [
     meta: { noAnalytics: true },
     children: [
       { path: "", component },
+      { path: ":pathMatch(.*)*", component },
       { path: "/forbidden", component }
     ]
-  }
+  },
+  { path: "/:pathMatch(.*)*", component, meta: { title: "Pagina niet gevonden" } }
 ];
 
 const matomo = { tool: "Matomo", url: "https://matomo.example.com", identifier: "7" } as const;
@@ -127,10 +129,18 @@ describe("analytics (Matomo)", () => {
     expect(trackedUrls()).toEqual([`${window.location.origin}/zoeken`]);
   });
 
+  test("tracks unknown paths as not found", async () => {
+    const { go } = await setup();
+    await go("/onbekend");
+
+    expect(trackedUrls()).toEqual([`${window.location.origin}/onbekend`]);
+  });
+
   test("does not track routes that opt out, including child routes outside /beheer", async () => {
     const { go } = await setup();
     await go("/beheer");
     await go("/forbidden");
+    await go("/beheer/abcde");
 
     expect(commands("trackPageView")).toHaveLength(0);
   });

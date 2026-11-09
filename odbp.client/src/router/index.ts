@@ -116,6 +116,14 @@ const router = createRouter({
           }
         },
         {
+          path: ":pathMatch(.*)*",
+          name: "beheer-not-found",
+          component: { render: () => null },
+          meta: {
+            title: "Pagina niet gevonden"
+          }
+        },
+        {
           path: "/forbidden",
           name: "forbidden",
           component: () => import("../views/beheer/ForbiddenView.vue"),
@@ -124,6 +132,14 @@ const router = createRouter({
           }
         }
       ]
+    },
+    {
+      path: "/:pathMatch(.*)*",
+      name: "not-found",
+      component: { render: () => null },
+      meta: {
+        title: "Pagina niet gevonden"
+      }
     }
   ]
 });
@@ -136,10 +152,7 @@ router.beforeEach((to, from) => {
     return;
   }
 
-  setPageTitle(
-    (to.meta?.title as string | undefined) ??
-      (to.matched.length ? undefined : "Pagina niet gevonden")
-  );
+  setPageTitle(to.meta?.title as string | undefined);
 
   document.body.setAttribute("tabindex", "-1");
   document.body.focus();
