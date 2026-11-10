@@ -2,7 +2,7 @@
 
 ## Context
 
-An administrator can configure an analytics tool (currently Matomo) in the management screen. See [coep_video.md](coep_video.md) for what COEP is and for the same decision for video embedding. For the CSP side of analytics, see [analytics_csp.md](analytics_csp.md).
+An administrator can configure an analytics tool (currently Matomo or Plausible CE) in the management screen. See [coep_video.md](coep_video.md) for what COEP is and for the same decision for video embedding. For the CSP side of analytics, see [analytics_csp.md](analytics_csp.md).
 
 With COEP `require-corp`, every cross-origin resource must opt in explicitly:
 
