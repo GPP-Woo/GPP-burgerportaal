@@ -109,6 +109,18 @@ describe("analytics (Plausible)", () => {
 
     expect(pageviews()).toHaveLength(0);
   });
+
+  test("stops the engagement tracking of the previous page when entering a route that opts out", async () => {
+    const { go } = await setup(plausible);
+    await go("/");
+    await go("/beheer");
+    await go("/beheer/sub");
+
+    const ignored = pageviews()[1][1] as { u: string };
+
+    expect(pageviews()).toHaveLength(2);
+    expect(window.plausible?.o?.transformRequest?.({ n: "pageview", u: ignored.u })).toBeNull();
+  });
 });
 
 describe("analytics (Matomo)", () => {

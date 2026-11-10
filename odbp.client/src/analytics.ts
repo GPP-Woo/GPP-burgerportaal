@@ -2,8 +2,13 @@ import { nextTick } from "vue";
 import { START_LOCATION, type Router } from "vue-router";
 import type { Resources } from "./resources";
 
+type Tracker = {
+  track: (path: string, title: string) => void;
+  stop?: () => void;
+};
+
 type PlausibleOptions = Record<string, unknown> & {
-  transformRequest?: (payload: Record<string, unknown>) => Record<string, unknown>;
+  transformRequest?: (payload: Record<string, unknown>) => Record<string, unknown> | null;
 };
 
 type PlausibleEventOptions = { u: string; props?: Record<string, string> };
@@ -63,16 +68,18 @@ const loadMatomo = (url: string, siteId: string) => {
   let previousUrl = toTrackedUrl(document.referrer);
 
   // Always push to window._paq, since Matomo replaces its push method once loaded
-  return (path: string, title: string) => {
-    const currentUrl = toTrackedUrl(path);
+  return {
+    track: (path: string, title: string) => {
+      const currentUrl = toTrackedUrl(path);
 
-    if (previousUrl) window._paq!.push(["setReferrerUrl", previousUrl]);
-    window._paq!.push(["setCustomUrl", currentUrl]);
-    window._paq!.push(["setDocumentTitle", title]);
-    window._paq!.push(["trackPageView"]);
+      if (previousUrl) window._paq!.push(["setReferrerUrl", previousUrl]);
+      window._paq!.push(["setCustomUrl", currentUrl]);
+      window._paq!.push(["setDocumentTitle", title]);
+      window._paq!.push(["trackPageView"]);
 
-    previousUrl = currentUrl;
-  };
+      previousUrl = currentUrl;
+    }
+  } satisfies Tracker;
 };
 
 const loadPlausible = (url: string, scriptId: string) => {
@@ -86,15 +93,22 @@ const loadPlausible = (url: string, scriptId: string) => {
     );
 
   // Tracking of navigations, links, downloads and forms is switched off
+  // A pageview dropped by transformRequest makes the script flush and stop its engagement tracking
+  const ignoredUrl = "about:blank";
+  let tracked = false;
+
   window.plausible.o = {
     autoCapturePageviews: false,
     outboundLinks: false,
     fileDownloads: false,
     formSubmissions: false,
-    transformRequest: (payload) => ({
-      ...payload,
-      r: toTrackedUrl(String(payload.r ?? "")) || null
-    })
+    transformRequest: (payload) =>
+      payload.u === ignoredUrl
+        ? null
+        : {
+            ...payload,
+            r: toTrackedUrl(String(payload.r ?? "")) || null
+          }
   };
 
   const script = Object.assign(document.createElement("script"), {
@@ -104,14 +118,24 @@ const loadPlausible = (url: string, scriptId: string) => {
 
   document.head.appendChild(script);
 
-  return (path: string, title: string) =>
-    window.plausible!("pageview", { u: toTrackedUrl(path), props: { title } });
+  return {
+    track: (path: string, title: string) => {
+      tracked = true;
+      window.plausible!("pageview", { u: toTrackedUrl(path), props: { title } });
+    },
+    stop: () => {
+      if (!tracked) return;
+
+      tracked = false;
+      window.plausible!("pageview", { u: ignoredUrl });
+    }
+  } satisfies Tracker;
 };
 
-let tracker: ((path: string, title: string) => void) | undefined;
+let tracker: Tracker | undefined;
 
 // For views that track their own pageview, once their specific title is known
-export const trackPageView = (path: string, title: string) => tracker?.(path, title);
+export const trackPageView = (path: string, title: string) => tracker?.track(path, title);
 
 export const initAnalytics = (router: Router, analytics: Resources["analytics"]) => {
   if (!analytics?.url || !analytics.identifier) return;
@@ -127,13 +151,14 @@ export const initAnalytics = (router: Router, analytics: Resources["analytics"])
   }
 
   router.afterEach((to, from, failure) => {
-    // Routes can opt out (the management screens); meta is inherited by child routes
+    // Routes can opt out; meta is inherited by child routes
+    if (!failure && to.meta.noAnalytics) tracker?.stop?.();
     if (failure || to.meta.noAnalytics || to.meta.titleFromView) return;
 
     // Only query or hash changes are no new pageview, but the first navigation (also path "/") is
     if (to.path === from.path && from !== START_LOCATION) return;
 
     // Wait for the view to set the document title
-    nextTick(() => tracker?.(to.path, document.title));
+    nextTick(() => tracker?.track(to.path, document.title));
   });
 };
