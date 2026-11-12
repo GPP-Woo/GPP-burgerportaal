@@ -1,4 +1,4 @@
-﻿using System.Net;
+using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using ODBP.Apis.Odrc;
 
@@ -9,12 +9,12 @@ namespace ODBP.Features.Publicaties
     {
         const string Gepubliceerd = "gepubliceerd";
 
-        [HttpGet("api/{version}/publicaties/{uuid:guid}")]
-        public async Task<IActionResult> Get(string version, Guid uuid, CancellationToken token)
+        [HttpGet("api/v2/publicaties/{uuid:guid}")]
+        public async Task<IActionResult> Get(Guid uuid, CancellationToken token)
         {
             using var client = clientFactory.Create("Publicatie ophalen");
 
-            var url = $"/api/{version}/publicaties/{uuid}";
+            var url = $"/api/v2/publicaties/{uuid}";
 
             using var response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead, token);
 
