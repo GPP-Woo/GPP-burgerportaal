@@ -1,17 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
 using ODBP.Apis.Odrc;
-using System.Text.Json.Nodes;
 
 namespace ODBP.Features.Informatiecategorieen
 {
     [ApiController]
     public class InformatiecategorieenController(IOdrcClientFactory clientFactory) : ControllerBase
     {
-        [HttpGet("api/{version}/informatiecategorieen")]
-        public async Task<IActionResult> Get(string version, CancellationToken token, [FromQuery] string? page = "1")
+        [HttpGet("api/v2/informatiecategorieen")]
+        public async Task<IActionResult> Get(CancellationToken token, [FromQuery] string? page = "1")
         {
             using var client = clientFactory.Create("Informatiecategorieen ophalen");
-            var url = $"/api/{version}/informatiecategorieen?page={page}";
+
+            var url = QueryHelpers.AddQueryString("/api/v2/informatiecategorieen", new Dictionary<string, string?>
+            {
+                ["page"] = page,
+            });
 
             using var response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead, token);
 
@@ -20,7 +24,7 @@ namespace ODBP.Features.Informatiecategorieen
                 return StatusCode(502);
             }
 
-            var json = await response.Content.ReadFromJsonAsync<PagedResponseModel<JsonNode>>(token);
+            var json = await response.Content.ReadFromJsonAsync<PagedResponseModel<Informatiecategorie>>(token);
 
             return Ok(json);
         }
