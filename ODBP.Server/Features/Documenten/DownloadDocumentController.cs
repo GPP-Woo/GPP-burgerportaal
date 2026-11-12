@@ -1,4 +1,4 @@
-﻿using System.Net;
+using System.Net;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Mvc;
 using ODBP.Apis.Odrc;
@@ -10,11 +10,11 @@ namespace ODBP.Features.Documenten
     {
         const string Gepubliceerd = "gepubliceerd";
 
-        [HttpGet("/api/{version}/documenten/{id}/download")]
-        public async Task<IActionResult> Get(string version, Guid id, CancellationToken token)
+        [HttpGet("/api/v2/documenten/{id}/download")]
+        public async Task<IActionResult> Get(Guid id, CancellationToken token)
         {
             using var client = clientFactory.Create("Publicatiestatus checken van document");
-            using var documentResponse = await client.GetAsync($"/api/{version}/documenten/{id}", HttpCompletionOption.ResponseContentRead, token);
+            using var documentResponse = await client.GetAsync($"/api/v2/documenten/{id}", HttpCompletionOption.ResponseContentRead, token);
 
             if (documentResponse.StatusCode == HttpStatusCode.NotFound)
             {
@@ -40,7 +40,7 @@ namespace ODBP.Features.Documenten
                 return NotFound();
             }
 
-            var publicatie = await client.GetFromJsonAsync($"/api/{version}/publicaties/{document.Publicatie}", PublicatieContext.Default.PublicatieModel, token);
+            var publicatie = await client.GetFromJsonAsync($"/api/v2/publicaties/{document.Publicatie}", PublicatieContext.Default.PublicatieModel, token);
 
             if (publicatie?.Publicatiestatus != Gepubliceerd)
             {
