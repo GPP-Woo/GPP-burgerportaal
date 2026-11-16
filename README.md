@@ -76,6 +76,7 @@ De analytics-tool kan worden ingesteld via de beheeromgeving. Er kan gekozen wor
 | Geen         | Er wordt geen analytics-tool gebruikt      |
 | Matomo       | Gegevens worden naar Matomo gestuurd       |
 | Plausible CE | Gegevens worden naar Plausible CE gestuurd |
+| Siteimprove  | Gegevens worden naar Siteimprove gestuurd  |
 
 Bij Matomo zijn de volgende gegevens verplicht:
 
@@ -93,15 +94,18 @@ Bij Plausible CE zijn de volgende gegevens verplicht:
 
 Het script-ID staat in het snippet dat Plausible geeft (`.../js/pa-AbC123.js`) en is gekoppeld aan de website in Plausible. Dit vereist een Plausible CE-versie met deze scripts.
 
-Er wordt alleen gevalideerd of de gegevens een geldig formaat hebben, niet of de instantie bereikbaar is. Wordt "Geen" gekozen, dan worden de eerder opgeslagen gegevens verwijderd. Wijzigingen kunnen tot enkele minuten duren voordat ze overal doorwerken. Een bezoeker die het portaal al open heeft, behoudt de oude instelling en een reeds geladen trackingscript blijft actief tot de volgende volledige paginalading (verversen of opnieuw openen van het portaal). Houd hier rekening mee als de analytics-tool om privacyredenen wordt ontkoppeld.
+Siteimprove is een gehoste dienst en heeft geen URL. Alleen het account-ID (een getal) is verplicht; het script wordt geladen van `https://siteimproveanalytics.com/js/siteanalyze_<account-ID>.js`.
 
-#### Paginaweergaven (Matomo en Plausible CE)
+Er wordt alleen gevalideerd of de gegevens een geldig formaat hebben, niet of de instantie of het account bestaat of bereikbaar is. Wordt "Geen" gekozen, dan worden de eerder opgeslagen gegevens verwijderd. Wijzigingen kunnen tot enkele minuten duren voordat ze overal doorwerken. Een bezoeker die het portaal al open heeft, behoudt de oude instelling en een reeds geladen trackingscript blijft actief tot de volgende volledige paginalading (verversen of opnieuw openen van het portaal). Houd hier rekening mee als de analytics-tool om privacyredenen wordt ontkoppeld.
+
+#### Paginaweergaven (Matomo, Plausible CE en Siteimprove)
 
 Is een tool ingesteld, dan laadt het portaal het trackingscript asynchroon en registreert het elke paginaweergave:
 
 - Alleen het **pad** wordt doorgegeven, zonder query en hash. Een navigatie waarbij alleen query of hash wijzigt telt niet.
 - Matomo: altijd **zonder cookies** (`disableCookies`) en zonder `enableLinkTracking`, en ook de referrer bevat alleen het pad.
 - Plausible CE: het script `js/<script-ID>.js` van de instantie, met automatisch tracken van navigaties, links, downloads en formulieren uitgeschakeld (`plausible.init`-opties). De referrer wordt met `transformRequest` beperkt tot het pad en de paginatitel gaat mee als custom property `title`, die in Plausible eerst onder Site Settings → Custom Properties moet worden toegevoegd. Het script gebruikt standaard geen cookies.
+- Siteimprove: het script `siteanalyze_<account-ID>.js` van `siteimproveanalytics.com`; navigaties worden doorgegeven met `_sz.push(["trackdynamic", { url, ref, title }])`, met alleen het pad voor `url` en `ref`. Het script registreert de eerste paginaweergave zelf; die kan niet worden onderdrukt of overschreven, dus daarvoor wordt niets extra gestuurd en kan de URL van de eerste weergave een query bevatten. Cookieloos tracken is een instelling van het Siteimprove-account (Analytics Settings → Cookieless Tracking) en moet daar worden aangezet; dit kan niet via het script worden afgedwongen. Voor het uitzetten van link- en downloadtracking is geen scriptoptie gevonden. De CSP laat `https://siteimproveanalytics.com` en `https://*.siteimproveanalytics.io` toe.
 - Niet voor de beheerschermen (route-metadata `noAnalytics`, geërfd door child routes).
 - Detailpagina's (publicatie, document, onderwerp) worden geregistreerd zodra de titel bekend is (`usePageTitle`). Bij een fout bij het laden, ook als het item niet bestaat, geldt de titel "Niet (meer) beschikbaar". Bij navigatie tussen detailpagina's wordt de view opnieuw opgebouwd (`router-view` met `key` op het pad), zodat elke pagina een eigen titel en paginaweergave krijgt, ook bij gelijke titels.
 
