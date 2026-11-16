@@ -7,6 +7,7 @@ namespace ODBP.Data.Entities
     {
         None,
         Matomo,
-        Plausible
+        Plausible,
+        Siteimprove
     }
 }

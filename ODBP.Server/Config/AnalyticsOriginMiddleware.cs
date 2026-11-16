@@ -53,12 +53,20 @@ namespace ODBP.Config
         public static string? GetOrigin(HttpContext context) =>
             context.Items.TryGetValue(ItemsKey, out var value) ? value as string : null;
 
-        // only a plain https origin (no path or wildcard) is ever placed in the CSP
+        // Siteimprove is hosted, so its fixed domains are used instead of a configured URL
+        private const string SiteimproveOrigins = "https://siteimproveanalytics.com https://*.siteimproveanalytics.io";
+
+        // for a configured URL only a plain https origin (no path or wildcard) is ever placed in the CSP
         private static string? ToOrigin(Resources? resources)
         {
             if (resources is null || resources.AnalyticsTool == AnalyticsTool.None)
             {
                 return null;
+            }
+
+            if (resources.AnalyticsTool == AnalyticsTool.Siteimprove)
+            {
+                return SiteimproveOrigins;
             }
 
             if (!Uri.TryCreate(resources.AnalyticsUrl, UriKind.Absolute, out var uri)

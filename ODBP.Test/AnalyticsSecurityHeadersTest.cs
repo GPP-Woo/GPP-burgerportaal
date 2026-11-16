@@ -81,6 +81,23 @@ namespace ODBP.Test
         }
 
         [TestMethod]
+        public async Task Met_siteimprove_staan_de_vaste_domeinen_in_de_csp_en_is_coep_uit()
+        {
+            using var context = InMemoryDatabase.GetDbContext();
+            Configure(context, AnalyticsTool.Siteimprove, null);
+            await using var app = await TestApp.StartAsync(context);
+
+            var response = await app.Client.GetAsync("/");
+
+            foreach (var directive in new[] { "script-src", "connect-src", "img-src" })
+            {
+                StringAssert.Contains(Directive(response, directive), " https://siteimproveanalytics.com https://*.siteimproveanalytics.io");
+            }
+
+            Assert.IsFalse(response.Headers.Contains("Cross-Origin-Embedder-Policy"));
+        }
+
+        [TestMethod]
         public async Task Wijziging_werkt_door_na_het_legen_van_de_cache()
         {
             using var context = InMemoryDatabase.GetDbContext();
