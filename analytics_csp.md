@@ -2,7 +2,7 @@
 
 ## Context
 
-An administrator can configure an analytics tool (currently Matomo or Plausible CE) in the management screen. The tool loads a script, sends requests and loads a tracking image from the configured server, so that server has to be allowed by the CSP. Without analytics, the CSP is unchanged.
+An administrator can configure an analytics tool (currently Matomo, Plausible CE or Siteimprove) in the management screen. The tool loads a script, sends requests and loads a tracking image from the configured server, so that server has to be allowed by the CSP. Without analytics, the CSP is unchanged.
 
 ## How it works
 

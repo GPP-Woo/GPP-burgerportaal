@@ -130,7 +130,12 @@ Op het beheerscherm kan onder het menu-item "Analytics" de analytics-tool voor h
    - URL van de Plausible-instantie: het adres van de Plausible-omgeving van de organisatie. Dit moet beginnen met ``https://``, een domeinnaam bevatten (dus geen IP-adres) en mag geen gebruikersgegevens bevatten.
    - Script-ID: de bestandsnaam van het Plausible-script, zonder ``.js``. Deze begint met ``pa-``, bijvoorbeeld ``pa-AbC123``, en staat in het snippet dat Plausible bij de website toont (``.../js/pa-AbC123.js``). Dit werkt alleen met een Plausible CE-versie die deze scripts levert.
 
-Bij het opslaan wordt gecontroleerd of de gegevens een geldig formaat hebben. Er wordt niet gecontroleerd of de instantie bereikbaar is.
+- Siteimprove
+   Bij deze keuze verschijnt één verplicht veld, want Siteimprove is een gehoste dienst en heeft geen URL:
+
+   - Account-ID: het nummer van het Siteimprove-account (te vinden in het script dat Siteimprove geeft, ``siteanalyze_<account-ID>.js``). Dit moet een getal zijn.
+
+Bij het opslaan wordt gecontroleerd of de gegevens een geldig formaat hebben. Er wordt niet gecontroleerd of de instantie of het account bestaat of bereikbaar is.
 
 Als een analytics-tool is ingesteld, worden de paginaweergaven van het Burgerportaal naar die tool gestuurd:
 
@@ -141,6 +146,7 @@ Als een analytics-tool is ingesteld, worden de paginaweergaven van het Burgerpor
 - Bij publicaties, documenten en onderwerpen staat in de tool de titel van het onderwerp zelf (bij Plausible is dit een aparte eigenschap ``title`` die u eerst onder Site Settings → Custom Properties moet toevoegen). Kan de publicatie, het document of het onderwerp niet geladen worden (bijvoorbeeld omdat het is verwijderd), dan staat er "Niet (meer) beschikbaar". Een adres dat bij geen enkele pagina van het portaal hoort, heet "Pagina niet gevonden".
 - Als de tool niet bereikbaar is of geblokkeerd wordt, blijft het Burgerportaal gewoon werken.
 - Bij Plausible CE toont de bron van een bezoek alleen de externe bron (waar de Burger vandaan kwam); navigaties binnen het portaal hebben daar geen eigen bron.
+- Bij Siteimprove moet cookieloos tracken in het Siteimprove-account zelf worden aangezet (Analytics Settings → Cookieless Tracking); het Burgerportaal kan dit niet afdwingen. Zonder die instelling kan Siteimprove cookies plaatsen en is een cookiebanner mogelijk wel nodig. De eerste paginaweergave na het openen van het portaal wordt door Siteimprove zelf vastgelegd; daarvan kan het adres een zoekterm bevatten. Voor links en downloads is bij Siteimprove geen uitzetoptie beschikbaar.
 
 Onderaan het scherm staan knoppen om de wijzigingen op te slaan of de wijzigingen te annuleren. Na het opslaan kan het tot enkele minuten duren voordat de wijziging overal doorwerkt. Een bezoeker die het Burgerportaal al open heeft, behoudt de oude instelling en een reeds geladen trackingscript blijft actief tot de volgende volledige paginalading (verversen of opnieuw openen van het portaal). Houd hier rekening mee als de analytics-tool om privacyredenen wordt ontkoppeld.
 
