@@ -27,6 +27,7 @@ const setup = async (analytics: unknown = matomo, referrer = "") => {
   vi.resetModules();
   window._paq = undefined;
   window.plausible = undefined;
+  window._sz = undefined;
   document.head.innerHTML = "";
   Object.defineProperty(document, "referrer", { value: referrer, configurable: true });
 
@@ -120,6 +121,46 @@ describe("analytics (Plausible)", () => {
 
     expect(pageviews()).toHaveLength(2);
     expect(window.plausible?.o?.transformRequest?.({ n: "pageview", u: ignored.u })).toBeNull();
+  });
+});
+
+describe("analytics (Siteimprove)", () => {
+  const siteimprove = { tool: "Siteimprove", url: null, identifier: "1234567" } as const;
+
+  test("loads the script of the account asynchronously without needing a URL", async () => {
+    await setup(siteimprove);
+
+    const script = document.head.querySelector("script");
+
+    expect(script?.src).toBe("https://siteimproveanalytics.com/js/siteanalyze_1234567.js");
+    expect(script?.async).toBe(true);
+  });
+
+  test("leaves the first pageview to the script and only tracks the path of later ones", async () => {
+    const { go } = await setup(siteimprove, "https://extern.example.com/pad?naam=jansen");
+    document.title = "Portaal";
+    await go("/");
+    await go("/zoeken?query=jansen#resultaten");
+    await go("/zoeken?query=a");
+
+    expect(window._sz).toEqual([
+      [
+        "trackdynamic",
+        {
+          url: `${window.location.origin}/zoeken`,
+          ref: `${window.location.origin}/`,
+          title: "Portaal"
+        }
+      ]
+    ]);
+  });
+
+  test("does not track routes that opt out", async () => {
+    const { go } = await setup(siteimprove);
+    await go("/");
+    await go("/beheer");
+
+    expect(window._sz).toEqual([]);
   });
 });
 

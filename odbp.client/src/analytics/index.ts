@@ -3,6 +3,7 @@ import { START_LOCATION, type Router } from "vue-router";
 import type { Resources } from "@/resources";
 import { loadMatomo } from "./matomo";
 import { loadPlausible } from "./plausible";
+import { loadSiteimprove } from "./siteimprove";
 import type { Tracker } from "./utils";
 
 let tracker: Tracker | undefined;
@@ -11,10 +12,13 @@ let tracker: Tracker | undefined;
 export const trackPageView = (path: string, title: string) => tracker?.track(path, title);
 
 export const initAnalytics = (router: Router, analytics: Resources["analytics"]) => {
-  if (!analytics?.url || !analytics.identifier) return;
+  if (!analytics?.identifier) return;
 
   try {
-    if (analytics.tool === "Matomo") tracker = loadMatomo(analytics.url, analytics.identifier);
+    // Siteimprove is a hosted service, so it has no URL
+    if (analytics.tool === "Siteimprove") tracker = loadSiteimprove(analytics.identifier);
+    else if (!analytics.url) return;
+    else if (analytics.tool === "Matomo") tracker = loadMatomo(analytics.url, analytics.identifier);
     else if (analytics.tool === "Plausible")
       tracker = loadPlausible(analytics.url, analytics.identifier);
     else return;

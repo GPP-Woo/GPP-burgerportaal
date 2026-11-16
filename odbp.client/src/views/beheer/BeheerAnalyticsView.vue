@@ -34,7 +34,7 @@
     </utrecht-form-field>
 
     <template v-if="analytics.tool !== 'None'">
-      <utrecht-form-field>
+      <utrecht-form-field v-if="analytics.tool !== 'Siteimprove'">
         <utrecht-form-label for="analytics-url"
           >URL van de {{ analytics.tool }}-instantie</utrecht-form-label
         >
@@ -54,8 +54,8 @@
         >
       </utrecht-form-field>
 
-      <utrecht-form-field v-if="analytics.tool === 'Matomo'">
-        <utrecht-form-label for="analytics-identifier">Site-ID</utrecht-form-label>
+      <utrecht-form-field v-if="analytics.tool === 'Matomo' || analytics.tool === 'Siteimprove'">
+        <utrecht-form-label for="analytics-identifier">{{ numericId.label }}</utrecht-form-label>
 
         <utrecht-textbox
           id="analytics-identifier"
@@ -65,9 +65,7 @@
           aria-describedby="analytics-identifier-error"
         />
 
-        <span id="analytics-identifier-error" class="form-error"
-          >Het site-ID is verplicht en moet een getal zijn.</span
-        >
+        <span id="analytics-identifier-error" class="form-error">{{ numericId.error }}</span>
       </utrecht-form-field>
 
       <utrecht-form-field v-else>
@@ -111,7 +109,7 @@ import SimpleSpinner from "@/components/SimpleSpinner.vue";
 import UtrechtAlert from "@/components/UtrechtAlert.vue";
 
 type Analytics = {
-  tool: "None" | "Matomo" | "Plausible";
+  tool: "None" | "Matomo" | "Plausible" | "Siteimprove";
   url: string;
   identifier: string;
 };
@@ -119,8 +117,15 @@ type Analytics = {
 const toolOptions = [
   { label: "Geen", value: "None" },
   { label: "Matomo", value: "Matomo" },
-  { label: "Plausible CE", value: "Plausible" }
+  { label: "Plausible CE", value: "Plausible" },
+  { label: "Siteimprove", value: "Siteimprove" }
 ];
+
+const numericId = computed(() =>
+  analytics.value?.tool === "Siteimprove"
+    ? { label: "Account-ID", error: "Het account-ID is verplicht en moet een getal zijn." }
+    : { label: "Site-ID", error: "Het site-ID is verplicht en moet een getal zijn." }
+);
 
 const DEFAULT_ERROR = "Er is een fout opgetreden.";
 
