@@ -30,7 +30,7 @@ const setup = async (analytics: unknown = matomo, referrer = "") => {
   document.head.innerHTML = "";
   Object.defineProperty(document, "referrer", { value: referrer, configurable: true });
 
-  const { initAnalytics } = await import("./analytics");
+  const { initAnalytics } = await import("./index");
   const router = createRouter({ history: createMemoryHistory(), routes });
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
