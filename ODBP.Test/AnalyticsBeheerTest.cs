@@ -103,6 +103,39 @@ namespace ODBP.Test
         }
 
         [TestMethod]
+        public void Validate_siteimprove_met_geldig_account_id_is_geldig_zonder_url()
+        {
+            Assert.AreEqual(0, Validate(new(AnalyticsTool.Siteimprove, null, "1234567")).Count);
+        }
+
+        [DataTestMethod]
+        [DataRow("abc")]
+        [DataRow("0")]
+        [DataRow("")]
+        [DataRow(null)]
+        public void Validate_siteimprove_met_ongeldig_account_id_is_ongeldig(string? accountId)
+        {
+            var errors = Validate(new(AnalyticsTool.Siteimprove, null, accountId));
+
+            Assert.AreEqual(1, errors.Count);
+            CollectionAssert.Contains(errors[0].MemberNames.ToList(), nameof(Analytics.Identifier));
+        }
+
+        [TestMethod]
+        public async Task Put_slaat_siteimprove_account_id_op_zonder_url()
+        {
+            using var context = InMemoryDatabase.GetDbContext();
+            var controller = new AnalyticsBeheerController(context, new MemoryCache(new MemoryCacheOptions()));
+
+            await controller.Put(new(AnalyticsTool.Siteimprove, "https://onbelangrijk.example.com", " 1234567 "), default);
+
+            var resources = context.Resources.Single();
+            Assert.AreEqual(AnalyticsTool.Siteimprove, resources.AnalyticsTool);
+            Assert.IsNull(resources.AnalyticsUrl);
+            Assert.AreEqual("1234567", resources.AnalyticsIdentifier);
+        }
+
+        [TestMethod]
         public void Validate_onbekende_tool_is_ongeldig()
         {
             Assert.AreEqual(1, Validate(new((AnalyticsTool)999, null, null)).Count);

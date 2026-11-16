@@ -31,8 +31,8 @@ namespace ODBP.Features.Beheer
 
             resources.AnalyticsTool = request.Tool;
 
-            // bij "geen" worden de koppelgegevens gewist
-            resources.AnalyticsUrl = request.Tool == AnalyticsTool.None ? null : NormalizeUrl(request.Url);
+            // bij "geen" worden de koppelgegevens gewist, Siteimprove heeft geen URL
+            resources.AnalyticsUrl = request.Tool is AnalyticsTool.None or AnalyticsTool.Siteimprove ? null : NormalizeUrl(request.Url);
             resources.AnalyticsIdentifier = request.Tool == AnalyticsTool.None ? null : request.Identifier?.Trim();
 
             await context.SaveChangesAsync(token);
@@ -76,9 +76,13 @@ namespace ODBP.Features.Beheer
                 }
             }
 
-            if (Tool == AnalyticsTool.Matomo && !NumericIdentifier().IsMatch(Identifier?.Trim() ?? ""))
+            if (Tool is AnalyticsTool.Matomo or AnalyticsTool.Siteimprove && !NumericIdentifier().IsMatch(Identifier?.Trim() ?? ""))
             {
-                yield return new ValidationResult("Het site-ID is verplicht en moet een getal zijn.", [nameof(Identifier)]);
+                yield return new ValidationResult(
+                    Tool == AnalyticsTool.Siteimprove
+                        ? "Het account-ID is verplicht en moet een getal zijn."
+                        : "Het site-ID is verplicht en moet een getal zijn.",
+                    [nameof(Identifier)]);
             }
 
             if (Tool == AnalyticsTool.Plausible && !PlausibleScriptId().IsMatch(Identifier?.Trim() ?? ""))
