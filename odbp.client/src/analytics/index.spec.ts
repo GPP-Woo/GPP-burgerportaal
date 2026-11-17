@@ -162,6 +162,17 @@ describe("analytics (Siteimprove)", () => {
 
     expect(window._sz).toEqual([]);
   });
+
+  test("tracks the first navigation after an opted-out first page, without its path as referrer", async () => {
+    const { go } = await setup(siteimprove);
+    document.title = "Portaal";
+    await go("/beheer");
+    await go("/zoeken");
+
+    expect(window._sz).toEqual([
+      ["trackdynamic", { url: `${window.location.origin}/zoeken`, ref: "", title: "Portaal" }]
+    ]);
+  });
 });
 
 describe("analytics (Matomo)", () => {

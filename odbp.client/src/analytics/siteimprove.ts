@@ -25,6 +25,11 @@ export const loadSiteimprove = (accountId: string) => {
 
       isFirst = false;
       previousUrl = currentUrl;
+    },
+    // The script's automatic first pageview may be spent on an excluded route, so the next one must be sent
+    stop: () => {
+      isFirst = false;
+      previousUrl = "";
     }
   } satisfies Tracker;
 };
