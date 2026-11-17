@@ -17,7 +17,7 @@ export type Resources = Partial<{
   welcomeText: string;
   a11yUrl: string;
   analytics: {
-    tool: "None" | "Matomo";
+    tool: "None" | "Matomo" | "Plausible";
     url: string | null;
     identifier: string | null;
   };

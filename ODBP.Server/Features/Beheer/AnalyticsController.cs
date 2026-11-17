@@ -64,7 +64,7 @@ namespace ODBP.Features.Beheer
                 yield break;
             }
 
-            if (Tool == AnalyticsTool.Matomo)
+            if (Tool is AnalyticsTool.Matomo or AnalyticsTool.Plausible)
             {
                 if (!Uri.TryCreate(Url?.Trim(), UriKind.Absolute, out var uri) || uri.Scheme != Uri.UriSchemeHttps
                     || uri.HostNameType != UriHostNameType.Dns
@@ -74,15 +74,26 @@ namespace ODBP.Features.Beheer
                         "De opgegeven waarde is geen valide URL. Gebruik een https-URL met een domeinnaam (geen IP-adres) en zonder gebruikersgegevens.",
                         [nameof(Url)]);
                 }
+            }
 
-                if (!NumericIdentifier().IsMatch(Identifier?.Trim() ?? ""))
-                {
-                    yield return new ValidationResult("Het site-ID is verplicht en moet een getal zijn.", [nameof(Identifier)]);
-                }
+            if (Tool == AnalyticsTool.Matomo && !NumericIdentifier().IsMatch(Identifier?.Trim() ?? ""))
+            {
+                yield return new ValidationResult("Het site-ID is verplicht en moet een getal zijn.", [nameof(Identifier)]);
+            }
+
+            if (Tool == AnalyticsTool.Plausible && !PlausibleScriptId().IsMatch(Identifier?.Trim() ?? ""))
+            {
+                yield return new ValidationResult(
+                    "De script-ID is verplicht en begint met pa- (bijvoorbeeld pa-AbC123), zoals in het script van Plausible.",
+                    [nameof(Identifier)]);
             }
         }
 
         [GeneratedRegex(@"^[1-9][0-9]{0,8}$")]
         private static partial Regex NumericIdentifier();
+
+        // the file name of the Plausible script, without .js
+        [GeneratedRegex(@"^pa-[A-Za-z0-9_-]{1,64}$")]
+        private static partial Regex PlausibleScriptId();
     }
 }

@@ -6,6 +6,7 @@ namespace ODBP.Data.Entities
     public enum AnalyticsTool
     {
         None,
-        Matomo
+        Matomo,
+        Plausible
     }
 }
