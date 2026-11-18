@@ -3,6 +3,7 @@ import { START_LOCATION, type Router } from "vue-router";
 import type { Resources } from "@/resources";
 import { loadMatomo } from "./matomo";
 import { loadPlausible } from "./plausible";
+import { maskSearchTerm, type SearchEvent } from "./search";
 import { loadSiteimprove } from "./siteimprove";
 import type { Tracker } from "./utils";
 
@@ -10,6 +11,10 @@ let tracker: Tracker | undefined;
 
 // For views that track their own pageview, once their specific title is known
 export const trackPageView = (path: string, title: string) => tracker?.track(path, title);
+
+// The term is masked here, so no caller can forget it
+export const trackSearch = (event: SearchEvent) =>
+  tracker?.search?.({ ...event, term: maskSearchTerm(event.term) });
 
 export const initAnalytics = (router: Router, analytics: Resources["analytics"]) => {
   if (!analytics?.identifier) return;

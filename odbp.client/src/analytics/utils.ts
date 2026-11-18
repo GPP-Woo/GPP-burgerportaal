@@ -1,5 +1,8 @@
+import type { SearchEvent } from "./search";
+
 export type Tracker = {
   track: (path: string, title: string) => void;
+  search?: (event: SearchEvent) => void;
   stop?: () => void;
 };
 
