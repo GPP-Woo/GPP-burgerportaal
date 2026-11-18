@@ -51,6 +51,22 @@ export const loadPlausible = (url: string, scriptId: string) => {
       tracked = true;
       window.plausible!("pageview", { u: toTrackedUrl(path), props: { title } });
     },
+    search: ({ term, filters, count }) =>
+      window.plausible!("search", {
+        // The location has a query string with the search: only the path is sent
+        u: toTrackedUrl(window.location.href),
+        props: {
+          // Props are reported separately: this one keeps the complete search together
+          query: [term, ...Object.entries(filters).map(([k, names]) => `${k}: ${names.join(", ")}`)]
+            .filter(Boolean)
+            .join(" | "),
+          ...(term && { term }),
+          results: String(count),
+          ...Object.fromEntries(
+            Object.entries(filters).map(([key, names]) => [`filter_${key}`, names.join(", ")])
+          )
+        }
+      }),
     stop: () => {
       if (!tracked) return;
 
