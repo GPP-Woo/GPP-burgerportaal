@@ -109,7 +109,17 @@ Is een tool ingesteld, dan laadt het portaal het trackingscript asynchroon en re
 - Niet voor de beheerschermen (route-metadata `noAnalytics`, geërfd door child routes).
 - Detailpagina's (publicatie, document, onderwerp) worden geregistreerd zodra de titel bekend is (`usePageTitle`). Bij een fout bij het laden, ook als het item niet bestaat, geldt de titel "Niet (meer) beschikbaar". Bij navigatie tussen detailpagina's wordt de view opnieuw opgebouwd (`router-view` met `key` op het pad), zodat elke pagina een eigen titel en paginaweergave krijgt, ook bij gelijke titels.
 
-Zoekopdrachten en downloads worden niet geregistreerd. Zie de [handleiding](docs/handleiding/index.rst) voor het instellen van analytics via de beheeromgeving.
+#### Zoekopdrachten (Matomo en Plausible CE)
+
+Naast de paginaweergave wordt een zoekopdracht op `/zoeken` als aparte meting verstuurd (`trackSearch`):
+
+- Een zoekopdracht telt bij elke wijziging van de zoekterm of de filters. Sorteren en bladeren tellen niet. Een lege zoekpagina (geen term en geen filters) is alleen een paginaweergave. Een reload, gedeelde link of terug-navigatie bouwt de view opnieuw op en telt opnieuw. Op de onderwerppagina, bij een fout en bij een afgebroken zoekopdracht wordt niets verstuurd.
+- De zoekterm wordt vóór verzending gemaskeerd (`maskSearchTerm`): 9 cijfers (met of zonder scheidingstekens), e-mailadressen, telefoonnummers en postcodes met huisnummer worden vervangen door een placeholder. Alleen het herkende deel wordt vervangen, de term wordt op 200 tekens afgekapt. De herkenning werkt op patronen en is dus niet waterdicht.
+- Plausible CE: custom event `search` met de properties `query` (volledige zoekopdracht, bijvoorbeeld `jansen | publishers: Gemeente`), `term`, `results` en `filter_<filter>`. Het goal `search` (custom event) en deze properties moeten in Plausible eerst onder Site Settings worden toegevoegd.
+- Matomo: `trackSiteSearch` met de gemaskeerde term, de filters als categorie (`publishers: Gemeente | resultTypes: Document`) en het aantal resultaten. Zoeken met alleen filters krijgt het keyword `(geen zoekterm)`. De pageview van `/zoeken` blijft bestaan, maar Matomo telt een site search zelf ook als weergave. Site search moet mogelijk in Matomo voor de site zijn ingeschakeld.
+
+Downloads worden niet geregistreerd. Zie de [handleiding](docs/handleiding/index.rst) voor het instellen van analytics via de beheeromgeving.
+
 ## Cross-Origin Resource Sharing (CORS) en Cross-Origin-Embedder-Policy (COEP)
 
 Deze applicatie maakt gebruik van Cross-Origin-Embedder-Policy (COEP: require-corp), maar de externe resources worden geladen onder CORS (met cross-origin-attributen). Dat betekent dat die externe resources de juiste Access-Control-Allow-Origin-header moeten bevatten.
