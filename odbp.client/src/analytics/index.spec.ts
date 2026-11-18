@@ -30,7 +30,7 @@ const setup = async (analytics: unknown = matomo, referrer = "") => {
   document.head.innerHTML = "";
   Object.defineProperty(document, "referrer", { value: referrer, configurable: true });
 
-  const { initAnalytics } = await import("./index");
+  const { initAnalytics, trackSearch } = await import("./index");
   const router = createRouter({ history: createMemoryHistory(), routes });
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -41,7 +41,7 @@ const setup = async (analytics: unknown = matomo, referrer = "") => {
     await nextTick();
   };
 
-  return { go };
+  return { go, trackSearch };
 };
 
 const commands = (name: string) => (window._paq ?? []).filter(([command]) => command === name);
@@ -101,6 +101,42 @@ describe("analytics (Plausible)", () => {
       ["pageview", { u: `${window.location.origin}/`, props: { title: "Portaal" } }],
       ["pageview", { u: `${window.location.origin}/zoeken`, props: { title: "Portaal" } }]
     ]);
+  });
+
+  test("sends a search as an own event with a masked term, the result count and filter names", async () => {
+    const { trackSearch } = await setup(plausible);
+
+    trackSearch({
+      term: "bsn 123456782 woo",
+      filters: { publishers: ["Gemeente", "Provincie"] },
+      count: 12
+    });
+
+    expect(pageviews()).toEqual([
+      [
+        "search",
+        {
+          u: `${window.location.origin}/`,
+          props: {
+            query: "bsn [nummer] woo | publishers: Gemeente, Provincie",
+            term: "bsn [nummer] woo",
+            results: "12",
+            filter_publishers: "Gemeente, Provincie"
+          }
+        }
+      ]
+    ]);
+  });
+
+  test("leaves the term property out for a search with only filters", async () => {
+    const { trackSearch } = await setup(plausible);
+
+    trackSearch({ term: "", filters: { publishers: ["Gemeente"] }, count: 0 });
+
+    expect(pageviews()[0][1]).toMatchObject({
+      props: { query: "publishers: Gemeente", results: "0" }
+    });
+    expect(pageviews()[0][1]).not.toHaveProperty("props.term");
   });
 
   test("does not track routes that opt out", async () => {
