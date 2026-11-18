@@ -6,6 +6,8 @@ declare global {
   }
 }
 
+const NO_TERM = "(geen zoekterm)";
+
 export const loadMatomo = (url: string, siteId: string) => {
   const baseUrl = withTrailingSlash(url);
 
@@ -32,6 +34,16 @@ export const loadMatomo = (url: string, siteId: string) => {
       window._paq!.push(["trackPageView"]);
 
       previousUrl = currentUrl;
+    },
+    // The custom URL of the last pageview stays set, so no query string is sent
+    search: ({ term, filters, count }) => {
+      // The filters are the category, so the result count belongs to the complete search
+      const category = Object.entries(filters)
+        .map(([key, values]) => `${key}: ${values.join(", ")}`)
+        .join(" | ");
+
+      // The keyword is required, so a search with only filters gets a placeholder
+      window._paq!.push(["trackSiteSearch", term || NO_TERM, category || false, count]);
     }
   } satisfies Tracker;
 };

@@ -197,6 +197,40 @@ describe("analytics (Matomo)", () => {
     expect(document.head.querySelector("script")).toBeNull();
   });
 
+  test("sends a search as site search with the masked term and the filters as category", async () => {
+    const { go, trackSearch } = await setup();
+    await go("/zoeken");
+
+    trackSearch({
+      term: "bsn 123456782",
+      filters: { publishers: ["Gemeente", "Provincie"], resultTypes: ["Document"] },
+      count: 3
+    });
+
+    expect(commands("trackSiteSearch")).toEqual([
+      [
+        "trackSiteSearch",
+        "bsn [nummer]",
+        "publishers: Gemeente, Provincie | resultTypes: Document",
+        3
+      ]
+    ]);
+    expect(trackedUrls()).toEqual([`${window.location.origin}/zoeken`]);
+  });
+
+  test("uses a placeholder keyword for a search with only filters, and no category without filters", async () => {
+    const { go, trackSearch } = await setup();
+    await go("/zoeken");
+
+    trackSearch({ term: "", filters: { publishers: ["Gemeente"] }, count: 4 });
+    trackSearch({ term: "jansen", filters: {}, count: 1 });
+
+    expect(commands("trackSiteSearch")).toEqual([
+      ["trackSiteSearch", "(geen zoekterm)", "publishers: Gemeente", 4],
+      ["trackSiteSearch", "jansen", false, 1]
+    ]);
+  });
+
   test("tracks the first visit of the homepage exactly once", async () => {
     const { go } = await setup();
     await go("/");
