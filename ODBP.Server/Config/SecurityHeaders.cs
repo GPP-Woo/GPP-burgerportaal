@@ -84,7 +84,8 @@ namespace ODBP.Config
                 .AddFrameOptionsDeny()
                 .AddContentTypeOptionsNoSniff()
                 .AddReferrerPolicyStrictOriginWhenCrossOrigin()
-                .AddStrictTransportSecurityMaxAgeIncludeSubDomains()
+                .AddStrictTransportSecurityMaxAge()
+                .RemoveServerHeader()
                 .AddCrossOriginOpenerPolicy(x =>
                 {
                     x.SameOrigin();
