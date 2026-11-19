@@ -15,9 +15,7 @@ export const fetchAllPages = async <T>(
   const { results, next } = await fetchPage<T>(url, signal);
 
   if (next) {
-    const { pathname, search } = new URL(next);
-
-    return [...results, ...(await fetchAllPages<T>(pathname + search, signal))];
+    return [...results, ...(await fetchAllPages<T>(next, signal))];
   }
 
   return results;

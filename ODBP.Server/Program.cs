@@ -39,7 +39,7 @@ try
 
     // Add services to the container.
 
-    builder.Services.AddControllers();
+    builder.Services.AddControllers(options => options.Filters.Add<PagedResponseLinksFilter>());
     builder.Services.AddHealthChecks();
     builder.Services.AddHttpClient();
 
