@@ -118,6 +118,7 @@
                   :href="`${API_URL}/documenten/${uuid}/download`"
                   :download="bestandsnaam"
                   class="gpp-woo-link--icon"
+                  @click="trackDocumentEvent('download', { uuid, officieleTitel, bestandsnaam })"
                 >
                   <utrecht-icon icon="download" /> Download
                 </utrecht-link>
@@ -127,6 +128,7 @@
                   v-if="isPdfFile(bestandsnaam)"
                   :src="`${API_URL}/documenten/${uuid}/download`"
                   :title="officieleTitel"
+                  @viewed="trackDocumentEvent('view', { uuid, officieleTitel, bestandsnaam })"
                 >
                   <template #default="{ open }">
                     <button
@@ -169,12 +171,25 @@ import GppWooTableContainer from "@/components/GppWooTableContainer.vue";
 import GppWooPdfViewerDialog from "@/components/GppWooPdfViewerDialog.vue";
 import InzageProcedure from "./InzageProcedure.vue";
 import { formatDate, formatFileSize, isPdfFile } from "@/helpers";
+import { trackDocument } from "@/analytics";
 import type { Publicatie, PublicatieDocument } from "./types";
 import { lijsten } from "@/stores/lijsten";
 
 const API_URL = `/api/v2`;
 
 const props = defineProps<{ uuid: string }>();
+
+const trackDocumentEvent = (
+  action: "download" | "view",
+  doc: { uuid: string; officieleTitel: string; bestandsnaam: string }
+) =>
+  trackDocument({
+    action,
+    titel: doc.officieleTitel,
+    bestandsnaam: doc.bestandsnaam,
+    documentPath: `/documenten/${doc.uuid}`,
+    publicatiePath: `/publicaties/${props.uuid}`
+  });
 
 const headingId = useId();
 

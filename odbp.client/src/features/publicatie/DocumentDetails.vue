@@ -40,12 +40,14 @@
           v-if="isPdf"
           :src="`${API_URL}/documenten/${uuid}/download`"
           :title="documentData?.officieleTitel"
+          @viewed="trackDocumentEvent('view')"
         />
 
         <a
           :href="`${API_URL}/documenten/${uuid}/download`"
           :download="documentData?.bestandsnaam"
           class="utrecht-button-link utrecht-button-link--html-a utrecht-button-link--primary-action"
+          @click="trackDocumentEvent('download')"
         >
           <utrecht-icon icon="download" />
 
@@ -105,12 +107,22 @@ import UtrechtIcon from "@/components/UtrechtIcon.vue";
 import GppWooTableContainer from "@/components/GppWooTableContainer.vue";
 import GppWooPdfViewerDialog from "@/components/GppWooPdfViewerDialog.vue";
 import { formatDate, formatFileSize, isPdfFile } from "@/helpers";
+import { trackDocument } from "@/analytics";
 import type { Publicatie, PublicatieDocument } from "./types";
 import { lijsten } from "@/stores/lijsten";
 
 const API_URL = `/api/v2`;
 
 const props = defineProps<{ uuid: string }>();
+
+const trackDocumentEvent = (action: "download" | "view") =>
+  trackDocument({
+    action,
+    titel: documentData.value?.officieleTitel ?? "",
+    bestandsnaam: documentData.value?.bestandsnaam ?? "",
+    documentPath: `/documenten/${props.uuid}`,
+    publicatiePath: `/publicaties/${documentData.value?.publicatie}`
+  });
 
 const headingId = useId();
 

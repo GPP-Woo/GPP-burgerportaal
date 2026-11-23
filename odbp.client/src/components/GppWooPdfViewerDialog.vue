@@ -94,6 +94,8 @@ PDFJS.GlobalWorkerOptions.workerSrc = pdfWorkerSrc;
 
 const props = defineProps<{ src: string; title?: string }>();
 
+const emit = defineEmits<{ viewed: [] }>();
+
 const headingId = useId();
 
 const dialogRef = ref<HTMLDialogElement>();
@@ -127,6 +129,7 @@ function loadDocument(url: string) {
     (doc) => {
       pages.value = doc.numPages;
       loading.value = false;
+      emit("viewed");
     },
     () => {
       task.destroy();
