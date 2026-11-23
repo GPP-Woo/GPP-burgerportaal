@@ -1,6 +1,7 @@
 import { nextTick } from "vue";
 import { START_LOCATION, type Router } from "vue-router";
 import type { Resources } from "@/resources";
+import type { DocumentEvent } from "./document";
 import { loadMatomo } from "./matomo";
 import { loadPlausible } from "./plausible";
 import { maskSearchTerm, type SearchEvent } from "./search";
@@ -14,6 +15,8 @@ export const trackPageView = (path: string, title: string) => tracker?.track(pat
 // The term is masked here, so no caller can forget it
 export const trackSearch = (event: SearchEvent) =>
   tracker?.search?.({ ...event, term: maskSearchTerm(event.term) });
+
+export const trackDocument = (event: DocumentEvent) => tracker?.document?.(event);
 
 export const initAnalytics = (router: Router, analytics: Resources["analytics"]) => {
   if (!analytics?.url || !analytics.identifier) return;

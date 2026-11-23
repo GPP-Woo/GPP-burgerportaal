@@ -44,6 +44,15 @@ export const loadMatomo = (url: string, siteId: string) => {
 
       // The keyword is required, so a search with only filters gets a placeholder
       window._paq!.push(["trackSiteSearch", term || NO_TERM, category || false, count]);
-    }
+    },
+    // Link tracking is off, so this is the only request of a click
+    document: ({ action, titel, bestandsnaam, documentPath, publicatiePath }) =>
+      window._paq!.push([
+        "trackEvent",
+        "Document",
+        action === "download" ? "Gedownload" : "Bekeken",
+        // The name is the only free field, so it carries everything to trace the document
+        [titel, bestandsnaam, toTrackedUrl(documentPath), toTrackedUrl(publicatiePath)].join(" | ")
+      ])
   } satisfies Tracker;
 };

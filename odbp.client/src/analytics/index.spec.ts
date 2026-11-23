@@ -30,7 +30,7 @@ const setup = async (analytics: unknown = matomo, referrer = "") => {
   document.head.innerHTML = "";
   Object.defineProperty(document, "referrer", { value: referrer, configurable: true });
 
-  const { initAnalytics, trackSearch } = await import("./index");
+  const { initAnalytics, trackSearch, trackDocument } = await import("./index");
   const router = createRouter({ history: createMemoryHistory(), routes });
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -41,8 +41,16 @@ const setup = async (analytics: unknown = matomo, referrer = "") => {
     await nextTick();
   };
 
-  return { go, trackSearch };
+  return { go, trackSearch, trackDocument };
 };
+
+const documentEvent = {
+  action: "download",
+  titel: "Jaarverslag",
+  bestandsnaam: "Jaarverslag.PDF",
+  documentPath: "/documenten/d1?a=1#x",
+  publicatiePath: "/publicaties/p1"
+} as const;
 
 const commands = (name: string) => (window._paq ?? []).filter(([command]) => command === name);
 const trackedUrls = () => commands("setCustomUrl").map(([, url]) => url);
@@ -125,6 +133,26 @@ describe("analytics (Plausible)", () => {
           }
         }
       ]
+    ]);
+  });
+
+  test("sends a download and a view as distinct events with a path-only document reference", async () => {
+    const { trackDocument } = await setup(plausible);
+
+    trackDocument(documentEvent);
+    trackDocument({ ...documentEvent, action: "view" });
+
+    const props = {
+      titel: "Jaarverslag",
+      bestandsnaam: "Jaarverslag.PDF",
+      bestandstype: "pdf",
+      document: `${window.location.origin}/documenten/d1`,
+      publicatie: `${window.location.origin}/publicaties/p1`
+    };
+
+    expect(pageviews()).toEqual([
+      ["document_gedownload", { u: `${window.location.origin}/`, props }],
+      ["document_bekeken", { u: `${window.location.origin}/`, props }]
     ]);
   });
 
@@ -231,6 +259,21 @@ describe("analytics (Matomo)", () => {
     ]);
   });
 
+  test("sends one event per download or view, with the title and a path-only reference", async () => {
+    const { go, trackDocument } = await setup();
+    await go("/zoeken");
+
+    trackDocument(documentEvent);
+    trackDocument({ ...documentEvent, action: "view" });
+
+    const name = `Jaarverslag | Jaarverslag.PDF | ${window.location.origin}/documenten/d1 | ${window.location.origin}/publicaties/p1`;
+
+    expect(commands("trackEvent")).toEqual([
+      ["trackEvent", "Document", "Gedownload", name],
+      ["trackEvent", "Document", "Bekeken", name]
+    ]);
+  });
+
   test("tracks the first visit of the homepage exactly once", async () => {
     const { go } = await setup();
     await go("/");
@@ -295,8 +338,9 @@ describe("analytics (Matomo)", () => {
   test.each([{ tool: "None", url: "", identifier: "" }, null])(
     "loads nothing without an analytics tool (%o)",
     async (analytics) => {
-      const { go } = await setup(analytics);
+      const { go, trackDocument } = await setup(analytics);
       await go("/");
+      trackDocument(documentEvent);
 
       expect(window._paq).toBeUndefined();
       expect(document.head.querySelector("script")).toBeNull();

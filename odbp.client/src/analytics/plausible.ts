@@ -1,3 +1,4 @@
+import { getFileType } from "./document";
 import { loadScript, toTrackedUrl, withTrailingSlash, type Tracker } from "./utils";
 
 type PlausibleOptions = Record<string, unknown> & {
@@ -65,6 +66,18 @@ export const loadPlausible = (url: string, scriptId: string) => {
           ...Object.fromEntries(
             Object.entries(filters).map(([key, names]) => [`filter_${key}`, names.join(", ")])
           )
+        }
+      }),
+    document: ({ action, titel, bestandsnaam, documentPath, publicatiePath }) =>
+      window.plausible!(`document_${action === "download" ? "gedownload" : "bekeken"}`, {
+        // The location can have a query string: only the path is sent
+        u: toTrackedUrl(window.location.href),
+        props: {
+          titel,
+          bestandsnaam,
+          bestandstype: getFileType(bestandsnaam),
+          document: toTrackedUrl(documentPath),
+          publicatie: toTrackedUrl(publicatiePath)
         }
       }),
     stop: () => {
