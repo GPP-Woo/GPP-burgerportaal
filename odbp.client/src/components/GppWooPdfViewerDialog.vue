@@ -142,7 +142,10 @@ function loadDocument(url: string) {
 // change), not on viewport/container resize, so trigger it manually.
 useResizeObserver(
   pageWrapperRef,
-  useDebounceFn(() => vuePdfRef.value?.reload(), 200)
+  useDebounceFn(() => {
+    // debounce delay can push this past the dialog's own close/destroy; skip then.
+    if (dialogRef.value?.open) vuePdfRef.value?.reload();
+  }, 200)
 );
 
 const openDialog = () => {
