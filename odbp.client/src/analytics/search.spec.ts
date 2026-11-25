@@ -12,6 +12,8 @@ describe("maskSearchTerm", () => {
     ["+31 6 12345678", "[telefoon]"],
     ["1234 AB 12", "[adres]"],
     ["1234AB 12a", "[adres]"],
+    ["1234AB12", "[adres]"],
+    ["1234 AB12", "[adres]"],
     ["besluit 2024", "besluit 2024"],
     ["1234567890123", "1234567890123"],
     ["  veel   spaties ", "veel spaties"]

@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
 import { toSearchEvent } from "./search-event";
-import type { Facets } from "./service";
+import type { Lijsten } from "@/stores/lijsten";
 
 const empty = {
   query: "",
@@ -14,33 +14,34 @@ const empty = {
   onderwerpen: []
 };
 
-const facets = {
-  resultTypes: [],
-  publishers: [{ uuid: "u-1", naam: "Gemeente", count: 1 }],
-  informatieCategorieen: [],
+const lists = {
+  organisaties: [{ uuid: "u-1", naam: "Gemeente" }],
+  informatiecategorieen: [],
   onderwerpen: []
-} as unknown as Facets;
+} as unknown as Lijsten;
 
 describe("toSearchEvent", () => {
   test("empty search page is no search", () =>
-    expect(toSearchEvent(empty, facets, 5)).toBeUndefined());
+    expect(toSearchEvent(empty, lists, 5)).toBeUndefined());
 
   test("term only", () =>
-    expect(toSearchEvent({ ...empty, query: " klimaat " }, facets, 5)).toEqual({
+    expect(toSearchEvent({ ...empty, query: " klimaat " }, lists, 5)).toEqual({
       term: "klimaat",
       filters: {},
       count: 5
     }));
 
-  test("filters only, reported by name instead of id", () =>
-    expect(toSearchEvent({ ...empty, publishers: ["u-1", "onbekend"] }, facets, 2)).toEqual({
+  test("filters reported by name instead of id, unresolvable ones left out", () =>
+    expect(
+      toSearchEvent({ ...empty, resultTypes: ["Publicatie"], publishers: ["u-1", "x-1"] }, lists, 2)
+    ).toEqual({
       term: "",
-      filters: { publishers: ["Gemeente"] },
+      filters: { resultTypes: ["Publicatie"], publishers: ["Gemeente"] },
       count: 2
     }));
 
-  test("unknown filter values still count as a search", () =>
-    expect(toSearchEvent({ ...empty, publishers: ["onbekend"] }, undefined, 0)).toEqual({
+  test("filter-only search with unresolvable filters is still a search", () =>
+    expect(toSearchEvent({ ...empty, publishers: ["u-1"] }, undefined, 0)).toEqual({
       term: "",
       filters: {},
       count: 0

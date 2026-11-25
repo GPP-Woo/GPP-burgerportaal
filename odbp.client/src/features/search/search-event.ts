@@ -1,4 +1,5 @@
 import type { SearchEvent } from "@/analytics/search";
+import type { Lijsten } from "@/stores/lijsten";
 import type { Facets } from "./service";
 
 type Query = {
@@ -23,23 +24,33 @@ const DATE_KEYS = [
   "laatstGewijzigdDatumTot"
 ] as const;
 
+// Result types are filtered by name; the other filters by uuid, resolved via the waardelijsten
+const LIJST_KEYS = {
+  publishers: "organisaties",
+  informatieCategorieen: "informatiecategorieen",
+  onderwerpen: "onderwerpen"
+} as const;
+
 // Sorting and paging are not part of a search: they never change this event
 export const toSearchEvent = (
   query: Query,
-  facets: Facets | undefined,
+  lijsten: Lijsten,
   count: number
 ): SearchEvent | undefined => {
   const filters: SearchEvent["filters"] = {};
 
   FACET_KEYS.forEach((key) => {
-    // Values can be ids: only names are reported, unknown values are dropped
-    const names = query[key]
-      .map((value) =>
-        facets?.[key]?.find((b) => ("uuid" in b && b.uuid === value) || b.naam === value)
-      )
-      .flatMap((bucket) => (bucket ? [bucket.naam] : []));
+    // Only names are reported, never raw ids: unresolvable values are left out
+    const resolved = query[key].flatMap((value) => {
+      const naam =
+        key === "resultTypes"
+          ? value
+          : lijsten?.[LIJST_KEYS[key]].find((item) => item.uuid === value)?.naam;
 
-    if (names.length) filters[key] = names;
+      return naam ? [naam] : [];
+    });
+
+    if (resolved.length) filters[key] = resolved;
   });
 
   DATE_KEYS.forEach((key) => {

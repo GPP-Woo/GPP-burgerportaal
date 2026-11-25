@@ -18,6 +18,8 @@ const fetchLijsten = () =>
 
 export const lijsten = ref<Awaited<ReturnType<typeof fetchLijsten>>>();
 
+export type Lijsten = typeof lijsten.value;
+
 export const loadLijsten = async () => {
   try {
     lijsten.value = await fetchLijsten();

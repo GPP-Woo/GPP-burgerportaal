@@ -49,6 +49,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from "vue";
 import { trackSearch } from "@/analytics";
+import { lijsten } from "@/stores/lijsten";
 import { toSearchEvent } from "@/features/search/search-event";
 import { useRoute, useRouter, type RouteLocationRaw } from "vue-router";
 import SimpleSpinner from "@/components/SimpleSpinner.vue";
@@ -199,7 +200,7 @@ let trackedSearch = "";
 watch(data, (response) => {
   if (!response || props.onderwerp) return;
 
-  const event = toSearchEvent(parsedQuery.value, response.facets, response.count);
+  const event = toSearchEvent(parsedQuery.value, lijsten.value, response.count);
   const signature = event ? JSON.stringify([event.term, event.filters]) : "";
 
   if (!event || signature === trackedSearch) {
