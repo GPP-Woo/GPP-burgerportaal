@@ -201,7 +201,11 @@ watch(data, (response) => {
   if (!response || props.onderwerp) return;
 
   const event = toSearchEvent(parsedQuery.value, lijsten.value, response.count);
-  const signature = event ? JSON.stringify([event.term, event.filters]) : "";
+  const signature = event
+    ? JSON.stringify(parsedQuery.value, (key, value) =>
+        key === "page" || key === "sort" ? undefined : value
+      )
+    : "";
 
   if (!event || signature === trackedSearch) {
     if (!event) trackedSearch = "";

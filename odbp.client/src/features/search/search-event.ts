@@ -1,4 +1,5 @@
 import type { SearchEvent } from "@/analytics/search";
+import { formatIsoDate } from "@/helpers";
 import type { Lijsten } from "@/stores/lijsten";
 import type { Facets } from "./service";
 
@@ -54,7 +55,10 @@ export const toSearchEvent = (
   });
 
   DATE_KEYS.forEach((key) => {
-    if (query[key]) filters[key] = [query[key]];
+    // Normalized like the search request: arbitrary route strings are never forwarded
+    const date = formatIsoDate(query[key]);
+
+    if (date) filters[key] = [date];
   });
 
   const term = query.query.trim();

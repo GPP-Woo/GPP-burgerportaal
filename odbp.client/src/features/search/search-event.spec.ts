@@ -46,4 +46,22 @@ describe("toSearchEvent", () => {
       filters: {},
       count: 0
     }));
+
+  test("date filters are normalized, invalid values are omitted", () =>
+    expect(
+      toSearchEvent(
+        {
+          ...empty,
+          query: "beleid",
+          gepubliceerdOpVanaf: "2024-03-05",
+          gepubliceerdOpTot: "jan@example.com"
+        },
+        lists,
+        1
+      )
+    ).toEqual({
+      term: "beleid",
+      filters: { gepubliceerdOpVanaf: ["2024-03-05"] },
+      count: 1
+    }));
 });
