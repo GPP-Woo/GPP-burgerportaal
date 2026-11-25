@@ -33,10 +33,14 @@ describe("toSearchEvent", () => {
 
   test("filters reported by name instead of id, unresolvable ones left out", () =>
     expect(
-      toSearchEvent({ ...empty, resultTypes: ["Publicatie"], publishers: ["u-1", "x-1"] }, lists, 2)
+      toSearchEvent(
+        { ...empty, resultTypes: ["topic", "onbekend"], publishers: ["u-1", "x-1"] },
+        lists,
+        2
+      )
     ).toEqual({
       term: "",
-      filters: { resultTypes: ["Publicatie"], publishers: ["Gemeente"] },
+      filters: { resultTypes: ["Onderwerp"], publishers: ["Gemeente"] },
       count: 2
     }));
 

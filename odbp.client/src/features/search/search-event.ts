@@ -1,7 +1,7 @@
 import type { SearchEvent } from "@/analytics/search";
 import { formatIsoDate } from "@/helpers";
 import type { Lijsten } from "@/stores/lijsten";
-import type { Facets } from "./service";
+import { resultOptions, type Facets } from "./service";
 
 type Query = {
   query: string;
@@ -25,12 +25,15 @@ const DATE_KEYS = [
   "laatstGewijzigdDatumTot"
 ] as const;
 
-// Result types are filtered by name; the other filters by uuid, resolved via the waardelijsten
+// Result types are filtered by value, shown by label; the other filters by uuid, resolved via the waardelijsten
 const LIJST_KEYS = {
   publishers: "organisaties",
   informatieCategorieen: "informatiecategorieen",
   onderwerpen: "onderwerpen"
 } as const;
+
+const resultTypeLabel = (value: string) =>
+  Object.values(resultOptions).find((option) => option.value === value)?.label;
 
 // Sorting and paging are not part of a search: they never change this event
 export const toSearchEvent = (
@@ -45,7 +48,7 @@ export const toSearchEvent = (
     const resolved = query[key].flatMap((value) => {
       const naam =
         key === "resultTypes"
-          ? value
+          ? resultTypeLabel(value)
           : lijsten?.[LIJST_KEYS[key]].find((item) => item.uuid === value)?.naam;
 
       return naam ? [naam] : [];
