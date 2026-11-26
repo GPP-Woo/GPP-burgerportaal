@@ -129,7 +129,8 @@ function loadDocument(url: string) {
     (doc) => {
       pages.value = doc.numPages;
       loading.value = false;
-      emit("viewed");
+      // skip if closed or superseded
+      if (dialogRef.value?.open && pdf.value === task) emit("viewed");
     },
     () => {
       task.destroy();
