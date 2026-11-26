@@ -114,7 +114,18 @@ Naast de paginaweergave wordt een zoekopdracht op `/zoeken` als aparte meting ve
 - Plausible CE: custom event `search` met de properties `query` (volledige zoekopdracht, bijvoorbeeld `jansen | publishers: Gemeente`), `term`, `results` en `filter_<filter>`. Het goal `search` (custom event) en deze properties moeten in Plausible eerst onder Site Settings worden toegevoegd.
 - Matomo: `trackSiteSearch` met de gemaskeerde term, de filters als categorie (`publishers: Gemeente | resultTypes: Document`) en het aantal resultaten. Zoeken met alleen filters krijgt het keyword `(geen zoekterm)`. De pageview van `/zoeken` blijft bestaan, maar Matomo telt een site search zelf ook als weergave. Site search moet mogelijk in Matomo voor de site zijn ingeschakeld.
 
-Downloads worden niet geregistreerd. Zie de [handleiding](docs/handleiding/index.rst) voor het instellen van analytics via de beheeromgeving.
+#### Documentdownloads en -weergaven (Matomo en Plausible CE)
+
+Een klik op een downloadknop (op de detailpagina van een publicatie of een document) en het succesvol openen van een PDF in de viewer worden als aparte meting verstuurd (`trackDocument`):
+
+- Gemeten wordt de klik, niet de voltooide download: een mislukte download (bijvoorbeeld 404 of netwerkfout) is niet zichtbaar. Een rechtstreeks geopende download-URL (gedeelde link, zoekmachine) loopt niet via het portaal en wordt niet geregistreerd. Elke klik telt, ook bij meerdere klikken achter elkaar.
+- Een weergave wordt pas geregistreerd als het PDF is geladen, dus niet bij een laadfout. Opnieuw openen levert opnieuw een event op.
+- De link-tracking van de tool blijft uit, zodat één klik precies één verzoek is. Alleen het pad van het document en de publicatie wordt verstuurd, zonder queryparameters of hash.
+- Plausible CE: custom events `document_gedownload` en `document_bekeken` met de properties `titel`, `bestandsnaam`, `bestandstype`, `document` en `publicatie`. Deze goals en properties moeten in Plausible eerst onder Site Settings worden toegevoegd.
+- Matomo: `trackEvent` met categorie `Document` en actie `Gedownload` of `Bekeken`. De event name bevat `titel | bestandsnaam | document-URL | publicatie-URL`.
+- Siteimprove: nog niet ondersteund, er wordt niets verstuurd.
+
+Zie de [handleiding](docs/handleiding/index.rst) voor het instellen van analytics via de beheeromgeving.
 
 ## Cross-Origin Resource Sharing (CORS) en Cross-Origin-Embedder-Policy (COEP)
 
