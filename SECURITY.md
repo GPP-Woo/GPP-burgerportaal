@@ -1,31 +1,38 @@
-# Security policy
+# Security Policy
 
-The development team is strongly committed to responsible reporting and 
-disclosure of security-related issues. As such, we've adopted and follow a set 
-of policies which conform to that ideal and are geared toward allowing us to 
-deliver timely security updates to the official distribution of the product.
+The GPP-burgerportaal development team takes security of our application seriously.
+We very much appreciate your help in identifying and addressing any security vulnerabilities.
+While we have automated processes in place to help preventing security vulnerabilities in the application as much as possible,
+we realize that this will never give a 100% guarantee.
 
-## Reporting security issues
+## Supported versions
 
-**Short version: please report security issues by emailing 
-security@maykinmedia.nl.**
+Security fixes are always applied to the **latest released version**.
 
-If you discover security issues in the product or related projects under the 
-same organization, we request you to disclose these in a *responsible* way by 
-mailing to security@maykinmedia.nl.
+## Reporting a vulnerability
 
-It is extremely useful if you have a reproducible test case and/or clear steps 
-on how to reproduce the vulnerability.
+If you believe you have found a security vulnerability in our code base, please report it to us through coordinated disclosure.
 
-Please do not report security issues on the public Github issue tracker, as 
-this makes it visible which exploits exist before a fix is available, 
-potentially comprising a lot of unprotected instances.
+Please do not report security vulnerabilities through public GitHub issues, discussions, or pull requests.
 
-Once you've submitted an issue via email, you should receive an acknowledgment 
-from a member of the security team as soon as possible, and depending on the 
-action to be taken, you may receive further followup emails.
+Instead, please use one of the following channels:
 
-# Timeline of the process
+- **Preferred**: [GitHub Security Advisories](https://github.com/GPP-Woo/GPP-burgerportaal/security/advisories/new) — opens a private report directly with the team.
+- **Email**: [the maintainers](mailto:servicedesk@icatt-info.nl).
+
+Please include as much of the information listed below as you can to help us better understand and resolve the issue:
+
+- The type of issue (e.g., buffer overflow, SQL injection, or cross-site scripting)
+- Full paths of source file(s) related to the manifestation of the issue
+- The location of the affected source code (tag/branch/commit or direct URL)
+- Any special configuration required to reproduce the issue
+- Step-by-step instructions to reproduce the issue
+- Proof-of-concept or exploit code (if possible)
+- Impact of the issue, including how an attacker might exploit the issue
+
+This information will help us triage your report more quickly.
+
+## Timeline of the process
 
 The product's community support is provided by [ICATT]. The community support 
 team is responsible for the handling of security issues.
@@ -56,6 +63,15 @@ team is responsible for the handling of security issues.
    This includes an announcement on the most relevant public community 
    channels.
 
+## CVE assignment
+
+For confirmed vulnerabilities, we will request a CVE identifier via GitHub's CVE Numbering Authority (CNA) programme. The CVE will be published together with the GitHub Security Advisory at the time of public disclosure.
+
+## Our commitment to reporters
+
+- We will not take legal action against researchers who follow responsible disclosure practices.
+- We will keep you informed throughout the process.
+- We will credit you in the published advisory unless you prefer to remain anonymous.
 
 [CVE_identifier]: https://www.cve.org/
 [ICATT]: https://www.icatt.nl
