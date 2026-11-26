@@ -5,10 +5,6 @@ We very much appreciate your help in identifying and addressing any security vul
 While we have automated processes in place to help preventing security vulnerabilities in the application as much as possible,
 we realize that this will never give a 100% guarantee.
 
-## Supported versions
-
-Security fixes are always applied to the **latest released version**.
-
 ## Reporting a vulnerability
 
 If you believe you have found a security vulnerability in our code base, please report it to us through coordinated disclosure.
