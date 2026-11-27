@@ -47,7 +47,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
+import { trackSearch } from "@/analytics";
+import { lijsten } from "@/stores/lijsten";
+import { toSearchEvent } from "@/features/search/search-event";
 import { useRoute, useRouter, type RouteLocationRaw } from "vue-router";
 import SimpleSpinner from "@/components/SimpleSpinner.vue";
 import UtrechtPagination from "@/components/UtrechtPagination.vue";
@@ -190,6 +193,28 @@ const { error, loading, data } = useLoader((signal) =>
 );
 
 const showSpinner = useSpinner(loading);
+
+// A search is counted once per change of term or filters; sorting and paging are not
+let trackedSearch = "";
+
+watch(data, (response) => {
+  if (!response || props.onderwerp) return;
+
+  const event = toSearchEvent(parsedQuery.value, lijsten.value, response.count);
+  const signature = event
+    ? JSON.stringify(parsedQuery.value, (key, value) =>
+        key === "page" || key === "sort" ? undefined : value
+      )
+    : "";
+
+  if (!event || signature === trackedSearch) {
+    if (!event) trackedSearch = "";
+    return;
+  }
+
+  trackedSearch = signature;
+  trackSearch(event);
+});
 
 const getRoute = (page: number): RouteLocationRaw => ({
   path: route.path,

@@ -30,7 +30,7 @@ const setup = async (analytics: unknown = matomo, referrer = "") => {
   document.head.innerHTML = "";
   Object.defineProperty(document, "referrer", { value: referrer, configurable: true });
 
-  const { initAnalytics } = await import("./analytics");
+  const { initAnalytics, trackSearch } = await import("./index");
   const router = createRouter({ history: createMemoryHistory(), routes });
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -41,7 +41,7 @@ const setup = async (analytics: unknown = matomo, referrer = "") => {
     await nextTick();
   };
 
-  return { go };
+  return { go, trackSearch };
 };
 
 const commands = (name: string) => (window._paq ?? []).filter(([command]) => command === name);
@@ -103,6 +103,42 @@ describe("analytics (Plausible)", () => {
     ]);
   });
 
+  test("sends a search as an own event with a masked term, the result count and filter names", async () => {
+    const { trackSearch } = await setup(plausible);
+
+    trackSearch({
+      term: "bsn 123456782 woo",
+      filters: { publishers: ["Gemeente", "Provincie"] },
+      count: 12
+    });
+
+    expect(pageviews()).toEqual([
+      [
+        "search",
+        {
+          u: `${window.location.origin}/`,
+          props: {
+            query: "bsn [nummer] woo | publishers: Gemeente, Provincie",
+            term: "bsn [nummer] woo",
+            results: "12",
+            filter_publishers: "Gemeente, Provincie"
+          }
+        }
+      ]
+    ]);
+  });
+
+  test("leaves the term property out for a search with only filters", async () => {
+    const { trackSearch } = await setup(plausible);
+
+    trackSearch({ term: "", filters: { publishers: ["Gemeente"] }, count: 0 });
+
+    expect(pageviews()[0][1]).toMatchObject({
+      props: { query: "publishers: Gemeente", results: "0" }
+    });
+    expect(pageviews()[0][1]).not.toHaveProperty("props.term");
+  });
+
   test("does not track routes that opt out", async () => {
     const { go } = await setup(plausible);
     await go("/beheer");
@@ -159,6 +195,40 @@ describe("analytics (Matomo)", () => {
 
     expect(window._paq).toBeUndefined();
     expect(document.head.querySelector("script")).toBeNull();
+  });
+
+  test("sends a search as site search with the masked term and the filters as category", async () => {
+    const { go, trackSearch } = await setup();
+    await go("/zoeken");
+
+    trackSearch({
+      term: "bsn 123456782",
+      filters: { publishers: ["Gemeente", "Provincie"], resultTypes: ["Document"] },
+      count: 3
+    });
+
+    expect(commands("trackSiteSearch")).toEqual([
+      [
+        "trackSiteSearch",
+        "bsn [nummer]",
+        "publishers: Gemeente, Provincie | resultTypes: Document",
+        3
+      ]
+    ]);
+    expect(trackedUrls()).toEqual([`${window.location.origin}/zoeken`]);
+  });
+
+  test("uses a placeholder keyword for a search with only filters, and no category without filters", async () => {
+    const { go, trackSearch } = await setup();
+    await go("/zoeken");
+
+    trackSearch({ term: "", filters: { publishers: ["Gemeente"] }, count: 4 });
+    trackSearch({ term: "jansen", filters: {}, count: 1 });
+
+    expect(commands("trackSiteSearch")).toEqual([
+      ["trackSiteSearch", "(geen zoekterm)", "publishers: Gemeente", 4],
+      ["trackSiteSearch", "jansen", false, 1]
+    ]);
   });
 
   test("tracks the first visit of the homepage exactly once", async () => {
